@@ -23,18 +23,23 @@
 class LogDissect:
 
     def __init__(self):
+        """Initialize logdissect job"""
         pass
 
     def config_options(self):
+        """Set config options"""
         pass
 
     def list_modules(self):
+        """List available parsing modules"""
         pass
 
     def load_modules(self):
+        """Load parsing modules"""
         pass
 
-    def run_parse(self):
+    def write_file(self):
+        """Write parsed log data to a file"""
         pass
 
 if __name == "__main__":

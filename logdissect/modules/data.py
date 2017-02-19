@@ -22,19 +22,33 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class Data:
+class LogData:
     def __init__(self, options):
-        """Initialize data set:"""
+        """Initialize parsing for a log file"""
         self.lines=[]
         self.entries={}
         self.outputfile=""
         pass
 
+    def parse_dict(self, options):
+        """Parse a log file into a dictionary"""
+        pass
+
     def range(self, options):
         """Isolate a specific date range"""
-        return None
+        pass
+
+class DataSet:
+    def __init__(self, options):
+        """Initialize data set for multiple parsed logs"""
+        dataset = []
+        pass
+
+    def read_log(self, options):
+        """Read in a log file"""
+        pass
 
     def merge(self, options):
         """Merge two logs in chronological order"""
-        return None
+        pass
 

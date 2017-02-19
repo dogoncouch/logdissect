@@ -20,15 +20,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-def syslog_parse(self, options):
-    """Parse a syslog file into a dictionary of events"""
-    pass
+class ParseModule():
+    def __init__(self, options):
+        """Initialize a log parsing module"""
+        self.datestripcmd = ""
+        self.entryparsecmd = ""
+        pass
 
-# def log_range(self, options):
-#     """Pull a specific date range out of a parsed log file"""
-#     pass
-# 
-# def log_merge(self, options):
-#     """Merge two parsed log files"""
-#     pass
+    def parse_date(self, options):
+        """Parse a log timestamp"""
+        pass
+
+    def parse_entry(self, options):
+        """Parse a log entry"""
+        pass
 
