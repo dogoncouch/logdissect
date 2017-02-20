@@ -20,17 +20,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class ParseModule():
+class MorphModule:
     def __init__(self, options):
-        """Initialize a log parsing module"""
-        self.datestripcmd = ""
-        self.entryparsecmd = ""
+        """Initialize a morphing module"""
+        self.name = ""
+        self.desc = ""
+        self.log_morph_command = ""
+        self.set_morph_command = ""
         pass
 
-    def parse_date(self, options):
-        """Parse a log timestamp"""
+    def morph_data(self, options):
+        """Morphs log data in some way (single log)"""
         pass
-
-    def parse_entry(self, options):
-        """Parse a log entry"""
+    
+    def morph_data_set(self, options):
+        """Morphs a whole data set in some way"""
         pass
