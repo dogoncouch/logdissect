@@ -24,6 +24,13 @@ class LogDissectCore:
 
     def __init__(self):
         """Initialize logdissect job"""
+        self.input_files = []
+        self.parse_modules = {}
+        self.morph_modules = {}
+        self.output_modules = {}
+        # LogDataSet from data objects:
+        self.data_set = LogDataSet()
+        self.options = None
         pass
     
     # run_parse does the actual job using the other functions.
