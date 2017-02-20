@@ -31,4 +31,3 @@ class ParseModule(OurModule):
 
     def parse_entry(self, options):
         pass
-

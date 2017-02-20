@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # MIT License
 # 
 # Copyright (c) 2017 Dan Persons
@@ -20,18 +22,49 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class ParseModule():
+class LogEntry:
     def __init__(self, options):
-        """Initialize a log parsing module"""
-        self.datestripcmd = ""
-        self.entryparsecmd = ""
+        """Initialize a log entry"""
+        self.date_stamp=None
+        # For datestamps that include a year:
+        self.date_stamp_year=None
+        self.raw_text=""
+        self.source_file=""
+        self.source_file_path=""
+        self.source_file_atime=""
+        self.parser=""
+
+class LogData:
+    def __init__(self, options):
+        """Initialize parsing for a log file"""
+        self.lines=[]
+        self.entries={}
+        self.source_file=""
+        self.source_file_path=""
+        self.source_file_atime=""
+        self.abcdetc_name=""
+        self.output_file=""
         pass
 
-    def parse_date(self, options):
-        """Parse a log timestamp"""
+    def parse_log(self, options):
+        """Parse a log file into a dictionary"""
         pass
 
-    def parse_entry(self, options):
-        """Parse a log entry"""
+    # TO DO: Move range into morph module.
+    def range(self, options):
+        """Isolate a specific date range"""
         pass
 
+class LogDataSet:
+    def __init__(self, options):
+        """Initialize data set for multiple parsed logs"""
+        self.data_set = []
+        pass
+
+    def read_log(self, options):
+        """Read in a log file"""
+        pass
+
+    def merge(self, options):
+        """Merge two logs in chronological order"""
+        pass

@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # MIT License
 # 
 # Copyright (c) 2017 Dan Persons
@@ -22,33 +20,45 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class LogData:
-    def __init__(self, options):
-        """Initialize parsing for a log file"""
-        self.lines=[]
-        self.entries={}
-        self.outputfile=""
+class LogDissectCore:
+
+    def __init__(self):
+        """Initialize logdissect job"""
+        pass
+    
+    # run_parse does the actual job using the other functions.
+    def run_parse():
+        """Parse one or more log files"""
+
+    def config_options(self, options):
+        """Set config options"""
         pass
 
-    def parse_dict(self, options):
-        """Parse a log file into a dictionary"""
+    # Parsing modules:
+    def list_parsers(self):
+        """Return a list of available parsing modules"""
+        pass
+    
+    def load_parsers(self, parse_modules):
+        """Load parsing module(s)"""
         pass
 
-    def range(self, options):
-        """Isolate a specific date range"""
+    # Morphing modules (range, grep, etc)
+    def list_morphers(self):
+        """Return a list of available morphing modules"""
         pass
 
-class DataSet:
-    def __init__(self, options):
-        """Initialize data set for multiple parsed logs"""
-        dataset = []
+    def load_morphers(sels, morph_modules):
+        """Load morphing module(s)"""
         pass
 
-    def read_log(self, options):
-        """Read in a log file"""
-        pass
+    # Output modules (log file, csv, html, etc)
+    def list_outputs(self):
+        """Return a list of available output modules"""
+    
+    def load_outputs(self, output_modules):
+        """Load output module(s)"""
 
-    def merge(self, options):
-        """Merge two logs in chronological order"""
-        pass
-
+if __name == "__main__":
+    dissect = LogDissectCore()
+    dissect.run_parse()
