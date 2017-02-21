@@ -3,7 +3,7 @@ To Do:
 * Almost everything
 
 * Figure out multi-line parsing
-* Data objects
+* Data objects (make type template object like other modules)
 * Parsing module - syslog
 * Output module - log (normal log file, just fulltext entries)
 * Test (use empty morph module)
