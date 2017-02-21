@@ -21,13 +21,11 @@
 # SOFTWARE.
 
 class OutputModule():
-    def __init__(self, options):
+    def __init__(self):
         """Initialize a log parsing module"""
         self.name = ""
         self.desc = ""
         self.output_format = ""
-        self.write_cmd = ""
-        pass
 
     def write_output(self, options):
         """Write output to our format"""

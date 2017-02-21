@@ -22,6 +22,7 @@
 
 from os import path
 
+
 class LogEntry:
     def __init__(self, options):
         """Initialize a log entry"""
@@ -35,12 +36,12 @@ class LogEntry:
 
 
 class LogData:
-    def __init__(self, options):
+    def __init__(self):
         """Initialize parsing for a log file"""
         self.lines = []
         self.entries = []
         self.parser = ""
-        self.date_stamp_format = ""
+        # self.date_stamp_format = ""
         self.source_full_path = ""
         self.source_file = self.source_full_path.split('/')[-1]
         self.source_file_mtime = ""
@@ -51,37 +52,43 @@ class LogData:
         self.last_date_stamp = None
         self.last_date_stamp_year = None
 
-    def parse_log(self):
-        """Parse a log file into a dictionary"""
-        # Should return a list of individual entries.
-        # Should be called with source_full_path as option.
-        current_entry = LogEntry()
-        source_file_mtime = os.path.getmtime(source_fullpath)
-        # To Do: strip year out of mtime
-        entry_year = None
-        last_date_stamp = None
-        
-        # Read the file in reverse and clean up the lines:
-        with open(self.source_full_path) as logfile:
-            loglines = reversed(logfile.readlines())
-        for line in loglines:
-            line = line.rstrip()
-            current_entry.raw_text = line + '\n' + current_entry.raw_text
-            # To Do: get date stamp
-            if line.startswith(self.date_stamp_format):
-                current_entry.date_stamp = # To Do
-                current_entry.year = # To Do
-                current_entry.date_stamp_year = # To Do
-
-                # Check if we just jumped to last year:
-                if current_entry.date_stamp > last_date_stamp:
-                    if entry_year:
-                        entry year = entry_year - 1
-                self.entries.append(current_entry)
-                last_date_stamp = current_entry.date_stamp
-                current_entry = LogEntry()
-        
-        self.entries = reversed(self.entries)
+# =============================
+# Move parsing function to parser
+# 
+#     def parse_log(self):
+#         """Parse a log file into a dictionary"""
+# 
+#         # Should return a list of individual entries.
+#         # Should be called with source_full_path as option.
+#         current_entry = LogEntry()
+#         source_file_mtime = os.path.getmtime(source_fullpath)
+#         # To Do: strip year out of mtime
+#         entry_year = None
+#         last_date_stamp = None
+#         
+#         # Read the file in reverse and clean up the lines:
+#         with open(self.source_full_path) as logfile:
+#             loglines = reversed(logfile.readlines())
+#         for line in loglines:
+#             line = line.rstrip()
+#             current_entry.raw_text = line + '\n' + current_entry.raw_text
+#             # To Do: get date stamp
+#             if line.startswith(self.date_stamp_format):
+#                 current_entry.date_stamp = # To Do
+#                 current_entry.year = # To Do
+#                 current_entry.date_stamp_year = # To Do
+# 
+#                 # Check if we just jumped to last year:
+#                 if current_entry.date_stamp > last_date_stamp:
+#                     if entry_year:
+#                         entry year = entry_year - 1
+#                 self.entries.append(current_entry)
+#                 last_date_stamp = current_entry.date_stamp
+#                 current_entry = LogEntry()
+#         
+#         self.entries = reversed(self.entries)
+#
+# ==========================
 
     # To Do: Move range into morph module.
     # def range(self, options):
@@ -89,22 +96,24 @@ class LogData:
     #     pass
 
 class LogDataSet:
-    def __init__(self, options):
+    def __init__(self):
         """Initialize data set for multiple parsed logs"""
         self.source_full_paths = []
         self.data_set = []
+        self.finalized_data = LogData()
+        # To Do: Add more parsers later
+        self.parser = 'syslog'
         # To Do: set creation date to runtime
         self.creation_date = None
         # To Do: update options for finalized data
-        self.finalized_data = LogData()
 
-    def read_logs(self, options):
+    def read_logs(self):
         """Read in a log file"""
         for logfile in self.source_full_paths:
-            newlog = LogData(source_full_path=logfile)
+            newlog = LogData(source_full_path=logfile parser=self.parser)
             newlog.parse_log()
             self.data_set.append(newlog))
 
-    def merge(self, options):
-        """Merge whole set of logs in chronological order"""
+    def merge(self):
+        """Merge set of log data into one sorted instance"""
         pass

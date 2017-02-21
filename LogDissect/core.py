@@ -22,6 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
 import sys
 import string
 import LogDissect.data
@@ -55,7 +56,11 @@ class LogDissectCore:
     # run_parse does the actual job using the other functions.
     def run_parse():
         """Parse one or more log files"""
-        pass
+        # To Do: polulate self.data_set from self.input_files
+        for l in self.data_set.data_set:
+            for p in parsers_list:
+                if p in LogDissect.parsers.__all__:
+                    self.parsers_list[p](data=l)
 
     def config_options(self):
         """Set config options"""
@@ -96,6 +101,15 @@ class LogDissectCore:
         self.option_parser.add_option_group(self.morph_options)
         self.option_parser.add_option_group(self.output_options)
         self.options, args = self.option_parser.parse_args(sys.argv[1:])
+
+    # To Do: finish input file loading
+    # Load input files:
+    def load_inputs(self, options):
+        """Load the specified inputs"""
+        for f in self.input_options:
+            fullpath = os.path.abspath(f)
+            log = LogData(source_full_path=fullpath)
+            self.data_set.append(log)
 
     # Parsing modules:
     def list_parsers(self):

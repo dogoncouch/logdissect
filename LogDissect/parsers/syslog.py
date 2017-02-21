@@ -20,14 +20,49 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from logdissect.modules.type import ParseModule as OurModule
+import re
+from LogDissect.parsers.type import ParseModule as OurModule
+from LogDissect.data.data import LogEntry
+from LogDissect.data.data import LogData
 
 class ParseModule(OurModule):
-    def __init__(self, options):
+    def __init__(self):
+        self.data = LogData()
+        self.date_stamp_format = "" # To Do: add this
         pass
 
     def parse_date(self, options):
+        # To Do: lots
+        line.replace('Feb', '02')
         pass
 
     def parse_entry(self, options):
         pass
+
+    def run_parse(self, options):
+	current_entry = LogEntry()
+        source_file_mtime = os.path.getmtime(self.data.source_fullpath)
+        #To Do: strip year out of mtime
+        entry_year = None
+        last_date_stamp = None
+
+	with open(self.data.source_full_path) as logfile:
+            loglines = reversed(logfile.readlines())
+        for line in loglines:
+            line = line.rstrip()
+            current_entry.raw_text = line + '\n' + current_entry.raw_text
+            # To Do: get date stamp
+            if line.startswith(self.date_stamp_format):
+                current_entry.date_stamp = # To Do
+                current_entry.year = # To Do
+                current_entry.date_stamp_year = # To Do
+
+                # Check if we just jumped to last year:
+                if current_entry.date_stamp > last_date_stamp:
+                    if entry_year:
+                        entry year = entry_year - 1
+                self.data.entries.append(current_entry)
+                last_date_stamp = current_entry.date_stamp
+                current_entry = LogEntry()
+        
+        self.data.entries = reversed(self.data.entries)
