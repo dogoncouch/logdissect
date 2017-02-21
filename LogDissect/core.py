@@ -44,11 +44,16 @@ class LogDissectCore:
         self.option_parser = OptionParser(
                 usage = ("Usage: %prog [options]"),
                 version = "%prog" + str(__version__))
-        pass
+        self.input_options = OptionGroup(self.option_parser, _("Input options"))
+        self.parse_options = OptionGroup(self.option_parser, _("Parse options"))
+        self.morph_options = OptionGroup(self.option_parser, _("Morph options"))
+        self.output_options = OptionGroup(self.option_parser, \
+                _("Output options"))
     
     # run_parse does the actual job using the other functions.
     def run_parse():
         """Parse one or more log files"""
+        pass
 
     def config_options(self):
         """Set config options"""
@@ -85,8 +90,8 @@ class LogDissectCore:
                 help=_("specifies output formats to use"))
         
         self.option_parser.add_option_group(self.input_options)
-        self.option_parser.add_option_group(self.parser_options)
-        self.option_parser.add_option_group(self.morpher_options)
+        self.option_parser.add_option_group(self.parse_options)
+        self.option_parser.add_option_group(self.morph_options)
         self.option_parser.add_option_group(self.output_options)
         self.options, args = self.option_parser.parse_args(sys.argv[1:])
 

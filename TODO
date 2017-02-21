@@ -2,3 +2,12 @@ To Do:
 
 * Almost everything
 
+* Figure out multi-line parsing
+* Data objects
+* Parsing module - syslog
+* Output module - log (normal log file, just fulltext entries)
+* Test (use empty morph module)
+* Morph module - range
+
+* Start testing for 1.0 release
+
