@@ -43,7 +43,7 @@ class LogData:
         self.source_full_path = ""
         self.source_file = ""
         self.source_file_mtime = ""
-        self.source_file_time = 
+        self.source_file_time = ""
         self.source_file_year = "" # To Do
         self.abcdetc_name = "" # To Do
         self.first_date_stamp = None
@@ -109,9 +109,9 @@ class LogDataSet:
     def read_logs(self):
         """Read in a log file"""
         for logfile in self.source_full_paths:
-            newlog = LogData(source_full_path=logfile parser=self.parser)
+            newlog = LogData(source_full_path=logfile, parser=self.parser)
             newlog.parse_log()
-            self.data_set.append(newlog))
+            self.data_set.append(newlog)
 
     def merge(self):
         """Merge set of log data into one sorted instance"""

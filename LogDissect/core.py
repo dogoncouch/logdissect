@@ -29,6 +29,9 @@ import LogDissect.data
 import LogDissect.parsers
 import LogDissect.morphers
 import LogDissect.output
+from LogDissect.data.data import LogDataSet
+from LogDissect.data.data import LogData
+from LogDissect.data.data import LogEntry
 from LogDissect import __version__
 from optparse import OptionParser
 from optparse import OptionGroup
@@ -57,7 +60,7 @@ class LogDissectCore:
                 _("Output options"))
     
     # run_parse does the actual job using the other functions.
-    def run_parse:
+    def run_parse(self):
         """Parse one or more log files"""
         # To Do: polulate self.data_set from self.input_files
         for l in self.data_set.data_set:
@@ -82,9 +85,6 @@ class LogDissectCore:
                                 self.data_set.finalized_data.append(other_entry.raw_text)
                 self.data_set.finalized_data.append(entry.raw_text)
 
-        for l in self.data_set.data_set:
-
-
     def do_output(self, options):
         """Output finalized data"""
         for o in output_list:
@@ -98,7 +98,7 @@ class LogDissectCore:
         # Input option:
         self.option_parser.add_option("-i", "--input",
                 action="store",
-                dest="inputs_list"
+                dest="inputs_list",
                 help=_("specifies input files"))
         # Module list options:
         self.option_parser.add_option("--list-parsers",
@@ -116,7 +116,7 @@ class LogDissectCore:
         # Module load options:
         self.option_parser.add_option("-p", "--parsers",
                 action="store",
-                dest="parsers_list", default="syslog"
+                dest="parsers_list", default="syslog",
                 help=_("specifies parsers to use"))
         self.option_parser.add_option("-m", "--morphers",
                 action="store",
@@ -124,7 +124,7 @@ class LogDissectCore:
                 help=_("specifies morphers to use"))
         self.option_parser.add_option("-o", "--outputs",
                 action="store",
-                dest="output_list"
+                dest="output_list",
                 help=_("specifies output formats to use"))
         
         self.option_parser.add_option_group(self.input_options)
@@ -150,7 +150,7 @@ class LogDissectCore:
         for parser in sorted(self.parse_modules):
             print string.ljust(self.parse_modules[parser].name, 16) + \
                 ': ' + self.parse_modules[parser].desc
-        sys.exit 0
+        sys.exit(0)
     
     def load_parsers(self, parse_modules):
         """Load parsing module(s)"""
@@ -167,7 +167,7 @@ class LogDissectCore:
         for morpher in sorted(self.morph_modules):
             print string.ljust(self.morph_modules[morpher].name, 16) + \
                 ': ' + self.morph_module[morpher].desc
-        sys.exit 0
+        sys.exit(0)
 
     def load_morphers(sels, morph_modules):
         """Load morphing module(s)"""
@@ -184,7 +184,7 @@ class LogDissectCore:
         for output in sorted(self.output_modules):
             print string.ljust(self.output_modules[output].name, 16) + \
                 ': ' + self.format_module[format].desc
-        sys.exit 0
+        sys.exit(0)
     
     def load_outputs(self, output_modules):
         """Load output module(s)"""
@@ -193,6 +193,6 @@ class LogDissectCore:
                 __import__('LogDissect.output.' + output, globals(), \
                 locals(), [LogDissect]).OutputModule(self.output_options)
 
-if __name == "__main__":
+if __name__ == "__main__":
     dissect = LogDissectCore()
     dissect.run_parse()
