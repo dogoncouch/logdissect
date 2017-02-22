@@ -47,20 +47,51 @@ class LogDissectCore:
         self.option_parser = OptionParser(
                 usage = ("Usage: %prog [options]"),
                 version = "%prog" + str(__version__))
-        self.input_options = OptionGroup(self.option_parser, _("Input options"))
-        self.parse_options = OptionGroup(self.option_parser, _("Parse options"))
-        self.morph_options = OptionGroup(self.option_parser, _("Morph options"))
+        self.input_options = OptionGroup(self.option_parser, \
+                _("Input options"))
+        self.parse_options = OptionGroup(self.option_parser, \
+                _("Parse options"))
+        self.morph_options = OptionGroup(self.option_parser, \
+                _("Morph options"))
         self.output_options = OptionGroup(self.option_parser, \
                 _("Output options"))
     
     # run_parse does the actual job using the other functions.
-    def run_parse():
+    def run_parse:
         """Parse one or more log files"""
         # To Do: polulate self.data_set from self.input_files
         for l in self.data_set.data_set:
             for p in parsers_list:
                 if p in LogDissect.parsers.__all__:
-                    self.parsers_list[p](data=l)
+                    self.parsers_list[p](data=l, parser=p)
+
+    def do_merge(self, options):
+        """Merge all our data sets together"""
+        if self.data_set.data_set < 2:
+            self.data_set.finalized_data = self.data_set.data_set
+            return 0
+        for log in self.data_set.data_set:
+            key_log = self.data_set.data_set.pop(0)
+            for entry in key_log:
+                if self.data_set.data_set > 0:
+                    this_try = self.data_set.data_set[0].entries.pop(0)
+                    for log in self.data_set.data_set:
+                        for other_entry in log:
+                            if entry.date_stamp_year < \
+                                    this_try.date_stamp_year:
+                                self.data_set.finalized_data.append(other_entry.raw_text)
+                self.data_set.finalized_data.append(entry.raw_text)
+
+        for l in self.data_set.data_set:
+
+
+    def do_output(self, options):
+        """Output finalized data"""
+        for o in output_list:
+            if o in LogDissect.output.__all__:
+                self.output_list[o](data=self.finalized_data)
+
+
 
     def config_options(self):
         """Set config options"""

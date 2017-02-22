@@ -27,12 +27,10 @@ class LogEntry:
     def __init__(self, options):
         """Initialize a log entry"""
         self.date_stamp = None
-        self.year = None
         # For datestamps that include a year:
         self.date_stamp_year = None
         self.raw_text = ""
         self.source_full_path = ""
-        self.source_file_atime=""
 
 
 class LogData:
@@ -43,15 +41,16 @@ class LogData:
         self.parser = ""
         # self.date_stamp_format = ""
         self.source_full_path = ""
-        self.source_file = self.source_full_path.split('/')[-1]
+        self.source_file = ""
         self.source_file_mtime = ""
-        self.abcdetc_name = ""
-        self.output_file = ""
+        self.source_file_time = 
+        self.source_file_year = "" # To Do
+        self.abcdetc_name = "" # To Do
         self.first_date_stamp = None
         self.first_date_stamp_year = None
         self.last_date_stamp = None
         self.last_date_stamp_year = None
-
+        
 # =============================
 # Move parsing function to parser
 # 

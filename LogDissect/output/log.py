@@ -20,14 +20,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class OutputModule():
+from LogDissect.output.type import OutputModule as OurModule
+
+class OutputModule(OurModule):
     def __init__(self):
-        """Initialize a log parsing module"""
-        self.name = ""
-        self.desc = ""
-        self.output_path = ""
-        pass
+        self.name = 'log'
+        self.desc = 'Output module for standard log file'
+        self.data = LogData()
+        self.output_path = ''
 
     def write_output(self):
-        """Write output to our format"""
-        pass
+        with open(str(self.output_path), 'w') as output_file
+        for entry in self.data.entries:
+            f.write(str(entry) + '\n')
+    return 0
