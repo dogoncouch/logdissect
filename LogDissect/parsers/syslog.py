@@ -32,7 +32,6 @@ class ParseModule(OurModule):
         self.desc = 'Syslog parsing module'
         self.data = LogData()
         self.date_format = re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2} \d{2}:\d{2}:\d{2})"
-        self.date_stamp_format = "" # To Do: add this
 
     def run_parse(self, options):
 	current_entry = LogEntry()
@@ -60,7 +59,10 @@ class ParseModule(OurModule):
                 match = re.match(self.date_format, line)
                 if match:
                     date_list = str(match.split(' '))
-                    months = {'Jan':'01', 'Feb':'02', ...}
+                    months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
+                            'Apr':'04', 'May':'05', 'Jun':'06', \
+                            'Jul':'07', 'Aug':'08', 'Sep':'09', \
+                            'Oce':'10', 'Nov':'11', 'Dec':'12'}
                     if date in months:
                         int_month = months{date}
                     date = str(date).zfill(2)
