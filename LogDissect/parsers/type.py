@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class ParseModule():
+class ParseModule:
     def __init__(self, options):
         """Initialize a log parsing module"""
         self.name = ""

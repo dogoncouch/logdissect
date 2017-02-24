@@ -20,14 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class OutputModule():
-    def __init__(self):
+class OutputModule:
+    def __init__(self, options):
         """Initialize a log parsing module"""
         self.name = ""
         self.desc = ""
         self.output_path = ""
         pass
 
-    def write_output(self):
+    def write_output(self, options):
         """Write output to our format"""
         pass
