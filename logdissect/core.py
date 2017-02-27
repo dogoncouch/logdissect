@@ -25,14 +25,14 @@
 import os
 import sys
 import string
-import LogDissect.data
-import LogDissect.parsers
-import LogDissect.morphers
-import LogDissect.output
-from LogDissect.data.data import LogDataSet
-from LogDissect.data.data import LogData
-from LogDissect.data.data import LogEntry
-from LogDissect import __version__
+import logdissect.data
+import logdissect.parsers
+import logdissect.morphers
+import logdissect.output
+from logdissect.data.data import LogDataSet
+from logdissect.data.data import LogData
+from logdissect.data.data import LogEntry
+from logdissect import __version__
 from optparse import OptionParser
 from optparse import OptionGroup
 
@@ -65,7 +65,7 @@ class LogDissectCore:
         # To Do: polulate self.data_set from self.input_files
         for l in self.data_set.data_set:
             for p in parsers_list:
-                if p in LogDissect.parsers.__all__:
+                if p in logdissect.parsers.__all__:
                     self.parsers_list[p](data=l, parser=p)
 
     def do_merge(self, options):
@@ -88,7 +88,7 @@ class LogDissectCore:
     def do_output(self, options):
         """Output finalized data"""
         for o in output_list:
-            if o in LogDissect.output.__all__:
+            if o in logdissect.output.__all__:
                 self.output_list[o](data=self.finalized_data)
 
 
@@ -154,10 +154,10 @@ class LogDissectCore:
     
     def load_parsers(self, parse_modules):
         """Load parsing module(s)"""
-        for parser in sorted(LogDissect.parsers.__parsers__):
+        for parser in sorted(logdissect.parsers.__parsers__):
             self.parse_modules[parser] = \
-                __import__('LogDissect.parsers.' + parser, globals(), \
-                locals(), [LogDissect]).ParseModule(self.parse_options)
+                __import__('logdissect.parsers.' + parser, globals(), \
+                locals(), [logdissect]).ParseModule(self.parse_options)
 
     # Morphing modules (range, grep, etc)
     def list_morphers(self):
@@ -171,10 +171,10 @@ class LogDissectCore:
 
     def load_morphers(sels, morph_modules):
         """Load morphing module(s)"""
-        for morpher in sorted(LogDissect.morphers.__morphers__):
+        for morpher in sorted(logdissect.morphers.__morphers__):
             self.morph_modules[morpher] = \
-                __import__('LogDissect.morphers.' + morpher, globals(), \
-                locals(), [LogDissect]).MorphModule(self.morph_options)
+                __import__('logdissect.morphers.' + morpher, globals(), \
+                locals(), [logdissect]).MorphModule(self.morph_options)
 
     # Output modules (log file, csv, html, etc)
     def list_outputs(self):
@@ -188,10 +188,10 @@ class LogDissectCore:
     
     def load_outputs(self, output_modules):
         """Load output module(s)"""
-        for output in sorted(LogDissect.output.__formats__):
+        for output in sorted(logdissect.output.__formats__):
             self.output_modules[output] = \
-                __import__('LogDissect.output.' + output, globals(), \
-                locals(), [LogDissect]).OutputModule(self.output_options)
+                __import__('logdissect.output.' + output, globals(), \
+                locals(), [logdissect]).OutputModule(self.output_options)
 
 if __name__ == "__main__":
     dissect = LogDissectCore()
