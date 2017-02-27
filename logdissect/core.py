@@ -50,8 +50,8 @@ class LogDissectCore:
         self.option_parser = OptionParser(
                 usage = ("Usage: %prog [options]"),
                 version = "%prog" + str(__version__))
-        self.input_options = OptionGroup(self.option_parser, \
-                _("Input options"))
+        # self.input_options = OptionGroup(self.option_parser, \
+        #         _("Input options"))
         self.parse_options = OptionGroup(self.option_parser, \
                 _("Parse options"))
         # self.morph_options = OptionGroup(self.option_parser, \
@@ -63,10 +63,19 @@ class LogDissectCore:
     def run_job
         """Execute a logdissect job"""
         # To Do: execute the other functions here
+        # load_parsers()
+        # load_outputs()
+        # config_options()
+        # load_inputs
         # run_parse()
-        # run_morph()
+        # Note to self: leave morphing out until the rest works.
+        # run_morph() run_morph should look like run_parse
+        # We'll need to split self.options.morphers_list and then split
+        # the list into range x y, grep z, etc.
+        # Probably do that in load_morphers
         # run_merge()
         # run_output()
+        # This will have to parse outputs_list into a list, etc.
 
     def run_parse(self):
         """Parse one or more log files"""
@@ -82,12 +91,35 @@ class LogDissectCore:
     def run_merge(self):
         """Merge all our data sets together"""
         if self.data_set.data_set < 2:
-            self.data_set.finalized_data = self.data_set.data_set
+            self.data_set.finalized_data = self.data_set.data_set[0]
             return 0
         else:
-            key_log = self.data_set.data_set[0]
-            for other_log in self.data_set.data_set[1:]:
-                for trial_entry in key_log
+            ourdataset = self.data_set
+            ourfinallog = self.data_set.finalized_data
+            key_log = ourdataset.data_set.pop(0)
+            while ourdataset.data_set[0]:
+                second_log = ourdataset.data_set.pop(0)
+                for x, y in map(None, key_log, second_log):
+                    if not x:
+                        ourfinallog.append(y)
+                    elif not y:
+                        ourfinallog.append(x)
+                    else:
+                        if x.date_stamp_year <= y.date_stamp_year:
+                            ourfinallog.append(x)
+                            ourfinallog.append(y)
+                        else:
+                            ourfinallog.append(y)
+                            ourfinallog.append(x)
+                key_log = ourfinallog
+            self.data_set.finalized_data = key_log
+            # for otherlog in ourdataset.data_set:
+            #     for trial_entry in key_log:
+            #         if trial_entry.date_stamp_year < \
+            #                 otherlog[0].date_stamp_year:
+            #             ourfinallog.append(trial_entry)
+            #         else:
+            #             ourfinallog.append(otherlog.pop(
 
         # To Do: replace this stuff above inside the else loop:
         # for log in self.data_set.data_set:
@@ -208,7 +240,7 @@ class LogDissectCore:
                 ': ' + self.format_module[format].desc
         sys.exit(0)
     
-    def load_outputs(self, output_modules):
+    def load_outputs(self):
         """Load output module(s)"""
         for output in sorted(logdissect.output.__formats__):
             self.output_modules[output] = \
