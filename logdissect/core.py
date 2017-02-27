@@ -59,19 +59,27 @@ class LogDissectCore:
         self.output_options = OptionGroup(self.option_parser, \
                 _("Output options"))
     
-    # run_parse does the actual job using the other functions.
-    def run_parse(self, parser):
-        """Parse one or more log files"""
-        # To Do: polulate self.data_set from self.input_files
-        for l in self.data_set.data_set:
-            parsemodule = self.parse_modules[parsers_list]()
-            self.data_set.data_set[l] = \
-                    parsemodule.run_parse()
-            for p in self.options.parsers_list:
-                if p in logdissect.parsers.__all__:
-                    self.parsers_list[p](data=l, parser=p)
+    # run_job does the actual job using the other functions.
+    def run_job
+        """Execute a logdissect job"""
+        # To Do: execute the other functions here
+        # run_parse()
+        # run_morph()
+        # run_merge()
+        # run_output()
 
-    def do_merge(self):
+    def run_parse(self):
+        """Parse one or more log files"""
+        # Data set already has source file names from load_inputs
+        parsedset = self.data_set
+        for l in self.data_set.data_set:
+            parsemodule = self.parse_modules[self.options.parser]()
+            parsemodule.data = l
+            parsedlog = parsemodule.run_parse()
+            parsedset.data_set.append(parsedlog)
+        self.data_set = parsedset
+
+    def run_merge(self):
         """Merge all our data sets together"""
         if self.data_set.data_set < 2:
             self.data_set.finalized_data = self.data_set.data_set
@@ -111,7 +119,7 @@ class LogDissectCore:
         # Input option:
         self.option_parser.add_option("-i", "--input",
                 action="store",
-                dest="inputs_list",
+                dest="input_list",
                 help=_("specifies input files"))
         # Module list options:
         self.option_parser.add_option("--list-parsers",
@@ -127,10 +135,10 @@ class LogDissectCore:
                 callback=self.list_outputs,
                 help=_("returns a list of available output formats"))
         # Module load options:
-        self.option_parser.add_option("-p", "--parsers",
+        self.option_parser.add_option("-p", "--parser",
                 action="store",
-                dest="parsers_list", default="syslog",
-                help=_("specifies parsers to use"))
+                dest="parser", default="syslog",
+                help=_("specifies parser to use"))
         self.option_parser.add_option("-m", "--morphers",
                 action="store",
                 dest="morphers_list",
@@ -152,7 +160,8 @@ class LogDissectCore:
         """Load the specified inputs"""
         for f in self.inputs_list:
             fullpath = os.path.abspath(f)
-            log = LogData(source_full_path=fullpath)
+            log = LogData()
+            log.source_full_path = fullpath
             self.data_set.data_set.append(log)
 
     # Parsing modules:
