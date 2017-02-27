@@ -33,7 +33,7 @@ class ParseModule(OurModule):
         self.data = LogData()
         self.date_format = re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2} \d{2}:\d{2}:\d{2})"
 
-    def run_parse(self, options):
+    def run_parse(self):
 	current_entry = LogEntry()
         self.data.source_file_mtime = \
                 os.path.getmtime(str(self.data.source_fullpath))
@@ -87,4 +87,4 @@ class ParseModule(OurModule):
         self.data.first_date_stamp_year = self.data.entries[0].date_stamp_year
         self.data.last_date_stamp = self.data.entries[0].date_stamp
         self.data.last_date_stamp_year = self.data.entries[0].date_stamp_year
-
+        return self.data
