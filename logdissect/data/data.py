@@ -42,7 +42,7 @@ class LogData:
         # self.date_stamp_format = ""
         self.source_full_path = ""
         self.source_file = ""
-        self.source_file_mtime = ""
+        self.source_file_mtime = None
         self.source_file_time = ""
         self.source_file_year = "" # To Do
         self.abcdetc_name = "" # To Do

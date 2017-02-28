@@ -32,25 +32,25 @@ class ParseModule(OurModule):
         self.name = 'syslog'
         self.desc = 'Syslog parsing module'
         self.data = LogData()
-        self.date_format = re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2} \d{2}:\d{2}:\d{2})")
+        self.date_format = \
+                re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2} \d{2}:\d{2}:\d{2})")
 
     def run_parse(self):
 	current_entry = LogEntry()
         self.data.source_file_mtime = \
                 os.path.getmtime(self.data.source_full_path)
-        time_list = datetime.datetime.fromtimestamp(self.data.source_file_mtime)
-        # self.data.source_file_time = str(time_list[0]) + \
-        #         str(time_list[1]).zfill(2) + str(time_list[2]).zfill(2) + \
-        #         str(time_list[3]) + str(time_list[4]) + str(time_list[5])
-        self.data.source_file_year = time_list[0]
-        #To Do: strip year out of mtime
+        timestamp = \
+                datetime.datetime.fromtimestamp(self.data.source_file_mtime)
+        timelist = str(self.data.source_file_mtime).split('-')
+        self.data.source_file_year = timelist[0]
         entry_year = self.data.source_file_year
         recent_date_stamp = None
         
         # To Do: add some detection to fill in LogData class vars
         
-        self.data.source_file_mtime = os.path.getmtime(source_full_path)
-        self.data.source_file = self.source_full_path.split('/')[-1]
+        self.data.source_file_mtime = \
+                os.path.getmtime(self.data.source_full_path)
+        self.data.source_file = self.data.source_full_path.split('/')[-1]
 	with open(str(self.data.source_full_path), 'r') as logfile:
             self.data.lines = logfile.readlines()
             loglines = reversed(self.data.lines)
@@ -82,10 +82,11 @@ class ParseModule(OurModule):
                     self.data.entries.append(current_entry)
         
         # Write the entries to the log object
-        self.data.entries = reversed(self.data.entries)
+        self.data.entries.reverse()
+        # self.data.entries = reversed(self.data.entries)
         # Set the date range properties for the log
-        self.data.first_date_stamp = self.data.entries[0].date_stamp
-        self.data.first_date_stamp_year = self.data.entries[0].date_stamp_year
-        self.data.last_date_stamp = self.data.entries[0].date_stamp
-        self.data.last_date_stamp_year = self.data.entries[0].date_stamp_year
+        # self.data.first_date_stamp = self.data.entries[0].date_stamp
+        # self.data.first_date_stamp_year = self.data.entries[0].date_stamp_year
+        # self.data.last_date_stamp = self.data.entries[0].date_stamp
+        # self.data.last_date_stamp_year = self.data.entries[0].date_stamp_year
         return self.data

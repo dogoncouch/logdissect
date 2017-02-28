@@ -101,7 +101,10 @@ class LogDissectCore:
         """Output finalized data"""
         for o in self.options.output_list.split(','):
             if o in logdissect.output.__all__:
-                self.output_list[o](data=self.data_set.finalized_data)
+                ouroutput = self.output_list[o]
+                ouroutput.data = self.data_set.finalized_data
+                ouroutput.write_output()
+                # self.output_list[o](data=self.data_set.finalized_data)
 
     def config_options(self):
         """Set config options"""
