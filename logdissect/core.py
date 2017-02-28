@@ -150,7 +150,7 @@ class LogDissectCore:
     # Load input files:
     def load_inputs(self):
         """Load the specified inputs"""
-        for f in self.options.inputs_list.split(' '):
+        for f in self.options.inputs_list.split(','):
             fullpath = os.path.abspath(f)
             log = LogData()
             log.source_full_path = fullpath

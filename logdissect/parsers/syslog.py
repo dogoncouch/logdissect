@@ -52,12 +52,13 @@ class ParseModule(OurModule):
                 os.path.getmtime(self.data.source_full_path)
         self.data.source_file = self.data.source_full_path.split('/')[-1]
 	with open(str(self.data.source_full_path), 'r') as logfile:
+        # logfile = open(str(self.data.source_full_path), 'r')
             self.data.lines = logfile.readlines()
             loglines = reversed(self.data.lines)
             for line in loglines:
-                line = line.rstrip()
-                current_entry.raw_text = line + '\n' + current_entry.raw_text
-                match = re.match(self.date_format, line)
+                ourline = line.rstrip()
+                current_entry.raw_text = ourline + '\n' + current_entry.raw_text
+                match = re.match(self.date_format, ourline)
                 if match:
                     date_list = str(match.split(' '))
                     months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
@@ -83,10 +84,4 @@ class ParseModule(OurModule):
         
         # Write the entries to the log object
         self.data.entries.reverse()
-        # self.data.entries = reversed(self.data.entries)
-        # Set the date range properties for the log
-        # self.data.first_date_stamp = self.data.entries[0].date_stamp
-        # self.data.first_date_stamp_year = self.data.entries[0].date_stamp_year
-        # self.data.last_date_stamp = self.data.entries[0].date_stamp
-        # self.data.last_date_stamp_year = self.data.entries[0].date_stamp_year
         return self.data
