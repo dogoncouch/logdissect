@@ -35,6 +35,8 @@ from logdissect.data.data import LogEntry
 from logdissect import __version__
 from optparse import OptionParser
 from optparse import OptionGroup
+import gettext
+gettext.install('licins')
 
 class LogDissectCore:
 
@@ -60,21 +62,21 @@ class LogDissectCore:
                 _("Output options"))
     
     # run_job does the actual job using the other functions.
-    def run_job
+    def run_job(self):
         """Execute a logdissect job"""
         # To Do: execute the other functions here
-        # load_parsers()
-        # load_outputs()
-        # config_options()
-        # load_inputs
-        # run_parse()
+        self.load_parsers()
+        self.load_outputs()
+        self.config_options()
+        self.load_inputs()
+        self.run_parse()
         # Note to self: leave morphing out until the rest works.
-        # run_morph() run_morph should look like run_parse
+        # self.run_morph() run_morph should look like run_parse
         # We'll need to split self.options.morphers_list and then split
         # the list into range x y, grep z, etc.
         # Probably do that in load_morphers
-        # run_merge()
-        # run_output()
+        self.run_merge()
+        self.run_output()
         # This will have to parse outputs_list into a list, etc.
 
     def run_parse(self):
@@ -82,7 +84,7 @@ class LogDissectCore:
         # Data set already has source file names from load_inputs
         parsedset = self.data_set
         for l in self.data_set.data_set:
-            parsemodule = self.parse_modules[self.options.parser]()
+            parsemodule = self.parse_modules[self.options.parser]
             parsemodule.data = l
             parsedlog = parsemodule.run_parse()
             parsedset.data_set.append(parsedlog)
@@ -90,78 +92,33 @@ class LogDissectCore:
 
     def run_merge(self):
         """Merge all our data sets together"""
-        if self.data_set.data_set < 2:
-            self.data_set.finalized_data = self.data_set.data_set[0]
-            return 0
-        else:
-            ourdataset = self.data_set
-            ourfinallog = self.data_set.finalized_data
-            key_log = ourdataset.data_set.pop(0)
-            while ourdataset.data_set[0]:
-                second_log = ourdataset.data_set.pop(0)
-                for x, y in map(None, key_log, second_log):
-                    if not x:
-                        ourfinallog.append(y)
-                    elif not y:
-                        ourfinallog.append(x)
-                    else:
-                        if x.date_stamp_year <= y.date_stamp_year:
-                            ourfinallog.append(x)
-                            ourfinallog.append(y)
-                        else:
-                            ourfinallog.append(y)
-                            ourfinallog.append(x)
-                key_log = ourfinallog
-            self.data_set.finalized_data = key_log
-            # for otherlog in ourdataset.data_set:
-            #     for trial_entry in key_log:
-            #         if trial_entry.date_stamp_year < \
-            #                 otherlog[0].date_stamp_year:
-            #             ourfinallog.append(trial_entry)
-            #         else:
-            #             ourfinallog.append(otherlog.pop(
-
-        # To Do: replace this stuff above inside the else loop:
-        # for log in self.data_set.data_set:
-        #     key_log = self.data_set.data_set.pop(0)
-        #     for entry in key_log:
-        #         if self.data_set.data_set > 0:
-        #             this_try = self.data_set.data_set[0].entries.pop(0)
-        #             for log in self.data_set.data_set:
-        #                 for other_entry in log:
-        #                     if entry.date_stamp_year < \
-        #                             this_try.date_stamp_year:
-        #                         self.data_set.finalized_data.append(other_entry.raw_text)
-        #         self.data_set.finalized_data.append(entry.raw_text)
-
-    # def run_morph(self, options):
-    #     """Morph the data set using the selected modules"""
-    #     pass
+        #Note: just add the logs together then sort the final list.
+        for l in self.data_set.data_set:
+            self.data_set.finalized_data += l
+        self.data_set.finalized_data.sort(key=lambda x: x.date_stamp_year)
     
-    def do_output(self):
+    def run_output(self):
         """Output finalized data"""
         for o in self.options.output_list.split(','):
             if o in logdissect.output.__all__:
                 self.output_list[o](data=self.data_set.finalized_data)
-
-
 
     def config_options(self):
         """Set config options"""
         # Input option:
         self.option_parser.add_option("-i", "--input",
                 action="store",
-                dest="input_list",
+                dest="inputs_list",
                 help=_("specifies input files"))
         # Module list options:
         self.option_parser.add_option("--list-parsers",
                 action="callback",
                 callback=self.list_parsers,
                 help=_("returns a list of available parsers"))
-        self.option_parser.add_option("--list-morphers",
-                action="callback",
-                callback=self.list_morphers,
-                help=_("returns a list of available morphers"))
+        # self.option_parser.add_option("--list-morphers",
+        #         action="callback",
+        #         callback=self.list_morphers,
+        #         help=_("returns a list of available morphers"))
         self.option_parser.add_option("--list-outputs",
                 action="callback",
                 callback=self.list_outputs,
@@ -180,24 +137,24 @@ class LogDissectCore:
                 dest="output_list",
                 help=_("specifies output formats to use"))
         
-        self.option_parser.add_option_group(self.input_options)
-        self.option_parser.add_option_group(self.parse_options)
-        self.option_parser.add_option_group(self.morph_options)
-        self.option_parser.add_option_group(self.output_options)
+        # self.option_parser.add_option_group(self.input_options)
+        # self.option_parser.add_option_group(self.parse_options)
+        # self.option_parser.add_option_group(self.morph_options)
+        # self.option_parser.add_option_group(self.output_options)
         self.options, args = self.option_parser.parse_args(sys.argv[1:])
 
     # To Do: finish input file loading
     # Load input files:
     def load_inputs(self):
         """Load the specified inputs"""
-        for f in self.inputs_list:
+        for f in self.options.inputs_list.split(' '):
             fullpath = os.path.abspath(f)
             log = LogData()
             log.source_full_path = fullpath
             self.data_set.data_set.append(log)
 
     # Parsing modules:
-    def list_parsers(self):
+    def list_parsers(self, *args):
         """Return a list of available parsing modules"""
         print '==== Available parsing modules: ===='
         print
@@ -208,7 +165,7 @@ class LogDissectCore:
     
     def load_parsers(self):
         """Load parsing module(s)"""
-        for parser in sorted(logdissect.parsers.__parsers__):
+        for parser in sorted(logdissect.parsers.__all__):
             self.parse_modules[parser] = \
                 __import__('logdissect.parsers.' + parser, globals(), \
                 locals(), [logdissect]).ParseModule(self.parse_options)
@@ -231,13 +188,13 @@ class LogDissectCore:
     #             locals(), [logdissect]).MorphModule(self.morph_options)
 
     # Output modules (log file, csv, html, etc)
-    def list_outputs(self):
+    def list_outputs(self, *args):
         """Return a list of available output modules"""
         print '==== Available output modules ===='
         print
         for output in sorted(self.output_modules):
             print string.ljust(self.output_modules[output].name, 16) + \
-                ': ' + self.format_module[format].desc
+                ': ' + self.output_modules[output].desc
         sys.exit(0)
     
     def load_outputs(self):
@@ -249,4 +206,4 @@ class LogDissectCore:
 
 if __name__ == "__main__":
     dissect = LogDissectCore()
-    dissect.run_parse()
+    dissect.run_job()

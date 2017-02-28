@@ -25,4 +25,4 @@
 from logdissect.core import LogDissectCore
 
 dissect = LogDissectCore()
-dissect.run_parse()
+dissect.run_job()

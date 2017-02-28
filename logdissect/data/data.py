@@ -24,7 +24,7 @@ from os import path
 
 
 class LogEntry:
-    def __init__(self, options):
+    def __init__(self):
         """Initialize a log entry"""
         self.date_stamp = None
         # For datestamps that include a year:
@@ -106,13 +106,14 @@ class LogDataSet:
         self.creation_date = None
         # To Do: update options for finalized data
 
-    def read_logs(self):
-        """Read in a log file"""
-        for logfile in self.source_full_paths:
-            newlog = LogData(source_full_path=logfile, parser=self.parser)
-            newlog.parse_log()
-            self.data_set.append(newlog)
+    # To Do: Think about moving these back here:
+    # def read_logs(self):
+    #     """Read in a log file"""
+    #     for logfile in self.source_full_paths:
+    #         newlog = LogData(source_full_path=logfile, parser=self.parser)
+    #         newlog.parse_log()
+    #         self.data_set.append(newlog)
 
-    def merge(self):
-        """Merge set of log data into one sorted instance"""
-        pass
+    # def merge(self):
+    #     """Merge set of log data into one sorted instance"""
+    #     pass

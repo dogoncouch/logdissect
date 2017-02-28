@@ -22,25 +22,26 @@
 
 import os
 import re
-from LogDissect.parsers.type import ParseModule as OurModule
-from LogDissect.data.data import LogEntry
-from LogDissect.data.data import LogData
+import datetime
+from logdissect.parsers.type import ParseModule as OurModule
+from logdissect.data.data import LogEntry
+from logdissect.data.data import LogData
 
 class ParseModule(OurModule):
-    def __init__(self):
+    def __init__(self, options):
         self.name = 'syslog'
         self.desc = 'Syslog parsing module'
         self.data = LogData()
-        self.date_format = re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2} \d{2}:\d{2}:\d{2})"
+        self.date_format = re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2} \d{2}:\d{2}:\d{2})")
 
     def run_parse(self):
 	current_entry = LogEntry()
         self.data.source_file_mtime = \
-                os.path.getmtime(str(self.data.source_fullpath))
-        time_list = datetime.fromtimestamp(self.data.source_file_mtime)
-        self.data.source_file_time = str(time_list[0]) + \
-                str(time_list[1]).zfill(2) + str(time_list[2]).zfill(2) + \
-                str(time_list[3]) + str(time_list[4]) + str(time_list[5])
+                os.path.getmtime(self.data.source_full_path)
+        time_list = datetime.datetime.fromtimestamp(self.data.source_file_mtime)
+        # self.data.source_file_time = str(time_list[0]) + \
+        #         str(time_list[1]).zfill(2) + str(time_list[2]).zfill(2) + \
+        #         str(time_list[3]) + str(time_list[4]) + str(time_list[5])
         self.data.source_file_year = time_list[0]
         #To Do: strip year out of mtime
         entry_year = self.data.source_file_year
@@ -64,7 +65,7 @@ class ParseModule(OurModule):
                             'Jul':'07', 'Aug':'08', 'Sep':'09', \
                             'Oce':'10', 'Nov':'11', 'Dec':'12'}
                     if date in months:
-                        int_month = months{date}
+                        int_month = months[date]
                     date = str(date).zfill(2)
                     time_list = str(date_list[2].split(':'))
                     date_stamp = str(int_month) + str(date) + \
