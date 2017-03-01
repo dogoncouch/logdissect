@@ -25,14 +25,18 @@ class ParseModule:
         """Initialize a log parsing module"""
         self.name = ""
         self.desc = ""
+        self.data = LogData()
         self.date_format = ""
-        self.date_strip_cmd = ""
         pass
 
-    def parse_date(self, options):
-        """Parse a log timestamp"""
+    def run_parse(self):
+        """Parse a log into a LogData object"""
         pass
+    
+    # def parse_date(self, options):
+    #     """Parse a log timestamp"""
+    #     pass
 
-    def parse_entry(self, options):
-        """Parse a log entry"""
-        pass
+    # def parse_entry(self, options):
+    #     """Parse a log entry"""
+    #     pass
