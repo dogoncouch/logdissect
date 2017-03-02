@@ -38,9 +38,12 @@ class ParseModule(OurModule):
         self.date_format = \
                 re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2} \d{2}:\d{2}:\d{2})")
 
-    def parse_logs(self):
-        testvar = False
-        if testvar: sys.exit(0)
+    def parse_log(self):
+        # testvar = False
+        try:
+            if testvar: sys.exit(0)
+        except UnboundLocalError:
+            pass
 	current_entry = LogEntry()
         self.data.source_file_mtime = \
                 os.path.getmtime(self.data.source_full_path)
@@ -90,4 +93,4 @@ class ParseModule(OurModule):
         
         # Write the entries to the log object
         self.data.entries.reverse()
-        return self.data
+        # return self.data

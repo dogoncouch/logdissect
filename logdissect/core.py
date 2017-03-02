@@ -86,8 +86,10 @@ class LogDissectCore:
         for l in self.data_set.data_set:
             parsemodule = self.parse_modules[self.options.parser]
             parsemodule.data = l
-            parsedlog = parsemodule.parse_logs()
-            parsedset.data_set.append(parsedlog)
+            parsemodule.parse_log()
+            parsedset.data_set.append(parsemodule.data)
+            # parsedlog = parsemodule.parse_log()
+            # parsedset.data_set.append(parsedlog)
         self.data_set = parsedset
 
     def run_merge(self):
