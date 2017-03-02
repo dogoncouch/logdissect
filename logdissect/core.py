@@ -97,18 +97,24 @@ class LogDissectCore:
         """Merge all our data sets together"""
         #Note: just add the logs together then sort the final list.
         for l in self.data_set.data_set:
-            self.data_set.finalized_data = self.data_set.finalized_data + l
-            # self.data_set.finalized_data += l
-        self.data_set.finalized_data.sort(key=lambda x: x.date_stamp_year)
+            # self.data_set.finalized_data = self.data_set.finalized_data + l
+            self.data_set.finalized_data.entries += l.entries
+        self.data_set.finalized_data.entries.sort(key=lambda x: x.date_stamp_year)
     
     def run_output(self):
         """Output finalized data"""
-        for o in self.options.output_list.split(','):
-            if o in logdissect.output.__all__:
-                ouroutput = self.output_list[o]
+        for f in logdissect.output.__formats__:
+            if self.options.output_type == f:
+                ouroutput = self.output_modules[f]
+                # ouroutput = logdissect.output.f
                 ouroutput.data = self.data_set.finalized_data
-                ouroutput.write_output()
-                # self.output_list[o](data=self.data_set.finalized_data)
+                ouroutput.write_output(str(self.options.output_file))
+        # for o in self.options.output_list.split(' '):
+        #     if o in logdissect.output.__formats__:
+        #         ouroutput = self.options.output_list[o]
+        #         ouroutput.data = self.data_set.finalized_data
+        #         ouroutput.write_output()
+        #         # self.output_list[o](data=self.data_set.finalized_data)
 
     def config_options(self):
         """Set config options"""
@@ -139,9 +145,13 @@ class LogDissectCore:
                 action="store",
                 dest="morphers_list",
                 help=_("specifies morphers to use"))
-        self.option_parser.add_option("-o", "--outputs",
+        self.option_parser.add_option("-o", "--output",
                 action="store",
-                dest="output_list",
+                dest="output_type",
+                help=_("specifies output formats to use"))
+        self.option_parser.add_option("-f", "--file",
+                action="store",
+                dest="output_file", default="logdissectjob",
                 help=_("specifies output formats to use"))
         
         # self.option_parser.add_option_group(self.input_options)
