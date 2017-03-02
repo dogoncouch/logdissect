@@ -82,7 +82,8 @@ class LogDissectCore:
     def run_parse(self):
         """Parse one or more log files"""
         # Data set already has source file names from load_inputs
-        parsedset = self.data_set
+        # parsedset = self.data_set
+        parsedset = LogDataSet()
         for l in self.data_set.data_set:
             parsemodule = self.parse_modules[self.options.parser]
             parsemodule.data = l
@@ -96,7 +97,8 @@ class LogDissectCore:
         """Merge all our data sets together"""
         #Note: just add the logs together then sort the final list.
         for l in self.data_set.data_set:
-            self.data_set.finalized_data += l
+            self.data_set.finalized_data = self.data_set.finalized_data + l
+            # self.data_set.finalized_data += l
         self.data_set.finalized_data.sort(key=lambda x: x.date_stamp_year)
     
     def run_output(self):
