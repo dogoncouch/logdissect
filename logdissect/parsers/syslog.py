@@ -26,6 +26,7 @@ import datetime
 from logdissect.parsers.type import ParseModule as OurModule
 from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
+# import logdissect.data.data
 
 # Take this out later:
 import sys
@@ -38,12 +39,8 @@ class ParseModule(OurModule):
         self.date_format = \
                 re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2} \d{2}:\d{2}:\d{2})")
 
+
     def parse_log(self):
-        # testvar = False
-        try:
-            if testvar: sys.exit(0)
-        except UnboundLocalError:
-            pass
 	current_entry = LogEntry()
         self.data.source_file_mtime = \
                 os.path.getmtime(self.data.source_full_path)
@@ -60,36 +57,64 @@ class ParseModule(OurModule):
                 os.path.getmtime(self.data.source_full_path)
         self.data.source_file = self.data.source_full_path.split('/')[-1]
 	with open(str(self.data.source_full_path), 'r') as logfile:
+	# with reversed(open(self.data.source_full_path, 'r').readlines()) as loglines:
         # logfile = open(str(self.data.source_full_path), 'r')
-            self.data.lines = logfile.readlines()
-            loglines = reversed(self.data.lines)
-            for line in loglines:
-                ourline = line.rstrip()
-                current_entry.raw_text = ourline + '\n' + current_entry.raw_text
-                match = re.match(self.date_format, ourline)
-                if match:
-                    date_list = str(match.split(' '))
-                    months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
-                            'Apr':'04', 'May':'05', 'Jun':'06', \
-                            'Jul':'07', 'Aug':'08', 'Sep':'09', \
-                            'Oce':'10', 'Nov':'11', 'Dec':'12'}
-                    if date_list[0] in months:
-                        int_month = months[date]
-                    daydate = str(date_list[1]).strip().zfill(2)
-                    time_list = str(date_list[2].split(':'))
-                    date_stamp = str(int_month) + str(daydate) + \
-                            str(time_list[0]) + str(time_list[1]) + \
-                            str(time_list[2])
-                    # Check for Dec-Jan
-                    if int(date_stamp) > recent_date_stamp:
-                        entry_year = entry_year - 1
-                    recent_date_stamp = int(date_stamp)
-                    # Date_stamp should be called as an integer
-                    current_entry.date_stamp = int(date_stamp)
-                    current_entry.date_stamp_year = int(str(entry_year) \
-                            + str(current_entry.date_stamp))
-                    self.data.entries.append(current_entry)
-        testvar = True
+            # self.data.lines = logfile.readlines()
+            loglines = reversed(logfile.readlines())
+            
+        for line in loglines:
+            ourline = line.rstrip()
+            current_entry.raw_text = ourline + '\n' + current_entry.raw_text
+            match = re.match(self.date_format, ourline)
+            if match:
+                date_list = str(match.split(' '))
+                months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
+                        'Apr':'04', 'May':'05', 'Jun':'06', \
+                        'Jul':'07', 'Aug':'08', 'Sep':'09', \
+                        'Oce':'10', 'Nov':'11', 'Dec':'12'}
+                if date_list[0] in months:
+                    int_month = months[date]
+                daydate = str(date_list[1]).strip().zfill(2)
+                time_list = str(date_list[2].split(':'))
+                date_stamp = str(int_month) + str(daydate) + \
+                        str(time_list[0]) + str(time_list[1]) + \
+                        str(time_list[2])
+                # Check for Dec-Jan
+                if int(date_stamp) > recent_date_stamp:
+                    entry_year = entry_year - 1
+                recent_date_stamp = int(date_stamp)
+                # Date_stamp should be called as an integer
+                current_entry.date_stamp = int(date_stamp)
+                current_entry.date_stamp_year = int(str(entry_year) \
+                        + str(current_entry.date_stamp))
+                self.data.entries.append(current_entry)
+            
+            # for line in loglines:
+            #     ourline = line.rstrip()
+            #     current_entry.raw_text = ourline + '\n' + current_entry.raw_text
+            #     match = re.match(self.date_format, ourline)
+            #     if match:
+            #         date_list = str(match.split(' '))
+            #         months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
+            #                 'Apr':'04', 'May':'05', 'Jun':'06', \
+            #                 'Jul':'07', 'Aug':'08', 'Sep':'09', \
+            #                 'Oce':'10', 'Nov':'11', 'Dec':'12'}
+            #         if date_list[0] in months:
+            #             int_month = months[date]
+            #         daydate = str(date_list[1]).strip().zfill(2)
+            #         time_list = str(date_list[2].split(':'))
+            #         date_stamp = str(int_month) + str(daydate) + \
+            #                 str(time_list[0]) + str(time_list[1]) + \
+            #                 str(time_list[2])
+            #         # Check for Dec-Jan
+            #         if int(date_stamp) > recent_date_stamp:
+            #             entry_year = entry_year - 1
+            #         recent_date_stamp = int(date_stamp)
+            #         # Date_stamp should be called as an integer
+            #         current_entry.date_stamp = int(date_stamp)
+            #         current_entry.date_stamp_year = int(str(entry_year) \
+            #                 + str(current_entry.date_stamp))
+            #         self.data.entries.append(current_entry)
         
         # Write the entries to the log object
         self.data.entries.reverse()

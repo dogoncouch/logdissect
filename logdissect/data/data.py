@@ -30,7 +30,6 @@ class LogEntry:
         self.raw_text = ""
         self.source_full_path = ""
 
-
 class LogData:
     def __init__(self):
         """Initialize parsing for a log file"""
