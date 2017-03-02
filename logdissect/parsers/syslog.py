@@ -27,6 +27,9 @@ from logdissect.parsers.type import ParseModule as OurModule
 from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 
+# Take this out later:
+import sys
+
 class ParseModule(OurModule):
     def __init__(self, options):
         self.name = 'syslog'
@@ -35,7 +38,9 @@ class ParseModule(OurModule):
         self.date_format = \
                 re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2} \d{2}:\d{2}:\d{2})")
 
-    def run_parse(self):
+    def parse_logs(self):
+        testvar = False
+        if testvar: sys.exit(0)
 	current_entry = LogEntry()
         self.data.source_file_mtime = \
                 os.path.getmtime(self.data.source_full_path)
@@ -65,11 +70,11 @@ class ParseModule(OurModule):
                             'Apr':'04', 'May':'05', 'Jun':'06', \
                             'Jul':'07', 'Aug':'08', 'Sep':'09', \
                             'Oce':'10', 'Nov':'11', 'Dec':'12'}
-                    if date in months:
+                    if date_list[0] in months:
                         int_month = months[date]
-                    date = str(date).zfill(2)
+                    daydate = str(date_list[1]).strip().zfill(2)
                     time_list = str(date_list[2].split(':'))
-                    date_stamp = str(int_month) + str(date) + \
+                    date_stamp = str(int_month) + str(daydate) + \
                             str(time_list[0]) + str(time_list[1]) + \
                             str(time_list[2])
                     # Check for Dec-Jan
@@ -81,6 +86,7 @@ class ParseModule(OurModule):
                     current_entry.date_stamp_year = int(str(entry_year) \
                             + str(current_entry.date_stamp))
                     self.data.entries.append(current_entry)
+        testvar = True
         
         # Write the entries to the log object
         self.data.entries.reverse()
