@@ -36,11 +36,16 @@ class ParseModule(OurModule):
         self.name = 'syslog'
         self.desc = 'Syslog parsing module'
         self.data = LogData()
+        self.newdata = LogData()
         self.date_format = \
-                re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2} \d{2}:\d{2}:\d{2})")
+                re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2}:\d{2}:\d{2})")
+        # self.date_format = \
+        #         re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2} \d{2}:\d{2}:\d{2})")
 
 
     def parse_log(self):
+        # This shouldn't be needed, but:
+        self.newdata = LogData()
 	current_entry = LogEntry()
         self.data.source_file_mtime = \
                 os.path.getmtime(self.data.source_full_path)
@@ -49,12 +54,12 @@ class ParseModule(OurModule):
         timelist = str(self.data.source_file_mtime).split('-')
         self.data.source_file_year = timelist[0]
         entry_year = self.data.source_file_year
-        recent_date_stamp = None
+        recent_date_stamp = 9999999999
         
         # To Do: add some detection to fill in LogData class vars
         
-        self.data.source_file_mtime = \
-                os.path.getmtime(self.data.source_full_path)
+        # self.data.source_file_mtime = \
+        #         os.path.getmtime(self.data.source_full_path)
         self.data.source_file = self.data.source_full_path.split('/')[-1]
 	with open(str(self.data.source_full_path), 'r') as logfile:
 	# with reversed(open(self.data.source_full_path, 'r').readlines()) as loglines:
@@ -64,30 +69,41 @@ class ParseModule(OurModule):
             
         for line in loglines:
             ourline = line.rstrip()
-            current_entry.raw_text = ourline + '\n' + current_entry.raw_text
-            match = re.match(self.date_format, ourline)
+            if len(current_entry.raw_text) >0:
+                current_entry.raw_text = ourline + '\n' + \
+                        current_entry.raw_text
+            else: current_entry.raw_text = ourline
+            match = re.findall(self.date_format, ourline)
+            # match = re.match(self.date_format, ourline)
             if match:
-                date_list = str(match.split(' '))
+                date_list = str(match[0]).split(' ')
+                # date_list = str(match.split(' '))
                 months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
                         'Apr':'04', 'May':'05', 'Jun':'06', \
                         'Jul':'07', 'Aug':'08', 'Sep':'09', \
                         'Oce':'10', 'Nov':'11', 'Dec':'12'}
-                if date_list[0] in months:
-                    int_month = months[date]
+                # if date_list[0] in months:
+                int_month = months[date_list[0]]
                 daydate = str(date_list[1]).strip().zfill(2)
-                time_list = str(date_list[2].split(':'))
-                date_stamp = str(int_month) + str(daydate) + \
-                        str(time_list[0]) + str(time_list[1]) + \
-                        str(time_list[2])
+                # time_list = str(date_list[2].split(':'))
+                # time_list = str(str(date_list[2]).split(':'))
+                timelist = str(str(date_list[2]).replace(':',''))
+                date_stamp = str(int_month) + str(daydate) + str(timelist)
+                # date_stamp = str(int_month) + str(daydate) + \
+                #         str(time_list[0]) + str(time_list[1]) + \
+                #         str(time_list[2])
                 # Check for Dec-Jan
                 if int(date_stamp) > recent_date_stamp:
                     entry_year = entry_year - 1
                 recent_date_stamp = int(date_stamp)
                 # Date_stamp should be called as an integer
                 current_entry.date_stamp = int(date_stamp)
-                current_entry.date_stamp_year = int(str(entry_year) \
-                        + str(current_entry.date_stamp))
-                self.data.entries.append(current_entry)
+                # current_entry.date_stamp_year = int(str(entry_year) \
+                #         + str(current_entry.date_stamp))
+                current_entry.date_stamp_year = str(entry_year) \
+                        + str(current_entry.date_stamp)
+                self.newdata.entries.append(current_entry)
+                current_entry = LogEntry()
             
             # for line in loglines:
             #     ourline = line.rstrip()
@@ -117,5 +133,6 @@ class ParseModule(OurModule):
             #         self.data.entries.append(current_entry)
         
         # Write the entries to the log object
-        self.data.entries.reverse()
+        self.newdata.entries.reverse()
         # return self.data
+        return 0

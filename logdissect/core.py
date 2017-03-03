@@ -88,7 +88,7 @@ class LogDissectCore:
             parsemodule = self.parse_modules[self.options.parser]
             parsemodule.data = l
             parsemodule.parse_log()
-            parsedset.data_set.append(parsemodule.data)
+            parsedset.data_set.append(parsemodule.newdata)
             # parsedlog = parsemodule.parse_log()
             # parsedset.data_set.append(parsedlog)
         self.data_set = parsedset
@@ -96,10 +96,17 @@ class LogDissectCore:
     def run_merge(self):
         """Merge all our data sets together"""
         #Note: just add the logs together then sort the final list.
+        ourlog = LogData()
         for l in self.data_set.data_set:
             # self.data_set.finalized_data = self.data_set.finalized_data + l
-            self.data_set.finalized_data.entries += l.entries
-        self.data_set.finalized_data.entries.sort(key=lambda x: x.date_stamp_year)
+            ourlog.entries = ourlog.entries + l.entries
+            # ourentries += l.entries
+        ourlog.entries.sort(key=lambda x: x.date_stamp_year)
+        self.data_set.finalized_data = ourlog
+        # self.data_set.finalized_data.entries = \
+        #         ourlog.entries.sort(key=lambda x: x.date_stamp_year)
+        #     self.data_set.finalized_data.entries += l.entries
+        # self.data_set.finalized_data.entries.sort(key=lambda x: x.date_stamp_year)
     
     def run_output(self):
         """Output finalized data"""
