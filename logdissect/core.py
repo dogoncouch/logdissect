@@ -94,7 +94,7 @@ class LogDissectCore:
         self.data_set = parsedset
 
     def run_merge(self):
-        """Merge all our data sets together"""
+        """Merge all of our data sets together"""
         #Note: just add the logs together then sort the final list.
         ourlog = LogData()
         for l in self.data_set.data_set:
