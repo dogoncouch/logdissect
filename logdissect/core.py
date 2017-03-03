@@ -106,7 +106,6 @@ class LogDissectCore:
         for f in logdissect.output.__formats__:
             if self.options.output_type == f:
                 ouroutput = self.output_modules[f]
-                # ouroutput = logdissect.output.f
                 ouroutput.data = self.data_set.finalized_data
                 ouroutput.write_output(str(self.options.output_file))
         # for o in self.options.output_list.split(' '):
