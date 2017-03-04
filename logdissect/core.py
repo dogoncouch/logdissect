@@ -29,9 +29,9 @@ import logdissect.data
 import logdissect.parsers
 import logdissect.morphers
 import logdissect.output
-from logdissect.data.data import LogDataSet
-from logdissect.data.data import LogData
 from logdissect.data.data import LogEntry
+from logdissect.data.data import LogData
+from logdissect.data.data import LogDataSet
 from logdissect import __version__
 from optparse import OptionParser
 from optparse import OptionGroup
@@ -56,8 +56,8 @@ class LogDissectCore:
         #         _("Input options"))
         self.parse_options = OptionGroup(self.option_parser, \
                 _("Parse options"))
-        # self.morph_options = OptionGroup(self.option_parser, \
-        #         _("Morph options"))
+        self.morph_options = OptionGroup(self.option_parser, \
+                _("Morph options"))
         self.output_options = OptionGroup(self.option_parser, \
                 _("Output options"))
     
@@ -70,11 +70,7 @@ class LogDissectCore:
         self.config_options()
         self.load_inputs()
         self.run_parse()
-        # Note to self: leave morphing out until the rest works.
-        # self.run_morph() run_morph should look like run_parse
-        # We'll need to split self.options.morphers_list and then split
-        # the list into range x y, grep z, etc.
-        # Probably do that in load_morphers
+        if self.options.morphers_list != None: self.run_morph()
         self.run_merge()
         self.run_output()
         # This will have to parse outputs_list into a list, etc.
@@ -107,7 +103,15 @@ class LogDissectCore:
         #         ourlog.entries.sort(key=lambda x: x.date_stamp_year)
         #     self.data_set.finalized_data.entries += l.entries
         # self.data_set.finalized_data.entries.sort(key=lambda x: x.date_stamp_year)
-    
+
+    def run_morph(self):
+        for m in self.morph_modules:
+            if m in self.options.morphers_list.split(','):
+                ourmorph = self.morph_modules[m]
+                ourmorph.data = self.data_set.finalized_data
+                ourmorph.morph_data()
+                self.data_set.finalized_data = ourmorph.data
+
     def run_output(self):
         """Output finalized data"""
         for f in logdissect.output.__formats__:
@@ -115,12 +119,6 @@ class LogDissectCore:
                 ouroutput = self.output_modules[f]
                 ouroutput.data = self.data_set.finalized_data
                 ouroutput.write_output(str(self.options.output_file))
-        # for o in self.options.output_list.split(' '):
-        #     if o in logdissect.output.__formats__:
-        #         ouroutput = self.options.output_list[o]
-        #         ouroutput.data = self.data_set.finalized_data
-        #         ouroutput.write_output()
-        #         # self.output_list[o](data=self.data_set.finalized_data)
 
     def config_options(self):
         """Set config options"""
@@ -134,10 +132,10 @@ class LogDissectCore:
                 action="callback",
                 callback=self.list_parsers,
                 help=_("returns a list of available parsers"))
-        # self.option_parser.add_option("--list-morphers",
-        #         action="callback",
-        #         callback=self.list_morphers,
-        #         help=_("returns a list of available morphers"))
+        self.option_parser.add_option("--list-morphers",
+                action="callback",
+                callback=self.list_morphers,
+                help=_("returns a list of available morphers"))
         self.option_parser.add_option("--list-outputs",
                 action="callback",
                 callback=self.list_outputs,
@@ -162,7 +160,7 @@ class LogDissectCore:
         
         # self.option_parser.add_option_group(self.input_options)
         # self.option_parser.add_option_group(self.parse_options)
-        # self.option_parser.add_option_group(self.morph_options)
+        self.option_parser.add_option_group(self.morph_options)
         # self.option_parser.add_option_group(self.output_options)
         self.options, args = self.option_parser.parse_args(sys.argv[1:])
 
@@ -194,21 +192,21 @@ class LogDissectCore:
                 locals(), [logdissect]).ParseModule(self.parse_options)
 
     # Morphing modules (range, grep, etc)
-    # def list_morphers(self):
-    #     """Return a list of available morphing modules"""
-    #     print '==== Available morphing modules: ===='
-    #     print
-    #     for morpher in sorted(self.morph_modules):
-    #         print string.ljust(self.morph_modules[morpher].name, 16) + \
-    #             ': ' + self.morph_module[morpher].desc
-    #     sys.exit(0)
+    def list_morphers(self, *args):
+        """Return a list of available morphing modules"""
+        print '==== Available morphing modules: ===='
+        print
+        for morpher in sorted(self.morph_modules):
+            print string.ljust(self.morph_modules[morpher].name, 16) + \
+                ': ' + self.morph_modules[morpher].desc
+        sys.exit(0)
 
-    # def load_morphers(sels, morph_modules):
-    #     """Load morphing module(s)"""
-    #     for morpher in sorted(logdissect.morphers.__morphers__):
-    #         self.morph_modules[morpher] = \
-    #             __import__('logdissect.morphers.' + morpher, globals(), \
-    #             locals(), [logdissect]).MorphModule(self.morph_options)
+    def load_morphers(self):
+        """Load morphing module(s)"""
+        for morpher in sorted(logdissect.morphers.__morphers__):
+            self.morph_modules[morpher] = \
+                __import__('logdissect.morphers.' + morpher, globals(), \
+                locals(), [logdissect]).MorphModule(self.morph_options)
 
     # Output modules (log file, csv, html, etc)
     def list_outputs(self, *args):

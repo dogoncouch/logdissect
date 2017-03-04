@@ -20,19 +20,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from logdissect.data.data import LogEntry
+from logdissect.data.data import LogData
+
 class MorphModule:
     def __init__(self, options):
         """Initialize a morphing module"""
         self.name = ""
         self.desc = ""
-        self.log_morph_command = ""
-        self.set_morph_command = ""
+        self.data = LogData()
         pass
 
-    def morph_data(self, options):
+    def morph_data(self):
         """Morphs log data in some way (single log)"""
-        pass
-    
-    def morph_data_set(self, options):
-        """Morphs a whole data set in some way"""
         pass

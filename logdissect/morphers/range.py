@@ -20,4 +20,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-__morphers__ = ['range']
+from logdissect.data.data import LogEntry
+from logdissect.data.data import LogData
+from logdissect.morphers.type import MorphModule as OurModule
+
+class MorphModule(OurModule):
+    def __init__(self, options):
+        """Initialize a morphing module"""
+        OurModule.__init__(self, options)
+        self.name = "range"
+        self.desc = "Specifies timestamp range (YYYYMMDDhhmm-YYYYMMDDhhmm)"
+        self.data = LogData()
+        self.newdata = LogData()
+
+        options.add_option('--range', action='append', dest='range',
+                help='Specifies the range <YYMMDDhhmm-YYMMDDhhmm>')
+
+    def morph_data(self):
+        """Morphs log data in some way (single log)"""
+        ourlimits = options.range.split('-')
+        for entry in self.data.entries:
+            if int(ourlimits[0]) <= int([entry.date_stamp_year]) \
+                    <= int(ourlimits[1]):
+                self.newdata.entries.append(entry)
+        self.data = self.newdata
