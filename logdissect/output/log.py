@@ -31,7 +31,6 @@ class OutputModule(OurModule):
         self.output_path = ''
 
     def write_output(self, outputfile):
-        # self.output_path = 'ldout.log'
         with open(outputfile, 'w') as output_file:
             for entry in self.data.entries:
                 output_file.write(entry.raw_text + '\n')

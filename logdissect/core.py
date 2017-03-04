@@ -64,7 +64,6 @@ class LogDissectCore:
     # run_job does the actual job using the other functions.
     def run_job(self):
         """Execute a logdissect job"""
-        # To Do: execute the other functions here
         self.load_parsers()
         self.load_outputs()
         self.config_options()
@@ -73,20 +72,16 @@ class LogDissectCore:
         if self.options.morphers_list != None: self.run_morph()
         self.run_merge()
         self.run_output()
-        # This will have to parse outputs_list into a list, etc.
 
     def run_parse(self):
         """Parse one or more log files"""
         # Data set already has source file names from load_inputs
-        # parsedset = self.data_set
         parsedset = LogDataSet()
         for l in self.data_set.data_set:
             parsemodule = self.parse_modules[self.options.parser]
             parsemodule.data = l
             parsemodule.parse_log()
             parsedset.data_set.append(parsemodule.newdata)
-            # parsedlog = parsemodule.parse_log()
-            # parsedset.data_set.append(parsedlog)
         self.data_set = parsedset
 
     def run_merge(self):
@@ -94,15 +89,9 @@ class LogDissectCore:
         #Note: just add the logs together then sort the final list.
         ourlog = LogData()
         for l in self.data_set.data_set:
-            # self.data_set.finalized_data = self.data_set.finalized_data + l
             ourlog.entries = ourlog.entries + l.entries
-            # ourentries += l.entries
         ourlog.entries.sort(key=lambda x: x.date_stamp_year)
         self.data_set.finalized_data = ourlog
-        # self.data_set.finalized_data.entries = \
-        #         ourlog.entries.sort(key=lambda x: x.date_stamp_year)
-        #     self.data_set.finalized_data.entries += l.entries
-        # self.data_set.finalized_data.entries.sort(key=lambda x: x.date_stamp_year)
 
     def run_morph(self):
         for m in self.morph_modules:
@@ -160,11 +149,10 @@ class LogDissectCore:
         
         # self.option_parser.add_option_group(self.input_options)
         # self.option_parser.add_option_group(self.parse_options)
-        self.option_parser.add_option_group(self.morph_options)
+        # self.option_parser.add_option_group(self.morph_options)
         # self.option_parser.add_option_group(self.output_options)
         self.options, args = self.option_parser.parse_args(sys.argv[1:])
 
-    # To Do: finish input file loading
     # Load input files:
     def load_inputs(self):
         """Load the specified inputs"""

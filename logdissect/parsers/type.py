@@ -32,11 +32,3 @@ class ParseModule:
     def parse_logs(self):
         """Parse a log into a LogData object"""
         pass
-    
-    # def parse_date(self, options):
-    #     """Parse a log timestamp"""
-    #     pass
-
-    # def parse_entry(self, options):
-    #     """Parse a log entry"""
-    #     pass
