@@ -65,6 +65,7 @@ class LogDissectCore:
     def run_job(self):
         """Execute a logdissect job"""
         self.load_parsers()
+        self.load_morphers()
         self.load_outputs()
         self.config_options()
         self.load_inputs()
@@ -94,12 +95,14 @@ class LogDissectCore:
         self.data_set.finalized_data = ourlog
 
     def run_morph(self):
+        ourlog = self.data_set.finalized_data
         for m in self.morph_modules:
             if m in self.options.morphers_list.split(','):
                 ourmorph = self.morph_modules[m]
-                ourmorph.data = self.data_set.finalized_data
-                ourmorph.morph_data()
-                self.data_set.finalized_data = ourmorph.data
+                ourmorph.data = ourlog
+                ourmorph.morph_data(self.options)
+                ourlog = ourmorph.newdata
+        self.data_set.finalized_data = ourlog
 
     def run_output(self):
         """Output finalized data"""
@@ -149,7 +152,7 @@ class LogDissectCore:
         
         # self.option_parser.add_option_group(self.input_options)
         # self.option_parser.add_option_group(self.parse_options)
-        # self.option_parser.add_option_group(self.morph_options)
+        self.option_parser.add_option_group(self.morph_options)
         # self.option_parser.add_option_group(self.output_options)
         self.options, args = self.option_parser.parse_args(sys.argv[1:])
 
