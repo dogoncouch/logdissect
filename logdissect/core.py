@@ -97,12 +97,16 @@ class LogDissectCore:
     def run_morph(self):
         ourlog = self.data_set.finalized_data
         for m in self.morph_modules:
-            if not self.options.morphers_list == None:
-                if m in self.options.morphers_list:
-                    ourmorph = self.morph_modules[m]
-                    ourmorph.data = ourlog
-                    ourmorph.morph_data(self.options)
-                    ourlog = ourmorph.newdata
+            ourmorph = self.morph_modules[m]
+            ourmorph.data = ourlog
+            ourmorph.morph_data(self.options)
+            ourlog = ourmorph.newdata
+            # if not self.options.morphers_list == None:
+            #     if m in self.options.morphers_list:
+            #         ourmorph = self.morph_modules[m]
+            #         ourmorph.data = ourlog
+            #         ourmorph.morph_data(self.options)
+            #         ourlog = ourmorph.newdata
         self.data_set.finalized_data = ourlog
 
     def run_output(self):
@@ -138,10 +142,10 @@ class LogDissectCore:
                 action="store",
                 dest="parser", default="syslog",
                 help=_("specifies parser to use"))
-        self.option_parser.add_option("-m", "--morphers",
-                action="store",
-                dest="morphers_list",
-                help=_("specifies morphers to use"))
+        # self.option_parser.add_option("-m", "--morphers",
+        #         action="store",
+        #         dest="morphers_list",
+        #         help=_("specifies morphers to use"))
         self.option_parser.add_option("-o", "--output",
                 action="store",
                 dest="output_type",

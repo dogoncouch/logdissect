@@ -32,12 +32,14 @@ class MorphModule(OurModule):
         self.data = LogData()
         self.newdata = LogData()
 
-        options.add_option('--range', action='append', dest='ourrange',
+        options.add_option('--range', action='append', dest='range',
                 help='Specifies the range <YYMMDDhhmm-YYMMDDhhmm>')
 
     def morph_data(self, options):
         """Morphs log data in some way (single log)"""
-        ourlimits = options.ourrange[0].split('-')
+        if not options.range:
+            return 0
+        ourlimits = options.range[0].split('-')
         for entry in self.data.entries:
             if int(entry.date_stamp_year) >= int(ourlimits[0]): 
                 if int(entry.date_stamp_year) <= int(ourlimits[1]):
