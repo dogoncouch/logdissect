@@ -30,7 +30,13 @@ class OutputModule(OurModule):
         self.data = LogData()
         self.output_path = ''
 
-    def write_output(self, outputfile):
-        with open(outputfile, 'w') as output_file:
+        options.add_option('--outlog', action='append', dest='outlog',
+                help='Sets the output file for standard log output')
+
+    def write_output(self, options):
+        if not options.outlog:
+            return 0
+        # To Do: This might be injectable:
+        with open(str(options.outlog[0]), 'w') as output_file:
             for entry in self.data.entries:
                 output_file.write(entry.raw_text + '\n')

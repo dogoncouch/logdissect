@@ -112,10 +112,13 @@ class LogDissectCore:
     def run_output(self):
         """Output finalized data"""
         for f in logdissect.output.__formats__:
-            if self.options.output_type == f:
-                ouroutput = self.output_modules[f]
-                ouroutput.data = self.data_set.finalized_data
-                ouroutput.write_output(str(self.options.output_file))
+            ouroutput = self.output_modules[f]
+            ouroutput.data = self.data_set.finalized_data
+            ouroutput.write_output(self.options)
+            # if self.options.output_type == f:
+            #     ouroutput = self.output_modules[f]
+            #     ouroutput.data = self.data_set.finalized_data
+            #     ouroutput.write_output(str(self.options.output_file))
 
     def config_options(self):
         """Set config options"""
@@ -146,19 +149,19 @@ class LogDissectCore:
         #         action="store",
         #         dest="morphers_list",
         #         help=_("specifies morphers to use"))
-        self.option_parser.add_option("-o", "--output",
-                action="store",
-                dest="output_type",
-                help=_("specifies output formats to use"))
-        self.option_parser.add_option("-f", "--file",
-                action="store",
-                dest="output_file", default="logdissectjob",
-                help=_("specifies output formats to use"))
+        # self.option_parser.add_option("-o", "--output",
+        #         action="store",
+        #         dest="output_type",
+        #         help=_("specifies output formats to use"))
+        # self.option_parser.add_option("-f", "--file",
+        #         action="store",
+        #         dest="output_file", default="logdissectjob",
+        #         help=_("specifies output file"))
         
         # self.option_parser.add_option_group(self.input_options)
         # self.option_parser.add_option_group(self.parse_options)
         self.option_parser.add_option_group(self.morph_options)
-        # self.option_parser.add_option_group(self.output_options)
+        self.option_parser.add_option_group(self.output_options)
         self.options, args = self.option_parser.parse_args(sys.argv[1:])
 
     # Load input files:
