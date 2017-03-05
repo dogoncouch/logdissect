@@ -200,6 +200,10 @@ class LogDissectCore:
                 __import__('logdissect.output.' + output, globals(), \
                 locals(), [logdissect]).OutputModule(self.output_options)
 
+def main():
+    dissect = LogDissectCore()
+    dissect.run_job()
+                
 if __name__ == "__main__":
     dissect = LogDissectCore()
     dissect.run_job()
