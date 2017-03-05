@@ -43,10 +43,13 @@ class ParseModule(OurModule):
                 os.path.getmtime(self.data.source_full_path)
         timestamp = \
                 datetime.datetime.fromtimestamp(self.data.source_file_mtime)
-        timelist = str(self.data.source_file_mtime).split('-')
-        self.data.source_file_year = timelist[0]
-        entry_year = self.data.source_file_year
-        recent_date_stamp = 9999999999
+        # timelist = timestamp.timetuple()
+        # timelist = str(timestamp).split('-')
+        # timelist = str(self.data.source_file_mtime).split('-')
+        self.data.source_file_year = timestamp.year
+        # self.data.source_file_year = timestamp.year
+        entry_year = timestamp.year
+        recent_date_stamp = '9999999999'
         # To Do: add some detection to fill in LogData class vars
         self.data.source_file = self.data.source_full_path.split('/')[-1]
         # Get our lines:
@@ -71,11 +74,11 @@ class ParseModule(OurModule):
                 timelist = str(str(date_list[2]).replace(':',''))
                 date_stamp = str(int_month) + str(daydate) + str(timelist)
                 # Check for Dec-Jan
-                if int(date_stamp) > recent_date_stamp:
+                if int(date_stamp) > int(recent_date_stamp):
                     entry_year = entry_year - 1
-                recent_date_stamp = int(date_stamp)
+                recent_date_stamp = date_stamp
                 # Date_stamp should be called as an integer
-                current_entry.date_stamp = int(date_stamp)
+                current_entry.date_stamp = date_stamp
                 current_entry.date_stamp_year = str(entry_year) \
                         + str(current_entry.date_stamp)
                 self.newdata.entries.append(current_entry)
