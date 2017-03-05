@@ -70,7 +70,8 @@ class LogDissectCore:
         self.config_options()
         self.load_inputs()
         self.run_parse()
-        if self.options.morphers_list != None: self.run_morph()
+        self.run_morph()
+        # if self.options.morphers_list != None: self.run_morph()
         self.run_merge()
         self.run_output()
 
@@ -97,11 +98,12 @@ class LogDissectCore:
     def run_morph(self):
         ourlog = self.data_set.finalized_data
         for m in self.morph_modules:
-            if m in self.options.morphers_list.split(','):
-                ourmorph = self.morph_modules[m]
-                ourmorph.data = ourlog
-                ourmorph.morph_data(self.options)
-                ourlog = ourmorph.newdata
+            if not self.options.morphers_list == None:
+                if m in self.options.morphers_list:
+                    ourmorph = self.morph_modules[m]
+                    ourmorph.data = ourlog
+                    ourmorph.morph_data(self.options)
+                    ourlog = ourmorph.newdata
         self.data_set.finalized_data = ourlog
 
     def run_output(self):

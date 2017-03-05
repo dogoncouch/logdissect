@@ -40,7 +40,7 @@ class MorphModule(OurModule):
         """Morphs log data in some way (single log)"""
         ourlimits = options.ourrange[0].split('-')
         for entry in self.data.entries:
-            if int(ourlimits[0]) <= int([entry.date_stamp_year]) \
-                    <= int(ourlimits[1]):
-                self.newdata.entries.append(entry)
-        self.data = self.newdata
+            if int([entry.date_stamp_year]) >= int(ourlimits[0]): 
+                if int(entry.data_stamp_year) <= int(ourlimits[1]):
+                    self.newdata.entries.append(entry)
+        self.newdata
