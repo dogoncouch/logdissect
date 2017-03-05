@@ -43,11 +43,7 @@ class ParseModule(OurModule):
                 os.path.getmtime(self.data.source_full_path)
         timestamp = \
                 datetime.datetime.fromtimestamp(self.data.source_file_mtime)
-        # timelist = timestamp.timetuple()
-        # timelist = str(timestamp).split('-')
-        # timelist = str(self.data.source_file_mtime).split('-')
         self.data.source_file_year = timestamp.year
-        # self.data.source_file_year = timestamp.year
         entry_year = timestamp.year
         recent_date_stamp = '9999999999'
         # To Do: add some detection to fill in LogData class vars
@@ -77,7 +73,6 @@ class ParseModule(OurModule):
                 if int(date_stamp) > int(recent_date_stamp):
                     entry_year = entry_year - 1
                 recent_date_stamp = date_stamp
-                # Date_stamp should be called as an integer
                 current_entry.date_stamp = date_stamp
                 current_entry.date_stamp_year = str(entry_year) \
                         + str(current_entry.date_stamp)
@@ -86,4 +81,3 @@ class ParseModule(OurModule):
         
         # Write the entries to the log object
         self.newdata.entries.reverse()
-        return 0

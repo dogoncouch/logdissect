@@ -27,7 +27,6 @@ from logdissect.data.data import LogData
 class MorphModule(OurModule):
     def __init__(self, options):
         """Initialize a morphing module"""
-        # OurModule.__init__(self, options)
         self.name = "range"
         self.desc = "Specifies timestamp range (YYYYMMDDhhmm-YYYYMMDDhhmm)"
         self.data = LogData()
