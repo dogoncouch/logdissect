@@ -46,7 +46,6 @@ class LogDissectCore:
         self.parse_modules = {}
         self.morph_modules = {}
         self.output_modules = {}
-        # LogDataSet from data objects:
         self.data_set = LogDataSet()
         self.options = None
         self.option_parser = OptionParser(
@@ -87,7 +86,6 @@ class LogDissectCore:
 
     def run_merge(self):
         """Merge all of our data sets together"""
-        #Note: just add the logs together then sort the final list.
         ourlog = LogData()
         for l in self.data_set.data_set:
             ourlog.entries = ourlog.entries + l.entries
@@ -101,12 +99,6 @@ class LogDissectCore:
             ourmorph.data = ourlog
             ourmorph.morph_data(self.options)
             ourlog = ourmorph.newdata
-            # if not self.options.morphers_list == None:
-            #     if m in self.options.morphers_list:
-            #         ourmorph = self.morph_modules[m]
-            #         ourmorph.data = ourlog
-            #         ourmorph.morph_data(self.options)
-            #         ourlog = ourmorph.newdata
         self.data_set.finalized_data = ourlog
 
     def run_output(self):
@@ -115,18 +107,9 @@ class LogDissectCore:
             ouroutput = self.output_modules[f]
             ouroutput.data = self.data_set.finalized_data
             ouroutput.write_output(self.options)
-            # if self.options.output_type == f:
-            #     ouroutput = self.output_modules[f]
-            #     ouroutput.data = self.data_set.finalized_data
-            #     ouroutput.write_output(str(self.options.output_file))
 
     def config_options(self):
         """Set config options"""
-        # Input option:
-        self.option_parser.add_option("-i", "--input",
-                action="store",
-                dest="inputs_list",
-                help=_("specifies input files"))
         # Module list options:
         self.option_parser.add_option("--list-parsers",
                 action="callback",
@@ -140,23 +123,16 @@ class LogDissectCore:
                 action="callback",
                 callback=self.list_outputs,
                 help=_("returns a list of available output formats"))
+        # Input option:
+        self.option_parser.add_option("-i",
+                action="store",
+                dest="inputs_list",
+                help=_("specifies input files"))
         # Module load options:
-        self.option_parser.add_option("-p", "--parser",
+        self.option_parser.add_option("-p",
                 action="store",
                 dest="parser", default="syslog",
                 help=_("specifies parser to use"))
-        # self.option_parser.add_option("-m", "--morphers",
-        #         action="store",
-        #         dest="morphers_list",
-        #         help=_("specifies morphers to use"))
-        # self.option_parser.add_option("-o", "--output",
-        #         action="store",
-        #         dest="output_type",
-        #         help=_("specifies output formats to use"))
-        # self.option_parser.add_option("-f", "--file",
-        #         action="store",
-        #         dest="output_file", default="logdissectjob",
-        #         help=_("specifies output file"))
         
         # self.option_parser.add_option_group(self.input_options)
         # self.option_parser.add_option_group(self.parse_options)
