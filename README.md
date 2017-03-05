@@ -1,3 +1,2 @@
 # logdissect
-Parse and merge log files.
-Version 0.0.1, does not run yet.
+CLI tool to parse and merge log files, then pull out specific date ranges, etc. Documentation coming soon (as of March 2017).
