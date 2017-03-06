@@ -45,10 +45,10 @@ class OutputModule(OurModule):
         with open(str(options.outlog[0]), 'w') as output_file:
             for entry in self.data.entries:
                 if options.label:
-                    # if entry.source_full_path == lastpath:
-                    #     output_file.write(entry.raw_text + '\n')
-                    # elif options.label[0] == 'fname':
-                    if options.label[0] == 'fname':
+                    if entry.source_full_path == lastpath:
+                        output_file.write(entry.raw_text + '\n')
+                    elif options.label[0] == 'fname':
+                    # if options.label[0] == 'fname':
                         output_file.write('======== ' + \
                                 entry.source_full_path.split('/')[-1] + \
                                 ' >>>>\n' + entry.raw_text + '\n')
