@@ -34,7 +34,7 @@ setup(name = 'logdissect', version = str(__version__),
         packages = ['logdissect', 'logdissect.data', 'logdissect.parsers',
             'logdissect.morphers', 'logdissect.output'],
         entry_points = \
-                { 'console_scripts': [ 'logdissect = logdissect.core:main' ]}
+                { 'console_scripts': [ 'logdissect = logdissect.core:main' ]},
         data_files = ourdata,
         classifiers = ["Development Status :: 3 :: Alpha",
             "Environment :: Console",
