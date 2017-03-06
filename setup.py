@@ -25,7 +25,8 @@ from os.path import join
 from sys import prefix
 from logdissect import __version__
 
-ourdata = [(join(prefix, 'share/doc/logdissect'), ['README.md', 'LICENSE'])]
+ourdata = [(join(prefix, 'share/man/man1'), ['doc/logdissect.1']),
+        (join(prefix, 'share/doc/logdissect'), ['README.md', 'LICENSE'])]
 
 setup(name = 'logdissect', version = str(__version__),
         description = 'Parse, merge, and filter syslog files',
