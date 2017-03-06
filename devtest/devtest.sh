@@ -22,20 +22,25 @@
 #_OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #_SOFTWARE.
 
-
+echo Running testall.log
 ./logdissect.py -i devtests/exsyslog,devtests/exmeslog --outlog=devtest/testall.log --range=20160202020202-20170227213200
-
-./logdissect.py -i devtests/exsyslog,devtests/exmeslog --outlog=devtest/testnone.log --range=20160202020202-20160227213200
-
-./logdissect.py -i devtests/exsyslog,devtests/exmeslog --outlog=devtest/testfname.log --label=fname --range=20160202020202-20170227213200
-
-./logdissect.py -i devtests/exsyslog,devtests/exmeslog --outlog=devtest/testfpath.log --label=fpath --range=20160202020202-20170227213200
 
 echo Diff for testall:
 diff devtest/testall.log devtest/testallexlog
+
+echo Running testnone.log
+./logdissect.py -i devtests/exsyslog,devtests/exmeslog --outlog=devtest/testnone.log --range=20160202020202-20160227213200
+
 echo Diff for testnone:
 diff devtest/testnone.log devtest/testnoneexlog
+
+echo Running testfname.log
+./logdissect.py -i devtests/exsyslog,devtests/exmeslog --outlog=devtest/testfname.log --label=fname --range=20160202020202-20170227213200
+
 echo Diff for testfname:
 diff devtest/testfname.log devtest/testfnameexlog
+
+echo Running testfpath.log
+./logdissect.py -i devtests/exsyslog,devtests/exmeslog --outlog=devtest/testfpath.log --label=fpath --range=20160202020202-20170227213200
 
 echo Diffs should be the same, and there should be no errors.
