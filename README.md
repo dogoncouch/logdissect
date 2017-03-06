@@ -21,10 +21,10 @@ logdissect is a tool for gaining insight into log files. It can merge more than 
     -i INPUTS_LIST     specifies input files
     -p PARSER          specifies parser to use
 
-  Morph options:
+    Morph options:
     --range=RANGE    Specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
 
-  Output options:
+    Output options:
     --outlog=OUTLOG  Sets the output file for standard log output
     --label=LABEL    Sets label type for entries in OUTLOG <fname|fpath>
 
