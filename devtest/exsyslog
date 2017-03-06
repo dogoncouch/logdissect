@@ -1,0 +1,10 @@
+Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0277 Gs  no app for changed nohotcorner@azuri.free.fr
+Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0304 Gs  no app for changed dash-to-dock@micxgx.gmail.com
+Feb 27 21:30:46 shade dbus[593]: [system] Successfully activated service 'org.freedesktop.hostname1'
+Feb 27 21:30:46 shade systemd[1]: Started Hostname Service.
+Feb 27 21:30:52 shade dbus-daemon[22491]: Activating via systemd: service name='org.gnome.Terminal' unit='gnome-terminal-server.service'
+Feb 27 21:30:52 shade systemd[22475]: Starting GNOME Terminal Server...
+Feb 27 21:30:52 shade dbus-daemon[22491]: Successfully activated service 'org.gnome.Terminal'
+Feb 27 21:30:52 shade systemd[22475]: Started GNOME Terminal Server.
+Feb 27 21:34:57 shade tracker-extract[22716]: unable to create file '/run/user/1000/dconf/user': Permission denied.  dconf will not work properly.
+Feb 27 21:35:01 shade CRON[5030]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)

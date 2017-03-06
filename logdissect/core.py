@@ -144,10 +144,16 @@ class LogDissectCore:
     def load_inputs(self):
         """Load the specified inputs"""
         for f in self.options.inputs_list.split(','):
-            fullpath = os.path.abspath(f)
-            log = LogData()
-            log.source_full_path = fullpath
-            self.data_set.data_set.append(log)
+            if os.path.isfile(str(f)):
+                fparts = str(f).split('.')
+                if fparts[-1] == 'gz' or fparts[-1] == 'bz2':
+                    return 0
+                else:
+                    fullpath = os.path.abspath(str(f))
+                    log = LogData()
+                    log.source_full_path = fullpath
+                    self.data_set.data_set.append(log)
+            else: return 1
 
     # Parsing modules:
     def list_parsers(self, *args):

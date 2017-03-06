@@ -1,0 +1,10 @@
+Feb 27 21:30:46 shade gnome-shell[22595]: st_widget_get_theme_node called on the widget [0x18ef30a0 ShellGenericContainer "dash"] which is not in the stage.
+Feb 27 21:30:46 shade gnome-shell[22595]: st_widget_get_theme_node called on the widget [0x16899460 ShellGenericContainer "dash"] which is not in the stage.
+Feb 27 21:30:46 shade gnome-shell[22595]: st_widget_get_theme_node called on the widget [0x1c635c50 ShellGenericContainer "dash"] which is not in the stage.
+Feb 27 21:30:46 shade gnome-shell[22595]: st_widget_get_theme_node called on the widget [0x167935a0 ShellGenericContainer "dash"] which is not in the stage.
+Feb 27 21:30:46 shade gnome-shell[22595]: st_widget_get_theme_node called on the widget [0x1b356c50 ShellGenericContainer "dash"] which is not in the stage.
+Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0245 Gs  no app for changed user-theme@gnome-shell-extensions.gcampax.github.com
+Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0275 Gs  no app for changed places-menu@gnome-shell-extensions.gcampax.github.com
+Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0276 Gs  no app for changed alternate-tab@gnome-shell-extensions.gcampax.github.com
+Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0277 Gs  no app for changed nohotcorner@azuri.free.fr
+Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0304 Gs  no app for changed dash-to-dock@micxgx.gmail.com

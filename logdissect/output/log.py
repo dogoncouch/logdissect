@@ -32,6 +32,8 @@ class OutputModule(OurModule):
 
         options.add_option('--outlog', action='append', dest='outlog',
                 help='Sets the output file for standard log output')
+        options.add_option('--label', action='append', dest='label',
+                help='Sets label type for entries in OUTLOG <fname|fpath>')
 
     def write_output(self, options):
         if not options.outlog:
@@ -39,4 +41,13 @@ class OutputModule(OurModule):
         # To Do: This might be injectable:
         with open(str(options.outlog[0]), 'w') as output_file:
             for entry in self.data.entries:
-                output_file.write(entry.raw_text + '\n')
+                if options.label:
+                    if options.label[0] == 'fname':
+                        output_file.write('======== ' + \
+                                entry.source_full_path.split('/')[-1] + \
+                                ' >>>>\n' + entry.raw_text + '\n')
+                    elif options.label[0] == 'fpath':
+                        output_file.write('======== ' + \
+                                entry.source_full_path  + \
+                                ' >>>>\n' + entry.raw_text + '\n')
+                else: output_file.write(entry.raw_text + '\n')

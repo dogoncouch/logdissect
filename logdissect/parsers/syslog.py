@@ -76,6 +76,8 @@ class ParseModule(OurModule):
                 current_entry.date_stamp = date_stamp
                 current_entry.date_stamp_year = str(entry_year) \
                         + str(current_entry.date_stamp)
+                current_entry.source_full_path = \
+                        self.data.source_full_path
                 self.newdata.entries.append(current_entry)
                 current_entry = LogEntry()
         
