@@ -1,5 +1,3 @@
-.TH LICINS 1
-.SH NAME
 # logdissect
 logdissect is a tool for gaining insight into log files. It can merge more than one together and sort by timestamp, and filter the results by time range and other criteria. Files that end in .gz or .bz2 are ignored.
 
