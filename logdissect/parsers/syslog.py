@@ -29,6 +29,7 @@ from logdissect.data.data import LogData
 
 class ParseModule(OurModule):
     def __init__(self, options):
+        """Initialize the standard syslog parsing module"""
         self.name = 'syslog'
         self.desc = 'Syslog parsing module'
         self.data = LogData()

@@ -124,10 +124,10 @@ class LogDissectCore:
                 callback=self.list_outputs,
                 help=_("returns a list of available output formats"))
         # Input option:
-        self.option_parser.add_option("-i",
-                action="store",
-                dest="inputs_list",
-                help=_("specifies input files"))
+        # self.option_parser.add_option("-i",
+        #         action="store",
+        #         dest="inputs_list",
+        #         help=_("specifies input files"))
         # Module load options:
         self.option_parser.add_option("-p",
                 action="store",

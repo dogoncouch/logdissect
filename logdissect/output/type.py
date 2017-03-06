@@ -22,7 +22,7 @@
 
 class OutputModule:
     def __init__(self, options):
-        """Initialize a log parsing module"""
+        """Initialize an output module"""
         self.name = ""
         self.desc = ""
         self.output_path = ""

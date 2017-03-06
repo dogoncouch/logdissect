@@ -1,0 +1,13 @@
+Running testall.log
+Running with * input option
+Diff for teststar::
+Running testrange.log
+Diff for testrange:
+Running testnone.log
+Diff for testnone:
+Running testgrep.log
+Diff for testgrep:
+Running testfname.log
+Diff for testfname:
+Running testfpath.log
+Diffs should be the same, and there should be no errors.

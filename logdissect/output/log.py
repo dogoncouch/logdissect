@@ -25,6 +25,7 @@ from logdissect.data.data import LogData
 
 class OutputModule(OurModule):
     def __init__(self, options):
+        """Initialize the log file output module"""
         self.name = 'log'
         self.desc = 'Output module for standard log file'
         self.data = LogData()
@@ -36,6 +37,7 @@ class OutputModule(OurModule):
                 help='Sets label type for entries in OUTLOG <fname|fpath>')
 
     def write_output(self, options):
+        """Write log data to a log file"""
         if not options.outlog:
             return 0
         lastpath = ''
@@ -43,9 +45,10 @@ class OutputModule(OurModule):
         with open(str(options.outlog[0]), 'w') as output_file:
             for entry in self.data.entries:
                 if options.label:
-                    if entry.source_full_path == lastpath:
-                        output_file.write(entry.raw_text + '\n')
-                    elif options.label[0] == 'fname':
+                    # if entry.source_full_path == lastpath:
+                    #     output_file.write(entry.raw_text + '\n')
+                    # elif options.label[0] == 'fname':
+                    if options.label[0] == 'fname':
                         output_file.write('======== ' + \
                                 entry.source_full_path.split('/')[-1] + \
                                 ' >>>>\n' + entry.raw_text + '\n')

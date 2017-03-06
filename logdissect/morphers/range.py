@@ -26,7 +26,7 @@ from logdissect.data.data import LogData
 
 class MorphModule(OurModule):
     def __init__(self, options):
-        """Initialize a morphing module"""
+        """Initialize the range morphing module"""
         self.name = "range"
         self.desc = "Specifies timestamp range (YYYYMMDDhhmm-YYYYMMDDhhmm)"
         self.data = LogData()
@@ -36,11 +36,13 @@ class MorphModule(OurModule):
                 help='Specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>')
 
     def morph_data(self, options):
-        """Morphs log data in some way (single log)"""
+        """Morphs log data by timestamp range (single log)"""
         if not options.range:
+            self.newdata = self.data
             return 0
-        ourlimits = options.range[0].split('-')
-        for entry in self.data.entries:
-            if int(entry.date_stamp_year) >= int(ourlimits[0]): 
-                if int(entry.date_stamp_year) <= int(ourlimits[1]):
-                    self.newdata.entries.append(entry)
+        else:
+            ourlimits = options.range[0].split('-')
+            for entry in self.data.entries:
+                if int(entry.date_stamp_year) >= int(ourlimits[0]): 
+                    if int(entry.date_stamp_year) <= int(ourlimits[1]):
+                        self.newdata.entries.append(entry)

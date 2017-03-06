@@ -20,15 +20,30 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class MorphModule:
+import re
+from logdissect.morphers.type import MorphModule as OurModule
+from logdissect.data.data import LogEntry
+from logdissect.data.data import LogData
+
+class MorphModule(OurModule):
     def __init__(self, options):
-        """Initialize a morphing module"""
-        self.name = ""
-        self.desc = ""
+        """Initialize the grep morphing module"""
+        self.name = "grep"
+        self.desc = "Pattern search based on regular expressions"
         self.data = LogData()
         self.newdata = LogData()
-        pass
 
-    def morph_data(self):
-        """Morphs log data in some way (single log)"""
-        pass
+        options.add_option('--grep', action='append', dest='pattern',
+                help='Specifies the search pattern')
+
+    def morph_data(self, options):
+        """Morphs log data similar to grep (single log)"""
+        if not options.pattern:
+            self.newdata = self.data
+            return 0
+        else:
+            repattern = re.compile(r".*({}).*".format(options.pattern[0]))
+            # ourlimits = options.range[0].split('-')
+            for entry in self.data.entries:
+                if re.match(repattern, entry.raw_text):
+                    self.newdata.entries.append(entry)
