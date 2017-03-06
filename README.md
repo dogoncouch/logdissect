@@ -6,7 +6,7 @@ logdissect is a tool for gaining insight into log files. It can merge more than 
     cd logdissect
     sudo python setup.py install
 
-# USE WITHOUT INSTALLING
+# TRY WITHOUT INSTALLING
     git clone https://github.com/dogoncouch/logdissect.git
     cd logdissect
     ./logdissect.py [OPTIONS]
