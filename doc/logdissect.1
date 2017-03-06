@@ -1,37 +1,32 @@
 .TH LICINS 1
 .SH NAME
-# logdissect
-logdissect is a tool for gaining insight into log files. It can merge more than one together and sort by timestamp, and filter the results by time range and other criteria. Files that end in .gz or .bz2 are ignored.
+logdissect - Parse and merge log entries, and filter by date and other criteria.
 
-# INSTALLING
-    git clone https://github.com/dogoncouch/logdissect.git
-    cd logdissect
-    sudo python setup.py install
+.SH SYNOPSIS
+.B logdissect [-h] [--version] [--list-parsers] [--list-morphers] [--list-outputs] [-i <input1,input2,input3>] [-p <parser>] [--range=YYYYMMDDhhmm-YYYYMMDDhhmm] [--outlog=<outlog>] [--label=<fname|ftype]
 
-# USE WITHOUT INSTALLING
-    git clone https://github.com/dogoncouch/logdissect.git
-    cd logdissect
-    ./logdissect.py [OPTIONS]
+.SH DESCRIPTION
+\fBlogdissect\fP is a tool for gaining insight into log files. It can merge more than one together and sort by timestamp, and filter the results by time range and other criteria. Files that end in .gz or .bz2 are ignored.
 
-# OPTIONS
+.SH OPTIONS
 
-    --version          show program's version number and exit
-    -h, --help         show this help message and exit
-    --list-parsers     returns a list of available parsers
-    --list-morphers    returns a list of available morphers
-    --list-outputs     returns a list of available output formats
-    -i INPUTS_LIST     specifies input files
-    -p PARSER          specifies parser to use
+    \fB--version\fR          show program's version number and exit
+    \fB-h\fP, \fB--help\fR         show this help message and exit
+    \fB--list-parsers\fR     returns a list of available parsers
+    \fB--list-morphers\fR    returns a list of available morphers
+    \fB--list-outputs\fR     returns a list of available output formats
+    \fB-i \fIINPUTS_LIST\fR     specifies input files
+    \fB-p \fIPARSER\fR          specifies parser to use
 
   Morph options:
-    --range=RANGE    Specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
+    \fB--range\fP=\fIRANGE\fR    Specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
 
   Output options:
-    --outlog=OUTLOG  Sets the output file for standard log output
-    --label=LABEL    Sets label type for entries in OUTLOG <fname|fpath>
+    \fB--outlog\fP=\fIOUTLOG\fR  Sets the output file for standard log output
+    \fB--label\fP=\fILABEL\fR    Sets label type for entries in OUTLOG <fname|fpath>
 
 
-# EXAMPLES
+.SH EXAMPLES
     
     logdissect -i messages --outlog=mywindow --range=20170301070000-20170301100000
     
@@ -39,10 +34,14 @@ logdissect is a tool for gaining insight into log files. It can merge more than 
     
     logdissect -i /var/log/apache2/acces.log,/var/log/apache2/other_vhosts_access.log --outlog=myaccess.log --range=20170207040000-20170207050000 --label=fname
 
-# AUTHOR
+.SH FILES
+    /usr/share/doc/logdissect/README.md
+    /usr/share/doc/logdissect/LICENSE
+
+.SH AUTHOR
     Dan Persons (dpersonsdev@gmail.com)
 
-# COPYRIGHT
+.SH COPYRIGHT
 MIT License
 
 Copyright (c) 2017 Dan Persons

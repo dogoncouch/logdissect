@@ -33,7 +33,7 @@ class MorphModule(OurModule):
         self.newdata = LogData()
 
         options.add_option('--range', action='append', dest='range',
-                help='Specifies the range <YYMMDDhhmm-YYMMDDhhmm>')
+                help='Specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>')
 
     def morph_data(self, options):
         """Morphs log data in some way (single log)"""
