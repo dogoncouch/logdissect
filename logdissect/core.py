@@ -49,7 +49,7 @@ class LogDissectCore:
         self.data_set = LogDataSet()
         self.options = None
         self.option_parser = OptionParser(
-                usage = ("Usage: %prog [options]"),
+                usage = ("Usage: %prog [options] <files>"),
                 version = "%prog" + str(__version__))
         # self.input_options = OptionGroup(self.option_parser, \
         #         _("Input options"))
@@ -138,12 +138,14 @@ class LogDissectCore:
         # self.option_parser.add_option_group(self.parse_options)
         self.option_parser.add_option_group(self.morph_options)
         self.option_parser.add_option_group(self.output_options)
-        self.options, args = self.option_parser.parse_args(sys.argv[1:])
+        self.options, self.args = self.option_parser.parse_args(sys.argv[1:])
+        # self.options, args = self.option_parser.parse_args(sys.argv[1:])
 
     # Load input files:
     def load_inputs(self):
         """Load the specified inputs"""
-        for f in self.options.inputs_list.split(','):
+        for f in self.args:
+        # for f in self.options.inputs_list.split(','):
             if os.path.isfile(str(f)):
                 fparts = str(f).split('.')
                 if fparts[-1] == 'gz' or fparts[-1] == 'bz2':

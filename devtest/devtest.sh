@@ -23,24 +23,30 @@
 #_SOFTWARE.
 
 echo Running testall.log
-./logdissect.py -i devtests/exsyslog,devtests/exmeslog --outlog=devtest/testall.log --range=20160202020202-20170227213200
+./logdissect.py --outlog=devtest/testall.log --range=20160202020202-20170227213200 devtests/exsyslog,devtests/exmeslog
 
 echo Diff for testall:
 diff devtest/testall.log devtest/testallexlog
 
+echo Running with \* input option
+./logdissect.py --outlog=devtest/teststar.log --range=20160202020202-20170227213200 devtests/ex*
+
+echo Diff for testall.log and teststar.log:
+diff devtest/testall.log devtest/teststar.log
+
 echo Running testnone.log
-./logdissect.py -i devtests/exsyslog,devtests/exmeslog --outlog=devtest/testnone.log --range=20160202020202-20160227213200
+./logdissect.py --outlog=devtest/testnone.log --range=20160202020202-20160227213200 devtests/exsyslog,devtests/exmeslog
 
 echo Diff for testnone:
 diff devtest/testnone.log devtest/testnoneexlog
 
 echo Running testfname.log
-./logdissect.py -i devtests/exsyslog,devtests/exmeslog --outlog=devtest/testfname.log --label=fname --range=20160202020202-20170227213200
+./logdissect.py --outlog=devtest/testfname.log --label=fname --range=20160202020202-20170227213200 devtests/exsyslog,devtests/exmeslog
 
 echo Diff for testfname:
 diff devtest/testfname.log devtest/testfnameexlog
 
 echo Running testfpath.log
-./logdissect.py -i devtests/exsyslog,devtests/exmeslog --outlog=devtest/testfpath.log --label=fpath --range=20160202020202-20170227213200
+./logdissect.py --outlog=devtest/testfpath.log --label=fpath --range=20160202020202-20170227213200 devtests/exsyslog,devtests/exmeslog
 
 echo Diffs should be the same, and there should be no errors.

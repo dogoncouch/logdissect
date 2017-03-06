@@ -3,7 +3,7 @@
 logdissect - Parse and merge log entries, and filter by date and other criteria.
 
 .SH SYNOPSIS
-.B logdissect [-h] [--version] [--list-parsers] [--list-morphers] [--list-outputs] [-i <input1,input2,input3>] [-p <parser>] [--range=YYYYMMDDhhmm-YYYYMMDDhhmm] [--outlog=<outlog>] [--label=<fname|ftype]
+.B logdissect [-h] [--version] [--list-parsers] [--list-morphers] [--list-outputs] [-p <parser>] [--range=YYYYMMDDhhmm-YYYYMMDDhhmm] [--outlog=<outlog>] [--label=<fname|ftype] <logfile> [<logfile2>] [<logfile3>] ...
 
 .SH DESCRIPTION
 \fBlogdissect\fP is a tool for gaining insight into log files. It can merge more than one together and sort by timestamp, and filter the results by time range and other criteria. Files that end in .gz or .bz2 are ignored.
@@ -19,20 +19,20 @@ logdissect - Parse and merge log entries, and filter by date and other criteria.
     \fB-p \fIPARSER\fR          specifies parser to use
 
   Morph options:
-    \fB--range\fP=\fIRANGE\fR    Specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
+    \fB--range\fP=\fIRANGE\fR      Specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
 
   Output options:
-    \fB--outlog\fP=\fIOUTLOG\fR  Sets the output file for standard log output
-    \fB--label\fP=\fILABEL\fR    Sets label type for entries in OUTLOG <fname|fpath>
+    \fB--outlog\fP=\fIOUTLOG\fR    Sets the output file for standard log output
+    \fB--label\fP=\fILABEL\fR      Sets label type for entries in OUTLOG <fname|fpath>
 
 
 .SH EXAMPLES
     
-    logdissect -i messages --outlog=mywindow --range=20170301070000-20170301100000
+    logdissect --outlog=mywindow --range=20170301070000-20170301100000 messages
     
-    logdissect -i messages,debug,apache2/error.log --outlog=mylog.log --range=20160202020202-20170227213200 --label=fpath
+    logdissect --outlog=mylog.log --range=20160202020202-20170227213200 --label=fpath messages,debug,apache2/error.log
     
-    logdissect -i /var/log/apache2/acces.log,/var/log/apache2/other_vhosts_access.log --outlog=myaccess.log --range=20170207040000-20170207050000 --label=fname
+    logdissect --outlog=myaccess.log --range=20170207040000-20170207050000 --label=fname /var/log/apache2/acces.log,/var/log/apache2/other_vhosts_access.log
 
 .SH FILES
     /usr/share/doc/logdissect/README.md
