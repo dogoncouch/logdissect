@@ -22,6 +22,9 @@
 #_OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #_SOFTWARE.
 
+# NOTE: This script runs the dev testing suite located in devtest/
+# Run it after changes to make sure everything still works.
+
 echo Running diff tests
 devtests/difftests.sh > devtests/files/diffresults.log
 

@@ -123,11 +123,6 @@ class LogDissectCore:
                 action="callback",
                 callback=self.list_outputs,
                 help=_("returns a list of available output formats"))
-        # Input option:
-        # self.option_parser.add_option("-i",
-        #         action="store",
-        #         dest="inputs_list",
-        #         help=_("specifies input files"))
         # Module load options:
         self.option_parser.add_option("-p",
                 action="store",
@@ -145,7 +140,6 @@ class LogDissectCore:
     def load_inputs(self):
         """Load the specified inputs"""
         for f in self.args:
-        # for f in self.options.inputs_list.split(','):
             if os.path.isfile(str(f)):
                 fparts = str(f).split('.')
                 if fparts[-1] == 'gz' or fparts[-1] == 'bz2':

@@ -43,7 +43,6 @@ class MorphModule(OurModule):
             return 0
         else:
             repattern = re.compile(r".*({}).*".format(options.pattern[0]))
-            # ourlimits = options.range[0].split('-')
             for entry in self.data.entries:
                 if re.match(repattern, entry.raw_text):
                     self.newdata.entries.append(entry)
