@@ -23,6 +23,7 @@ logdissect is a tool for gaining insight into log files. It can merge more than 
     -p PARSER           specifies parser to use
 
     Morph options:
+    --grep=PATTERN      Specifies a regex pattern to match
     --range=RANGE       Specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
 
     Output options:
@@ -32,11 +33,11 @@ logdissect is a tool for gaining insight into log files. It can merge more than 
 
 # EXAMPLES
     
-    logdissect --outlog=mywindow --range=20170301070000-20170301100000 messages
+    logdissect --outlog=mywindow --range=20170301070000-20170301070500 *
     
-    logdissect --outlog=mylog.log --range=20160202020202-20170227213200 --label=fpath messages,debug,apache2/error.log
+    logdissect --outlog=mylog.log --range=20160202020202-20170227213200 --label=fpath messages debug apache2/error.log
     
-    logdissect --outlog=myaccess.log --range=20170207040000-20170207050000 --label=fname /var/log/apache2/acces.log,/var/log/apache2/other_vhosts_access.log
+    logdissect --outlog=myaccess.log --grep=192.168 --label=fname /var/log/apache2/acces.log /var/log/apache2/other_vhosts_access.log
 
 # AUTHOR
     Dan Persons (dpersonsdev@gmail.com)

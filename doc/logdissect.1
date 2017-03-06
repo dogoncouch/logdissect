@@ -3,7 +3,7 @@
 logdissect - Parse and merge log entries, and filter by date and other criteria.
 
 .SH SYNOPSIS
-.B logdissect [-h] [--version] [--list-parsers] [--list-morphers] [--list-outputs] [-p <parser>] [--range=YYYYMMDDhhmm-YYYYMMDDhhmm] [--outlog=<outlog>] [--label=<fname|ftype] <logfile> [<logfile2>] [<logfile3>] ...
+.B logdissect [-h] [--version] [--list-parsers] [--list-morphers] [--list-outputs] [-p <parser>] [--range=YYYYMMDDhhmm-YYYYMMDDhhmm] [--grep=PATTERN] [--outlog=<outlog>] [--label=<fname|ftype] <logfile> [<logfile2>] [<logfile3>] ...
 
 .SH DESCRIPTION
 \fBlogdissect\fP is a tool for gaining insight into log files. It can merge more than one together and sort by timestamp, and filter the results by time range and other criteria. Files that end in .gz or .bz2 are ignored.
@@ -18,11 +18,12 @@ logdissect - Parse and merge log entries, and filter by date and other criteria.
     \fB-p \fIPARSER\fR          specifies parser to use
 
   Morph options:
-    \fB--range\fP=\fIRANGE\fR      Specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
+    \fB--grep\fP=\fIPATTERN\fR      Specifies a regex pattern to match
+    \fB--range\fP=\fIRANGE\fR       Specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
 
   Output options:
-    \fB--outlog\fP=\fIOUTLOG\fR    Sets the output file for standard log output
-    \fB--label\fP=\fILABEL\fR      Sets label type for entries in OUTLOG <fname|fpath>
+    \fB--outlog\fP=\fIOUTLOG\fR     Sets the output file for standard log output
+    \fB--label\fP=\fILABEL\fR       Sets label type for entries in OUTLOG <fname|fpath>
 
 
 .SH EXAMPLES
