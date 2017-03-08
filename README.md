@@ -13,7 +13,7 @@ logdissect is a tool for gaining insight into syslog files. It can merge multipl
 
 # OPTIONS
 
-    Usage: logdissect.py [options] <files>
+    Usage: logdissect [options] <files>
 
     --version           show program's version number and exit
     -h, --help          show this help message and exit
