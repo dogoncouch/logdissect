@@ -37,7 +37,7 @@ logdissect is a tool for gaining insight into syslog files. It can merge multipl
     
     logdissect --outlog=mylog.log --range=20160202020202-20170227213200 --label=fpath messages debug apache2/error.log
     
-    logdissect --outlog=myaccess.log --grep=192.168 --label=fname /var/log/apache2/acces.log /var/log/apache2/other_vhosts_access.log
+    logdissect --outlog=myaccess.log --grep=192.168 --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
 
 # AUTHOR
     Dan Persons (dpersonsdev@gmail.com)

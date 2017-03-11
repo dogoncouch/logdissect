@@ -50,7 +50,7 @@ class LogDissectCore:
         self.options = None
         self.option_parser = OptionParser(
                 usage = ("Usage: %prog [options] <files>"),
-                version = "%prog" + str(__version__))
+                version = "%prog" + '-' + str(__version__))
         # self.input_options = OptionGroup(self.option_parser, \
         #         _("Input options"))
         self.parse_options = OptionGroup(self.option_parser, \

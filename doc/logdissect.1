@@ -23,16 +23,16 @@ logdissect - Parse and merge log entries, and filter by date and other criteria.
 
   Output options:
     \fB--outlog\fP=\fIOUTLOG\fR     Sets the output file for standard log output
-    \fB--label\fP=\fILABEL\fR       Sets label type for entries in OUTLOG <fname|fpath>
+    \fB--label\fP=\fILABEL\fR       Sets label type for OUTLOG <fname|fpath>
 
 
 .SH EXAMPLES
     
     logdissect --outlog=mywindow --range=20170301070000-20170301100000 *
     
-    logdissect --outlog=mylog.log --range=20160202020202-20170227213200 --label=fpath messages,debug,apache2/error.log
+    logdissect --outlog=mylog.log --range=20160202020202-20170227213200 --label=fpath messages debug apache2/error.log
     
-    logdissect --outlog=myaccess.log --range=20170207040000-20170207050000 --label=fname /var/log/apache2/acces.log,/var/log/apache2/other_vhosts_access.log
+    logdissect --outlog=myaccess.log --range=20170207040000-20170207050000 --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
 
 .SH FILES
     /usr/share/doc/logdissect/README.md
