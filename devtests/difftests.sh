@@ -31,31 +31,30 @@ echo Running with \* input option
 ./logdissect.py --outlog=devtests/files/teststar.log devtests/files/ex*
 
 echo Diff for teststar::
-diff devtests/files/teststar.log devtests/files/teststarexlog
-
+diff devtests/files/teststarexlog devtests/files/teststar.log 
 echo Running testrange.log
 ./logdissect.py --outlog=devtests/files/testrange.log --range=20160202020202-20170227213200 devtests/files/exsyslog devtests/files/exmeslog
 
 echo Diff for testrange:
-diff devtests/files/testrange.log devtests/files/testrangeexlog
+diff devtests/files/testrangeexlog devtests/files/testrange.log
 
 echo Running testnone.log
 ./logdissect.py --outlog=devtests/files/testnone.log --range=20160202020202-20160227213200 devtests/files/exsyslog devtests/files/exmeslog
 
 echo Diff for testnone:
-diff devtests/files/testnone.log devtests/files/testnoneexlog
+diff devtests/files/testnoneexlog devtests/files/testnone.log
 
 echo Running testgrep.log
 ./logdissect.py --outlog=devtests/files/testgrep.log --grep=software devtests/files/exsyslog devtests/files/exmeslog
 
 echo Diff for testgrep:
-diff devtests/files/testgrep.log devtests/files/testgrepexlog
+diff devtests/files/testgrepexlog devtests/files/testgrep.log
 
 echo Running testfname.log
 ./logdissect.py --outlog=devtests/files/testfname.log --label=fname devtests/files/exsyslog devtests/files/exmeslog
 
 echo Diff for testfname:
-diff devtests/files/testfname.log devtests/files/testfnameexlog
+diff devtests/files/testfnameexlog devtests/files/testfname.log
 
 echo Running testfpath.log
 ./logdissect.py --outlog=devtests/files/testfpath.log --label=fpath devtests/files/exsyslog devtests/files/exmeslog

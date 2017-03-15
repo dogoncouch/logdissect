@@ -19,3 +19,5 @@ Feb 27 21:30:52 shade dbus-daemon[22491]: Activating via systemd: service name='
 Feb 27 21:30:52 shade systemd[22475]: Starting GNOME Terminal Server...
 Feb 27 21:30:52 shade dbus-daemon[22491]: Successfully activated service 'org.gnome.Terminal'
 Feb 27 21:30:52 shade systemd[22475]: Started GNOME Terminal Server.
+Feb 27 21:34:57 shade tracker-extract[22716]: unable to create file '/run/user/1000/dconf/user': Permission denied.  dconf will not work properly.
+Feb 27 21:35:01 shade CRON[5030]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
