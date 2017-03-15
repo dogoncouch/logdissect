@@ -37,7 +37,7 @@ echo Running testrange.log
 ./logdissect.py --outlog=devtests/files/testrange.log --range=20160202020202-20170227213200 devtests/files/exsyslog devtests/files/exmeslog
 
 echo Diff for testrange:
-diff devtests/files/testall.log devtests/files/testallexlog
+diff devtests/files/testrange.log devtests/files/testrangeexlog
 
 echo Running testnone.log
 ./logdissect.py --outlog=devtests/files/testnone.log --range=20160202020202-20160227213200 devtests/files/exsyslog devtests/files/exmeslog
@@ -52,12 +52,12 @@ echo Diff for testgrep:
 diff devtests/files/testgrep.log devtests/files/testgrepexlog
 
 echo Running testfname.log
-./logdissect.py --outlog=devtests/files/testfname.log --label=fname --range=20160202020202-20170227213200 devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py --outlog=devtests/files/testfname.log --label=fname devtests/files/exsyslog devtests/files/exmeslog
 
 echo Diff for testfname:
 diff devtests/files/testfname.log devtests/files/testfnameexlog
 
 echo Running testfpath.log
-./logdissect.py --outlog=devtests/files/testfpath.log --label=fpath --range=20160202020202-20170227213200 devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py --outlog=devtests/files/testfpath.log --label=fpath devtests/files/exsyslog devtests/files/exmeslog
 
 echo Diffs should be the same, and there should be no errors.

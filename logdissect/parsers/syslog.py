@@ -38,7 +38,8 @@ class ParseModule(OurModule):
                 re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2}:\d{2}:\d{2})")
 
     def parse_log(self, data):
-        newdata = LogData()
+        newdata = data
+        newdata.entries = []
 	current_entry = LogEntry()
         data.source_file_mtime = \
                 os.path.getmtime(data.source_full_path)

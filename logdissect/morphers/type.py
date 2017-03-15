@@ -29,6 +29,6 @@ class MorphModule:
         # self.newdata = LogData()
         pass
 
-    def morph_data(self):
+    def morph_data(self, options):
         """Morphs log data in some way (single log)"""
         pass

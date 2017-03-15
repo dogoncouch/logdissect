@@ -41,7 +41,8 @@ class MorphModule(OurModule):
             return data
         else:
             ourlimits = options.range[0].split('-')
-            newdata = LogData()
+            newdata = data
+            newdata.entries = []
             for entry in data.entries:
                 if int(entry.date_stamp_year) >= int(ourlimits[0]): 
                     if int(entry.date_stamp_year) <= int(ourlimits[1]):

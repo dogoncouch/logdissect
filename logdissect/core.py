@@ -99,16 +99,24 @@ class LogDissectCore:
             ourmorph = self.morph_modules[m]
             ourlog = ourmorph.morph_data(self.data_set.finalized_data,
                     self.options)
+            self.data_set.finalized_data = ourlog
+            # self.data_set.finalized_data = \
+            #         ourmorph.morph_data(self.data_set.finalized_data,
+            #                 self.options)
+            # ourlog = ourmorph.morph_data(self.data_set.finalized_data,
+            #         self.options)
             # ourmorph.data = ourlog
             # ourmorph.morph_data(self.options)
             # ourlog = ourmorph.newdata
-        self.data_set.finalized_data = ourlog
+            
+            # self.data_set.finalized_data = ourlog
 
     def run_output(self):
         """Output finalized data"""
         for f in logdissect.output.__formats__:
             ouroutput = self.output_modules[f]
-            ouroutput.write_output(self.data_set.finalized_data, self.options)
+            ouroutput.write_output(self.data_set.finalized_data,
+                    self.options)
             # ouroutput.data = self.data_set.finalized_data
             # ouroutput.write_output(self.options)
 
