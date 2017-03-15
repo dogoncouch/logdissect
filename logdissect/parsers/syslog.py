@@ -32,25 +32,25 @@ class ParseModule(OurModule):
         """Initialize the standard syslog parsing module"""
         self.name = 'syslog'
         self.desc = 'Syslog parsing module'
-        self.data = LogData()
-        self.newdata = LogData()
+        # self.data = LogData()
+        # self.newdata = LogData()
         self.date_format = \
                 re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2}:\d{2}:\d{2})")
 
-    def parse_log(self):
-        self.newdata = LogData()
+    def parse_log(self, data):
+        newdata = LogData()
 	current_entry = LogEntry()
-        self.data.source_file_mtime = \
-                os.path.getmtime(self.data.source_full_path)
+        data.source_file_mtime = \
+                os.path.getmtime(data.source_full_path)
         timestamp = \
-                datetime.datetime.fromtimestamp(self.data.source_file_mtime)
-        self.data.source_file_year = timestamp.year
+                datetime.datetime.fromtimestamp(data.source_file_mtime)
+        data.source_file_year = timestamp.year
         entry_year = timestamp.year
         recent_date_stamp = '9999999999'
         # To Do: add some detection to fill in LogData class vars
-        self.data.source_file = self.data.source_full_path.split('/')[-1]
+        data.source_file = data.source_full_path.split('/')[-1]
         # Get our lines:
-        with open(str(self.data.source_full_path), 'r') as logfile:
+        with open(str(data.source_full_path), 'r') as logfile:
             loglines = reversed(logfile.readlines())
         # Parse our lines:
         for line in loglines:
@@ -78,9 +78,10 @@ class ParseModule(OurModule):
                 current_entry.date_stamp_year = str(entry_year) \
                         + str(current_entry.date_stamp)
                 current_entry.source_full_path = \
-                        self.data.source_full_path
-                self.newdata.entries.append(current_entry)
+                        data.source_full_path
+                newdata.entries.append(current_entry)
                 current_entry = LogEntry()
         
         # Write the entries to the log object
-        self.newdata.entries.reverse()
+        newdata.entries.reverse()
+        return newdata

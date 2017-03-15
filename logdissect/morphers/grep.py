@@ -30,19 +30,20 @@ class MorphModule(OurModule):
         """Initialize the grep morphing module"""
         self.name = "grep"
         self.desc = "Pattern search based on regular expressions"
-        self.data = LogData()
-        self.newdata = LogData()
+        # self.data = LogData()
+        # self.newdata = LogData()
 
         options.add_option('--grep', action='append', dest='pattern',
                 help='Specifies a regex pattern to match')
 
-    def morph_data(self, options):
+    def morph_data(self, data, options):
         """Morphs log data similar to grep (single log)"""
         if not options.pattern:
-            self.newdata = self.data
-            return 0
+            return data
         else:
             repattern = re.compile(r".*({}).*".format(options.pattern[0]))
-            for entry in self.data.entries:
+            newdata = LogData()
+            for entry in data.entries:
                 if re.match(repattern, entry.raw_text):
-                    self.newdata.entries.append(entry)
+                    newdata.entries.append(entry)
+            return newdata

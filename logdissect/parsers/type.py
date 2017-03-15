@@ -25,7 +25,7 @@ class ParseModule:
         """Initialize a log parsing module"""
         self.name = ""
         self.desc = ""
-        self.data = LogData()
+        # self.data = LogData()
         self.date_format = ""
         pass
 

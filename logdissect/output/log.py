@@ -28,7 +28,7 @@ class OutputModule(OurModule):
         """Initialize the log file output module"""
         self.name = 'log'
         self.desc = 'Output module for standard log file'
-        self.data = LogData()
+        # self.data = LogData()
         self.output_path = ''
 
         options.add_option('--outlog', action='append', dest='outlog',
@@ -36,14 +36,14 @@ class OutputModule(OurModule):
         options.add_option('--label', action='append', dest='label',
                 help='Sets label type for entries in OUTLOG <fname|fpath>')
 
-    def write_output(self, options):
+    def write_output(self, data, options):
         """Write log data to a log file"""
         if not options.outlog:
             return 0
         lastpath = ''
         # To Do: This might be injectable:
         with open(str(options.outlog[0]), 'w') as output_file:
-            for entry in self.data.entries:
+            for entry in data.entries:
                 if options.label:
                     if entry.source_full_path == lastpath:
                         output_file.write(entry.raw_text + '\n')
