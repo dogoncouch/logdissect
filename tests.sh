@@ -25,10 +25,13 @@
 # NOTE: This script runs the dev testing suite located in devtest/
 # Run it after changes to make sure everything still works.
 
-echo Running diff tests
-devtests/difftests.sh > devtests/files/diffresults.log
+echo Running diff tests for time
+time devtests/difftests.sh > devtests/files/diffresults.log
 
 echo Diff for diff tests:
 diff devtests/files/diffresults.log devtests/files/diffexresults
 
-echo If there were no errors or diff results, all is probably well.
+echo
+echo - There should be no errors.
+echo - Times should be under 0.200s.
+echo - Diff results should be empty.
