@@ -42,8 +42,8 @@ class MorphModule(OurModule):
             return data
         else:
             repattern = re.compile(r".*({}).*".format(options.pattern[0]))
-            newdata = data
-            newdata.entries = []
+            newdata = LogData()
+            # newdata.entries = []
             for entry in data.entries:
                 if re.match(repattern, entry.raw_text):
                     newdata.entries.append(entry)
