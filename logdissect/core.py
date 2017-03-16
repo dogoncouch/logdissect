@@ -126,20 +126,20 @@ class LogDissectCore:
         self.option_parser.add_option("--list-parsers",
                 action="callback",
                 callback=self.list_parsers,
-                help=_("Returns a list of available parsers"))
+                help=_("returns a list of available parsers"))
         self.option_parser.add_option("--list-morphers",
                 action="callback",
                 callback=self.list_morphers,
-                help=_("Returns a list of available morphers"))
+                help=_("returns a list of available morphers"))
         self.option_parser.add_option("--list-outputs",
                 action="callback",
                 callback=self.list_outputs,
-                help=_("Returns a list of available output formats"))
+                help=_("returns a list of available output formats"))
         # Module load options:
         self.option_parser.add_option("-p",
                 action="store",
                 dest="parser", default="syslog",
-                help=_("Specifies parser to use (default: syslog)"))
+                help=_("specifies parser to use (default: syslog)"))
         
         # self.option_parser.add_option_group(self.input_options)
         # self.option_parser.add_option_group(self.parse_options)

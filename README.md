@@ -23,12 +23,12 @@ logdissect is a tool for gaining insight into syslog files. It can merge multipl
     -p PARSER           specifies parser to use (default: syslog)
 
     Morph options:
-    --grep=PATTERN      Specifies a pattern to match
-    --range=RANGE       Specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
+    --grep=PATTERN      specifies a pattern to match
+    --range=RANGE       specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
 
     Output options:
-    --outlog=OUTLOG     Sets the output file for standard log output
-    --label=LABEL       Sets label type for entries in OUTLOG <fname|fpath>
+    --outlog=OUTLOG     sets the output file for standard log output
+    --label=LABEL       sets label type for entries in OUTLOG <fname|fpath>
 
 
 # EXAMPLES
