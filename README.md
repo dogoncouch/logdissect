@@ -3,6 +3,7 @@ logdissect is a tool for gaining insight into syslog files. It can merge multipl
 
 # INSTALLING
 Requirements: git, python-setuptools  
+
     git clone https://github.com/dogoncouch/logdissect.git
     cd logdissect
     sudo python setup.py install
