@@ -20,10 +20,10 @@ logdissect is a tool for gaining insight into syslog files. It can merge multipl
     --list-parsers      returns a list of available parsers
     --list-morphers     returns a list of available morphers
     --list-outputs      returns a list of available output formats
-    -p PARSER           specifies parser to use
+    -p PARSER           specifies parser to use (default: syslog)
 
     Morph options:
-    --grep=PATTERN      Specifies a regex pattern to match
+    --grep=PATTERN      Specifies a pattern to match
     --range=RANGE       Specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
 
     Output options:

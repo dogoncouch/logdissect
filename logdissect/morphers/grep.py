@@ -34,7 +34,7 @@ class MorphModule(OurModule):
         # self.newdata = LogData()
 
         options.add_option('--grep', action='append', dest='pattern',
-                help='Specifies a regex pattern to match')
+                help='Specifies a pattern to match')
 
     def morph_data(self, data, options):
         """Morphs log data similar to grep (single log)"""
