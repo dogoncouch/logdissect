@@ -49,4 +49,3 @@ class LogDataSet:
         # To Do: set creation date to runtime
         self.creation_date = None
     
-    # To Do: Think about moving merge function back here.

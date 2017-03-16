@@ -80,9 +80,6 @@ class LogDissectCore:
         for l in self.data_set.data_set:
             parsemodule = self.parse_modules[self.options.parser]
             parsedset.data_set.append(parsemodule.parse_log(l))
-            # parsemodule.data = l
-            # parsemodule.parse_log()
-            # parsedset.data_set.append(parsemodule.newdata)
         self.data_set = parsedset
 
     def run_merge(self):
@@ -94,22 +91,11 @@ class LogDissectCore:
         self.data_set.finalized_data = ourlog
 
     def run_morph(self):
-        # ourlog = self.data_set.finalized_data
         for m in self.morph_modules:
             ourmorph = self.morph_modules[m]
             ourlog = ourmorph.morph_data(self.data_set.finalized_data,
                     self.options)
             self.data_set.finalized_data = ourlog
-            # self.data_set.finalized_data = \
-            #         ourmorph.morph_data(self.data_set.finalized_data,
-            #                 self.options)
-            # ourlog = ourmorph.morph_data(self.data_set.finalized_data,
-            #         self.options)
-            # ourmorph.data = ourlog
-            # ourmorph.morph_data(self.options)
-            # ourlog = ourmorph.newdata
-            
-            # self.data_set.finalized_data = ourlog
 
     def run_output(self):
         """Output finalized data"""
@@ -117,8 +103,6 @@ class LogDissectCore:
             ouroutput = self.output_modules[f]
             ouroutput.write_output(self.data_set.finalized_data,
                     self.options)
-            # ouroutput.data = self.data_set.finalized_data
-            # ouroutput.write_output(self.options)
 
     def config_options(self):
         """Set config options"""

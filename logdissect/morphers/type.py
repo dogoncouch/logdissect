@@ -25,8 +25,6 @@ class MorphModule:
         """Initialize a morphing module"""
         self.name = ""
         self.desc = ""
-        # self.data = LogData()
-        # self.newdata = LogData()
         pass
 
     def morph_data(self, options):

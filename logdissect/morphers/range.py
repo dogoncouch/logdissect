@@ -29,8 +29,6 @@ class MorphModule(OurModule):
         """Initialize the range morphing module"""
         self.name = "range"
         self.desc = "Specifies timestamp range (YYYYMMDDhhmm-YYYYMMDDhhmm)"
-        # self.data = LogData()
-        # self.newdata = LogData()
 
         options.add_option('--range', action='append', dest='range',
                 help='specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>')
@@ -42,8 +40,6 @@ class MorphModule(OurModule):
         else:
             ourlimits = options.range[0].split('-')
             newdata = LogData()
-            # newdata = data
-            # newdata.entries = []
             for entry in data.entries:
                 if int(entry.date_stamp_year) >= int(ourlimits[0]): 
                     if int(entry.date_stamp_year) <= int(ourlimits[1]):
