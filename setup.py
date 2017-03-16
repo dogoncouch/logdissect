@@ -37,7 +37,7 @@ setup(name = 'logdissect', version = str(__version__),
         entry_points = \
                 { 'console_scripts': [ 'logdissect = logdissect.core:main' ]},
         data_files = ourdata,
-        classifiers = ["Development Status :: 3 :: Alpha",
+        classifiers = ["Development Status :: 4 :: Beta",
             "Environment :: Console",
             "Intended Audience :: System Administrators",
             "License :: OSI Approved :: MIT License",
