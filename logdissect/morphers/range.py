@@ -41,7 +41,9 @@ class MorphModule(OurModule):
             ourlimits = options.range[0].split('-')
             newdata = LogData()
             for entry in data.entries:
-                if int(entry.date_stamp_year) >= int(ourlimits[0]): 
-                    if int(entry.date_stamp_year) <= int(ourlimits[1]):
+                if int(entry.date_stamp_year) >= \
+                        int(ourlimits[0].ljust(14, '0')): 
+                    if int(entry.date_stamp_year) <= \
+                            int(ourlimits[1].ljust(14, '0')):
                         newdata.entries.append(entry)
             return newdata

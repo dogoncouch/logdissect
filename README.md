@@ -2,16 +2,7 @@
 logdissect is a tool for gaining insight into syslog files. It can merge multiple log files together and sort by timestamp, and filter the results by time range and other criteria. Files that end in .gz or .bz2 are ignored.
 
 # INSTALLING
-Requirements: git, python-setuptools  
-
-    git clone https://github.com/dogoncouch/logdissect.git
-    cd logdissect
-    sudo python setup.py install
-
-# TRY WITHOUT INSTALLING
-    git clone https://github.com/dogoncouch/logdissect.git
-    cd logdissect
-    ./logdissect.py [OPTIONS] <files>
+See latest instructions on the [releases page](https://github.com/logdissect/releases).
 
 # OPTIONS
 
@@ -42,7 +33,9 @@ Requirements: git, python-setuptools
     logdissect --outlog=myaccess.log --grep=192.168 --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
 
 # Tips
-logdissect uses file modification times to assign years to syslog date stamps. This allows it to parse logs that span more than one year without a problem. If you are copying log files, always use `` cp -r `` and `` scp -r `` to preserve original mtimes and other file metadata.
+1. metadata: logdissect uses file modification times to assign years to syslog date stamps. This allows it to parse logs that span more than one year without a problem. If you are copying log files, always use `` cp -r `` and `` scp -r `` to preserve original mtimes and other file metadata.
+
+2. --range shortcuts: The range module will fill in your ranges with zeroes if they are shorter than 14 characters. If you want to get a range of 20170204120000 to 20170204120000, you can save time and use 2017020412 and 2017020413.
 
 # AUTHOR
     Dan Persons (dpersonsdev@gmail.com)
