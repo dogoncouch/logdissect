@@ -3,7 +3,7 @@
 logdissect - Parse and merge log entries, and filter by date and other criteria.
 
 .SH SYNOPSIS
-.B logdissect [-h] [--version] [--list-parsers] [--list-morphers] [--list-outputs] [-p <parser>] [--range=YYYYMMDDhhmm-YYYYMMDDhhmm] [--grep=PATTERN] [--outlog=<outlog>] [--label=<fname|ftype] <logfile> [<logfile2>] [<logfile3>] ...
+\fBlogdissect\fR [\fB-h\fR] [\fB--version\fR] [\fB--list-parsers\fR] [\fB--list-morphers\fR] [\fB--list-outputs\fR] [\fB-p \fI<parser>\fR] [\fB--range=\fI<YYYYMMDDhhmm-YYYYMMDDhhmm>\fR] [\fB--grep=\fI<pattern>\fR] [\fB--outlog=\fI<outlog>\fR] [\fB--label=\fI<fname|ftype>\fR] \fI<logfile>\fR [\fI<logfile2>\fR] [\fI<logfile3>\fR] ...
 
 .SH DESCRIPTION
 \fBlogdissect\fP is a tool for gaining insight into syslog files. It can merge multiple log files together together and sort by timestamp, and filter the results by time range and other criteria. Files that end in .gz or .bz2 are ignored.
@@ -35,7 +35,7 @@ logdissect - Parse and merge log entries, and filter by date and other criteria.
     logdissect --outlog=myaccess.log --range=20170207040000-20170207050000 --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
 
 .SH TIPS
-1. metadata: \fBlogdissect\fP uses file modification times to assign years to syslog date stamps. This allows it to parse logs that span more than one year without a problem. If you are copying log files, always use 'cp -r' and 'scp -r' to preserve original mtimes and other file metadata.
+1. metadata: logdissect uses file modification times to assign years to syslog date stamps. This allows it to parse logs that span more than one year without a problem. If you are copying log files, always use 'cp -r' and 'scp -r' to preserve original mtimes and other file metadata.
 
 2. --range shortcuts: The range module will fill in your ranges with zeroes if they are shorter than 14 characters. If you want to get a range of 20170204120000 to 20170204130000, you can save time and use 2017020412 and 2017020413.
 
