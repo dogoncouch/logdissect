@@ -34,6 +34,9 @@ logdissect - Parse and merge log entries, and filter by date and other criteria.
     
     logdissect --outlog=myaccess.log --range=20170207040000-20170207050000 --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
 
+.SH TIPS
+\fBlogdissect\fP uses file modification times to assign years to syslog date stamps. This allows it to parse logs that span more than one year without a problem. If you are copying log files, always use 'cp -r' and 'scp -r' to preserve original mtimes and other file metadata.
+
 .SH FILES
     /usr/share/doc/logdissect/README.md
     /usr/share/doc/logdissect/LICENSE

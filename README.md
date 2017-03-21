@@ -41,6 +41,9 @@ Requirements: git, python-setuptools
     
     logdissect --outlog=myaccess.log --grep=192.168 --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
 
+# Tips
+logdissect uses file modification times to assign years to syslog date stamps. This allows it to parse logs that span more than one year without a problem. If you are copying log files, always use `` cp -r `` and `` scp -r `` to preserve original mtimes and other file metadata.
+
 # AUTHOR
     Dan Persons (dpersonsdev@gmail.com)
 
