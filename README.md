@@ -2,7 +2,7 @@
 logdissect is a tool for gaining insight into syslog files. It can merge multiple log files together and sort by timestamp, and filter the results by time range and other criteria. Files that end in .gz or .bz2 are ignored.
 
 # INSTALLING
-See latest instructions on the [releases page](https://github.com/logdissect/releases).
+See the latest instructions on the [releases page](https://github.com/logdissect/releases).
 
 # OPTIONS
 
