@@ -1,11 +1,12 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
-## [Unreleased]
+## [1.1] - 2017-03-26
 ### Added
 - 'last' morpher
 - Terminal output by default
 - Silent and verbose options
+- source_host and source_process attributes in LogEntry object
 
 ## [1.0] - 2017-03-21
 - First stable release
