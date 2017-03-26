@@ -1,0 +1,11 @@
+# Change log
+Change log for [logdissect](https://github.com/dogoncouch/logdissect)
+
+## [Unreleased]
+### Added
+- 'last' morpher
+- Terminal output by default
+- Silent and verbose options
+
+## [1.0] - 2017-03-21
+- First stable release

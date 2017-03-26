@@ -34,12 +34,10 @@ class LogData:
         """Initialize parsing for a log file"""
         self.lines = []
         self.entries = []
-        self.parser = ""
         self.source_full_path = ""
         self.source_file = ""
         self.source_file_mtime = None
         self.parser = 'syslog' # To Do
-        self.abcdetc_name = "" # To Do
         
 class LogDataSet:
     def __init__(self):

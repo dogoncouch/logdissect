@@ -36,7 +36,9 @@ from logdissect import __version__
 from optparse import OptionParser
 from optparse import OptionGroup
 import gettext
-gettext.install('licins')
+gettext.install('logdissect')
+
+# To Do: enable delete statements
 
 class LogDissectCore:
 
@@ -47,6 +49,8 @@ class LogDissectCore:
         self.morph_modules = {}
         self.output_modules = {}
         self.data_set = LogDataSet()
+        self.silentmode = False
+        self.verbosemode = False
         self.options = None
         self.option_parser = OptionParser(
                 usage = ("Usage: %prog [options] <files>"),
@@ -60,18 +64,32 @@ class LogDissectCore:
         self.output_options = OptionGroup(self.option_parser, \
                 _("Output options"))
     
+    
+        
     # run_job does the actual job using the other functions.
     def run_job(self):
         """Execute a logdissect job"""
-        self.load_parsers()
-        self.load_morphers()
-        self.load_outputs()
-        self.config_options()
-        self.load_inputs()
-        self.run_parse()
-        self.run_merge()
-        self.run_morph()
-        self.run_output()
+        try:
+            if self.verbosemode: print('Loading parsers')
+            self.load_parsers()
+            if self.verbosemode: print('Loading morphers')
+            self.load_morphers()
+            if self.verbosemode: print('Loading outputs')
+            self.load_outputs()
+            if self.verbosemode: print('Setting options')
+            self.config_options()
+            if self.verbosemode: print('Loading input files')
+            self.load_inputs()
+            if self.verbosemode: print('Running parsers')
+            self.run_parse()
+            if self.verbosemode: print('Merging data')
+            self.run_merge()
+            if self.verbosemode: print('Running morphers')
+            self.run_morph()
+            if self.verbosemode: print('Running output')
+            self.run_output()
+        except KeyboardInterrupt:
+            sys.exit(1)
 
     def run_parse(self):
         """Parse one or more log files"""
@@ -81,6 +99,7 @@ class LogDissectCore:
             parsemodule = self.parse_modules[self.options.parser]
             parsedset.data_set.append(parsemodule.parse_log(l))
         self.data_set = parsedset
+        # del(parsedset)
 
     def run_merge(self):
         """Merge all of our data sets together"""
@@ -89,6 +108,7 @@ class LogDissectCore:
             ourlog.entries = ourlog.entries + l.entries
         ourlog.entries.sort(key=lambda x: x.date_stamp_year)
         self.data_set.finalized_data = ourlog
+        # del(ourlog)
 
     def run_morph(self):
         for m in self.morph_modules:
@@ -96,6 +116,8 @@ class LogDissectCore:
             ourlog = ourmorph.morph_data(self.data_set.finalized_data,
                     self.options)
             self.data_set.finalized_data = ourlog
+            # del(ourlog)
+            # del(ourmorph)
 
     def run_output(self):
         """Output finalized data"""
@@ -103,6 +125,16 @@ class LogDissectCore:
             ouroutput = self.output_modules[f]
             ouroutput.write_output(self.data_set.finalized_data,
                     self.options)
+            # del(ouroutput)
+
+        # Output to terminal if silent mode is not set:
+        if not self.silentmode:
+            if self.verbosemode:
+                print('\n==== ++++ ==== Output: ==== ++++ ====')
+            for line in self.data_set.finalized_data.entries:
+                print(line.raw_text)
+
+
 
     def config_options(self):
         """Set config options"""
@@ -119,19 +151,34 @@ class LogDissectCore:
                 action="callback",
                 callback=self.list_outputs,
                 help=_("returns a list of available output formats"))
-        # Module load options:
         self.option_parser.add_option("-p",
                 action="store",
                 dest="parser", default="syslog",
                 help=_("specifies parser to use (default: syslog)"))
+        self.option_parser.add_option("-s",
+                action="callback",
+                callback=self.set_silent,
+                help=_("silences terminal output"))
+        self.option_parser.add_option("-v",
+                action="callback",
+                callback=self.set_verbose,
+                help=_("sets verbose terminal output"))
         
         # self.option_parser.add_option_group(self.input_options)
         # self.option_parser.add_option_group(self.parse_options)
         self.option_parser.add_option_group(self.morph_options)
         self.option_parser.add_option_group(self.output_options)
         self.options, self.args = self.option_parser.parse_args(sys.argv[1:])
-        # self.options, args = self.option_parser.parse_args(sys.argv[1:])
 
+    #Set silent/verbose modes:
+    def set_silent(self, *args):
+        self.silentmode = True
+
+    def set_verbose(self, *args):
+        self.verbosemode = True
+
+    
+    
     # Load input files:
     def load_inputs(self):
         """Load the specified inputs"""
@@ -198,6 +245,8 @@ class LogDissectCore:
                 __import__('logdissect.output.' + output, globals(), \
                 locals(), [logdissect]).OutputModule(self.output_options)
 
+
+                
 def main():
     dissect = LogDissectCore()
     dissect.run_job()

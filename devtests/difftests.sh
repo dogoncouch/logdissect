@@ -25,38 +25,38 @@
 # NOTE: Run this file from the repository root (one dir up)
 
 echo Running testall.log
-./logdissect.py --outlog=devtests/files/testall.log devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py -s --outlog=devtests/files/testall.log devtests/files/exsyslog devtests/files/exmeslog
 
 echo Running with \* input option
-./logdissect.py --outlog=devtests/files/teststar.log devtests/files/ex*
+./logdissect.py -s --outlog=devtests/files/teststar.log devtests/files/ex*
 
 echo Diff for teststar::
 diff devtests/files/teststarexlog devtests/files/teststar.log 
 echo Running testrange.log
-./logdissect.py --outlog=devtests/files/testrange.log --range=20160202020202-20170227213200 devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py -s --outlog=devtests/files/testrange.log --range=20160202020202-20170227213200 devtests/files/exsyslog devtests/files/exmeslog
 
 echo Diff for testrange:
 diff devtests/files/testrangeexlog devtests/files/testrange.log
 
 echo Running testnone.log
-./logdissect.py --outlog=devtests/files/testnone.log --range=20160202020202-20160227213200 devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py -s --outlog=devtests/files/testnone.log --range=20160202020202-20160227213200 devtests/files/exsyslog devtests/files/exmeslog
 
 echo Diff for testnone:
 diff devtests/files/testnoneexlog devtests/files/testnone.log
 
 echo Running testgrep.log
-./logdissect.py --outlog=devtests/files/testgrep.log --grep=software devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py -s --outlog=devtests/files/testgrep.log --grep=software devtests/files/exsyslog devtests/files/exmeslog
 
 echo Diff for testgrep:
 diff devtests/files/testgrepexlog devtests/files/testgrep.log
 
 echo Running testfname.log
-./logdissect.py --outlog=devtests/files/testfname.log --label=fname devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py -s --outlog=devtests/files/testfname.log --label=fname devtests/files/exsyslog devtests/files/exmeslog
 
 echo Diff for testfname:
 diff devtests/files/testfnameexlog devtests/files/testfname.log
 
 echo Running testfpath.log
-./logdissect.py --outlog=devtests/files/testfpath.log --label=fpath devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py -s --outlog=devtests/files/testfpath.log --label=fpath devtests/files/exsyslog devtests/files/exmeslog
 
 echo Diffs should be the same, and there should be no errors.

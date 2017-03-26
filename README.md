@@ -14,9 +14,12 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
     --list-morphers     returns a list of available morphers
     --list-outputs      returns a list of available output formats
     -p PARSER           specifies parser to use (default: syslog)
+    -s                  silences terminal output
+    -v                  sets verbose terminal output
 
     Morph options:
     --grep=PATTERN      specifies a pattern to match
+    --last=LAST         specifies preceeding time period (5m/3h/2d/etc)
     --range=RANGE       specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
 
     Output options:
@@ -26,13 +29,13 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 
 # EXAMPLES
     
-    logdissect --outlog=mywindow --range=20170301070000-20170301070500 *
+    logdissect --last=2m *
     
-    logdissect --outlog=mylog.log --range=20160202020202-20170227213200 --label=fpath messages debug apache2/error.log
+    logdissect -v --range=20160202020202-20170227213200 --label=fpath messages debug apache2/error.log
     
-    logdissect --outlog=myaccess.log --grep=192.168 --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
+    logdissect -s --outlog=myaccess.log --grep=192.168.1.56 --last=30d --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
 
-# Tips
+# Notes
 1. metadata: logdissect uses file modification times to assign years to syslog date stamps. This allows it to parse logs that span more than one year without a problem. If you are copying log files, always use `` cp -p `` (or `` cp --preserve=timestamps `` ) and `` scp -p `` to preserve original mtimes and other file metadata.
 
 2. --range shortcuts: The range module will fill in your ranges with zeroes if they are shorter than 14 characters. If you want to get a range of 20170204120000 to 20170204130000, you can save time and use 2017020412 and 2017020413.
