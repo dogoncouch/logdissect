@@ -35,7 +35,7 @@ class ParseModule(OurModule):
         # self.data = LogData()
         # self.newdata = LogData()
         self.date_format = \
-                re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2}:\d{2}:\d{2})")
+                re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2}:\d{2}:\d{2} \S+ \S+\[?\d+?\]?):")
 
     def parse_log(self, data):
         newdata = data
@@ -47,7 +47,7 @@ class ParseModule(OurModule):
                 datetime.datetime.fromtimestamp(data.source_file_mtime)
         data.source_file_year = timestamp.year
         entry_year = timestamp.year
-        recent_date_stamp = '9999999999'
+        recent_date_stamp = '99999999999999'
         # To Do: add some detection to fill in LogData class vars
         data.source_file = data.source_full_path.split('/')[-1]
         # Get our lines:
@@ -62,19 +62,21 @@ class ParseModule(OurModule):
             else: current_entry.raw_text = ourline
             match = re.findall(self.date_format, ourline)
             if match:
-                date_list = str(match[0]).split(' ')
+                attr_list = str(match[0]).split(' ')
                 months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
                         'Apr':'04', 'May':'05', 'Jun':'06', \
                         'Jul':'07', 'Aug':'08', 'Sep':'09', \
                         'Oce':'10', 'Nov':'11', 'Dec':'12'}
-                int_month = months[date_list[0]]
-                daydate = str(date_list[1]).strip().zfill(2)
-                timelist = str(str(date_list[2]).replace(':',''))
+                int_month = months[attr_list[0]]
+                daydate = str(attr_list[1]).strip().zfill(2)
+                timelist = str(str(attr_list[2]).replace(':',''))
                 date_stamp = str(int_month) + str(daydate) + str(timelist)
                 # Check for Dec-Jan
                 if int(date_stamp) > int(recent_date_stamp):
                     entry_year = entry_year - 1
                 recent_date_stamp = date_stamp
+                current_entry.source_host = attr_list[3]
+                current_entry.source_process = attr_list[4]
                 current_entry.date_stamp = date_stamp
                 current_entry.date_stamp_year = str(entry_year) \
                         + str(current_entry.date_stamp)

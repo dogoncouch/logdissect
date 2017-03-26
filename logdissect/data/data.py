@@ -28,6 +28,8 @@ class LogEntry:
         self.date_stamp_year = None
         self.raw_text = ""
         self.source_full_path = ""
+        self.source_host = ""
+        self.source_process = ""
 
 class LogData:
     def __init__(self):
