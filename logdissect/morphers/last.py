@@ -23,27 +23,45 @@
 from logdissect.morphers.type import MorphModule as OurModule
 from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
+from time import strftime
+import datetime
 
 class MorphModule(OurModule):
     def __init__(self, options):
-        """Initialize the range morphing module"""
-        self.name = "range"
-        self.desc = "Specifies timestamp range (YYYYMMDDhhmm-YYYYMMDDhhmm)"
+        """Initialize the 'last' morphing module"""
+        self.name = "last"
+        self.desc = "Specifies preceeding time period"
 
-        options.add_option('--range', action='append', dest='range',
-                help='specifies a range <YYYYMMDDhhmm-YYYYMMDDhhmm>')
+        options.add_option('--last', action='append', dest='last',
+                help='specifies preceeding time period (5m/3h/2d/etc)')
 
     def morph_data(self, data, options):
-        """Morphs log data by timestamp range (single log)"""
-        if not options.range:
+        """Morphs log data by preceeding time period (single log)"""
+        if not options.last:
             return data
         else:
-            ourlimits = options.range[0].split('-')
+            # Set the units and number from the option:
+            lastunit = options.last[0][-1]
+            lastnum = options.last[0][:-1]
+            
+            # Set the start time:
+            if lastunit == 's':
+                starttime = datetime.datetime.now() - \
+                        datetime.timedelta(seconds=int(lastnum))
+            if lastunit == 'm':
+                starttime = datetime.datetime.now() - \
+                        datetime.timedelta(minutes=int(lastnum))
+            if lastunit == 'h':
+                starttime = datetime.datetime.now() - \
+                        datetime.timedelta(hours=int(lastnum))
+            if lastunit == 'd':
+                starttime = datetime.datetime.now() - \
+                        datetime.timedelta(days=int(lastnum))
+            ourstart = starttime.strftime('%Y%m%d%H%M%S')
+            
+            # Pull out the specified time period:
             newdata = LogData()
             for entry in data.entries:
-                if int(entry.date_stamp_year) >= \
-                        int(ourlimits[0].ljust(14, '0')): 
-                    if int(entry.date_stamp_year) <= \
-                            int(ourlimits[1].ljust(14, '0')):
-                        newdata.entries.append(entry)
+                if int(entry.date_stamp_year) >= int(ourstart): 
+                    newdata.entries.append(entry)
             return newdata

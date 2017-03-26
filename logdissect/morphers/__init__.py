@@ -20,4 +20,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-__morphers__ = ['range', 'grep']
+__morphers__ = ['range', 'grep', 'last']
