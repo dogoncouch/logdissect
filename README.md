@@ -40,6 +40,8 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 
 2. --range shortcuts: The range module will fill in your ranges with zeroes if they are shorter than 14 characters. If you want to get a range of 20170204120000 to 20170204130000, you can save time and use 2017020412 and 2017020413.
 
+3. --last options: the last option should be a number followed by either 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days (e.g. --last=20m).
+
 # AUTHOR
     Dan Persons (dpersonsdev@gmail.com)
 
