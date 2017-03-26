@@ -99,7 +99,7 @@ class LogDissectCore:
             parsemodule = self.parse_modules[self.options.parser]
             parsedset.data_set.append(parsemodule.parse_log(l))
         self.data_set = parsedset
-        # del(parsedset)
+        del(parsedset)
 
     def run_merge(self):
         """Merge all of our data sets together"""
@@ -108,7 +108,7 @@ class LogDissectCore:
             ourlog.entries = ourlog.entries + l.entries
         ourlog.entries.sort(key=lambda x: x.date_stamp_year)
         self.data_set.finalized_data = ourlog
-        # del(ourlog)
+        del(ourlog)
 
     def run_morph(self):
         for m in self.morph_modules:
@@ -116,8 +116,8 @@ class LogDissectCore:
             ourlog = ourmorph.morph_data(self.data_set.finalized_data,
                     self.options)
             self.data_set.finalized_data = ourlog
-            # del(ourlog)
-            # del(ourmorph)
+            del(ourlog)
+            del(ourmorph)
 
     def run_output(self):
         """Output finalized data"""
@@ -125,7 +125,7 @@ class LogDissectCore:
             ouroutput = self.output_modules[f]
             ouroutput.write_output(self.data_set.finalized_data,
                     self.options)
-            # del(ouroutput)
+            del(ouroutput)
 
         # Output to terminal if silent mode is not set:
         if not self.silentmode:
