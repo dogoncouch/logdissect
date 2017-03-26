@@ -26,7 +26,8 @@ from sys import prefix
 from logdissect import __version__
 
 ourdata = [(join(prefix, 'share/man/man1'), ['doc/logdissect.1']),
-        (join(prefix, 'share/doc/logdissect'), ['README.md', 'LICENSE'])]
+        (join(prefix, 'share/doc/logdissect'), ['README.md', 'LICENSE', 
+            'CHANGELOG'])]
 
 setup(name = 'logdissect', version = str(__version__),
         description = 'Parse, merge, and filter syslog files',
@@ -37,7 +38,7 @@ setup(name = 'logdissect', version = str(__version__),
         entry_points = \
                 { 'console_scripts': [ 'logdissect = logdissect.core:main' ]},
         data_files = ourdata,
-        classifiers = ["Development Status :: 4 :: Beta",
+        classifiers = ["Development Status :: 5 :: Production/Stable",
             "Environment :: Console",
             "Intended Audience :: System Administrators",
             "License :: OSI Approved :: MIT License",
