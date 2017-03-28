@@ -1,6 +1,10 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
+## [1.1.1] - 2017-03-28
+### Fixed
+- 'syslog' parser no longer breaks without PID
+
 ## [1.1] - 2017-03-26
 ### Added
 - 'last' morpher
