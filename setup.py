@@ -50,4 +50,4 @@ setup(name = 'logdissect', version = str(__version__),
             "Natural Language :: English",
             "Operating System :: POSIX",
             "Programming Language :: Python :: 2",
-            "Topic :: System :: System Administrations"])
+            "Topic :: System :: Systems Administration"])
