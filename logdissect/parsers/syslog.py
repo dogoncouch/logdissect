@@ -35,7 +35,7 @@ class ParseModule(OurModule):
         # self.data = LogData()
         # self.newdata = LogData()
         self.date_format = \
-                re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2}:\d{2}:\d{2} \S+ \S+\[?\d+?\]?):")
+                re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2}:\d{2}:\d{2} \S+ \S+\[?\d*?\]?):")
 
     def parse_log(self, data):
         newdata = data

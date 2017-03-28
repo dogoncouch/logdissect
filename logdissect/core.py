@@ -130,7 +130,7 @@ class LogDissectCore:
         # Output to terminal if silent mode is not set:
         if not self.silentmode:
             if self.verbosemode:
-                print('\n==== ++++ ==== Output: ==== ++++ ====')
+                print('\n==== ++++ ==== Output: ==== ++++ ====\n')
             for line in self.data_set.finalized_data.entries:
                 print(line.raw_text)
 
