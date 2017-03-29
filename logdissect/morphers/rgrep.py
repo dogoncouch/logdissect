@@ -39,7 +39,7 @@ class MorphModule(OurModule):
         if not options.rpattern:
             return data
         else:
-            repattern = re.compile(r".*({}).*".format(options.pattern[0]))
+            repattern = re.compile(r".*({}).*".format(options.rpattern[0]))
             newdata = LogData()
             for entry in data.entries:
                 if not re.match(repattern, entry.raw_text):
