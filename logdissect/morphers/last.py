@@ -36,7 +36,7 @@ class MorphModule(OurModule):
                 help='specifies preceeding time period (5m/3h/2d/etc)')
 
     def morph_data(self, data, options):
-        """Morphs log data by preceeding time period (single log)"""
+        """Morph log data by preceeding time period (single log)"""
         if not options.last:
             return data
         else:

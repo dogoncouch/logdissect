@@ -35,7 +35,7 @@ class MorphModule(OurModule):
                 help='specifies a pattern to filter out')
 
     def morph_data(self, data, options):
-        """Removes entries containing specified pattern (single log)"""
+        """Remove entries containing specified pattern (single log)"""
         if not options.rpattern:
             return data
         else:

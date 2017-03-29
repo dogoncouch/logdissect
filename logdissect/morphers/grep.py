@@ -35,7 +35,7 @@ class MorphModule(OurModule):
                 help='specifies a pattern to match')
 
     def morph_data(self, data, options):
-        """Returns entries containing specified pattern (single log)"""
+        """Return entries containing specified pattern (single log)"""
         if not options.pattern:
             return data
         else:

@@ -28,5 +28,5 @@ class MorphModule:
         pass
 
     def morph_data(self, options):
-        """Morphs log data in some way (single log)"""
+        """Morph log data in some way (single log)"""
         pass

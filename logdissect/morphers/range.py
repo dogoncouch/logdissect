@@ -34,7 +34,7 @@ class MorphModule(OurModule):
                 help='specifies a range <YYYYMMDDhhmm-YYYYMMDDhhmm>')
 
     def morph_data(self, data, options):
-        """Morphs log data by timestamp range (single log)"""
+        """Morph log data by timestamp range (single log)"""
         if not options.range:
             return data
         else:

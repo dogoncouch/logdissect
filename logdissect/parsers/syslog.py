@@ -32,15 +32,19 @@ class ParseModule(OurModule):
         """Initialize the standard syslog parsing module"""
         self.name = 'syslog'
         self.desc = 'Syslog parsing module'
-        # self.data = LogData()
-        # self.newdata = LogData()
         self.date_format = \
                 re.compile(r"^([A-Z][a-z]{2} \d{1,2} \d{2}:\d{2}:\d{2} \S+ \S+\[?\d*?\]?):")
 
+
+
     def parse_log(self, data):
+        """Parse a syslog file into a LogData object"""
         newdata = data
         newdata.entries = []
 	current_entry = LogEntry()
+        data.source_file = data.source_full_path.split('/')[-1]
+
+        # Set our start year:
         data.source_file_mtime = \
                 os.path.getmtime(data.source_full_path)
         timestamp = \
@@ -48,11 +52,14 @@ class ParseModule(OurModule):
         data.source_file_year = timestamp.year
         entry_year = timestamp.year
         recent_date_stamp = '99999999999999'
-        # To Do: add some detection to fill in LogData class vars
-        data.source_file = data.source_full_path.split('/')[-1]
-        # Get our lines:
+
+        # Get our lines and reverse them (parser works in reverse -
+        #       helps find year and parse multi-line entries):
         with open(str(data.source_full_path), 'r') as logfile:
             loglines = reversed(logfile.readlines())
+        # Parse works in reverse. This helps with multi-line entries,
+        # and logs that span multiple years (December to January shift).
+
         # Parse our lines:
         for line in loglines:
             ourline = line.rstrip()
@@ -63,6 +70,8 @@ class ParseModule(OurModule):
             match = re.findall(self.date_format, ourline)
             if match:
                 attr_list = str(match[0]).split(' ')
+
+                # Get the date stamp (without year)
                 months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
                         'Apr':'04', 'May':'05', 'Jun':'06', \
                         'Jul':'07', 'Aug':'08', 'Sep':'09', \
@@ -71,10 +80,13 @@ class ParseModule(OurModule):
                 daydate = str(attr_list[1]).strip().zfill(2)
                 timelist = str(str(attr_list[2]).replace(':',''))
                 date_stamp = str(int_month) + str(daydate) + str(timelist)
-                # Check for Dec-Jan
+                
+                # Check for Dec-Jan jump and set the year:
                 if int(date_stamp) > int(recent_date_stamp):
                     entry_year = entry_year - 1
                 recent_date_stamp = date_stamp
+                
+                # Set our attributes:
                 current_entry.source_host = attr_list[3]
                 current_entry.source_process = attr_list[4]
                 current_entry.date_stamp = date_stamp
@@ -82,6 +94,8 @@ class ParseModule(OurModule):
                         + str(current_entry.date_stamp)
                 current_entry.source_full_path = \
                         data.source_full_path
+
+                # Append and reset current_entry
                 newdata.entries.append(current_entry)
                 current_entry = LogEntry()
         
