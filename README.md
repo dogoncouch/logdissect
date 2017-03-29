@@ -21,6 +21,7 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
     --grep=PATTERN      specifies a pattern to match
     --last=LAST         specifies preceeding time period (5m/3h/2d/etc)
     --range=RANGE       specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
+    --rgrep=RPATTERN    specifies a pattern to filter out
 
     Output options:
     --outlog=OUTLOG     sets the output file for standard log output
