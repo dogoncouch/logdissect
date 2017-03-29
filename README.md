@@ -1,10 +1,10 @@
 # logdissect
 logdissect is a tool for gaining insight into syslog files. It can merge multiple log files together and sort by timestamp, and filter the results by time range and other criteria. Files that end in .gz or .bz2 are ignored.
 
-# INSTALLING
+# Installing
 See the latest instructions on the [releases page](https://github.com/dogoncouch/logdissect/releases).
 
-# OPTIONS
+# Options
 
     Usage: logdissect [options] <files>
 
@@ -26,9 +26,9 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
     Output options:
     --outlog=OUTLOG     sets the output file for standard log output
     --label=LABEL       sets label type for entries in OUTLOG <fname|fpath>
+    --outjson=OUTJSON  sets the output file for JSON output
 
-
-# EXAMPLES
+# Examples
     
     logdissect --last=10m auth.log
     
@@ -45,10 +45,10 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 
 3. --last options: the last option should be a number followed by either 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days (e.g. --last=20m).
 
-# AUTHOR
+# Author
     Dan Persons (dpersonsdev@gmail.com)
 
-# COPYRIGHT
+# Copyright
 MIT License
 
 Copyright (c) 2017 Dan Persons

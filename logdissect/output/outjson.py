@@ -20,4 +20,31 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-__all__ = ['syslog', 'injson']
+import json
+from logdissect.output.type import OutputModule as OurModule
+from logdissect.data.data import LogData
+
+class OutputModule(OurModule):
+    def __init__(self, options):
+        """Initialize the JSON output module"""
+        self.name = 'outjson'
+        self.desc = 'Output module for JSON arrays'
+
+        options.add_option('--outjson', action='append', dest='outjson',
+                help='sets the output file for JSON output')
+
+    def write_output(self, data, options):
+        """Write log data to a JSON array"""
+        if not options.outjson:
+            return 0
+        
+        entrylist = []
+        for entry in data.entries:
+            thisentry = [entry.date_stamp_year, entry.source_full_path,
+                    entry.source_host, entry.source_process, entry.raw_text]
+            entrylist.append(thisentry)
+
+        logstring = json.dumps(entrylist, indent=2, separators=(',', ': '))
+
+        with open(str(options.outjson[0]), 'w') as output_file:
+            output_file.write(logstring)
