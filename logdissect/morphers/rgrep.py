@@ -20,4 +20,28 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-__morphers__ = ['last', 'range', 'grep', 'rgrep']
+import re
+from logdissect.morphers.type import MorphModule as OurModule
+from logdissect.data.data import LogEntry
+from logdissect.data.data import LogData
+
+class MorphModule(OurModule):
+    def __init__(self, options):
+        """Initialize the rgrep morphing module"""
+        self.name = "rgrep"
+        self.desc = "Removes entries containing specified pattern"
+
+        options.add_option('--rgrep', action='append', dest='rpattern',
+                help='specifies a pattern to filter out')
+
+    def morph_data(self, data, options):
+        """Removes entries containing specified pattern (single log)"""
+        if not options.rpattern:
+            return data
+        else:
+            repattern = re.compile(r".*({}).*".format(options.pattern[0]))
+            newdata = LogData()
+            for entry in data.entries:
+                if not re.match(repattern, entry.raw_text):
+                    newdata.entries.append(entry)
+            return newdata

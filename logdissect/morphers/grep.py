@@ -29,13 +29,13 @@ class MorphModule(OurModule):
     def __init__(self, options):
         """Initialize the grep morphing module"""
         self.name = "grep"
-        self.desc = "Pattern search based on regular expressions"
+        self.desc = "Returns entries containing specified pattern"
 
         options.add_option('--grep', action='append', dest='pattern',
                 help='specifies a pattern to match')
 
     def morph_data(self, data, options):
-        """Morphs log data similar to grep (single log)"""
+        """Returns entries containing specified pattern (single log)"""
         if not options.pattern:
             return data
         else:
