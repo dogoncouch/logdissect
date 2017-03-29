@@ -3,7 +3,7 @@
 logdissect - Parse and merge log entries, and filter by date and other criteria.
 
 .SH SYNOPSIS
-\fBlogdissect\fR [\fB-hsv\fR] [\fB--version\fR] [\fB--list-parsers\fR] [\fB--list-morphers\fR] [\fB--list-outputs\fR] [\fB-p \fI<parser>\fR] [\fB--range=\fI<YYYYMMDDhhmm-YYYYMMDDhhmm>\fR] [\fB--grep=\fI<pattern>\fR] [\fB--outlog=\fI<outlog>\fR] [\fB--label=\fI<fname|ftype>\fR] \fI<logfile>\fR [\fI<logfile2>\fR] [\fI<logfile3>\fR] ...
+\fBlogdissect\fR [\fB-hsv\fR] [\fB--version\fR] [\fB--list-parsers\fR] [\fB--list-morphers\fR] [\fB--list-outputs\fR] [\fB-p \fI<parser>\fR] [\fB--last=\fI<period>\fR] [\fB--range=\fI<YYYYMMDDhhmm-YYYYMMDDhhmm>\fR] [\fB--grep=\fI<pattern>\fR] [\fB--rgrep=\fI<rpattern>\fR] [\fB--outlog=\fI<outlog>\fR] [\fB--label=\fI<fname|ftype>\fR] \fI<logfile>\fR [\fI<logfile2>\fR] [\fI<logfile3>\fR] ...
 
 .SH DESCRIPTION
 \fBlogdissect\fP is a tool for gaining insight into syslog files. It can merge multiple log files together together and sort by timestamp, and filter the results by time range and other criteria. Files that end in .gz or .bz2 are ignored.
@@ -31,6 +31,8 @@ logdissect - Parse and merge log entries, and filter by date and other criteria.
 
 
 .SH EXAMPLES
+    logdissect --last=10m auth.log
+    
     logdissect --last=2m *
     
     logdissect -v --range=20160202020202-20170227213200 --label=fpath messages debug apache2/error.log

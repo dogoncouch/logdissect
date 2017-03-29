@@ -30,6 +30,8 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 
 # EXAMPLES
     
+    logdissect --last=10m auth.log
+    
     logdissect --last=2m *
     
     logdissect -v --range=20160202020202-20170227213200 --label=fpath messages debug apache2/error.log
