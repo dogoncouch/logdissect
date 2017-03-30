@@ -32,6 +32,7 @@ echo Running with \* input option
 
 echo Diff for teststar::
 diff devtests/files/teststarexlog devtests/files/teststar.log 
+
 echo Running testrange.log
 ./logdissect.py -s --outlog=devtests/files/testrange.log --range=20160202020202-20170227213200 devtests/files/exsyslog devtests/files/exmeslog
 
@@ -49,6 +50,18 @@ echo Running testgrep.log
 
 echo Diff for testgrep:
 diff devtests/files/testgrepexlog devtests/files/testgrep.log
+
+echo Running testjson.log:
+./logdissect.py -s --outjson=devtests/files/testjson.log devtests/files/exmeslog
+
+echo Diff test for testjson:
+diff devtests/files/testjsonexlog devtests/files/testjson.log
+
+echo Running testinjson.log
+./logdissect.py -s -p injson --outjson=devtests/files/testinjson.log devtests/files/testjsonexlog
+
+echo Diff test for testinjson:
+diff devtests/files/testjsonexlog devtests/files/testinjson.log
 
 echo Running testfname.log
 ./logdissect.py -s --outlog=devtests/files/testfname.log --label=fname devtests/files/exsyslog devtests/files/exmeslog

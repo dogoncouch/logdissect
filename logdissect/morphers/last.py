@@ -62,6 +62,6 @@ class MorphModule(OurModule):
             # Pull out the specified time period:
             newdata = LogData()
             for entry in data.entries:
-                if int(entry.date_stamp_year) >= int(ourstart): 
+                if int(entry.date_stamp) >= int(ourstart): 
                     newdata.entries.append(entry)
             return newdata

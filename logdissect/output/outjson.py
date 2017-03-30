@@ -40,11 +40,15 @@ class OutputModule(OurModule):
         
         entrylist = []
         for entry in data.entries:
-            thisentry = [entry.date_stamp_year, entry.source_full_path,
-                    entry.source_host, entry.source_process, entry.raw_text]
+            thisentry = {'date_stamp': entry.date_stamp,
+                    'source_path': entry.source_path,
+                    'source_host': entry.source_host,
+                    'source_process': entry.source_process,
+                    'raw_text': entry.raw_text}
             entrylist.append(thisentry)
 
-        logstring = json.dumps(entrylist, indent=2, separators=(',', ': '))
+        logstring = json.dumps(entrylist, indent=2, sort_keys=True,
+                separators=(',', ': '))
 
         with open(str(options.outjson[0]), 'w') as output_file:
             output_file.write(logstring)

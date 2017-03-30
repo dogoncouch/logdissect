@@ -42,11 +42,11 @@ class ParseModule(OurModule):
         newdata = data
         newdata.entries = []
 	current_entry = LogEntry()
-        data.source_file = data.source_full_path.split('/')[-1]
+        data.source_file = data.source_path.split('/')[-1]
 
         # Set our start year:
         data.source_file_mtime = \
-                os.path.getmtime(data.source_full_path)
+                os.path.getmtime(data.source_path)
         timestamp = \
                 datetime.datetime.fromtimestamp(data.source_file_mtime)
         data.source_file_year = timestamp.year
@@ -55,7 +55,7 @@ class ParseModule(OurModule):
 
         # Get our lines and reverse them (parser works in reverse -
         #       helps find year and parse multi-line entries):
-        with open(str(data.source_full_path), 'r') as logfile:
+        with open(str(data.source_path), 'r') as logfile:
             loglines = reversed(logfile.readlines())
         # Parse works in reverse. This helps with multi-line entries,
         # and logs that span multiple years (December to January shift).
@@ -79,21 +79,21 @@ class ParseModule(OurModule):
                 int_month = months[attr_list[0]]
                 daydate = str(attr_list[1]).strip().zfill(2)
                 timelist = str(str(attr_list[2]).replace(':',''))
-                date_stamp = str(int_month) + str(daydate) + str(timelist)
+                date_stamp_noyear = str(int_month) + str(daydate) + str(timelist)
                 
                 # Check for Dec-Jan jump and set the year:
-                if int(date_stamp) > int(recent_date_stamp):
+                if int(date_stamp_noyear) > int(recent_date_stamp):
                     entry_year = entry_year - 1
-                recent_date_stamp = date_stamp
+                recent_date_stamp = date_stamp_noyear
                 
                 # Set our attributes:
                 current_entry.source_host = attr_list[3]
                 current_entry.source_process = attr_list[4]
-                current_entry.date_stamp = date_stamp
-                current_entry.date_stamp_year = str(entry_year) \
-                        + str(current_entry.date_stamp)
-                current_entry.source_full_path = \
-                        data.source_full_path
+                current_entry.date_stamp_noyear = date_stamp_noyear
+                current_entry.date_stamp = str(entry_year) \
+                        + str(current_entry.date_stamp_noyear)
+                current_entry.source_path = \
+                        data.source_path
 
                 # Append and reset current_entry
                 newdata.entries.append(current_entry)

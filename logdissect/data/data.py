@@ -24,10 +24,10 @@
 class LogEntry:
     def __init__(self):
         """Initialize a log entry"""
+        self.date_stamp_noyear = None
         self.date_stamp = None
-        self.date_stamp_year = None
         self.raw_text = ""
-        self.source_full_path = ""
+        self.source_path = ""
         self.source_host = ""
         self.source_process = ""
 
@@ -36,7 +36,7 @@ class LogData:
         """Initialize parsing for a log file"""
         self.lines = []
         self.entries = []
-        self.source_full_path = ""
+        self.source_path = ""
         self.source_file = ""
         self.source_file_mtime = None
         self.parser = 'syslog' # To Do

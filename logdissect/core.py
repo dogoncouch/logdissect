@@ -106,7 +106,7 @@ class LogDissectCore:
         ourlog = LogData()
         for l in self.data_set.data_set:
             ourlog.entries = ourlog.entries + l.entries
-        ourlog.entries.sort(key=lambda x: x.date_stamp_year)
+        ourlog.entries.sort(key=lambda x: x.date_stamp)
         self.data_set.finalized_data = ourlog
         del(ourlog)
 
@@ -190,7 +190,7 @@ class LogDissectCore:
                 else:
                     fullpath = os.path.abspath(str(f))
                     log = LogData()
-                    log.source_full_path = fullpath
+                    log.source_path = fullpath
                     self.data_set.data_set.append(log)
             else: return 1
 

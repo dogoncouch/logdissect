@@ -42,18 +42,18 @@ class ParseModule(OurModule):
         newdata.entries = []
 
         # Open input file and read JSON array:
-        with open(data.source_full_path, 'r') as logfile:
+        with open(data.source_path, 'r') as logfile:
             jsonstr = logfile.read()
         
         # Set our attributes for this entry and add it to newdata.entries:
         entrylist = json.loads(jsonstr)
         for entry in entrylist:
             thisentry = LogEntry()
-            thisentry.date_stamp_year = entry[0]
-            thisentry.source_full_path = entry[1]
-            thisentry.source_host = entry[2]
-            thisentry.source_process = entry[3]
-            thisentry.raw_text = entry[4]
+            thisentry.date_stamp = entry['date_stamp']
+            thisentry.source_path = entry['source_path']
+            thisentry.source_host = entry['source_host']
+            thisentry.source_process = entry['source_process']
+            thisentry.raw_text = entry['raw_text']
             newdata.entries.append(thisentry)
 
         # Return the parsed data

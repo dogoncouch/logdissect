@@ -43,15 +43,15 @@ class OutputModule(OurModule):
         with open(str(options.outlog[0]), 'w') as output_file:
             for entry in data.entries:
                 if options.label:
-                    if entry.source_full_path == lastpath:
+                    if entry.source_path == lastpath:
                         output_file.write(entry.raw_text + '\n')
                     elif options.label[0] == 'fname':
                         output_file.write('======== ' + \
-                                entry.source_full_path.split('/')[-1] + \
+                                entry.source_path.split('/')[-1] + \
                                 ' >>>>\n' + entry.raw_text + '\n')
                     elif options.label[0] == 'fpath':
                         output_file.write('======== ' + \
-                                entry.source_full_path  + \
+                                entry.source_path  + \
                                 ' >>>>\n' + entry.raw_text + '\n')
                 else: output_file.write(entry.raw_text + '\n')
-                lastpath = entry.source_full_path
+                lastpath = entry.source_path
