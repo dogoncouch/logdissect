@@ -26,7 +26,7 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
     Output options:
     --outlog=OUTLOG     sets the output file for standard log output
     --label=LABEL       sets label type for entries in OUTLOG <fname|fpath>
-    --outjson=OUTJSON  sets the output file for JSON output
+    --outjson=OUTJSON   sets the output file for JSON output
 
 # Examples
     
@@ -41,9 +41,11 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 # Notes
 1. metadata: logdissect uses file modification times to assign years to syslog date stamps. This allows it to parse logs that span more than one year without a problem. If you are copying log files, always use `` cp -p `` (or `` cp --preserve=timestamps `` ) and `` scp -p `` to preserve original mtimes and other file metadata.
 
-2. --range shortcuts: The range module will fill in your ranges with zeroes if they are shorter than 14 characters. If you want to get a range of 20170204120000 to 20170204130000, you can save time and use 2017020412 and 2017020413.
+2. Re-parsing: If you are planning on parsing an output file back into logdissect at some point, using JSON is highly recommended. The JSON output module uses date stamps that include a year. Re-parsing a standard log output file will cause problems if the file has a different mtime than the original logs.
 
-3. --last options: the last option should be a number followed by either 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days (e.g. --last=20m).
+3. --range shortcuts: The range module will fill in your ranges with zeroes if they are shorter than 14 characters. If you want to get a range of 20170204120000 to 20170204130000, you can save time and use 2017020412 and 2017020413.
+
+4. --last options: the last option should be a number followed by either 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days (e.g. --last=20m).
 
 # Author
     Dan Persons (dpersonsdev@gmail.com)
