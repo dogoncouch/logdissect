@@ -20,4 +20,28 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-__morphers__ = ['last', 'range', 'grep', 'rgrep', 'host', 'process']
+import re
+from logdissect.morphers.type import MorphModule as OurModule
+from logdissect.data.data import LogEntry
+from logdissect.data.data import LogData
+
+class MorphModule(OurModule):
+    def __init__(self, options):
+        """Initialize the process morphing module"""
+        self.name = "process"
+        self.desc = "Returns entries from specified process"
+
+        options.add_option('--process', action='append', dest='process',
+                help='specifies a source process to match')
+
+    def morph_data(self, data, options):
+        """Return entries from specified process (single log)"""
+        if not options.process:
+            return data
+        else:
+            newdata = LogData()
+            for entry in data.entries:
+                if entry.source_process == options.process[0]:
+                    newdata.entries.append(entry)
+
+            return newdata

@@ -7,6 +7,8 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - 'outjson' output module for JSON
 - 'injson' parser module for JSON
 - Dev tests for json modules
+- 'host' morpher: match source host
+- 'process' morpher: match source process
 
 ## [1.1.1] - 2017-03-28
 ### Fixed
