@@ -44,6 +44,7 @@ class OutputModule(OurModule):
                     'source_path': entry.source_path,
                     'source_host': entry.source_host,
                     'source_process': entry.source_process,
+                    'source_pid': entry.source_pid,
                     'raw_text': entry.raw_text}
             entrylist.append(thisentry)
 

@@ -30,11 +30,11 @@ class LogEntry:
         self.source_path = ""
         self.source_host = ""
         self.source_process = ""
+        self.source_pid = None
 
 class LogData:
     def __init__(self):
-        """Initialize parsing for a log file"""
-        self.lines = []
+        """Initialize data object for a log file"""
         self.entries = []
         self.source_path = ""
         self.source_file = ""
@@ -43,9 +43,6 @@ class LogData:
         
 class LogDataSet:
     def __init__(self):
-        """Initialize data set for multiple parsed logs"""
+        """Initialize data object for multiple parsed logs"""
         self.data_set = []
         self.finalized_data = LogData()
-        # To Do: set creation date to runtime
-        self.creation_date = None
-    

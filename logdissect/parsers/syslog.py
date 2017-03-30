@@ -86,9 +86,14 @@ class ParseModule(OurModule):
                     entry_year = entry_year - 1
                 recent_date_stamp = date_stamp_noyear
                 
+                # Split source process/PID
+                sourceproclist = attr_list[4].split('[')
+                
                 # Set our attributes:
                 current_entry.source_host = attr_list[3]
-                current_entry.source_process = attr_list[4]
+                current_entry.source_process = sourceproclist[0]
+                if len(sourceproclist) > 1:
+                    current_entry.source_pid = sourceproclist[1].strip(']')
                 current_entry.date_stamp_noyear = date_stamp_noyear
                 current_entry.date_stamp = str(entry_year) \
                         + str(current_entry.date_stamp_noyear)
