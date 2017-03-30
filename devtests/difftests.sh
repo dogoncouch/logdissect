@@ -54,14 +54,11 @@ diff devtests/files/testgrepexlog devtests/files/testgrep.log
 echo Running testjson.log:
 ./logdissect.py -s --outjson=devtests/files/testjson.log devtests/files/exmeslog devtests/files/exsyslog
 
-echo Diff test for testjson:
-diff devtests/files/testjsonexlog devtests/files/testjson.log
-
 echo Running testinjson.log
-./logdissect.py -s -p injson --outjson=devtests/files/testinjson.log devtests/files/testjsonexlog
+./logdissect.py -s -p injson --outjson=devtests/files/testinjson.log devtests/files/testjson.log
 
 echo Diff test for testinjson:
-diff devtests/files/testjsonexlog devtests/files/testinjson.log
+diff devtests/files/testinjson.log devtests/files/testjson.log
 
 echo Running testfname.log
 ./logdissect.py -s --outlog=devtests/files/testfname.log --label=fname devtests/files/exsyslog devtests/files/exmeslog
