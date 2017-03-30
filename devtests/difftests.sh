@@ -60,6 +60,18 @@ echo Running testinjson.log
 echo Diff test for testinjson:
 diff devtests/files/testinjson.log devtests/files/testjson.log
 
+echo Running testhost.log:
+./logdissect.py -s --outlog=devtests/files/testhost.log --host=shade devtests/files/exsyslog
+
+echo Running diff test for testhost:
+diff devtests/files/testhost.log devtests/files/exsyslog
+
+echo Running testprocess.log:
+./logdissect.py -s --outlog=devtests/files/testprocess.log --process=systemd devtests/files/exsyslog
+
+echo Running diff test for testprocess:
+diff devtests/files/testprocess.log devtests/files/testprocessexlog
+
 echo Running testfname.log
 ./logdissect.py -s --outlog=devtests/files/testfname.log --label=fname devtests/files/exsyslog devtests/files/exmeslog
 

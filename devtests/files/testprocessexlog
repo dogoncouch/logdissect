@@ -1,0 +1,3 @@
+Feb 27 21:30:46 shade systemd[1]: Started Hostname Service.
+Feb 27 21:30:52 shade systemd[22475]: Starting GNOME Terminal Server...
+Feb 27 21:30:52 shade systemd[22475]: Started GNOME Terminal Server.
