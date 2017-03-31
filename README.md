@@ -1,5 +1,5 @@
 # logdissect
-logdissect is a tool for gaining insight into syslog files. It can merge multiple log files together and sort by timestamp, and filter the results by time range and other criteria. Files that end in .gz or .bz2 are ignored.
+logdissect is a tool for gaining insight into syslog files. It can merge multiple log files together and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to standard syslog format, or to a JSON array. Files that end in .gz or .bz2 are ignored.
 
 # Installing
 See the latest instructions on the [releases page](https://github.com/dogoncouch/logdissect/releases).
