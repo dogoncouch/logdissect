@@ -185,7 +185,8 @@ class LogDissectCore:
         for f in self.args:
             if os.path.isfile(str(f)):
                 fparts = str(f).split('.')
-                if fparts[-1] == 'gz' or fparts[-1] == 'bz2':
+                if fparts[-1] == 'gz' or fparts[-1] == 'bz2' or \
+                        fparts[-1] == 'zip':
                     return 0
                 else:
                     fullpath = os.path.abspath(str(f))

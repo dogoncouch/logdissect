@@ -1,5 +1,5 @@
 # logdissect
-logdissect is a tool for gaining insight into syslog files. It can merge multiple log files together and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to standard syslog format, or to a JSON array. Files that end in .gz or .bz2 are ignored.
+logdissect is a tool for analyzing syslog files. It can merge entries from multiple log files and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to standard syslog file format, or to a JSON array.
 
 # Installing
 See the latest instructions on the [releases page](https://github.com/dogoncouch/logdissect/releases).
@@ -47,7 +47,9 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 
 3. --range shortcuts: The range module will fill in your ranges with zeroes if they are shorter than 14 characters. If you want to get a range of 20170204120000 to 20170204130000, you can save time and use 2017020412 and 2017020413.
 
-4. --last options: the last option should be a number followed by either 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days (e.g. --last=20m).
+4. --last options: The last option should be a number followed by either 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days (e.g. --last=20m).
+
+5. Zipped files: Files that end in .gz, .bz2, or .zip are ignored.
 
 # Author
     Dan Persons (dpersonsdev@gmail.com)
