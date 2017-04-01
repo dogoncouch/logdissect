@@ -27,6 +27,7 @@ Logdissect is a tool for analyzing syslog files. It can merge entries from multi
 
 Options
 ```````
+
 ::
 
     Usage: logdissect [options] <files>

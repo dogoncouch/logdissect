@@ -1,6 +1,10 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
+## [1.2.2] - 2017-04-01
+### Fixed
+- 'syslog' parser: fix bug with extra whitespace in timestamp
+
 ## [1.2.1] - 2017-04-01
 ### Fixed
 - 'syslog' parser: typo (s/Oce/Oct/)
