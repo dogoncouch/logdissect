@@ -31,7 +31,7 @@ class MorphModule(OurModule):
         self.name = "rgrep"
         self.desc = "Removes entries containing specified pattern"
 
-        options.add_option('--rgrep', action='append', dest='rpattern',
+        options.add_argument('--rgrep', action='append', dest='rpattern',
                 help='specifies a pattern to filter out')
 
     def morph_data(self, data, options):

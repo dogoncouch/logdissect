@@ -31,7 +31,7 @@ class MorphModule(OurModule):
         self.name = "host"
         self.desc = "Returns entries from specified host"
 
-        options.add_option('--host', action='append', dest='host',
+        options.add_argument('--host', action='append', dest='host',
                 help='specifies a source host to match')
 
     def morph_data(self, data, options):

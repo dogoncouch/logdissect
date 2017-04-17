@@ -32,7 +32,7 @@ class MorphModule(OurModule):
         self.name = "last"
         self.desc = "Specifies preceeding time period"
 
-        options.add_option('--last', action='append', dest='last',
+        options.add_argument('--last', action='append', dest='last',
                 help='specifies preceeding time period (5m/3h/2d/etc)')
 
     def morph_data(self, data, options):

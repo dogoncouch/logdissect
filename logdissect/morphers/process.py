@@ -31,7 +31,7 @@ class MorphModule(OurModule):
         self.name = "process"
         self.desc = "Returns entries from specified process"
 
-        options.add_option('--process', action='append', dest='process',
+        options.add_argument('--process', action='append', dest='process',
                 help='specifies a source process to match')
 
     def morph_data(self, data, options):

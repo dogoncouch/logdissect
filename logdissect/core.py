@@ -33,8 +33,9 @@ from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 from logdissect.data.data import LogDataSet
 from logdissect import __version__
-from optparse import OptionParser
-from optparse import OptionGroup
+from argparse import ArgumentParser
+# from optparse import OptionParser
+# from optparse import OptionGroup
 import gettext
 gettext.install('logdissect')
 
@@ -49,20 +50,28 @@ class LogDissectCore:
         self.morph_modules = {}
         self.output_modules = {}
         self.data_set = LogDataSet()
-        self.silentmode = False
-        self.verbosemode = False
         self.options = None
-        self.option_parser = OptionParser(
-                usage = ("Usage: %prog [options] <files>"),
-                version = "%prog" + '-' + str(__version__))
+        self.option_parser = ArgumentParser()
+        # self.option_parser = ArgumentParser(
+        #         usage = ("Usage: %prog [options] <files>"),
+        #         version = "%prog" + '-' + str(__version__))
+        # self.option_parser = OptionParser(
+        #         usage = ("Usage: %prog [options] <files>"),
+        #         version = "%prog" + '-' + str(__version__))
         # self.input_options = OptionGroup(self.option_parser, \
         #         _("Input options"))
-        self.parse_options = OptionGroup(self.option_parser, \
-                _("Parse options"))
-        self.morph_options = OptionGroup(self.option_parser, \
-                _("Morph options"))
-        self.output_options = OptionGroup(self.option_parser, \
-                _("Output options"))
+        self.parse_options = \
+                self.option_parser.add_argument_group('Parse options')
+        self.morph_options = \
+                self.option_parser.add_argument_group('Morph options')
+        self.output_options = \
+                self.option_parser.add_argument_group('Output options')
+        # self.parse_options = OptionGroup(self.option_parser, \
+        #         _("Parse options"))
+        # self.morph_options = OptionGroup(self.option_parser, \
+        #         _("Morph options"))
+        # self.output_options = OptionGroup(self.option_parser, \
+        #         _("Output options"))
     
     
         
@@ -70,23 +79,31 @@ class LogDissectCore:
     def run_job(self):
         """Execute a logdissect job"""
         try:
-            if self.verbosemode: print('Loading parsers')
+            # self.config_options()
+            # if self.options.verbosemode: print('Loading parsers')
             self.load_parsers()
-            if self.verbosemode: print('Loading morphers')
+            # if self.options.verbosemode: print('Loading morphers')
             self.load_morphers()
-            if self.verbosemode: print('Loading outputs')
+            # if self.options.verbosemode: print('Loading outputs')
             self.load_outputs()
-            if self.verbosemode: print('Setting options')
+            # if self.options.verbosemode: print('Setting options')
             self.config_options()
-            if self.verbosemode: print('Loading input files')
+            # List options, if asked:
+            if self.options.list_parsers:
+                self.list_parsers()
+            if self.options.list_morphers:
+                self.list_morphers()
+            if self.options.list_outputs:
+                self.list_outputs()
+            if self.options.verbosemode: print('Loading input files')
             self.load_inputs()
-            if self.verbosemode: print('Running parsers')
+            if self.options.verbosemode: print('Running parsers')
             self.run_parse()
-            if self.verbosemode: print('Merging data')
+            if self.options.verbosemode: print('Merging data')
             self.run_merge()
-            if self.verbosemode: print('Running morphers')
+            if self.options.verbosemode: print('Running morphers')
             self.run_morph()
-            if self.verbosemode: print('Running output')
+            if self.options.verbosemode: print('Running output')
             self.run_output()
         except KeyboardInterrupt:
             sys.exit(1)
@@ -128,8 +145,8 @@ class LogDissectCore:
             del(ouroutput)
 
         # Output to terminal if silent mode is not set:
-        if not self.silentmode:
-            if self.verbosemode:
+        if not self.options.silentmode:
+            if self.options.verbosemode:
                 print('\n==== ++++ ==== Output: ==== ++++ ====\n')
             for line in self.data_set.finalized_data.entries:
                 print(line.raw_text)
@@ -139,50 +156,42 @@ class LogDissectCore:
     def config_options(self):
         """Set config options"""
         # Module list options:
-        self.option_parser.add_option("--list-parsers",
-                action="callback",
-                callback=self.list_parsers,
+        self.option_parser.add_argument("--list-parsers",
+                action="store_true", dest="list_parsers",
                 help=_("returns a list of available parsers"))
-        self.option_parser.add_option("--list-morphers",
-                action="callback",
-                callback=self.list_morphers,
+        self.option_parser.add_argument("--list-morphers",
+                action="store_true", dest="list_morphers",
                 help=_("returns a list of available morphers"))
-        self.option_parser.add_option("--list-outputs",
-                action="callback",
-                callback=self.list_outputs,
+        self.option_parser.add_argument("--list-outputs",
+                action="store_true", dest="list_outputs",
                 help=_("returns a list of available output formats"))
-        self.option_parser.add_option("-p",
-                action="store",
-                dest="parser", default="syslog",
+        self.option_parser.add_argument("-p",
+                action="store", dest="parser", default="syslog",
                 help=_("specifies parser to use (default: syslog)"))
-        self.option_parser.add_option("-s",
-                action="callback",
-                callback=self.set_silent,
+        self.option_parser.add_argument("-s",
+                action="store_true", dest = "silentmode",
                 help=_("silences terminal output"))
-        self.option_parser.add_option("-v",
-                action="callback",
-                callback=self.set_verbose,
+        self.option_parser.add_argument("--verbose",
+                action="store_true", dest = "verbosemode",
                 help=_("sets verbose terminal output"))
-        
-        # self.option_parser.add_option_group(self.input_options)
-        # self.option_parser.add_option_group(self.parse_options)
-        self.option_parser.add_option_group(self.morph_options)
-        self.option_parser.add_option_group(self.output_options)
-        self.options, self.args = self.option_parser.parse_args(sys.argv[1:])
-
-    #Set silent/verbose modes:
-    def set_silent(self, *args):
-        self.silentmode = True
-
-    def set_verbose(self, *args):
-        self.verbosemode = True
+        self.option_parser.add_argument("files", metavar='file', nargs="+",
+                help=_("Specifies input files"))
+        # self.option_parser.add_argument_group(self.input_options)
+        # self.option_parser.add_argument_group(self.parse_options)
+        self.option_parser.add_argument_group(self.morph_options)
+        self.option_parser.add_argument_group(self.output_options)
+        self.options = self.option_parser.parse_args()
+        # self.args = self.options.accumulate(self.options.ourfiles)
+        # self.options, self.args = self.option_parser.parse_args()
+        # self.options, self.args = self.option_parser.parse_args(sys.argv[1:])
 
     
     
     # Load input files:
     def load_inputs(self):
         """Load the specified inputs"""
-        for f in self.args:
+        # for f in self.args:
+        for f in self.options.files:
             if os.path.isfile(str(f)):
                 fparts = str(f).split('.')
                 if fparts[-1] == 'gz' or fparts[-1] == 'bz2' or \

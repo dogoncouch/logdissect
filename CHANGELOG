@@ -1,6 +1,10 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
+## [Unreleased]
+### Updated
+- Migrate from optparse to argparse
+
 ## [1.2.2] - 2017-04-01
 ### Fixed
 - 'syslog' parser: fix bug with extra whitespace in timestamp

@@ -31,7 +31,7 @@ class MorphModule(OurModule):
         self.name = "grep"
         self.desc = "Returns entries containing specified pattern"
 
-        options.add_option('--grep', action='append', dest='pattern',
+        options.add_argument('--grep', action='append', dest='pattern',
                 help='specifies a pattern to match')
 
     def morph_data(self, data, options):
