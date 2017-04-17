@@ -156,28 +156,30 @@ class LogDissectCore:
     def config_options(self):
         """Set config options"""
         # Module list options:
-        self.option_parser.add_argument("--list-parsers",
-                action="store_true", dest="list_parsers",
-                help=_("returns a list of available parsers"))
-        self.option_parser.add_argument("--list-morphers",
-                action="store_true", dest="list_morphers",
-                help=_("returns a list of available morphers"))
-        self.option_parser.add_argument("--list-outputs",
-                action="store_true", dest="list_outputs",
-                help=_("returns a list of available output formats"))
-        self.option_parser.add_argument("-p",
-                action="store", dest="parser", default="syslog",
-                help=_("specifies parser to use (default: syslog)"))
-        self.option_parser.add_argument("-s",
-                action="store_true", dest = "silentmode",
-                help=_("silences terminal output"))
-        self.option_parser.add_argument("--verbose",
-                action="store_true", dest = "verbosemode",
-                help=_("sets verbose terminal output"))
-        self.option_parser.add_argument("files",
-                metavar='file', nargs="+",
+        self.option_parser.add_argument('--version', action='version',
+                version='%(prog)s ' + str(__version__))
+        self.option_parser.add_argument('--list-parsers',
+                action='store_true', dest='list_parsers',
+                help=_('returns a list of available parsers'))
+        self.option_parser.add_argument('--list-morphers',
+                action='store_true', dest='list_morphers',
+                help=_('returns a list of available morphers'))
+        self.option_parser.add_argument('--list-outputs',
+                action='store_true', dest='list_outputs',
+                help=_('returns a list of available output formats'))
+        self.option_parser.add_argument('-p',
+                action='store', dest='parser', default='syslog',
+                help=_('specifies parser to use (default: syslog)'))
+        self.option_parser.add_argument('-s',
+                action='store_true', dest = 'silentmode',
+                help=_('silences terminal output'))
+        self.option_parser.add_argument('--verbose',
+                action='store_true', dest = 'verbosemode',
+                help=_('sets verbose terminal output'))
+        self.option_parser.add_argument('files',
+                metavar='file', nargs='+',
                 #default=sys.stdin, # To Do
-                help=_("Specifies input files"))
+                help=_('Specifies input files'))
         # self.option_parser.add_argument_group(self.input_options)
         # self.option_parser.add_argument_group(self.parse_options)
         self.option_parser.add_argument_group(self.morph_options)
