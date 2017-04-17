@@ -3,10 +3,10 @@
 logdissect - Parse and merge log entries, and filter by date and other criteria.
 
 .SH SYNOPSIS
-\fBlogdissect\fR [\fB-hsv\fR] [\fB--version\fR] [\fB--list-parsers\fR] [\fB--list-morphers\fR] [\fB--list-outputs\fR] [\fB-p \fI<parser>\fR] [\fB--last=\fI<period>\fR] [\fB--range=\fI<YYYYMMDDhhmm-YYYYMMDDhhmm>\fR] [\fB--grep=\fI<pattern>\fR] [\fB--rgrep=\fI<rpattern>\fR] [\fB--outlog=\fI<outlog>\fR] [\fB--label=\fI<fname|ftype>\fR] \fI<logfile>\fR [\fI<logfile2>\fR] [\fI<logfile3>\fR] ...
+\fBlogdissect\fR [\fB-hsv\fR] [\fB--version\fR] [\fB--list-parsers\fR] [\fB--list-morphers\fR] [\fB--list-outputs\fR] [\fB-p \fI<parser>\fR] [\fB--last=\fI<period>\fR] [\fB--range=\fI<YYYYMMDDhhmm-YYYYMMDDhhmm>\fR] [\fB--grep=\fI<pattern>\fR] [\fB--rgrep=\fI<rpattern>\fR] [\fB--outlog=\fI<outlog>\fR] [\fB--label=\fI<fname|ftype>\fR] [\fB--outjson=\fI<outjson>\fR] \fI<logfile>\fR [\fI<logfile2>\fR] [\fI<logfile3>\fR] ...
 
 .SH DESCRIPTION
-\fBlogdissect\fP is a tool for gaining insight into syslog files. It can merge multiple log files together together and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to standard syslog format, or to a JSON array. Files that end in .gz or .bz2 are ignored.
+\fBlogdissect\fP is a tool for gaining insight into syslog files. It can merge multiple log files together together and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output a to standard syslog file, or to a JSON array along with some metadata. Files that end in .gz or .bz2 are ignored.
 
 .SH OPTIONS
 
