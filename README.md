@@ -1,5 +1,5 @@
 # logdissect
-logdissect is a tool for analyzing syslog files. It can merge entries from multiple log files and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to standard syslog file format, or to a JSON array.
+logdissect is a tool for analyzing syslog files. It can merge entries from multiple log files and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to a standard syslog file, or to a JSON array along with some metadata..
 
 # Installing
 See the latest instructions on the [releases page](https://github.com/dogoncouch/logdissect/releases).
