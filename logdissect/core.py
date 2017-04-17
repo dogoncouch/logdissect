@@ -178,7 +178,8 @@ class LogDissectCore:
                 help=_('sets verbose terminal output'))
         self.option_parser.add_argument('files',
                 metavar='file', nargs='+',
-                #default=sys.stdin, # To Do
+                # metavar='file', nargs='+',
+                # default=sys.stdin, # To Do
                 help=_('Specifies input files'))
         # self.option_parser.add_argument_group(self.input_options)
         # self.option_parser.add_argument_group(self.parse_options)
@@ -194,9 +195,17 @@ class LogDissectCore:
     # Load input files:
     def load_inputs(self):
         """Load the specified inputs"""
-        # for f in self.args:
+        # if self.options.files == None:
+        #     log = LogData()
+        #     log.source_path = '-'
+        #     log.lines = sys.stdin.readlines()
+        #     self.data_set.append(log)
+        #     return 0
+        # else:
         for f in self.options.files:
-            if os.path.isfile(str(f)):
+            # if os.path.isfile(str(f)):
+            #     fparts = str(f).split('.')
+            if os.path.isfile(f):
                 fparts = str(f).split('.')
                 if fparts[-1] == 'gz' or fparts[-1] == 'bz2' or \
                         fparts[-1] == 'zip':

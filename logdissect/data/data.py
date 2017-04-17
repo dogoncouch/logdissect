@@ -38,6 +38,7 @@ class LogData:
         self.entries = []
         self.source_path = ""
         self.source_file = ""
+        self.lines = []
         self.source_file_mtime = None
         self.parser = 'syslog' # To Do
         

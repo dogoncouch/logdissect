@@ -55,6 +55,11 @@ class ParseModule(OurModule):
 
         # Get our lines and reverse them (parser works in reverse -
         #       helps find year and parse multi-line entries):
+        # if data.source_path == '-':
+            # If no file specified, use lines read from stdin
+            # loglines = reversed(self.lines)
+        # else:
+            # Otherwise read lines from the file
         with open(str(data.source_path), 'r') as logfile:
             loglines = reversed(logfile.readlines())
         # Parse works in reverse. This helps with multi-line entries,
