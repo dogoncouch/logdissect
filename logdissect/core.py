@@ -174,7 +174,9 @@ class LogDissectCore:
         self.option_parser.add_argument("--verbose",
                 action="store_true", dest = "verbosemode",
                 help=_("sets verbose terminal output"))
-        self.option_parser.add_argument("files", metavar='file', nargs="+",
+        self.option_parser.add_argument("files",
+                metavar='file', nargs="+",
+                #default=sys.stdin, # To Do
                 help=_("Specifies input files"))
         # self.option_parser.add_argument_group(self.input_options)
         # self.option_parser.add_argument_group(self.parse_options)
