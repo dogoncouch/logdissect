@@ -34,12 +34,9 @@ from logdissect.data.data import LogData
 from logdissect.data.data import LogDataSet
 from logdissect import __version__
 from argparse import ArgumentParser
-# from optparse import OptionParser
-# from optparse import OptionGroup
 import gettext
 gettext.install('logdissect')
 
-# To Do: enable delete statements
 
 class LogDissectCore:
 
@@ -50,28 +47,14 @@ class LogDissectCore:
         self.morph_modules = {}
         self.output_modules = {}
         self.data_set = LogDataSet()
-        self.options = None
-        self.option_parser = ArgumentParser()
-        # self.option_parser = ArgumentParser(
-        #         usage = ("Usage: %prog [options] <files>"),
-        #         version = "%prog" + '-' + str(__version__))
-        # self.option_parser = OptionParser(
-        #         usage = ("Usage: %prog [options] <files>"),
-        #         version = "%prog" + '-' + str(__version__))
-        # self.input_options = OptionGroup(self.option_parser, \
-        #         _("Input options"))
-        self.parse_options = \
-                self.option_parser.add_argument_group('Parse options')
-        self.morph_options = \
-                self.option_parser.add_argument_group('Morph options')
-        self.output_options = \
-                self.option_parser.add_argument_group('Output options')
-        # self.parse_options = OptionGroup(self.option_parser, \
-        #         _("Parse options"))
-        # self.morph_options = OptionGroup(self.option_parser, \
-        #         _("Morph options"))
-        # self.output_options = OptionGroup(self.option_parser, \
-        #         _("Output options"))
+        self.args = None
+        self.arg_parser = ArgumentParser()
+        self.parse_args = \
+                self.arg_parser.add_argument_group('Parse options')
+        self.morph_args = \
+                self.arg_parser.add_argument_group('Morph options')
+        self.output_args = \
+                self.arg_parser.add_argument_group('Output options')
     
     
         
@@ -80,30 +63,30 @@ class LogDissectCore:
         """Execute a logdissect job"""
         try:
             # self.config_options()
-            # if self.options.verbosemode: print('Loading parsers')
+            # if self.args.verbosemode: print('Loading parsers')
             self.load_parsers()
-            # if self.options.verbosemode: print('Loading morphers')
+            # if self.args.verbosemode: print('Loading morphers')
             self.load_morphers()
-            # if self.options.verbosemode: print('Loading outputs')
+            # if self.args.verbosemode: print('Loading outputs')
             self.load_outputs()
-            # if self.options.verbosemode: print('Setting options')
+            # if self.args.verbosemode: print('Setting options')
             self.config_options()
             # List options, if asked:
-            if self.options.list_parsers:
+            if self.args.list_parsers:
                 self.list_parsers()
-            if self.options.list_morphers:
+            if self.args.list_morphers:
                 self.list_morphers()
-            if self.options.list_outputs:
+            if self.args.list_outputs:
                 self.list_outputs()
-            if self.options.verbosemode: print('Loading input files')
+            if self.args.verbosemode: print('Loading input files')
             self.load_inputs()
-            if self.options.verbosemode: print('Running parsers')
+            if self.args.verbosemode: print('Running parsers')
             self.run_parse()
-            if self.options.verbosemode: print('Merging data')
+            if self.args.verbosemode: print('Merging data')
             self.run_merge()
-            if self.options.verbosemode: print('Running morphers')
+            if self.args.verbosemode: print('Running morphers')
             self.run_morph()
-            if self.options.verbosemode: print('Running output')
+            if self.args.verbosemode: print('Running output')
             self.run_output()
         except KeyboardInterrupt:
             sys.exit(1)
@@ -113,7 +96,7 @@ class LogDissectCore:
         # Data set already has source file names from load_inputs
         parsedset = LogDataSet()
         for l in self.data_set.data_set:
-            parsemodule = self.parse_modules[self.options.parser]
+            parsemodule = self.parse_modules[self.args.parser]
             parsedset.data_set.append(parsemodule.parse_log(l))
         self.data_set = parsedset
         del(parsedset)
@@ -131,7 +114,7 @@ class LogDissectCore:
         for m in self.morph_modules:
             ourmorph = self.morph_modules[m]
             ourlog = ourmorph.morph_data(self.data_set.finalized_data,
-                    self.options)
+                    self.args)
             self.data_set.finalized_data = ourlog
             del(ourlog)
             del(ourmorph)
@@ -141,12 +124,12 @@ class LogDissectCore:
         for f in logdissect.output.__formats__:
             ouroutput = self.output_modules[f]
             ouroutput.write_output(self.data_set.finalized_data,
-                    self.options)
+                    self.args)
             del(ouroutput)
 
         # Output to terminal if silent mode is not set:
-        if not self.options.silentmode:
-            if self.options.verbosemode:
+        if not self.args.silentmode:
+            if self.args.verbosemode:
                 print('\n==== ++++ ==== Output: ==== ++++ ====\n')
             for line in self.data_set.finalized_data.entries:
                 print(line.raw_text)
@@ -156,53 +139,51 @@ class LogDissectCore:
     def config_options(self):
         """Set config options"""
         # Module list options:
-        self.option_parser.add_argument('--version', action='version',
+        self.arg_parser.add_argument('--version', action='version',
                 version='%(prog)s ' + str(__version__))
-        self.option_parser.add_argument('--list-parsers',
+        self.arg_parser.add_argument('--list-parsers',
                 action='store_true', dest='list_parsers',
                 help=_('returns a list of available parsers'))
-        self.option_parser.add_argument('--list-morphers',
+        self.arg_parser.add_argument('--list-morphers',
                 action='store_true', dest='list_morphers',
                 help=_('returns a list of available morphers'))
-        self.option_parser.add_argument('--list-outputs',
+        self.arg_parser.add_argument('--list-outputs',
                 action='store_true', dest='list_outputs',
                 help=_('returns a list of available output formats'))
-        self.option_parser.add_argument('-p',
+        self.arg_parser.add_argument('-p',
                 action='store', dest='parser', default='syslog',
                 help=_('specifies parser to use (default: syslog)'))
-        self.option_parser.add_argument('-s',
+        self.arg_parser.add_argument('-s',
                 action='store_true', dest = 'silentmode',
                 help=_('silences terminal output'))
-        self.option_parser.add_argument('--verbose',
+        self.arg_parser.add_argument('--verbose',
                 action='store_true', dest = 'verbosemode',
                 help=_('sets verbose terminal output'))
-        self.option_parser.add_argument('files',
-                metavar='file', nargs='+',
-                # metavar='file', nargs='+',
-                # default=sys.stdin, # To Do
+        self.arg_parser.add_argument('files',
+                metavar='file', nargs='*',
                 help=_('Specifies input files'))
-        # self.option_parser.add_argument_group(self.input_options)
-        # self.option_parser.add_argument_group(self.parse_options)
-        self.option_parser.add_argument_group(self.morph_options)
-        self.option_parser.add_argument_group(self.output_options)
-        self.options = self.option_parser.parse_args()
-        # self.args = self.options.accumulate(self.options.ourfiles)
-        # self.options, self.args = self.option_parser.parse_args()
-        # self.options, self.args = self.option_parser.parse_args(sys.argv[1:])
+        # self.arg_parser.add_argument_group(self.input_options)
+        # self.arg_parser.add_argument_group(self.parse_args)
+        self.arg_parser.add_argument_group(self.morph_args)
+        self.arg_parser.add_argument_group(self.output_args)
+        self.args = self.arg_parser.parse_args()
+        # self.args = self.args.accumulate(self.args.ourfiles)
+        # self.args, self.args = self.arg_parser.parse_args()
+        # self.args, self.args = self.arg_parser.parse_args(sys.argv[1:])
 
     
     
     # Load input files:
     def load_inputs(self):
         """Load the specified inputs"""
-        # if self.options.files == None:
+        # if self.args.files == None:
         #     log = LogData()
         #     log.source_path = '-'
         #     log.lines = sys.stdin.readlines()
         #     self.data_set.append(log)
         #     return 0
         # else:
-        for f in self.options.files:
+        for f in self.args.files:
             # if os.path.isfile(str(f)):
             #     fparts = str(f).split('.')
             if os.path.isfile(f):
@@ -232,7 +213,7 @@ class LogDissectCore:
         for parser in sorted(logdissect.parsers.__all__):
             self.parse_modules[parser] = \
                 __import__('logdissect.parsers.' + parser, globals(), \
-                locals(), [logdissect]).ParseModule(self.parse_options)
+                locals(), [logdissect]).ParseModule(self.parse_args)
 
     # Morphing modules (range, grep, etc)
     def list_morphers(self, *args):
@@ -249,7 +230,7 @@ class LogDissectCore:
         for morpher in sorted(logdissect.morphers.__morphers__):
             self.morph_modules[morpher] = \
                 __import__('logdissect.morphers.' + morpher, globals(), \
-                locals(), [logdissect]).MorphModule(self.morph_options)
+                locals(), [logdissect]).MorphModule(self.morph_args)
 
     # Output modules (log file, csv, html, etc)
     def list_outputs(self, *args):
@@ -266,7 +247,7 @@ class LogDissectCore:
         for output in sorted(logdissect.output.__formats__):
             self.output_modules[output] = \
                 __import__('logdissect.output.' + output, globals(), \
-                locals(), [logdissect]).OutputModule(self.output_options)
+                locals(), [logdissect]).OutputModule(self.output_args)
 
 
                 
