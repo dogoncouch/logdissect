@@ -73,7 +73,7 @@ ourdata = [(join(prefix, 'share/man/man1'), ['doc/logdissect.1']),
             'CHANGELOG'])]
 
 setup(name = 'logdissect', version = str(__version__),
-        description = 'Parse, merge, and filter syslog files',
+        description = 'Robust CLI syslog forensics tool',
         long_description = __doc__,
         author = 'Dan Persons', author_email = 'dpersonsdev@gmail.com',
         url = 'https://github.com/dogoncouch/logdissect',
