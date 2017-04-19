@@ -4,6 +4,9 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 ## [Unreleased]
 ### Updated
 - Migrate from optparse to argparse
+- Move CHANGELOG to CHANGELOG.md
+### Fixed
+- Formatting in setup.py docstring
 
 ## [1.2.2] - 2017-04-01
 ### Fixed
@@ -12,7 +15,7 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 ## [1.2.1] - 2017-04-01
 ### Fixed
 - 'syslog' parser: typo (s/Oce/Oct/)
-- 'setup.py': Changed long_description to rst formatted docstring
+- 'setup.py': Changed long description to rst formatted docstring
 
 ## [1.2] - 2017-03-31
 ### Added
@@ -32,7 +35,7 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - 'last' morpher
 - Terminal output by default
 - Silent and verbose options
-- source_host and source_process attributes in LogEntry object
+- source host and source process attributes in LogEntry object
 
 ## [1.0] - 2017-03-21
 - First stable release
