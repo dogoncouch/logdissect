@@ -53,17 +53,12 @@ class ParseModule(OurModule):
         entry_year = timestamp.year
         recent_date_stamp = '99999999999999'
 
-        # Get our lines and reverse them (parser works in reverse -
-        #       helps find year and parse multi-line entries):
-        # if data.source_path == '-':
-            # If no file specified, use lines read from stdin
-            # loglines = reversed(self.lines)
-        # else:
-            # Otherwise read lines from the file
+        # Parsing works in reverse. This helps with multi-line entries,
+        # and logs that span multiple years (December to January shift).
+        
+        # Get our lines:
         with open(str(data.source_path), 'r') as logfile:
             loglines = reversed(logfile.readlines())
-        # Parse works in reverse. This helps with multi-line entries,
-        # and logs that span multiple years (December to January shift).
 
         # Parse our lines:
         for line in loglines:

@@ -62,14 +62,9 @@ class LogDissectCore:
     def run_job(self):
         """Execute a logdissect job"""
         try:
-            # self.config_options()
-            # if self.args.verbosemode: print('Loading parsers')
             self.load_parsers()
-            # if self.args.verbosemode: print('Loading morphers')
             self.load_morphers()
-            # if self.args.verbosemode: print('Loading outputs')
             self.load_outputs()
-            # if self.args.verbosemode: print('Setting options')
             self.config_options()
             # List options, if asked:
             if self.args.list_parsers:
@@ -162,30 +157,17 @@ class LogDissectCore:
         self.arg_parser.add_argument('files',
                 metavar='file', nargs='*',
                 help=_('Specifies input files'))
-        # self.arg_parser.add_argument_group(self.input_options)
-        # self.arg_parser.add_argument_group(self.parse_args)
+
         self.arg_parser.add_argument_group(self.morph_args)
         self.arg_parser.add_argument_group(self.output_args)
         self.args = self.arg_parser.parse_args()
-        # self.args = self.args.accumulate(self.args.ourfiles)
-        # self.args, self.args = self.arg_parser.parse_args()
-        # self.args, self.args = self.arg_parser.parse_args(sys.argv[1:])
 
     
     
     # Load input files:
     def load_inputs(self):
         """Load the specified inputs"""
-        # if self.args.files == None:
-        #     log = LogData()
-        #     log.source_path = '-'
-        #     log.lines = sys.stdin.readlines()
-        #     self.data_set.append(log)
-        #     return 0
-        # else:
         for f in self.args.files:
-            # if os.path.isfile(str(f)):
-            #     fparts = str(f).split('.')
             if os.path.isfile(f):
                 fparts = str(f).split('.')
                 if fparts[-1] == 'gz' or fparts[-1] == 'bz2' or \
