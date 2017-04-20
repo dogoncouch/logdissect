@@ -50,11 +50,11 @@ class LogDissectCore:
         self.args = None
         self.arg_parser = ArgumentParser()
         self.parse_args = \
-                self.arg_parser.add_argument_group('Parse options')
+                self.arg_parser.add_argument_group('parse options')
         self.morph_args = \
-                self.arg_parser.add_argument_group('Morph options')
+                self.arg_parser.add_argument_group('morph options')
         self.output_args = \
-                self.arg_parser.add_argument_group('Output options')
+                self.arg_parser.add_argument_group('output options')
     
     
         

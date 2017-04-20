@@ -26,7 +26,7 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
       -s                 silences terminal output
       --verbose          sets verbose terminal output
     
-    Morph options:
+    morph options:
       --grep PATTERN     specifies a pattern to match
       --host HOST        specifies a source host to match
       --last LAST        specifies preceeding time period (5m/3h/2d/etc)
@@ -34,7 +34,7 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
       --range RANGE      specifies a range <YYYYMMDDhhmm-YYYYMMDDhhmm>
       --rgrep RPATTERN   specifies a pattern to filter out
     
-    Output options:
+    output options:
       --outlog OUTLOG    sets the output file for standard log output
       --label LABEL      sets label type for entries in OUTLOG <fname|fpath>
       --outjson OUTJSON  sets the output file for JSON output
