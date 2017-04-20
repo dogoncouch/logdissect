@@ -6,12 +6,12 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 
 # Options
 
-    usage: logdissect    [-h] [--grep PATTERN] [--host HOST] [--last LAST]
-                         [--process PROCESS] [--range RANGE] [--rgrep RPATTERN]
-                         [--outlog OUTLOG] [--label LABEL] [--outjson OUTJSON]
-                         [--version] [--list-parsers] [--list-morphers]
-                         [--list-outputs] [-p PARSER] [-s] [--verbose]
-                         [file [file ...]]
+    usage: logdissect [-h] [--grep PATTERN] [--host HOST] [--last LAST]
+                      [--process PROCESS] [--range RANGE] [--rgrep RPATTERN]
+                      [--outlog OUTLOG] [--label LABEL] [--outjson OUTJSON]
+                      [--version] [--list-parsers] [--list-morphers]
+                      [--list-outputs] [-p PARSER] [-s] [--verbose]
+                      [file [file ...]]
     
     positional arguments:
       file               Specifies input files
