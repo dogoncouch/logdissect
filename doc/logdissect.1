@@ -3,42 +3,46 @@
 logdissect - A robust CLI syslog forensics tool.
 
 .SH SYNOPSIS
-\fBlogdissect\fR [\fB-hsv\fR] [\fB--version\fR] [\fB--list-parsers\fR] [\fB--list-morphers\fR] [\fB--list-outputs\fR] [\fB-p \fI<parser>\fR] [\fB--last=\fI<period>\fR] [\fB--range=\fI<YYYYMMDDhhmm-YYYYMMDDhhmm>\fR] [\fB--grep=\fI<pattern>\fR] [\fB--rgrep=\fI<rpattern>\fR] [\fB--outlog=\fI<outlog>\fR] [\fB--label=\fI<fname|ftype>\fR] [\fB--outjson=\fI<outjson>\fR] \fI<logfile>\fR [\fI<logfile2>\fR] [\fI<logfile3>\fR] ...
+\fBlogdissect\fR [\fB-h\fR] [\fB--grep \fIPATTERN\fR] [\fB--host \fIHOST\fR] [\fB--last \fILAST\fR] [\fB--process \fIPROCESS\fR] [\fB--range \fIRANGE\fR] [\fB--rgrep \fIRPATTERN\fR] [\fB--outlog \fIOUTLOG\fR] [\fB--label \fILABEL\fR] [\fB--outjson \fIOUTJSON\fR] [\fB--version\fR] [\fB--list-parsers\fR] [\fB--list-morphers\fR] [\fB--list-outputs\fR] [\fB-p \fIPARSER\fR] [\fB-s\fR] [\fB--verbose\fR] \fBfile \fR[\fBfile ...\fR]
 
 .SH DESCRIPTION
-\fBlogdissect\fP is a tool for gaining insight into syslog files. It can merge multiple log files together together and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output a to standard syslog file, or to a JSON array along with some metadata. Files that end in .gz or .bz2 are ignored.
+\fBlogdissect\fP is a tool for gaining insight into syslog files. It can merge multiple log files together together and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output a to standard syslog file, or to a JSON array along with some metadata.
 
 .SH OPTIONS
 
+  positional arguments:
+    \fBfile\fR               Specifies input files
+  
+  optional arguments:
+    \fB-h\fR, \fB--help\fR         show this help message and exit
     \fB--version\fR          show program's version number and exit
-    \fB-h\fP, \fB--help\fR         show this help message and exit
     \fB--list-parsers\fR     returns a list of available parsers
     \fB--list-morphers\fR    returns a list of available morphers
     \fB--list-outputs\fR     returns a list of available output formats
-    \fB-p \fIPARSER\fR          specifies parser to use (default: syslog)
+    \fB-p\fR \fIPARSER\fR          specifies parser to use (default: syslog)
     \fB-s\fR                 silences terminal output
-    \fB-v\fR                 sets verbose terminal output
-
+    \fB--verbose\fR          sets verbose terminal output
+  
   Morph options:
-    \fB--grep\fP=\fIPATTERN\fR     specifies a pattern to match
-    \fB--host\fP=\fIHOST\fR        specifies a source host to match
-    \fB--last\fP=\fILAST\fR        specifies preceeding time period (5m/3h/2d/etc)
-    \fB--process\fP=\fIPROCESS\fR  specifies a source process to match
-    \fB--range\fP=\fIRANGE\fR      specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
-    \fB--rgrep\fP=\fIRPATTERN\fR   specifies a pattern to filter out
-
+    \fB--grep\fR \fIPATTERN\fR     specifies a pattern to match
+    \fB--host\fR \fIHOST\fR        specifies a source host to match
+    \fB--last\fR \fILAST\fR        specifies preceeding time period (5m/3h/2d/etc)
+    \fB--process\fR \fIPROCESS\fR  specifies a source process to match
+    \fB--range\fR \fIRANGE\fR      specifies a range <YYYYMMDDhhmm-YYYYMMDDhhmm>
+    \fB--rgrep\fR \fIRPATTERN\fR   specifies a pattern to filter out
+  
   Output options:
-    \fB--outlog\fP=\fIOUTLOG\fR    sets the output file for standard log output
-    \fB--label\fP=\fILABEL\fR      sets label type for OUTLOG <fname|fpath>
-    \fB--outjson\fP=\fIOUTJSON\fR  sets the output file for JSON output
+    \fB--outlog \fIOUTLOG\fR    sets the output file for standard log output
+    \fB--label \fILABEL\fR      sets label type for entries in OUTLOG <fname|fpath>
+    \fB--outjson \fIOUTJSON\fR  sets the output file for JSON output
 
 .SH EXAMPLES
     logdissect --last=10m auth.log
-    
+.br
     logdissect --last=2m *
-    
+.br
     logdissect -v --range=20160202020202-20170227213200 --label=fpath messages debug apache2/error.log
-    
+.br
     logdissect -s --outlog=myaccess.log --grep=192.168.1.56 --last=30d --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
 
 .SH NOTES

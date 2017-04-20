@@ -155,7 +155,7 @@ class LogDissectCore:
                 action='store_true', dest = 'verbosemode',
                 help=_('sets verbose terminal output'))
         self.arg_parser.add_argument('files',
-                metavar='file', nargs='*',
+                metavar='file', nargs='+',
                 help=_('Specifies input files'))
 
         self.arg_parser.add_argument_group(self.morph_args)

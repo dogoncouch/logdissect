@@ -70,7 +70,7 @@ from logdissect import __version__
 
 ourdata = [(join(prefix, 'share/man/man1'), ['doc/logdissect.1']),
         (join(prefix, 'share/doc/logdissect'), ['README.md', 'LICENSE', 
-            'CHANGELOG'])]
+            'CHANGELOG.md'])]
 
 setup(name = 'logdissect', version = str(__version__),
         description = 'Robust CLI syslog forensics tool',

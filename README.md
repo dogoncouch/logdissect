@@ -6,29 +6,33 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 
 # Options
 
-    Usage: logdissect [options] <files>
-
-    --version          show program's version number and exit
+  usage: logdissect [-h] [--grep PATTERN] [--host HOST] [--last LAST] [--process PROCESS] [--range RANGE] [--rgrep RPATTERN] [--outlog OUTLOG] [--label LABEL] [--outjson OUTJSON] [--version] [--list-parsers] [--list-morphers] [--list-outputs] [-p PARSER] [-s] [--verbose] [file [file ...]]
+  
+  positional arguments:
+    file               Specifies input files
+  
+  optional arguments:
     -h, --help         show this help message and exit
+    --version          show program's version number and exit
     --list-parsers     returns a list of available parsers
     --list-morphers    returns a list of available morphers
     --list-outputs     returns a list of available output formats
     -p PARSER          specifies parser to use (default: syslog)
     -s                 silences terminal output
-    -v                 sets verbose terminal output
-
-    Morph options:
-    --grep=PATTERN     specifies a pattern to match
-    --host=HOST        specifies a source host to match
-    --last=LAST        specifies preceeding time period (5m/3h/2d/etc)
-    --process=PROCESS  specifies a source process to match
-    --range=RANGE      specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
-    --rgrep=RPATTERN   specifies a pattern to filter out
-
-    Output options:
-    --outlog=OUTLOG    sets the output file for standard log output
-    --label=LABEL      sets label type for entries in OUTLOG <fname|fpath>
-    --outjson=OUTJSON  sets the output file for JSON output
+    --verbose          sets verbose terminal output
+  
+  Morph options:
+    --grep PATTERN     specifies a pattern to match
+    --host HOST        specifies a source host to match
+    --last LAST        specifies preceeding time period (5m/3h/2d/etc)
+    --process PROCESS  specifies a source process to match
+    --range RANGE      specifies a range <YYYYMMDDhhmm-YYYYMMDDhhmm>
+    --rgrep RPATTERN   specifies a pattern to filter out
+  
+  Output options:
+    --outlog OUTLOG    sets the output file for standard log output
+    --label LABEL      sets label type for entries in OUTLOG <fname|fpath>
+    --outjson OUTJSON  sets the output file for JSON output
 
 # Examples
     
