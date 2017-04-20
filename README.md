@@ -13,7 +13,7 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
                          [--list-outputs] [-p PARSER] [-s] [--verbose]
                          [file [file ...]]
     
-        positional arguments:
+    positional arguments:
       file               Specifies input files
     
     optional arguments:
