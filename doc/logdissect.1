@@ -13,7 +13,7 @@ logdissect - A robust CLI syslog forensics tool.
   usage: \fBlogdissect\fR [\fBoptions\fR] \fBfiles\fR
   
   positional arguments:
-    \fBfile\fR               Specifies input files
+    \fBfile\fR               specify input files
   
   optional arguments:
     \fB-h\fR, \fB--help\fR         show this help message and exit
@@ -21,17 +21,17 @@ logdissect - A robust CLI syslog forensics tool.
     \fB--list-parsers\fR     return a list of available parsers
     \fB--list-morphers\fR    return a list of available morphers
     \fB--list-outputs\fR     return a list of available output formats
-    \fB-p\fR \fIPARSER\fR          specify parser to use (default: syslog)
+    \fB-p\fR \fIPARSER\fR          select a parser (default: syslog)
     \fB-s\fR                 silence terminal output
     \fB--verbose\fR          set verbose terminal output
   
   morph options:
-    \fB--grep\fR \fIPATTERN\fR     specify a pattern to match
-    \fB--host\fR \fIHOST\fR        specify a source host to match
-    \fB--last\fR \fILAST\fR        specify preceeding time period (5m/3h/2d/etc)
-    \fB--process\fR \fIPROCESS\fR  specify a source process to match
-    \fB--range\fR \fIRANGE\fR      specify a time range <YYYYMMDDhhmm-YYYYMMDDhhmm>
-    \fB--rgrep\fR \fIRPATTERN\fR   specify a pattern to filter out
+    \fB--grep\fR \fIPATTERN\fR     match a pattern
+    \fB--host\fR \fIHOST\fR        match a source host
+    \fB--last\fR \fILAST\fR        match a preceeding time period (5m/3h/2d/etc)
+    \fB--process\fR \fIPROCESS\fR  match a source process
+    \fB--range\fR \fIRANGE\fR      match a time range <YYYYMMDDhhmm-YYYYMMDDhhmm>
+    \fB--rgrep\fR \fIRPATTERN\fR   filter out a pattern
   
   output options:
     \fB--outlog \fIOUTLOG\fR    set the output file for standard log output

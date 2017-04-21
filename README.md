@@ -14,7 +14,7 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
                       file [file ...]
     
     positional arguments:
-      file               Specifies input files
+      file               specify input files
     
     optional arguments:
       -h, --help         show this help message and exit
@@ -22,17 +22,17 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
       --list-parsers     return a list of available parsers
       --list-morphers    return a list of available morphers
       --list-outputs     return a list of available output formats
-      -p PARSER          specify parser to use (default: syslog)
+      -p PARSER          select a parser (default: syslog)
       -s                 silence terminal output
       --verbose          set verbose terminal output
     
     morph options:
-      --grep PATTERN     specify a pattern to match
-      --host HOST        specify a source host to match
-      --last LAST        specify preceeding time period (5m/3h/2d/etc)
-      --process PROCESS  specify a source process to match
-      --range RANGE      specify a time range <YYYYMMDDhhmm-YYYYMMDDhhmm>
-      --rgrep RPATTERN   specify a pattern to filter out
+      --grep PATTERN     match a pattern
+      --host HOST        match a source host
+      --last LAST        match a preceeding time period (5m/3h/2d/etc)
+      --process PROCESS  match a source process
+      --range RANGE      match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)
+      --rgrep RPATTERN   filter out a pattern
     
     output options:
       --outlog OUTLOG    set the output file for standard log output
