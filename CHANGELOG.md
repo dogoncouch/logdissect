@@ -1,7 +1,7 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
-## [Unreleased]
+## [1.3] - 2017-04-21
 ### Updated
 - Migrate from optparse to argparse
 - Move CHANGELOG to CHANGELOG.md
