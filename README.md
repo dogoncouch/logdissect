@@ -11,7 +11,7 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
                       [--outlog OUTLOG] [--label LABEL] [--outjson OUTJSON]
                       [--version] [--list-parsers] [--list-morphers]
                       [--list-outputs] [-p PARSER] [-s] [--verbose]
-                      file [file ...]
+                      [file [file ...]]
     
     positional arguments:
       file               specify input files
