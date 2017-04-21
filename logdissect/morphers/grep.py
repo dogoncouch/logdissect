@@ -29,10 +29,10 @@ class MorphModule(OurModule):
     def __init__(self, options):
         """Initialize the grep morphing module"""
         self.name = "grep"
-        self.desc = "Returns entries containing specified pattern"
+        self.desc = "match a pattern"
 
         options.add_argument('--grep', action='append', dest='pattern',
-                help='specify a pattern to match')
+                help='match a pattern')
 
     def morph_data(self, data, options):
         """Return entries containing specified pattern (single log)"""

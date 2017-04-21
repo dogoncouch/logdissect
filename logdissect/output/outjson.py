@@ -28,7 +28,7 @@ class OutputModule(OurModule):
     def __init__(self, options):
         """Initialize the JSON output module"""
         self.name = 'outjson'
-        self.desc = 'Output module for JSON arrays'
+        self.desc = 'output to JSON arrays'
 
         options.add_argument('--outjson', action='append', dest='outjson',
                 help='set the output file for JSON output')

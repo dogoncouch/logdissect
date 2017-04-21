@@ -29,10 +29,10 @@ class MorphModule(OurModule):
     def __init__(self, options):
         """Initialize the process morphing module"""
         self.name = "process"
-        self.desc = "Returns entries from specified process"
+        self.desc = "match a source process"
 
         options.add_argument('--process', action='append', dest='process',
-                help='specify a source process to match')
+                help='match a source process')
 
     def morph_data(self, data, options):
         """Return entries from specified process (single log)"""

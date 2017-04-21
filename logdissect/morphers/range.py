@@ -28,10 +28,10 @@ class MorphModule(OurModule):
     def __init__(self, options):
         """Initialize the range morphing module"""
         self.name = "range"
-        self.desc = "Specifies timestamp range (YYYYMMDDhhmm-YYYYMMDDhhmm)"
+        self.desc = "match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)"
 
         options.add_argument('--range', action='append', dest='range',
-                help='specify a time range <YYYYMMDDhhmm-YYYYMMDDhhmm>')
+                help='match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)')
 
     def morph_data(self, data, options):
         """Morph log data by timestamp range (single log)"""

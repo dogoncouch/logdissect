@@ -147,7 +147,7 @@ class LogDissectCore:
                 help=_('return a list of available output formats'))
         self.arg_parser.add_argument('-p',
                 action='store', dest='parser', default='syslog',
-                help=_('specify parser to use (default: syslog)'))
+                help=_('select a parser (default: syslog)'))
         self.arg_parser.add_argument('-s',
                 action='store_true', dest = 'silentmode',
                 help=_('silence terminal output'))
@@ -155,8 +155,10 @@ class LogDissectCore:
                 action='store_true', dest = 'verbosemode',
                 help=_('set verbose terminal output'))
         self.arg_parser.add_argument('files',
-                metavar='file', nargs='+',
-                help=_('Specify input files'))
+                # nargs needs to be * not + so --list-morphers/etc
+                # will work without file arg
+                metavar='file', nargs='*',
+                help=_('specify input files'))
 
         self.arg_parser.add_argument_group(self.morph_args)
         self.arg_parser.add_argument_group(self.output_args)

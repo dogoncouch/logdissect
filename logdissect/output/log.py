@@ -27,7 +27,7 @@ class OutputModule(OurModule):
     def __init__(self, options):
         """Initialize the log file output module"""
         self.name = 'log'
-        self.desc = 'Output module for standard log file'
+        self.desc = 'output to standard log file format'
         self.output_path = ''
 
         options.add_argument('--outlog', action='append', dest='outlog',

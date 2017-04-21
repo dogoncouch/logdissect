@@ -29,10 +29,10 @@ class MorphModule(OurModule):
     def __init__(self, options):
         """Initialize the rgrep morphing module"""
         self.name = "rgrep"
-        self.desc = "Removes entries containing specified pattern"
+        self.desc = "filter out a pattern"
 
         options.add_argument('--rgrep', action='append', dest='rpattern',
-                help='specify a pattern to filter out')
+                help='filter out a pattern')
 
     def morph_data(self, data, options):
         """Remove entries containing specified pattern (single log)"""
