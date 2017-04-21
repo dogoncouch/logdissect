@@ -32,7 +32,7 @@ class MorphModule(OurModule):
         self.desc = "Returns entries containing specified pattern"
 
         options.add_argument('--grep', action='append', dest='pattern',
-                help='specifies a pattern to match')
+                help='specify a pattern to match')
 
     def morph_data(self, data, options):
         """Return entries containing specified pattern (single log)"""

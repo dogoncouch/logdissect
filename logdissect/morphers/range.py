@@ -31,7 +31,7 @@ class MorphModule(OurModule):
         self.desc = "Specifies timestamp range (YYYYMMDDhhmm-YYYYMMDDhhmm)"
 
         options.add_argument('--range', action='append', dest='range',
-                help='specifies a range <YYYYMMDDhhmm-YYYYMMDDhhmm>')
+                help='specify a time range <YYYYMMDDhhmm-YYYYMMDDhhmm>')
 
     def morph_data(self, data, options):
         """Morph log data by timestamp range (single log)"""

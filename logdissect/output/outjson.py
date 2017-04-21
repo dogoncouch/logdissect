@@ -31,7 +31,7 @@ class OutputModule(OurModule):
         self.desc = 'Output module for JSON arrays'
 
         options.add_argument('--outjson', action='append', dest='outjson',
-                help='sets the output file for JSON output')
+                help='set the output file for JSON output')
 
     def write_output(self, data, options):
         """Write log data to a JSON array"""

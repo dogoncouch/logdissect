@@ -18,25 +18,25 @@ logdissect - A robust CLI syslog forensics tool.
   optional arguments:
     \fB-h\fR, \fB--help\fR         show this help message and exit
     \fB--version\fR          show program's version number and exit
-    \fB--list-parsers\fR     returns a list of available parsers
-    \fB--list-morphers\fR    returns a list of available morphers
-    \fB--list-outputs\fR     returns a list of available output formats
-    \fB-p\fR \fIPARSER\fR          specifies parser to use (default: syslog)
-    \fB-s\fR                 silences terminal output
-    \fB--verbose\fR          sets verbose terminal output
+    \fB--list-parsers\fR     return a list of available parsers
+    \fB--list-morphers\fR    return a list of available morphers
+    \fB--list-outputs\fR     return a list of available output formats
+    \fB-p\fR \fIPARSER\fR          specify parser to use (default: syslog)
+    \fB-s\fR                 silence terminal output
+    \fB--verbose\fR          set verbose terminal output
   
   morph options:
-    \fB--grep\fR \fIPATTERN\fR     specifies a pattern to match
-    \fB--host\fR \fIHOST\fR        specifies a source host to match
-    \fB--last\fR \fILAST\fR        specifies preceeding time period (5m/3h/2d/etc)
-    \fB--process\fR \fIPROCESS\fR  specifies a source process to match
-    \fB--range\fR \fIRANGE\fR      specifies a range <YYYYMMDDhhmm-YYYYMMDDhhmm>
-    \fB--rgrep\fR \fIRPATTERN\fR   specifies a pattern to filter out
+    \fB--grep\fR \fIPATTERN\fR     specify a pattern to match
+    \fB--host\fR \fIHOST\fR        specify a source host to match
+    \fB--last\fR \fILAST\fR        specify preceeding time period (5m/3h/2d/etc)
+    \fB--process\fR \fIPROCESS\fR  specify a source process to match
+    \fB--range\fR \fIRANGE\fR      specify a time range <YYYYMMDDhhmm-YYYYMMDDhhmm>
+    \fB--rgrep\fR \fIRPATTERN\fR   specify a pattern to filter out
   
   output options:
-    \fB--outlog \fIOUTLOG\fR    sets the output file for standard log output
-    \fB--label \fILABEL\fR      sets label type for entries in OUTLOG <fname|fpath>
-    \fB--outjson \fIOUTJSON\fR  sets the output file for JSON output
+    \fB--outlog \fIOUTLOG\fR    set the output file for standard log output
+    \fB--label \fILABEL\fR      set label type for entries in OUTLOG <fname|fpath>
+    \fB--outjson \fIOUTJSON\fR  set the output file for JSON output
 
 .SH EXAMPLES
     logdissect --last=10m auth.log

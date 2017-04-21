@@ -32,7 +32,7 @@ class MorphModule(OurModule):
         self.desc = "Returns entries from specified process"
 
         options.add_argument('--process', action='append', dest='process',
-                help='specifies a source process to match')
+                help='specify a source process to match')
 
     def morph_data(self, data, options):
         """Return entries from specified process (single log)"""

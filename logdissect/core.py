@@ -138,25 +138,25 @@ class LogDissectCore:
                 version='%(prog)s ' + str(__version__))
         self.arg_parser.add_argument('--list-parsers',
                 action='store_true', dest='list_parsers',
-                help=_('returns a list of available parsers'))
+                help=_('return a list of available parsers'))
         self.arg_parser.add_argument('--list-morphers',
                 action='store_true', dest='list_morphers',
-                help=_('returns a list of available morphers'))
+                help=_('return a list of available morphers'))
         self.arg_parser.add_argument('--list-outputs',
                 action='store_true', dest='list_outputs',
-                help=_('returns a list of available output formats'))
+                help=_('return a list of available output formats'))
         self.arg_parser.add_argument('-p',
                 action='store', dest='parser', default='syslog',
-                help=_('specifies parser to use (default: syslog)'))
+                help=_('specify parser to use (default: syslog)'))
         self.arg_parser.add_argument('-s',
                 action='store_true', dest = 'silentmode',
-                help=_('silences terminal output'))
+                help=_('silence terminal output'))
         self.arg_parser.add_argument('--verbose',
                 action='store_true', dest = 'verbosemode',
-                help=_('sets verbose terminal output'))
+                help=_('set verbose terminal output'))
         self.arg_parser.add_argument('files',
                 metavar='file', nargs='+',
-                help=_('Specifies input files'))
+                help=_('Specify input files'))
 
         self.arg_parser.add_argument_group(self.morph_args)
         self.arg_parser.add_argument_group(self.output_args)

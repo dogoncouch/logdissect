@@ -31,9 +31,9 @@ class OutputModule(OurModule):
         self.output_path = ''
 
         options.add_argument('--outlog', action='append', dest='outlog',
-                help='sets the output file for standard log output')
+                help='set the output file for standard log output')
         options.add_argument('--label', action='append', dest='label',
-                help='sets label type for entries in OUTLOG <fname|fpath>')
+                help='set label type for entries in OUTLOG <fname|fpath>')
 
     def write_output(self, data, options):
         """Write log data to a log file"""
