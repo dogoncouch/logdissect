@@ -42,9 +42,7 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 # Examples
     
     logdissect --last=10m auth.log
-    
     logdissect --last=2m *
-    
     logdissect -v --range=20160202020202-20170227213200 --label=fpath messages debug apache2/error.log
     
     logdissect -s --outlog=myaccess.log --grep=192.168.1.56 --last=30d --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
@@ -59,6 +57,9 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 4. --last options: The last option should be a number followed by either 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days (e.g. --last=20m).
 
 5. Zipped files: Files that end in .gz, .bz2, or .zip are ignored.
+
+# Issues
+Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub.
 
 # Author
     Dan Persons (dpersonsdev@gmail.com)
