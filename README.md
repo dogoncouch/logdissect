@@ -44,7 +44,6 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
     logdissect --last=10m auth.log
     logdissect --last=2m *
     logdissect -v --range=20160202020202-20170227213200 --label=fpath messages debug apache2/error.log
-    
     logdissect -s --outlog=myaccess.log --grep=192.168.1.56 --last=30d --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
 
 # Notes
@@ -58,7 +57,7 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 
 5. Zipped files: Files that end in .gz, .bz2, or .zip are ignored.
 
-# Issues
+# Support
 Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub.
 
 # Author
