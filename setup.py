@@ -23,36 +23,45 @@
 Logdissect
 ----------
 
-Logdissect is a tool for analyzing syslog files. It can merge entries from multiple log files and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to a standard syslog file, or to a JSON array along with some metadata.
+Logdissect is a tool for analyzing syslog files. It can merge entries from multiple log files and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to standard syslog file format, or to a JSON array along with some metadata.
 
 Options
 ```````
 
 ::
 
-    Usage: logdissect [options] <files>
+    usage: logdissect [-h] [--grep PATTERN] [--host HOST] [--last LAST]
+                      [--process PROCESS] [--range RANGE] [--rgrep RPATTERN]
+                      [--outlog OUTLOG] [--label LABEL] [--outjson OUTJSON]
+                      [--version] [--list-parsers] [--list-morphers]
+                      [--list-outputs] [-p PARSER] [-s] [--verbose]
+                      [file [file ...]]
     
-    --version          show program's version number and exit
-    -h, --help         show this help message and exit
-    --list-parsers     returns a list of available parsers
-    --list-morphers    returns a list of available morphers
-    --list-outputs     returns a list of available output formats
-    -p PARSER          specifies parser to use (default: syslog)
-    -s                 silences terminal output
-    -v                 sets verbose terminal output
+    positional arguments:
+      file               specify input files
     
-    Morph options:
-    --grep=PATTERN     specifies a pattern to match
-    --host=HOST        specifies a source host to match
-    --last=LAST        specifies preceeding time period (5m/3h/2d/etc)
-    --process=PROCESS  specifies a source process to match
-    --range=RANGE      specifies the range <YYYYMMDDhhmm-YYYYMMDDhhmm>
-    --rgrep=RPATTERN   specifies a pattern to filter out
+    optional arguments:
+      -h, --help         show this help message and exit
+      --version          show program's version number and exit
+      --list-parsers     return a list of available parsers
+      --list-morphers    return a list of available morphers
+      --list-outputs     return a list of available output formats
+      -p PARSER          select a parser (default: syslog)
+      -s                 silence terminal output
+      --verbose          set verbose terminal output
     
-    Output options:
-    --outlog=OUTLOG    sets the output file for standard log output
-    --label=LABEL      sets label type for entries in OUTLOG <fname|fpath>
-    --outjson=OUTJSON  sets the output file for JSON output
+    morph options:
+      --grep PATTERN     match a pattern
+      --host HOST        match a source host
+      --last LAST        match a preceeding time period (5m/3h/2d/etc)
+      --process PROCESS  match a source process
+      --range RANGE      match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)
+      --rgrep RPATTERN   filter out a pattern
+    
+    output options:
+      --outlog OUTLOG    set the output file for standard log output
+      --label LABEL      set label type for entries in OUTLOG (fname|fpath)
+      --outjson OUTJSON  set the output file for JSON output
 
 Links
 `````
