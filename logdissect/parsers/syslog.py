@@ -34,10 +34,16 @@ class ParseModule(OurModule):
         self.desc = 'syslog parsing module'
         self.date_format = \
                 re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\s+\S+\[?\d*?\]?):")
+        # Account for syslog configurations that don't include source host
+        options.add_argument('--no-host', action='store_true', 
+                dest='nohost',
+                help='parse syslog entries with no source host')
+        self.nohost_format = \
+                re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\s+\S+\[?\d*?\]?):")
 
 
 
-    def parse_log(self, data):
+    def parse_log(self, data, options):
         """Parse a syslog file into a LogData object"""
         newdata = data
         newdata.entries = []
@@ -67,13 +73,19 @@ class ParseModule(OurModule):
                 current_entry.raw_text = ourline + '\n' + \
                         current_entry.raw_text
             else: current_entry.raw_text = ourline
-            match = re.findall(self.date_format, ourline)
+            if options.nohost:
+                match = re.findall(self.nohost_format, ourline)
+            else:
+                match = re.findall(self.date_format, ourline)
             if match:
                 attr_list = str(match[0]).split(' ')
                 try:
                     attr_list.remove('')
                 except ValueError:
                     pass
+
+                # Account for lack of source host:
+                if options.nohost: attr_list.insert(3, None)
 
                 # Get the date stamp (without year)
                 months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \

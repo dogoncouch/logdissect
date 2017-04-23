@@ -28,6 +28,6 @@ class ParseModule:
         self.date_format = ""
         pass
 
-    def parse_logs(self):
+    def parse_logs(self, data, options):
         """Parse a log into a LogData object"""
         pass

@@ -35,7 +35,7 @@ class ParseModule(OurModule):
 
 
 
-    def parse_log(self, data):
+    def parse_log(self, data, options):
         """Parse a JSON array into a LogData object"""
 
         newdata = data

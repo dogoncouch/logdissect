@@ -92,9 +92,10 @@ class LogDissectCore:
         parsedset = LogDataSet()
         for l in self.data_set.data_set:
             parsemodule = self.parse_modules[self.args.parser]
-            parsedset.data_set.append(parsemodule.parse_log(l))
+            parsedset.data_set.append(parsemodule.parse_log(l, self.args))
         self.data_set = parsedset
         del(parsedset)
+        # Delete ourparser
 
     def run_merge(self):
         """Merge all of our data sets together"""
@@ -160,6 +161,7 @@ class LogDissectCore:
                 metavar='file', nargs='*',
                 help=_('specify input files'))
 
+        self.arg_parser.add_argument_group(self.parse_args)
         self.arg_parser.add_argument_group(self.morph_args)
         self.arg_parser.add_argument_group(self.output_args)
         self.args = self.arg_parser.parse_args()

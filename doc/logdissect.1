@@ -3,7 +3,7 @@
 logdissect - A robust CLI syslog forensics tool.
 
 .SH SYNOPSIS
-\fBlogdissect\fR [\fB-h\fR] [\fB--grep \fIPATTERN\fR] [\fB--host \fIHOST\fR] [\fB--last \fILAST\fR] [\fB--process \fIPROCESS\fR] [\fB--range \fIRANGE\fR] [\fB--rgrep \fIRPATTERN\fR] [\fB--outlog \fIOUTLOG\fR] [\fB--label \fILABEL\fR] [\fB--outjson \fIOUTJSON\fR] [\fB--version\fR] [\fB--list-parsers\fR] [\fB--list-morphers\fR] [\fB--list-outputs\fR] [\fB-p \fIPARSER\fR] [\fB-s\fR] [\fB--verbose\fR] [\fBfile \fR[\fBfile ...\fR]]
+\fBlogdissect\fR [\fB-h\fR] [\fB--no-nost\fR] [\fB--grep \fIPATTERN\fR] [\fB--host \fIHOST\fR] [\fB--last \fILAST\fR] [\fB--process \fIPROCESS\fR] [\fB--range \fIRANGE\fR] [\fB--rgrep \fIRPATTERN\fR] [\fB--outlog \fIOUTLOG\fR] [\fB--label \fILABEL\fR] [\fB--outjson \fIOUTJSON\fR] [\fB--version\fR] [\fB--list-parsers\fR] [\fB--list-morphers\fR] [\fB--list-outputs\fR] [\fB-p \fIPARSER\fR] [\fB-s\fR] [\fB--verbose\fR] [\fBfile \fR[\fBfile ...\fR]]
 
 .SH DESCRIPTION
 \fBlogdissect\fP is a tool for gaining insight into syslog files. It can merge multiple log files together together and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output a to standard syslog file, or to a JSON array along with some metadata.
@@ -24,6 +24,9 @@ logdissect - A robust CLI syslog forensics tool.
     \fB-p\fR \fIPARSER\fR          select a parser (default: syslog)
     \fB-s\fR                 silence terminal output
     \fB--verbose\fR          set verbose terminal output
+  
+  parse options:
+    \fB--no-host\fR          parse syslog entries with no source host
   
   morph options:
     \fB--grep\fR \fIPATTERN\fR     match a pattern

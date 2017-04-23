@@ -1,6 +1,10 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
+## [Unreleased]
+### Fixed
+- Add '--no-host' option for syslog configurations with no host attribute
+
 ## [1.3] - 2017-04-21
 ### Updated
 - Migrate from optparse to argparse

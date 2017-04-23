@@ -6,11 +6,12 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 
 # Options
 
-    usage: logdissect [-h] [--grep PATTERN] [--host HOST] [--last LAST]
-                      [--process PROCESS] [--range RANGE] [--rgrep RPATTERN]
-                      [--outlog OUTLOG] [--label LABEL] [--outjson OUTJSON]
-                      [--version] [--list-parsers] [--list-morphers]
-                      [--list-outputs] [-p PARSER] [-s] [--verbose]
+    usage: logdissect [-h] [--no-host] [--grep PATTERN] [--host HOST]
+                      [--last LAST] [--process PROCESS] [--range RANGE]
+                      [--rgrep RPATTERN] [--outlog OUTLOG] [--label LABEL]
+                      [--outjson OUTJSON] [--version] [--list-parsers]
+                      [--list-morphers] [--list-outputs] [-p PARSER] [-s]
+                      [--verbose]
                       [file [file ...]]
     
     positional arguments:
@@ -25,6 +26,9 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
       -p PARSER          select a parser (default: syslog)
       -s                 silence terminal output
       --verbose          set verbose terminal output
+    
+    parse options:
+      --no-host          parse syslog entries with no source host
     
     morph options:
       --grep PATTERN     match a pattern
