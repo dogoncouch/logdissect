@@ -30,13 +30,14 @@ Options
 
 ::
 
-    usage: logdissect [-h] [--grep PATTERN] [--host HOST] [--last LAST]
-                      [--process PROCESS] [--range RANGE] [--rgrep RPATTERN]
-                      [--outlog OUTLOG] [--label LABEL] [--outjson OUTJSON]
-                      [--version] [--list-parsers] [--list-morphers]
-                      [--list-outputs] [-p PARSER] [-s] [--verbose]
-                      [file [file ...]]
-    
+    usage: logdissect.py [-h] [--no-host] [--grep PATTERN] [--host HOST]
+                         [--last LAST] [--process PROCESS] [--range RANGE]
+                         [--rgrep RPATTERN] [--outlog OUTLOG] [--label LABEL]
+                         [--outjson OUTJSON] [--version] [--list-parsers]
+                         [--list-morphers] [--list-outputs] [-p PARSER] [-s]
+                         [--verbose]
+                         [file [file ...]]
+
     positional arguments:
       file               specify input files
     
@@ -49,6 +50,9 @@ Options
       -p PARSER          select a parser (default: syslog)
       -s                 silence terminal output
       --verbose          set verbose terminal output
+    
+    parse options:
+      --no-host          parse syslog entries with no source host
     
     morph options:
       --grep PATTERN     match a pattern
