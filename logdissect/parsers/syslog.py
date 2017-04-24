@@ -39,7 +39,8 @@ class ParseModule(OurModule):
                 dest='nohost',
                 help='parse syslog entries with no source host')
         self.nohost_format = \
-                re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*?\]?):")
+                re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*\]?):")
+                # re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*?\]?):")
 
 
 
