@@ -102,7 +102,7 @@ class LogDissectCore:
         ourlog = LogData()
         for l in self.data_set.data_set:
             ourlog.entries = ourlog.entries + l.entries
-        ourlog.entries.sort(key=lambda x: x.date_stamp)
+        ourlog.entries.sort(key=lambda x: float(x.date_stamp))
         self.data_set.finalized_data = ourlog
         del(ourlog)
 

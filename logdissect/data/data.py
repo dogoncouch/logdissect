@@ -29,8 +29,13 @@ class LogEntry:
         self.raw_text = ""
         self.source_path = ""
         self.source_host = ""
+        self.source_port = "" # new
         self.source_process = ""
         self.source_pid = None
+        self.dest_host = "" # new
+        self.dest_port = "" # new
+        self.protocol = "" # new
+
 
 class LogData:
     def __init__(self):

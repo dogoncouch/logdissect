@@ -1,6 +1,10 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
+## [Unreleased]
+### Added
+- 'inpcap' parser for parsing pcap files
+
 ## [1.3.1] - 2017-04-24
 ### Fixed
 - Add '--no-host' option for syslog configurations with no host attribute

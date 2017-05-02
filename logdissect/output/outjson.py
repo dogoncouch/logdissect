@@ -46,6 +46,15 @@ class OutputModule(OurModule):
                     'source_process': entry.source_process,
                     'source_pid': entry.source_pid,
                     'raw_text': entry.raw_text}
+            
+            if entry.dest_host != "":
+                thisentry['dest_host'] = entry.dest_host
+                thisentry['protocol'] = entry.protocol
+                # thisentry = thisentry + {'source_port': entry.dest_host,
+                #         'dest_host': entry.dest_host,
+                #         'dest_port': entry.dest_port,
+                #         'protocol': entry.protocol}
+            
             entrylist.append(thisentry)
 
         logstring = json.dumps(entrylist, indent=2, sort_keys=True,

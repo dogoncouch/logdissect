@@ -33,7 +33,7 @@ class ParseModule(OurModule):
         self.name = 'pcap'
         self.desc = 'pcap parsing module'
         self.date_format = \
-                re.compile(r"^(\d{2}:\d{2}:\d{2}\.\d+\s+[a-zA-Z0-9]\s+[a-zA-Z0-9\-\.]+\s+>\s+[a-zA-Z0-9\-\.]):")
+                re.compile(r"^(\d{2}:\d{2}:\d{2}\.\d+\s+\w+\s+[\w\-\.]+\s+>\s+[\w\-\.]+):")
 
 
 
@@ -53,7 +53,8 @@ class ParseModule(OurModule):
         entry_year = timestamp.year
         entry_month = timestamp.month
         entry_day = timestamp.day
-        recent_date_stamp = '99999999999999'
+        oldtnum = 999999.999999
+        currentday = timestamp
 
         # Parsing works in reverse. This helps with multi-line entries,
         # and logs that span multiple years (December to January shift).
@@ -65,7 +66,7 @@ class ParseModule(OurModule):
         # Parse our lines:
         for line in loglines:
             ourline = line.rstrip()
-            if len(current_entry.raw_text) >0:
+            if len(current_entry.raw_text) > 0:
                 current_entry.raw_text = ourline + '\n' + \
                         current_entry.raw_text
             else: current_entry.raw_text = ourline
@@ -77,13 +78,39 @@ class ParseModule(OurModule):
                     attr_list.remove('')
                 except ValueError:
                     pass
+                
+                tstamp = attr_list[0].replace(':', '')
+                prot = attr_list[1]
+                source = attr_list[2]
+                dest = attr_list[4]
+                tnum = float(tstamp)
 
-                # PICK UP HERE...
+                # Set the current day:
+                if float(tstamp) > oldtnum:
+                    currentday = currentday - datetime.timedelta(days=1)
+
+                ymdstamp = currentday.strftime('%Y%m%d')
+                
+                # Set the attributes for current_entry:
+                current_entry.date_stamp = ymdstamp + tstamp
+                # sourcelist = source.split('.')
+                # destlist = dest.split('.')
+                # lensp = len(sourcelist[-1]) + 1
+                # lendp = len(destlist[-1]) + 1
+                # current_entry.source_host = source[:-lensp]
+                # current_entry.source_port = sourcelist[-1]
+                # current_entry.dest_host = dest[:-lendp]
+                # current_entry.dest_port = destlist[-1]
+                current_entry.source_host = source
+                current_entry.dest_host = dest
+                current_entry.protocol = prot
+                current_entry.source_path = data.source_path
 
 
                 # Append and reset current_entry
                 newdata.entries.append(current_entry)
                 current_entry = LogEntry()
+                oldtnum = float(tstamp)
         
         # Write the entries to the log object
         newdata.entries.reverse()
