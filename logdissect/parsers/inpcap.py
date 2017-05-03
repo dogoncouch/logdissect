@@ -30,7 +30,7 @@ from logdissect.data.data import LogData
 class ParseModule(OurModule):
     def __init__(self, options):
         """Initialize the standard syslog parsing module"""
-        self.name = 'pcap'
+        self.name = 'inpcap'
         self.desc = 'pcap parsing module'
         self.date_format = \
                 re.compile(r"^(\d{2}:\d{2}:\d{2}\.\d+\s+\w+,?\s?\w?\s+[\w\-\.]+\s+>\s+[\w\-\.]+):")
