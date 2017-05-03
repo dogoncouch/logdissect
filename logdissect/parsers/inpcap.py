@@ -33,7 +33,7 @@ class ParseModule(OurModule):
         self.name = 'pcap'
         self.desc = 'pcap parsing module'
         self.date_format = \
-                re.compile(r"^(\d{2}:\d{2}:\d{2}\.\d+\s+\w+\s+[\w\-\.]+\s+>\s+[\w\-\.]+):")
+                re.compile(r"^(\d{2}:\d{2}:\d{2}\.\d+\s+\w+,?\s?\w?\s+[\w\-\.]+\s+>\s+[\w\-\.]+):")
 
 
 
@@ -80,7 +80,10 @@ class ParseModule(OurModule):
                     pass
                 
                 tstamp = attr_list[0].replace(':', '')
-                prot = attr_list[1]
+                if attr_list[1][-1] == ',':
+                    prot = attr_list[1] + attr_list.pop(2)
+                else:
+                    prot = attr_list[1]
                 source = attr_list[2]
                 dest = attr_list[4]
                 tnum = float(tstamp)
