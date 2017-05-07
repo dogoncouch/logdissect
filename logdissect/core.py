@@ -26,7 +26,7 @@ import os
 import sys
 import string
 import logdissect.data
-import logdissect.parsers
+import logdissectlib.parsers
 import logdissect.morphers
 import logdissect.output
 from logdissect.data.data import LogEntry
@@ -196,7 +196,7 @@ class LogDissectCore:
     
     def load_parsers(self):
         """Load parsing module(s)"""
-        for parser in sorted(logdissect.parsers.__all__):
+        for parser in sorted(logdissectlib.parsers.__all__):
             self.parse_modules[parser] = \
                 __import__('logdissect.parsers.' + parser, globals(), \
                 locals(), [logdissect]).ParseModule(self.parse_args)
