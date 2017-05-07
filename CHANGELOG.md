@@ -6,6 +6,7 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - 'inpcap' parser for parsing pcap files
 ###Moved
 - parsers moved to 'logdissectlib' to allow external use
+- data objects moved to 'logdissectlib'
 
 ## [1.3.1] - 2017-04-24
 ### Fixed
