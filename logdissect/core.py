@@ -25,13 +25,13 @@
 import os
 import sys
 import string
-import logdissect.data
+# import logdissectlib.data
 import logdissectlib.parsers
 import logdissect.morphers
 import logdissect.output
-from logdissect.data.data import LogEntry
-from logdissect.data.data import LogData
-from logdissect.data.data import LogDataSet
+from logdissectlib.data.data import LogEntry
+from logdissectlib.data.data import LogData
+from logdissectlib.data.data import LogDataSet
 from logdissect import __version__
 from argparse import ArgumentParser
 import gettext

@@ -20,28 +20,39 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import re
-from logdissect.morphers.type import MorphModule as OurModule
-from logdissectlib.data.data import LogEntry
-from logdissectlib.data.data import LogData
 
-class MorphModule(OurModule):
-    def __init__(self, options):
-        """Initialize the process morphing module"""
-        self.name = "process"
-        self.desc = "match a source process"
+class LogEntry:
+    def __init__(self):
+        """Initialize a log entry"""
+        self.date_stamp_noyear = None
+        self.date_stamp = None
+        self.raw_text = ""
+        self.source_path = ""
+        self.source_host = ""
+        self.source_port = "" # new
+        self.source_process = ""
+        self.source_pid = None
+        self.dest_host = "" # new
+        self.dest_port = "" # new
+        self.protocol = "" # new
 
-        options.add_argument('--process', action='append', dest='process',
-                help='match a source process')
 
-    def morph_data(self, data, options):
-        """Return entries from specified process (single log)"""
-        if not options.process:
-            return data
-        else:
-            newdata = LogData()
-            for entry in data.entries:
-                if entry.source_process == options.process[0]:
-                    newdata.entries.append(entry)
+class LogData:
+    def __init__(self):
+        """Initialize data object for a log file"""
+        self.entries = []
+        self.source_path = ""
+        self.source_file = ""
+        self.lines = []
+        self.source_file_mtime = None
+        self.parser = 'syslog' # To Do
+        
+class LogDataSet:
+    def __init__(self):
+        """Initialize data object for multiple parsed logs"""
+        self.data_set = []
+        self.finalized_data = LogData()
 
-            return newdata
+    def merge(self):
+        """Merge data set into sorted finalized_data"""
+        pass

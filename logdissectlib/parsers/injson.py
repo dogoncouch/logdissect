@@ -21,9 +21,9 @@
 # SOFTWARE.
 
 import json
-from logdissect.parsers.type import ParseModule as OurModule
-from logdissect.data.data import LogEntry
-from logdissect.data.data import LogData
+from logdissectlib.parsers.type import ParseModule as OurModule
+from logdissectlib.data.data import LogEntry
+from logdissectlib.data.data import LogData
 
 
 

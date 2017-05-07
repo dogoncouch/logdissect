@@ -20,6 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from logdissectlib.data.data import LogEntry
+from logdissectlib.data.data import LogData
+
 class MorphModule:
     def __init__(self, options):
         """Initialize a morphing module"""
