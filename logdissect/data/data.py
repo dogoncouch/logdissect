@@ -52,3 +52,12 @@ class LogDataSet:
         """Initialize data object for multiple parsed logs"""
         self.data_set = []
         self.finalized_data = LogData()
+
+    def merge_logs(self):
+        """Merge data sets together into finalized_data"""
+        ourlog = LogData()
+        for l in self.data_set:
+            ourlog.entries = ourlog.entries + l.entries
+        ourlog.entries.sort(key=lambda x: float(x.date_stamp))
+        self.finalized_data = ourlog
+
