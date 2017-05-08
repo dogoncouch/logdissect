@@ -195,9 +195,9 @@ class LogDissectCore:
     
     def load_parsers(self):
         """Load parsing module(s)"""
-        for parser in sorted(logdissectlib.parsers.__all__):
+        for parser in sorted(dissectlib.parsers.__all__):
             self.parse_modules[parser] = \
-                __import__('logdissect.parsers.' + parser, globals(), \
+                __import__('dissectlib.parsers.' + parser, globals(), \
                 locals(), [logdissect]).ParseModule(self.parse_args)
 
     # Morphing modules (range, grep, etc)

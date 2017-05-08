@@ -35,11 +35,11 @@ class ParseModule(OurModule):
         self.date_format = \
                 re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\s+\S+\[?\d*?\]?):")
         # Account for syslog configurations that don't include source host
-        options.add_argument('--no-host', action='store_true', 
-                dest='nohost',
-                help='parse syslog entries with no source host')
-        self.nohost_format = \
-                re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*\]?):")
+        # options.add_argument('--no-host', action='store_true', 
+        #         dest='nohost',
+        #         help='parse syslog entries with no source host')
+        # self.nohost_format = \
+        #         re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*\]?):")
                 # re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*?\]?):")
 
 
@@ -87,13 +87,13 @@ class ParseModule(OurModule):
             
             
             # Split source process/PID
-            sourceproclist = attr_list[4].split('[')
+            # sourceproclist = attr_list[4].split('[')
             
             # Set our attributes:
             current_entry.raw_text = ourline
-            current_entry.date_stamp_noyear = date_stamp_noyear
-            current_entry.date_stamp = str(entry_year) \
-                    + str(current_entry.date_stamp_noyear)
+            current_entry.date_stamp_noyear = datestampnoyear
+            current_entry.date_stamp = str(entryyear) \
+                    + str(datestampnoyear)
             current_entry.source_host = sourcehost
             current_entry.source_process = sourceprocess
             current_entry.source_pid = sourcepid
@@ -119,7 +119,7 @@ class ParseModule(OurModule):
                     pass
 
                 # Account for lack of source host:
-                if options.nohost: attr_list.insert(3, None)
+                # if options.nohost: attr_list.insert(3, None)
 
                 # Get the date stamp (without year)
                 months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
@@ -129,7 +129,7 @@ class ParseModule(OurModule):
                 intmonth = months[attr_list[0].strip()]
                 daydate = str(attr_list[1].strip()).zfill(2)
                 timelist = str(str(attr_list[2]).replace(':',''))
-                datestampnoyear = str(int_month) + str(daydate) + str(timelist)
+                datestampnoyear = str(intmonth) + str(daydate) + str(timelist)
                 
                 # Split source process/PID
                 
@@ -140,11 +140,11 @@ class ParseModule(OurModule):
                 if len(sourceproclist) > 1:
                     sourcepid = sourceproclist[1].strip(']')
                 else: sourcepid = None
-                rawstamp = line[:len(match[0])
+                rawstamp = line[:len(match[0])]
                 message = line[len(match[0]) + 2:]
 
                 
-                return datestampnoyear, rawstamp, sourcehost, sourceprocess,
+                return datestampnoyear, rawstamp, sourcehost, sourceprocess, \
                         sourcepid, message
 
 

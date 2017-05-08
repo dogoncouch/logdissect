@@ -132,11 +132,11 @@ class ParseModule(OurModule):
                 if len(sourceproclist) > 1:
                     sourcepid = sourceproclist[1].strip(']')
                 else: sourcepid = None
-                rawstamp = line[:len(match[0])
+                rawstamp = line[:len(match[0])]
                 message = line[len(match[0]) + 2:]
 
                 
-                return datestampnoyear, rawstamp, None, sourceprocess,
+                return datestampnoyear, rawstamp, None, sourceprocess, \
                         sourcepid, message
 
 
