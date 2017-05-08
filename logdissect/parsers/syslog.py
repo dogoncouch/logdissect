@@ -23,9 +23,9 @@
 import os
 import re
 import datetime
-from logdissect.parsers.type import ParseModule as OurModule
-from logdissect.data.data import LogEntry
-from logdissect.data.data import LogData
+from dissectlib.parsers.type import ParseModule as OurModule
+from dissectlib.data.data import LogEntry
+from dissectlib.data.data import LogData
 
 class ParseModule(OurModule):
     def __init__(self, options):
@@ -35,11 +35,11 @@ class ParseModule(OurModule):
         self.date_format = \
                 re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\s+\S+\[?\d*?\]?):")
         # Account for syslog configurations that don't include source host
-        options.add_argument('--no-host', action='store_true', 
-                dest='nohost',
-                help='parse syslog entries with no source host')
-        self.nohost_format = \
-                re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*\]?):")
+        # options.add_argument('--no-host', action='store_true', 
+        #         dest='nohost',
+        #         help='parse syslog entries with no source host')
+        # self.nohost_format = \
+        #         re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*\]?):")
                 # re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*?\]?):")
 
 
@@ -57,8 +57,8 @@ class ParseModule(OurModule):
         timestamp = \
                 datetime.datetime.fromtimestamp(data.source_file_mtime)
         data.source_file_year = timestamp.year
-        entry_year = timestamp.year
-        recent_date_stamp = '99999999999999'
+        entryyear = timestamp.year
+        recentdatestamp = '99999999999999'
 
         # Parsing works in reverse. This helps with multi-line entries,
         # and logs that span multiple years (December to January shift).
@@ -71,13 +71,46 @@ class ParseModule(OurModule):
         for line in loglines:
             ourline = line.rstrip()
             if len(current_entry.raw_text) >0:
-                current_entry.raw_text = ourline + '\n' + \
+                ourline = ourline + '\n' + \
                         current_entry.raw_text
-            else: current_entry.raw_text = ourline
-            if options.nohost:
-                match = re.findall(self.nohost_format, ourline)
-            else:
-                match = re.findall(self.date_format, ourline)
+            
+            # Send the line to self.parse_line
+            datestampnoyear, rawstamp, sourcehost, sourceprocess, \
+                    sourcepid, message = self.parse_line(ourline)
+           
+
+            # Check for Dec-Jan jump and set the year:
+            if int(datestampnoyear) > int(recentdatestamp):
+                entryyear = entryyear - 1
+            recentdatestamp = datestampnoyear
+
+            
+            
+            # Split source process/PID
+            # sourceproclist = attr_list[4].split('[')
+            
+            # Set our attributes:
+            current_entry.raw_text = ourline
+            current_entry.date_stamp_noyear = datestampnoyear
+            current_entry.date_stamp = str(entryyear) \
+                    + str(datestampnoyear)
+            current_entry.source_host = sourcehost
+            current_entry.source_process = sourceprocess
+            current_entry.source_pid = sourcepid
+            current_entry.source_path = \
+                    data.source_path
+
+            # Append and reset current_entry
+            newdata.entries.append(current_entry)
+            current_entry = LogEntry()
+        
+        # Write the entries to the log object
+        newdata.entries.reverse()
+        return newdata
+
+
+    def parse_line(self, line):
+            match = re.findall(self.date_format, line)
             if match:
                 attr_list = str(match[0]).split(' ')
                 try:
@@ -86,41 +119,33 @@ class ParseModule(OurModule):
                     pass
 
                 # Account for lack of source host:
-                if options.nohost: attr_list.insert(3, None)
+                # if options.nohost: attr_list.insert(3, None)
 
                 # Get the date stamp (without year)
                 months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
                         'Apr':'04', 'May':'05', 'Jun':'06', \
                         'Jul':'07', 'Aug':'08', 'Sep':'09', \
                         'Oct':'10', 'Nov':'11', 'Dec':'12'}
-                int_month = months[attr_list[0].strip()]
+                intmonth = months[attr_list[0].strip()]
                 daydate = str(attr_list[1].strip()).zfill(2)
                 timelist = str(str(attr_list[2]).replace(':',''))
-                date_stamp_noyear = str(int_month) + str(daydate) + str(timelist)
-                
-                # Check for Dec-Jan jump and set the year:
-                if int(date_stamp_noyear) > int(recent_date_stamp):
-                    entry_year = entry_year - 1
-                recent_date_stamp = date_stamp_noyear
+                datestampnoyear = str(intmonth) + str(daydate) + str(timelist)
                 
                 # Split source process/PID
-                sourceproclist = attr_list[4].split('[')
                 
                 # Set our attributes:
-                current_entry.source_host = attr_list[3]
-                current_entry.source_process = sourceproclist[0]
+                sourcehost = attr_list[3]
+                sourceproclist = attr_list[4].split('[')
+                sourceprocess = sourceproclist[0]
                 if len(sourceproclist) > 1:
-                    current_entry.source_pid = sourceproclist[1].strip(']')
-                current_entry.date_stamp_noyear = date_stamp_noyear
-                current_entry.date_stamp = str(entry_year) \
-                        + str(current_entry.date_stamp_noyear)
-                current_entry.source_path = \
-                        data.source_path
+                    sourcepid = sourceproclist[1].strip(']')
+                else: sourcepid = None
+                rawstamp = line[:len(match[0])]
+                message = line[len(match[0]) + 2:]
 
-                # Append and reset current_entry
-                newdata.entries.append(current_entry)
-                current_entry = LogEntry()
-        
-        # Write the entries to the log object
-        newdata.entries.reverse()
-        return newdata
+                
+                return datestampnoyear, rawstamp, sourcehost, sourceprocess, \
+                        sourcepid, message
+
+
+            else: return None

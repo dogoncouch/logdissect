@@ -31,3 +31,7 @@ class ParseModule:
     def parse_logs(self, data, options):
         """Parse a log into a LogData object"""
         pass
+
+    def parse_line(self, line):
+        """Parse a log line into attributes"""
+        pass

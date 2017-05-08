@@ -60,4 +60,3 @@ class LogDataSet:
             ourlog.entries = ourlog.entries + l.entries
         ourlog.entries.sort(key=lambda x: float(x.date_stamp))
         self.finalized_data = ourlog
-
