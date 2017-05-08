@@ -22,7 +22,7 @@
 
 import json
 from logdissect.output.type import OutputModule as OurModule
-from logdissect.data.data import LogData
+from dissectlib.data.data import LogData
 
 class OutputModule(OurModule):
     def __init__(self, options):

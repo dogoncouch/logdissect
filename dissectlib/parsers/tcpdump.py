@@ -23,15 +23,15 @@
 import os
 import re
 import datetime
-from logdissectlib.parsers.type import ParseModule as OurModule
-from logdissectlib.data.data import LogEntry
-from logdissectlib.data.data import LogData
+from dissectlib.parsers.type import ParseModule as OurModule
+from dissectlib.data.data import LogEntry
+from dissectlib.data.data import LogData
 
 class ParseModule(OurModule):
     def __init__(self, options):
         """Initialize the standard syslog parsing module"""
-        self.name = 'inpcap'
-        self.desc = 'pcap parsing module'
+        self.name = 'tcpdump'
+        self.desc = 'tcpdump terminal output parsing module'
         self.date_format = \
                 re.compile(r"^(\d{2}:\d{2}:\d{2}\.\d+\s+\w+,?\s?\w?\s+[\w\-\.]+\s+>\s+[\w\-\.]+):")
 

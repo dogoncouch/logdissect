@@ -23,32 +23,25 @@
 import os
 import re
 import datetime
-from logdissectlib.parsers.type import ParseModule as OurModule
-from logdissectlib.data.data import LogEntry
-from logdissectlib.data.data import LogData
+from dissectlib.parsers.type import ParseModule as OurModule
+from dissectlib.data.data import LogEntry
+from dissectlib.data.data import LogData
 
 class ParseModule(OurModule):
     def __init__(self, options):
-        """Initialize the standard syslog parsing module"""
-        self.name = 'syslog'
-        self.desc = 'syslog parsing module'
+        """Initialize the no-host syslog parsing module"""
+        self.name = 'nohost'
+        self.desc = 'syslog (without host) parsing module'
         self.date_format = \
-                re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\s+\S+\[?\d*?\]?):")
-        # Account for syslog configurations that don't include source host
-        options.add_argument('--no-host', action='store_true', 
-                dest='nohost',
-                help='parse syslog entries with no source host')
-        self.nohost_format = \
                 re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*\]?):")
-                # re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*?\]?):")
 
 
 
     def parse_log(self, data, options):
-        """Parse a syslog file into a LogData object"""
+        """Parse a syslog file with no host fields into a LogData object"""
         newdata = data
         newdata.entries = []
-	current_entry = LogEntry()
+        current_entry = LogEntry()
         data.source_file = data.source_path.split('/')[-1]
 
         # Set our start year:
@@ -134,8 +127,7 @@ class ParseModule(OurModule):
                 # Split source process/PID
                 
                 # Set our attributes:
-                sourcehost = attr_list[3]
-                sourceproclist = attr_list[4].split('[')
+                sourceproclist = attr_list[3].split('[')
                 sourceprocess = sourceproclist[0]
                 if len(sourceproclist) > 1:
                     sourcepid = sourceproclist[1].strip(']')
@@ -144,7 +136,7 @@ class ParseModule(OurModule):
                 message = line[len(match[0]) + 2:]
 
                 
-                return datestampnoyear, rawstamp, sourcehost, sourceprocess,
+                return datestampnoyear, rawstamp, None, sourceprocess,
                         sourcepid, message
 
 

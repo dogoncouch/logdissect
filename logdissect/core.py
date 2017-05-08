@@ -25,13 +25,12 @@
 import os
 import sys
 import string
-# import logdissectlib.data
-import logdissectlib.parsers
+import dissectlib.parsers
 import logdissect.morphers
 import logdissect.output
-from logdissectlib.data.data import LogEntry
-from logdissectlib.data.data import LogData
-from logdissectlib.data.data import LogDataSet
+from dissectlib.data.data import LogEntry
+from dissectlib.data.data import LogData
+from dissectlib.data.data import LogDataSet
 from logdissect import __version__
 from argparse import ArgumentParser
 import gettext
@@ -96,16 +95,15 @@ class LogDissectCore:
             parsedset.data_set.append(parsemodule.parse_log(l, self.args))
         self.data_set = parsedset
         del(parsedset)
-        # Delete ourparser
 
-    def run_merge(self):
-        """Merge all of our data sets together"""
-        ourlog = LogData()
-        for l in self.data_set.data_set:
-            ourlog.entries = ourlog.entries + l.entries
-        ourlog.entries.sort(key=lambda x: float(x.date_stamp))
-        self.data_set.finalized_data = ourlog
-        del(ourlog)
+    # def run_merge(self):
+    #     """Merge all of our data sets together"""
+    #     ourlog = LogData()
+    #     for l in self.data_set.data_set:
+    #         ourlog.entries = ourlog.entries + l.entries
+    #     ourlog.entries.sort(key=lambda x: float(x.date_stamp))
+    #     self.data_set.finalized_data = ourlog
+    #     del(ourlog)
 
     def run_morph(self):
         for m in self.morph_modules:

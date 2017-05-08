@@ -22,8 +22,8 @@
 
 import re
 from logdissect.morphers.type import MorphModule as OurModule
-from logdissectlib.data.data import LogEntry
-from logdissectlib.data.data import LogData
+from dissectlib.data.data import LogEntry
+from dissectlib.data.data import LogData
 
 class MorphModule(OurModule):
     def __init__(self, options):
