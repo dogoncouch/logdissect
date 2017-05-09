@@ -82,47 +82,75 @@ class ParseModule(OurModule):
                         current_entry.raw_text
             else: current_entry.raw_text = ourline
             
-            match = re.findall(self.date_format, ourline)
-            if match:
-                attr_list = str(match[0]).split(' ')
-                try:
-                    attr_list.remove('')
-                except ValueError:
-                    pass
-                
-                tstamp = attr_list[0].replace(':', '')
-                if attr_list[1][-1] == ',':
-                    protocol = attr_list[1] + attr_list.pop(2)
-                else:
-                    protocol = attr_list[1]
-                rawstamp = ourline[:len(match[0])]
-                message = ourline[len(match[0]) + 2:]
-                sourcehost = attr_list[2]
-                desthost = attr_list[4]
-                # tnum = float(tstamp)
-
-                # Set the current day:
-                if float(tstamp) > oldtnum:
-                    currentday = currentday - datetime.timedelta(days=1)
-
-                ymdstamp = currentday.strftime('%Y%m%d')
-                
-                # Set the attributes for current_entry:
-                current_entry.date_stamp = ymdstamp + tstamp
-                current_entry.tzone = tzone
-                current_entry.raw_stamp = rawstamp
-                current_entry.message = message
-                current_entry.source_host = sourcehost
-                current_entry.dest_host = desthost
-                current_entry.protocol = protocol
-                current_entry.source_path = data.source_path
-
-
-                # Append and reset current_entry
-                newdata.entries.append(current_entry)
-                current_entry = LogEntry()
-                oldtnum = float(tstamp)
+            tstamp, rawstamp, protocol, sourcehost, desthost, \
+                    message = self.parse_line(ourline)
+            
+            # match = re.findall(self.date_format, ourline)
+            # if match:
+            #     attr_list = str(match[0]).split(' ')
+            #     try:
+            #         attr_list.remove('')
+            #     except ValueError:
+            #         pass
+            #     
+            #     tstamp = attr_list[0].replace(':', '')
+            #     if attr_list[1][-1] == ',':
+            #         protocol = attr_list[1] + attr_list.pop(2)
+            #     else:
+            #         protocol = attr_list[1]
+            #     rawstamp = ourline[:len(match[0])]
+            #     message = ourline[len(match[0]) + 2:]
+            #     sourcehost = attr_list[2]
+            #     desthost = attr_list[4]
+            #     # tnum = float(tstamp)
+            
+            # Set the current day:
+            if float(tstamp) > oldtnum:
+                currentday = currentday - datetime.timedelta(days=1)
+            
+            ymdstamp = currentday.strftime('%Y%m%d')
+            
+            # Set the attributes for current_entry:
+            current_entry.date_stamp = ymdstamp + tstamp
+            current_entry.tzone = tzone
+            current_entry.raw_stamp = rawstamp
+            current_entry.message = message
+            current_entry.source_host = sourcehost
+            current_entry.dest_host = desthost
+            current_entry.protocol = protocol
+            current_entry.source_path = data.source_path
+            
+            
+            # Append and reset current_entry
+            newdata.entries.append(current_entry)
+            current_entry = LogEntry()
+            oldtnum = float(tstamp)
         
         # Write the entries to the log object
         newdata.entries.reverse()
         return newdata
+
+
+    def parse_line(self, line):
+        match = re.findall(self.date_format, line)
+        if match:
+            attr_list = str(match[0]).split(' ')
+            try:
+                attr_list.remove('')
+            except ValueError:
+                pass
+            
+            tstamp = attr_list[0].replace(':', '')
+            rawstamp = line[:len(match[0])]
+            if attr_list[1][-1] == ',':
+                protocol = attr_list[1] + attr_list.pop(2)
+            else:
+                protocol = attr_list[1]
+            sourcehost = attr_list[2]
+            desthost = attr_list[4]
+            message = line[len(match[0]) + 2:]
+            # tnum = float(tstamp)
+            
+            return tstamp, rawstamp, protocol, sourcehost, desthost, message
+        else:
+            return '0', '0', '0', '0', '0', line
