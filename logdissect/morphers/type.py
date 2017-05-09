@@ -20,8 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from dissectlib.data.data import LogEntry
-from dissectlib.data.data import LogData
+from logdissect.data.data import LogEntry
+from logdissect.data.data import LogData
 
 class MorphModule:
     def __init__(self, options):

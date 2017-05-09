@@ -25,12 +25,12 @@
 import os
 import sys
 import string
-import dissectlib.parsers
+import logdissect.parsers
 import logdissect.morphers
 import logdissect.output
-from dissectlib.data.data import LogEntry
-from dissectlib.data.data import LogData
-from dissectlib.data.data import LogDataSet
+from logdissect.data.data import LogEntry
+from logdissect.data.data import LogData
+from logdissect.data.data import LogDataSet
 from logdissect import __version__
 from argparse import ArgumentParser
 import gettext
@@ -195,9 +195,9 @@ class LogDissectCore:
     
     def load_parsers(self):
         """Load parsing module(s)"""
-        for parser in sorted(dissectlib.parsers.__all__):
+        for parser in sorted(logdissect.parsers.__all__):
             self.parse_modules[parser] = \
-                __import__('dissectlib.parsers.' + parser, globals(), \
+                __import__('logdissect.parsers.' + parser, globals(), \
                 locals(), [logdissect]).ParseModule(self.parse_args)
 
     # Morphing modules (range, grep, etc)

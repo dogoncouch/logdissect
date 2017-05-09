@@ -21,9 +21,9 @@
 # SOFTWARE.
 
 import json
-from dissectlib.parsers.type import ParseModule as OurModule
-from dissectlib.data.data import LogEntry
-from dissectlib.data.data import LogData
+from logdissect.parsers.type import ParseModule as OurModule
+from logdissect.data.data import LogEntry
+from logdissect.data.data import LogData
 
 
 
@@ -50,8 +50,13 @@ class ParseModule(OurModule):
         for entry in entrylist:
             thisentry = LogEntry()
             thisentry.date_stamp = entry['date_stamp']
+            thisentry.tzone = entry['tzone']
+            thisentry.raw_stamp = entry['raw_stamp']
+            thisentry.message = entry['message']
             thisentry.source_path = entry['source_path']
             thisentry.source_host = entry['source_host']
+            thisentry.dest_host = entry['dest_host']
+            thisentry.protocol = entry['protocol']
             thisentry.source_process = entry['source_process']
             thisentry.source_pid = entry['source_pid']
             thisentry.raw_text = entry['raw_text']

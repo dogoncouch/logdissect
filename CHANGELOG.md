@@ -3,14 +3,15 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
 ## [Unreleased]
 ### Added
-- 'inpcap' parser for parsing pcap files
-###Moved
-- parsers moved to 'logdissectlib' to allow external use
-- data objects moved to 'logdissectlib'
+- `tcpdump` parser for parsing tcpdump terminal output
+- `parse_line()` parser functions
+- More LogEntry attributes
+### Changed
+- More data in JSON arrays
 
 ## [1.3.1] - 2017-04-24
 ### Fixed
-- Add '--no-host' option for syslog configurations with no host attribute
+- Add `--no-host` option for syslog configurations with no host attribute
 
 ## [1.3] - 2017-04-21
 ### Updated
@@ -21,32 +22,32 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
 ## [1.2.2] - 2017-04-01
 ### Fixed
-- 'syslog' parser: fix bug with extra whitespace in timestamp
+- `syslog` parser: fix bug with extra whitespace in timestamp
 
 ## [1.2.1] - 2017-04-01
 ### Fixed
-- 'syslog' parser: typo (s/Oce/Oct/)
-- 'setup.py': Changed long description to rst formatted docstring
+- `syslog` parser: typo (s/Oce/Oct/)
+- `setup.py`: Changed long description to rst formatted docstring
 
 ## [1.2] - 2017-03-31
 ### Added
-- 'rgrep' morpher: reverse grep
-- 'outjson' output module for JSON
-- 'injson' parser module for JSON
-- 'host' morpher: match source host
-- 'process' morpher: match source process
+- `rgrep` morpher: reverse grep
+- `outjson` output module for JSON
+- `injson` parser module for JSON
+- `host` morpher: match source host
+- `process` morpher: match source process
 - Dev tests for new modules
 
 ## [1.1.1] - 2017-03-28
 ### Fixed
-- 'syslog' parser no longer breaks without PID
+- `syslog` parser no longer breaks without PID
 
 ## [1.1] - 2017-03-26
 ### Added
-- 'last' morpher
+- `last` morpher
 - Terminal output by default
 - Silent and verbose options
-- source host and source process attributes in LogEntry object
+- `source_host` and `source_process` attributes in `LogEntry` object
 
 ## [1.0] - 2017-03-21
 - First stable release

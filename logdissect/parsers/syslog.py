@@ -22,10 +22,11 @@
 
 import os
 import re
-import datetime
-from dissectlib.parsers.type import ParseModule as OurModule
-from dissectlib.data.data import LogEntry
-from dissectlib.data.data import LogData
+from datetime import datetime
+import time
+from logdissect.parsers.type import ParseModule as OurModule
+from logdissect.data.data import LogEntry
+from logdissect.data.data import LogData
 
 class ParseModule(OurModule):
     def __init__(self, options):
@@ -47,6 +48,7 @@ class ParseModule(OurModule):
     def parse_log(self, data, options):
         """Parse a syslog file into a LogData object"""
         newdata = data
+        newdata.parser = 'syslog'
         newdata.entries = []
 	current_entry = LogEntry()
         data.source_file = data.source_path.split('/')[-1]
@@ -55,11 +57,20 @@ class ParseModule(OurModule):
         data.source_file_mtime = \
                 os.path.getmtime(data.source_path)
         timestamp = \
-                datetime.datetime.fromtimestamp(data.source_file_mtime)
+                datetime.fromtimestamp(data.source_file_mtime)
         data.source_file_year = timestamp.year
         entryyear = timestamp.year
         recentdatestamp = '99999999999999'
+        
+        # Set our timezone
+        if time.daylight:
+            tzone = str(int(float(time.altzone) / 60 // 60)).rjust(2, '0') + \
+                    str(int(float(time.altzone) / 60 % 60)).ljust(2, '0')
+        else:
+            tzone = str(int(float(time.altzone) / 60 // 60)).rjust(2, '0') + \
+                    str(int(float(time.altzone) / 60 % 60)).ljust(2, '0')
 
+                        
         # Parsing works in reverse. This helps with multi-line entries,
         # and logs that span multiple years (December to January shift).
         
@@ -80,7 +91,7 @@ class ParseModule(OurModule):
            
 
             # Check for Dec-Jan jump and set the year:
-            if int(datestampnoyear) > int(recentdatestamp):
+            if int(datestampnoyear[0:4]) > int(recentdatestamp[0:4]):
                 entryyear = entryyear - 1
             recentdatestamp = datestampnoyear
 
@@ -94,6 +105,9 @@ class ParseModule(OurModule):
             current_entry.date_stamp_noyear = datestampnoyear
             current_entry.date_stamp = str(entryyear) \
                     + str(datestampnoyear)
+            current_entry.tzone = tzone
+            current_entry.raw_stamp = rawstamp
+            current_entry.message = message
             current_entry.source_host = sourcehost
             current_entry.source_process = sourceprocess
             current_entry.source_pid = sourcepid

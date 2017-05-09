@@ -22,7 +22,7 @@
 
 import json
 from logdissect.output.type import OutputModule as OurModule
-from dissectlib.data.data import LogData
+from logdissect.data.data import LogData
 
 class OutputModule(OurModule):
     def __init__(self, options):
@@ -41,19 +41,16 @@ class OutputModule(OurModule):
         entrylist = []
         for entry in data.entries:
             thisentry = {'date_stamp': entry.date_stamp,
+                    'tzone': entry.tzone,
+                    'raw_stamp': entry.raw_stamp,
+                    'message': entry.message,
                     'source_path': entry.source_path,
                     'source_host': entry.source_host,
+                    'dest_host': entry.dest_host,
+                    'protocol': entry.protocol,
                     'source_process': entry.source_process,
                     'source_pid': entry.source_pid,
                     'raw_text': entry.raw_text}
-            
-            if entry.dest_host != "":
-                thisentry['dest_host'] = entry.dest_host
-                thisentry['protocol'] = entry.protocol
-                # thisentry = thisentry + {'source_port': entry.dest_host,
-                #         'dest_host': entry.dest_host,
-                #         'dest_port': entry.dest_port,
-                #         'protocol': entry.protocol}
             
             entrylist.append(thisentry)
 

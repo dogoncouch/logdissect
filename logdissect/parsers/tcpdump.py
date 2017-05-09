@@ -23,9 +23,9 @@
 import os
 import re
 import datetime
-from dissectlib.parsers.type import ParseModule as OurModule
-from dissectlib.data.data import LogEntry
-from dissectlib.data.data import LogData
+from logdissect.parsers.type import ParseModule as OurModule
+from logdissect.data.data import LogEntry
+from logdissect.data.data import LogData
 
 class ParseModule(OurModule):
     def __init__(self, options):
@@ -40,6 +40,7 @@ class ParseModule(OurModule):
     def parse_log(self, data, options):
         """Parse a syslog file into a LogData object"""
         newdata = data
+        newdata.parser = 'tcpdump'
         newdata.entries = []
 	current_entry = LogEntry()
         data.source_file = data.source_path.split('/')[-1]
@@ -55,6 +56,15 @@ class ParseModule(OurModule):
         entry_day = timestamp.day
         oldtnum = 999999.999999
         currentday = timestamp
+        
+        # Set our timezone
+        if time.daylight:
+            tzone = str(int(float(time.altzone) / 60 // 60)).rjust(2, '0') + \
+                    str(int(float(time.altzone) / 60 % 60)).ljust(2, '0')
+        else:
+            tzone = str(int(float(time.altzone) / 60 // 60)).rjust(2, '0') + \
+                    str(int(float(time.altzone) / 60 % 60)).ljust(2, '0')
+        
 
         # Parsing works in reverse. This helps with multi-line entries,
         # and logs that span multiple years (December to January shift).
@@ -96,6 +106,7 @@ class ParseModule(OurModule):
                 
                 # Set the attributes for current_entry:
                 current_entry.date_stamp = ymdstamp + tstamp
+                current_entry.tzone = tzone
                 # sourcelist = source.split('.')
                 # destlist = dest.split('.')
                 # lensp = len(sourcelist[-1]) + 1
