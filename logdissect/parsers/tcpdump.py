@@ -99,7 +99,7 @@ class ParseModule(OurModule):
                 message = ourline[len(match[0]) + 2:]
                 sourcehost = attr_list[2]
                 desthost = attr_list[4]
-                tnum = float(tstamp)
+                # tnum = float(tstamp)
 
                 # Set the current day:
                 if float(tstamp) > oldtnum:

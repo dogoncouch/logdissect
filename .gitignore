@@ -1,6 +1,9 @@
 # vim swap files
 *.swp
 
+# dogoncouch's badly named temporary files
+blah.*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
