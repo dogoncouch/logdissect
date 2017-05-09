@@ -59,7 +59,6 @@ class ParseModule(OurModule):
             thisentry.protocol = entry['protocol']
             thisentry.source_process = entry['source_process']
             thisentry.source_pid = entry['source_pid']
-            thisentry.raw_text = entry['raw_text']
             newdata.entries.append(thisentry)
 
         # Return the parsed data
