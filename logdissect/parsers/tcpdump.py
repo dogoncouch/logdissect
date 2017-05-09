@@ -23,13 +23,14 @@
 import os
 import re
 import datetime
+import time
 from logdissect.parsers.type import ParseModule as OurModule
 from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 
 class ParseModule(OurModule):
     def __init__(self, options):
-        """Initialize the standard syslog parsing module"""
+        """Initialize the tcpdump terminal output parsing module"""
         self.name = 'tcpdump'
         self.desc = 'tcpdump terminal output parsing module'
         self.date_format = \
@@ -38,7 +39,7 @@ class ParseModule(OurModule):
 
 
     def parse_log(self, data, options):
-        """Parse a syslog file into a LogData object"""
+        """Parse tcpdump terminal output from file into a LogData object"""
         newdata = data
         newdata.parser = 'tcpdump'
         newdata.entries = []
@@ -76,7 +77,7 @@ class ParseModule(OurModule):
         # Parse our lines:
         for line in loglines:
             ourline = line.rstrip()
-            if len(current_entry.raw_text) > 0:
+            if current_entry.raw_text:
                 current_entry.raw_text = ourline + '\n' + \
                         current_entry.raw_text
             else: current_entry.raw_text = ourline
@@ -91,11 +92,13 @@ class ParseModule(OurModule):
                 
                 tstamp = attr_list[0].replace(':', '')
                 if attr_list[1][-1] == ',':
-                    prot = attr_list[1] + attr_list.pop(2)
+                    protocol = attr_list[1] + attr_list.pop(2)
                 else:
-                    prot = attr_list[1]
-                source = attr_list[2]
-                dest = attr_list[4]
+                    protocol = attr_list[1]
+                rawstamp = ourline[:len(match[0])]
+                message = ourline[len(match[0]) + 2:]
+                sourcehost = attr_list[2]
+                desthost = attr_list[4]
                 tnum = float(tstamp)
 
                 # Set the current day:
@@ -107,17 +110,11 @@ class ParseModule(OurModule):
                 # Set the attributes for current_entry:
                 current_entry.date_stamp = ymdstamp + tstamp
                 current_entry.tzone = tzone
-                # sourcelist = source.split('.')
-                # destlist = dest.split('.')
-                # lensp = len(sourcelist[-1]) + 1
-                # lendp = len(destlist[-1]) + 1
-                # current_entry.source_host = source[:-lensp]
-                # current_entry.source_port = sourcelist[-1]
-                # current_entry.dest_host = dest[:-lendp]
-                # current_entry.dest_port = destlist[-1]
-                current_entry.source_host = source
-                current_entry.dest_host = dest
-                current_entry.protocol = prot
+                current_entry.raw_stamp = rawstamp
+                current_entry.message = message
+                current_entry.source_host = sourcehost
+                current_entry.dest_host = desthost
+                current_entry.protocol = protocol
                 current_entry.source_path = data.source_path
 
 

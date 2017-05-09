@@ -125,42 +125,42 @@ class ParseModule(OurModule):
 
 
     def parse_line(self, line):
-            match = re.findall(self.date_format, line)
-            if match:
-                attr_list = str(match[0]).split(' ')
-                try:
-                    attr_list.remove('')
-                except ValueError:
-                    pass
+        match = re.findall(self.date_format, line)
+        if match:
+            attr_list = str(match[0]).split(' ')
+            try:
+                attr_list.remove('')
+            except ValueError:
+                pass
 
-                # Account for lack of source host:
-                # if options.nohost: attr_list.insert(3, None)
+            # Account for lack of source host:
+            # if options.nohost: attr_list.insert(3, None)
 
-                # Get the date stamp (without year)
-                months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
-                        'Apr':'04', 'May':'05', 'Jun':'06', \
-                        'Jul':'07', 'Aug':'08', 'Sep':'09', \
-                        'Oct':'10', 'Nov':'11', 'Dec':'12'}
-                intmonth = months[attr_list[0].strip()]
-                daydate = str(attr_list[1].strip()).zfill(2)
-                timelist = str(str(attr_list[2]).replace(':',''))
-                datestampnoyear = str(intmonth) + str(daydate) + str(timelist)
-                
-                # Split source process/PID
-                
-                # Set our attributes:
-                sourcehost = attr_list[3]
-                sourceproclist = attr_list[4].split('[')
-                sourceprocess = sourceproclist[0]
-                if len(sourceproclist) > 1:
-                    sourcepid = sourceproclist[1].strip(']')
-                else: sourcepid = None
-                rawstamp = line[:len(match[0])]
-                message = line[len(match[0]) + 2:]
+            # Get the date stamp (without year)
+            months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
+                    'Apr':'04', 'May':'05', 'Jun':'06', \
+                    'Jul':'07', 'Aug':'08', 'Sep':'09', \
+                    'Oct':'10', 'Nov':'11', 'Dec':'12'}
+            intmonth = months[attr_list[0].strip()]
+            daydate = str(attr_list[1].strip()).zfill(2)
+            timelist = str(str(attr_list[2]).replace(':',''))
+            datestampnoyear = str(intmonth) + str(daydate) + str(timelist)
+            
+            # Split source process/PID
+            
+            # Set our attributes:
+            sourcehost = attr_list[3]
+            sourceproclist = attr_list[4].split('[')
+            sourceprocess = sourceproclist[0]
+            if len(sourceproclist) > 1:
+                sourcepid = sourceproclist[1].strip(']')
+            else: sourcepid = None
+            rawstamp = line[:len(match[0])]
+            message = line[len(match[0]) + 2:]
 
-                
-                return datestampnoyear, rawstamp, sourcehost, sourceprocess, \
-                        sourcepid, message
+            
+            return datestampnoyear, rawstamp, sourcehost, sourceprocess, \
+                    sourcepid, message
 
 
-            else: return None
+        else: return None

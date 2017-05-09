@@ -5,12 +5,15 @@ To do list for [logdissect](https://github.com/dogoncouch/logdissect)
 
 ### Update
 - Update JSON arrays: add `LogData` attributes (parser, file, mtime)
-- Update tcpdump parser: `parse_line()` function, new attributes
-- Update dev tests for new json attributes, etc.
+- Update `tcpdump` parser: `parse_line()` function
+- Update dev tests for new JSON attributes, etc.
+- `parse_line()`: backup in case `parse_line()` returns `None`
 
 ### Add
 - `ISODATE` parser
 - `rhost` morph option
 - `rprocess` morph option
 - Option to include zipped files
-- Library documentation for parsers (level 3 man page, README.md)
+
+### Document
+- Library use - `parse_line()`, `parse_log()`, data types, morphers

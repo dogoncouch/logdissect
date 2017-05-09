@@ -49,7 +49,7 @@ class OutputModule(OurModule):
                     'dest_host': entry.dest_host,
                     'protocol': entry.protocol,
                     'source_process': entry.source_process,
-                    'source_pid': entry.source_pid)
+                    'source_pid': entry.source_pid}
             
             entrylist.append(thisentry)
 
