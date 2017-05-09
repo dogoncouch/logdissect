@@ -81,7 +81,8 @@ class ParseModule(OurModule):
         # Parse our lines:
         for line in loglines:
             ourline = line.rstrip()
-            if len(current_entry.raw_text) >0:
+            # if len(current_entry.raw_text) >0:
+            if current_entry.raw_text:
                 ourline = ourline + '\n' + \
                         current_entry.raw_text
             

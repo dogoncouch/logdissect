@@ -26,29 +26,42 @@ class LogEntry:
         """Initialize a log entry"""
         self.date_stamp_noyear = None
         self.date_stamp = None
-        self.tzone = "" # new
-        self.raw_text = ""
-        self.source_path = ""
-        self.source_host = ""
-        self.source_port = "" # To Do
-        self.source_process = ""
+        self.tzone = None # new
+        self.raw_text = None
+        self.raw_stamp = None # new
+        self.message = None # new
+        self.source_path = None
+        self.source_host = None
+        self.source_port = None # To Do
+        self.source_process = None
         self.source_pid = None
-        self.dest_host = "" # new
-        self.dest_port = "" # To Do
-        self.protocol = "" # new
-        self.raw_stamp = ""
-        self.message = "" # new
+        self.dest_host = None # new
+        self.dest_port = None # To Do
+        self.protocol = None # new
+        # self.date_stamp_noyear = None
+        # self.date_stamp = None
+        # self.tzone = "" # new
+        # self.raw_text = ""
+        # self.source_path = ""
+        # self.source_host = ""
+        # self.source_port = "" # To Do
+        # self.source_process = ""
+        # self.source_pid = None
+        # self.dest_host = "" # new
+        # self.dest_port = "" # To Do
+        # self.protocol = "" # new
+        # self.raw_stamp = ""
+        # self.message = "" # new
 
 
 class LogData:
     def __init__(self):
         """Initialize data object for a log file"""
         self.entries = []
-        self.source_path = ""
-        self.source_file = ""
-        self.lines = []
+        self.source_path = None
+        self.source_file = None
         self.source_file_mtime = None
-        self.parser = 'syslog'
+        self.parser = None
         
 class LogDataSet:
     def __init__(self):
