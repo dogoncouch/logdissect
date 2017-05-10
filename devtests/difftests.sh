@@ -55,7 +55,7 @@ echo Running testjson.log:
 ./logdissect.py -s --outjson=devtests/files/testjson.log devtests/files/exmeslog devtests/files/exsyslog
 
 echo Running testinjson.log
-./logdissect.py -s -p injson --outjson=devtests/files/testinjson.log devtests/files/testjson.log
+./logdissect.py -s -p ldjson --outjson=devtests/files/testinjson.log devtests/files/testjson.log
 
 echo Diff test for testinjson:
 diff devtests/files/testinjson.log devtests/files/testjson.log

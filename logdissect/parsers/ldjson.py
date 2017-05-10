@@ -30,8 +30,8 @@ from logdissect.data.data import LogData
 class ParseModule(OurModule):
     def __init__(self, options=[]):
         """Initialize the JSON parsing module"""
-        self.name = 'injson'
-        self.desc = 'JSON parsing module'
+        self.name = 'ldjson'
+        self.desc = 'logdissect JSON parsing module'
 
 
 
