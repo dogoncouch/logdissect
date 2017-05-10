@@ -6,7 +6,6 @@ To do list for [logdissect](https://github.com/dogoncouch/logdissect)
 ### Update
 - Parsers: make options a keyword arg (default to empty list)
 - Update JSON arrays: add `LogData` attributes (parser, file, mtime)
-- Update `tcpdump` parser: `parse_line()` function: handle ARP
 - Update dev tests for new JSON attributes, etc.
 - `parse_line()`: backup in case `parse_line()` returns `None`
 
