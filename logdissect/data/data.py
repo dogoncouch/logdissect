@@ -41,20 +41,6 @@ class LogEntry:
         self.dest_host = None # new
         self.dest_port = None # To Do
         self.protocol = None # new
-        # self.date_stamp_noyear = None
-        # self.date_stamp = None
-        # self.tzone = "" # new
-        # self.raw_text = ""
-        # self.source_path = ""
-        # self.source_host = ""
-        # self.source_port = "" # To Do
-        # self.source_process = ""
-        # self.source_pid = None
-        # self.dest_host = "" # new
-        # self.dest_port = "" # To Do
-        # self.protocol = "" # new
-        # self.raw_stamp = ""
-        # self.message = "" # new
 
 
 class LogData:
@@ -65,7 +51,21 @@ class LogData:
         self.source_file = None
         self.source_file_mtime = None
         self.parser = None
-        
+
+    def sort_time(self):
+        """Sort entries by datestamp"""
+        self.entries.sort(key=lambda x: float(x.date_stamp))
+
+    def sort_path(self):
+        """Sort entries by source path"""
+        self.entries.sort(key=lambda x: x.source_path)
+
+    def sort_facility(self):
+        """sort entries by facility, then severity"""
+        self.entries.sort(key=lambda x: x.severity)
+        self.entries.sort(key=lambda x: x.facility)
+
+
 class LogDataSet:
     def __init__(self):
         """Initialize data object for multiple parsed logs"""
@@ -77,5 +77,5 @@ class LogDataSet:
         ourlog = LogData()
         for l in self.data_set:
             ourlog.entries = ourlog.entries + l.entries
-        ourlog.entries.sort(key=lambda x: float(x.date_stamp))
+        ourlog.sort_time()
         self.finalized_data = ourlog
