@@ -28,7 +28,7 @@ from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 
 class ParseModule(OurModule):
-    def __init__(self, options=[]):
+    def __init__(self):
         """Initialize the no-host syslog parsing module"""
         self.name = 'nohost'
         self.desc = 'syslog (without host) parsing module'
@@ -37,11 +37,13 @@ class ParseModule(OurModule):
 
 
 
-    def parse_log(self, data, options=[]):
+    def parse_file(self, sourcepath):
         """Parse a syslog file with no host fields into a LogData object"""
-        newdata = data
-        newdata.parser = 'nohost'
-        newdata.entries = []
+        # newdata = data
+        data = LogData()
+        data.source_path = sourcepath
+        data.parser = 'nohost'
+        # data.entries = []
         current_entry = LogEntry()
         data.source_file = data.source_path.split('/')[-1]
 
@@ -73,9 +75,9 @@ class ParseModule(OurModule):
         # Parse our lines:
         for line in loglines:
             ourline = line.rstrip()
-            if len(current_entry.raw_text) >0:
-                ourline = ourline + '\n' + \
-                        current_entry.raw_text
+            # if len(current_entry.raw_text) >0:
+            #     ourline = ourline + '\n' + \
+            #             current_entry.raw_text
             
             # Send the line to self.parse_line
             datestampnoyear, rawstamp, sourcehost, sourceprocess, \
@@ -108,12 +110,12 @@ class ParseModule(OurModule):
                     data.source_path
 
             # Append and reset current_entry
-            newdata.entries.append(current_entry)
+            data.entries.append(current_entry)
             current_entry = LogEntry()
         
         # Write the entries to the log object
-        newdata.entries.reverse()
-        return newdata
+        data.entries.reverse()
+        return data
 
 
     def parse_line(self, line):
@@ -125,8 +127,6 @@ class ParseModule(OurModule):
                 except ValueError:
                     pass
 
-                # Account for lack of source host:
-                if options.nohost: attr_list.insert(3, None)
 
                 # Get the date stamp (without year)
                 months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \

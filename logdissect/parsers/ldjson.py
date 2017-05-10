@@ -28,24 +28,26 @@ from logdissect.data.data import LogData
 
 
 class ParseModule(OurModule):
-    def __init__(self, options=[]):
+    def __init__(self):
         """Initialize the JSON parsing module"""
         self.name = 'ldjson'
         self.desc = 'logdissect JSON parsing module'
 
 
 
-    def parse_log(self, data, options=[]):
+    def parse_file(self, sourcepath):
         """Parse a JSON array into a LogData object"""
 
-        newdata = data
-        newdata.entries = []
+        # newdata = data
+        # newdata.entries = []
+        data = LogData()
+        data.source_path = sourcepath
 
         # Open input file and read JSON array:
         with open(data.source_path, 'r') as logfile:
             jsonstr = logfile.read()
         
-        # Set our attributes for this entry and add it to newdata.entries:
+        # Set our attributes for this entry and add it to data.entries:
         entrylist = json.loads(jsonstr)
         for entry in entrylist:
             thisentry = LogEntry()
@@ -63,7 +65,7 @@ class ParseModule(OurModule):
             thisentry.protocol = entry['protocol']
             thisentry.source_process = entry['source_process']
             thisentry.source_pid = entry['source_pid']
-            newdata.entries.append(thisentry)
+            data.entries.append(thisentry)
 
         # Return the parsed data
-        return newdata
+        return data

@@ -77,7 +77,6 @@ class LogDissectCore:
             if self.args.verbosemode: print('Running parsers')
             self.run_parse()
             if self.args.verbosemode: print('Merging data')
-            # self.run_merge()
             self.data_set.merge_logs()
             if self.args.verbosemode: print('Running morphers')
             self.run_morph()
@@ -90,21 +89,11 @@ class LogDissectCore:
         """Parse one or more log files"""
         # Data set already has source file names from load_inputs
         parsedset = LogDataSet()
-        for l in self.data_set.data_set:
+        for log in self.input_files:
             parsemodule = self.parse_modules[self.args.parser]
-            parsedset.data_set.append(parsemodule.parse_log(l,
-                options=self.args))
+            parsedset.data_set.append(parsemodule.parse_file(log))
         self.data_set = parsedset
         del(parsedset)
-
-    # def run_merge(self):
-    #     """Merge all of our data sets together"""
-    #     ourlog = LogData()
-    #     for l in self.data_set.data_set:
-    #         ourlog.entries = ourlog.entries + l.entries
-    #     ourlog.entries.sort(key=lambda x: float(x.date_stamp))
-    #     self.data_set.finalized_data = ourlog
-    #     del(ourlog)
 
     def run_morph(self):
         for m in self.morph_modules:
@@ -180,9 +169,7 @@ class LogDissectCore:
                     return 0
                 else:
                     fullpath = os.path.abspath(str(f))
-                    log = LogData()
-                    log.source_path = fullpath
-                    self.data_set.data_set.append(log)
+                    self.input_files.append(fullpath)
             else: return 1
 
     # Parsing modules:
@@ -200,7 +187,7 @@ class LogDissectCore:
         for parser in sorted(logdissect.parsers.__all__):
             self.parse_modules[parser] = \
                 __import__('logdissect.parsers.' + parser, globals(), \
-                locals(), [logdissect]).ParseModule(options=self.parse_args)
+                locals(), [logdissect]).ParseModule()
 
     # Morphing modules (range, grep, etc)
     def list_morphers(self, *args):

@@ -28,7 +28,7 @@ class ParseModule:
         self.date_format = ""
         pass
 
-    def parse_log(self, data, options=[]):
+    def parse_file(self, data, options=[]):
         """Parse a log into a LogData object"""
         pass
 

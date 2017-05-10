@@ -29,28 +29,23 @@ from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 
 class ParseModule(OurModule):
-    def __init__(self, options=[]):
+    def __init__(self):
         """Initialize the standard syslog parsing module"""
         self.name = 'syslog'
         self.desc = 'syslog parsing module'
         self.date_format = \
                 re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\s+\S+\[?\d*?\]?):")
-        # Account for syslog configurations that don't include source host
-        # options.add_argument('--no-host', action='store_true', 
-        #         dest='nohost',
-        #         help='parse syslog entries with no source host')
-        # self.nohost_format = \
-        #         re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*\]?):")
-                # re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*?\]?):")
 
 
 
-    def parse_log(self, data, options=[]):
+    def parse_file(self, sourcepath):
         """Parse a syslog file into a LogData object"""
-        newdata = data
-        newdata.parser = 'syslog'
-        newdata.entries = []
+        # newdata = data
+        data = LogData()
+        data.parser = 'syslog'
+        # newdata.entries = []
 	current_entry = LogEntry()
+        data.source_path = sourcepath
         data.source_file = data.source_path.split('/')[-1]
 
         # Set our start year:
@@ -83,9 +78,9 @@ class ParseModule(OurModule):
         for line in loglines:
             ourline = line.rstrip()
             # if len(current_entry.raw_text) >0:
-            if current_entry.raw_text:
-                ourline = ourline + '\n' + \
-                        current_entry.raw_text
+            # if current_entry.raw_text:
+            #     ourline = ourline + '\n' + \
+            #             current_entry.raw_text
             
             # Send the line to self.parse_line
             datestampnoyear, rawstamp, sourcehost, sourceprocess, \
@@ -97,10 +92,6 @@ class ParseModule(OurModule):
                 entryyear = entryyear - 1
             recentdatestamp = datestampnoyear
 
-            
-            
-            # Split source process/PID
-            # sourceproclist = attr_list[4].split('[')
             
             # Set our attributes:
             current_entry.parser = 'syslog'
@@ -118,12 +109,12 @@ class ParseModule(OurModule):
                     data.source_path
 
             # Append and reset current_entry
-            newdata.entries.append(current_entry)
+            data.entries.append(current_entry)
             current_entry = LogEntry()
         
         # Write the entries to the log object
-        newdata.entries.reverse()
-        return newdata
+        data.entries.reverse()
+        return data
 
 
     def parse_line(self, line):
@@ -135,8 +126,6 @@ class ParseModule(OurModule):
             except ValueError:
                 pass
 
-            # Account for lack of source host:
-            # if options.nohost: attr_list.insert(3, None)
 
             # Get the date stamp (without year)
             months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
@@ -148,7 +137,6 @@ class ParseModule(OurModule):
             timelist = str(str(attr_list[2]).replace(':',''))
             datestampnoyear = str(intmonth) + str(daydate) + str(timelist)
             
-            # Split source process/PID
             
             # Set our attributes:
             sourcehost = attr_list[3]
