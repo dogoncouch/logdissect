@@ -93,6 +93,7 @@ class ParseModule(OurModule):
             sourceproclist = attr_list[4].split('[')
             
             # Set our attributes:
+            current_entry.parser = 'nohost'
             current_entry.raw_text = ourline
             current_entry.date_stamp_noyear = date_stamp_noyear
             current_entry.date_stamp = str(entry_year) \

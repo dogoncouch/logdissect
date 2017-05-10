@@ -24,6 +24,7 @@
 class LogEntry:
     def __init__(self):
         """Initialize a log entry"""
+        self.parser = None
         self.date_stamp_noyear = None
         self.date_stamp = None
         self.tzone = None # new

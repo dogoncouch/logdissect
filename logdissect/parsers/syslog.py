@@ -102,6 +102,7 @@ class ParseModule(OurModule):
             # sourceproclist = attr_list[4].split('[')
             
             # Set our attributes:
+            current_entry.parser = 'syslog'
             current_entry.raw_text = ourline
             current_entry.date_stamp_noyear = datestampnoyear
             current_entry.date_stamp = str(entryyear) \

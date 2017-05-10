@@ -40,7 +40,8 @@ class OutputModule(OurModule):
         
         entrylist = []
         for entry in data.entries:
-            thisentry = {'raw_text': entry.raw_text,
+            thisentry = {'parser': entry.parser,
+                    'raw_text': entry.raw_text,
                     'date_stamp': entry.date_stamp,
                     'tzone': entry.tzone,
                     'raw_stamp': entry.raw_stamp,

@@ -129,6 +129,7 @@ class ParseModule(OurModule):
             else:
                 current_entry.date_stamp = '0'
 
+            current_entry.parser = 'tcpdump'
             current_entry.raw_text = ourline
             current_entry.source_path = data.source_path
                 

@@ -49,6 +49,7 @@ class ParseModule(OurModule):
         entrylist = json.loads(jsonstr)
         for entry in entrylist:
             thisentry = LogEntry()
+            thisentry.parser = entry['parser']
             thisentry.source_path = entry['source_path']
             thisentry.raw_text = entry['raw_text']
             thisentry.date_stamp = entry['date_stamp']
