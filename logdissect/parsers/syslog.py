@@ -75,6 +75,7 @@ class ParseModule(OurModule):
         # and logs that span multiple years (December to January shift).
         
         # Get our lines:
+        # To Do: Add check for zipped files right here:
         with open(str(data.source_path), 'r') as logfile:
             loglines = reversed(logfile.readlines())
 

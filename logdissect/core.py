@@ -173,6 +173,7 @@ class LogDissectCore:
         """Load the specified inputs"""
         for f in self.args.files:
             if os.path.isfile(f):
+                # To Do: Add check for unzip option here:
                 fparts = str(f).split('.')
                 if fparts[-1] == 'gz' or fparts[-1] == 'bz2' or \
                         fparts[-1] == 'zip':

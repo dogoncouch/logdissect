@@ -12,7 +12,7 @@ To do list for [logdissect](https://github.com/dogoncouch/logdissect)
 - `ISODATE` parser
 - `rhost` morph option
 - `rprocess` morph option
-- Option to include zipped files
+- Option to include zipped files ('# To Do:' pointers in core.py, syslog.py)
 
 ### Document
 - Library use - `parse_line()`, `parse_log()`, data types, morphers
