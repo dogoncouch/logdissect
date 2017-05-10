@@ -14,3 +14,4 @@ To do list for [logdissect](https://github.com/dogoncouch/logdissect)
 
 ### Test
 - `syslogiso` parser
+- `.gz` option
