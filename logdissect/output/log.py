@@ -24,7 +24,7 @@ from logdissect.output.type import OutputModule as OurModule
 from logdissect.data.data import LogData
 
 class OutputModule(OurModule):
-    def __init__(self, options):
+    def __init__(self, options=[]):
         """Initialize the log file output module"""
         self.name = 'log'
         self.desc = 'output to standard log file format'
@@ -35,7 +35,7 @@ class OutputModule(OurModule):
         options.add_argument('--label', action='append', dest='label',
                 help='set label type for entries in OUTLOG (fname|fpath)')
 
-    def write_output(self, data, options):
+    def write_output(self, data, options=[]):
         """Write log data to a log file"""
         if not options.outlog:
             return 0

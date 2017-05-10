@@ -21,14 +21,14 @@
 # SOFTWARE.
 
 class ParseModule:
-    def __init__(self, options):
+    def __init__(self, options=[]):
         """Initialize a log parsing module"""
         self.name = ""
         self.desc = ""
         self.date_format = ""
         pass
 
-    def parse_logs(self, data, options):
+    def parse_log(self, data, options=[]):
         """Parse a log into a LogData object"""
         pass
 

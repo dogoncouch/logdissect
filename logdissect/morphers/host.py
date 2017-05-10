@@ -25,7 +25,7 @@ from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 
 class MorphModule(OurModule):
-    def __init__(self, options):
+    def __init__(self, options=[]):
         """Initialize the host morphing module"""
         self.name = "host"
         self.desc = "match a source host"
@@ -33,7 +33,7 @@ class MorphModule(OurModule):
         options.add_argument('--host', action='append', dest='host',
                 help='match a source host')
 
-    def morph_data(self, data, options):
+    def morph_data(self, data, options=[]):
         """Return entries from specified host (single log)"""
         if not options.host:
             return data

@@ -27,7 +27,7 @@ from time import strftime
 import datetime
 
 class MorphModule(OurModule):
-    def __init__(self, options):
+    def __init__(self, options=[]):
         """Initialize the 'last' morphing module"""
         self.name = "last"
         self.desc = "match a preceeding time period (5m/3h/2d/etc)"
@@ -35,7 +35,7 @@ class MorphModule(OurModule):
         options.add_argument('--last', action='append', dest='last',
                 help='match a preceeding time period (5m/3h/2d/etc)')
 
-    def morph_data(self, data, options):
+    def morph_data(self, data, options=[]):
         """Morph log data by preceeding time period (single log)"""
         if not options.last:
             return data

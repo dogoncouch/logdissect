@@ -28,7 +28,7 @@ from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 
 class ParseModule(OurModule):
-    def __init__(self, options):
+    def __init__(self, options=[]):
         """Initialize the no-host syslog parsing module"""
         self.name = 'nohost'
         self.desc = 'syslog (without host) parsing module'
@@ -37,7 +37,7 @@ class ParseModule(OurModule):
 
 
 
-    def parse_log(self, data, options):
+    def parse_log(self, data, options=[]):
         """Parse a syslog file with no host fields into a LogData object"""
         newdata = data
         newdata.parser = 'nohost'

@@ -25,7 +25,7 @@ from logdissect.output.type import OutputModule as OurModule
 from logdissect.data.data import LogData
 
 class OutputModule(OurModule):
-    def __init__(self, options):
+    def __init__(self, options=[]):
         """Initialize the JSON output module"""
         self.name = 'outjson'
         self.desc = 'output to JSON arrays'
@@ -33,7 +33,7 @@ class OutputModule(OurModule):
         options.add_argument('--outjson', action='append', dest='outjson',
                 help='set the output file for JSON output')
 
-    def write_output(self, data, options):
+    def write_output(self, data, options=[]):
         """Write log data to a JSON array"""
         if not options.outjson:
             return 0

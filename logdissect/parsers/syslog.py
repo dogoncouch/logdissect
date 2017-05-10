@@ -29,7 +29,7 @@ from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 
 class ParseModule(OurModule):
-    def __init__(self, options):
+    def __init__(self, options=[]):
         """Initialize the standard syslog parsing module"""
         self.name = 'syslog'
         self.desc = 'syslog parsing module'
@@ -45,7 +45,7 @@ class ParseModule(OurModule):
 
 
 
-    def parse_log(self, data, options):
+    def parse_log(self, data, options=[]):
         """Parse a syslog file into a LogData object"""
         newdata = data
         newdata.parser = 'syslog'

@@ -28,14 +28,14 @@ from logdissect.data.data import LogData
 
 
 class ParseModule(OurModule):
-    def __init__(self, options):
+    def __init__(self, options=[]):
         """Initialize the JSON parsing module"""
         self.name = 'injson'
         self.desc = 'JSON parsing module'
 
 
 
-    def parse_log(self, data, options):
+    def parse_log(self, data, options=[]):
         """Parse a JSON array into a LogData object"""
 
         newdata = data

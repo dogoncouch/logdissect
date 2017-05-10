@@ -29,7 +29,7 @@ from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 
 class ParseModule(OurModule):
-    def __init__(self, options):
+    def __init__(self, options=[]):
         """Initialize the tcpdump terminal output parsing module"""
         self.name = 'tcpdump'
         self.desc = 'tcpdump terminal output parsing module'
@@ -40,7 +40,7 @@ class ParseModule(OurModule):
 
 
 
-    def parse_log(self, data, options):
+    def parse_log(self, data, options=[]):
         """Parse tcpdump terminal output from file into a LogData object"""
         newdata = data
         newdata.parser = 'tcpdump'

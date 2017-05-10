@@ -24,12 +24,12 @@ from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 
 class MorphModule:
-    def __init__(self, options):
+    def __init__(self, options=[]):
         """Initialize a morphing module"""
         self.name = ""
         self.desc = ""
         pass
 
-    def morph_data(self, options):
+    def morph_data(self, data, options=[]):
         """Morph log data in some way (single log)"""
         pass
