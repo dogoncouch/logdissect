@@ -10,8 +10,8 @@ Diff for testgrep:
 Running testjson.log:
 Running testinjson.log
 Diff test for testinjson:
-Running testhost.log:
-Running diff test for testhost:
+Running testsource.log:
+Running diff test for testsource:
 Running testprocess.log:
 Running diff test for testprocess:
 Running testfname.log

@@ -34,7 +34,7 @@ echo Diff for teststar::
 diff devtests/files/teststarexlog devtests/files/teststar.log 
 
 echo Running testrange.log
-./logdissect.py -s --outlog=devtests/files/testrange.log --range=20160202020202-20170227213200 devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py -s --outlog=devtests/files/testrange.log --range 20160202020202-20170227213200 devtests/files/exsyslog devtests/files/exmeslog
 
 echo Diff for testrange:
 diff devtests/files/testrangeexlog devtests/files/testrange.log
@@ -60,11 +60,11 @@ echo Running testinjson.log
 echo Diff test for testinjson:
 diff devtests/files/testinjson.log devtests/files/testjson.log
 
-echo Running testhost.log:
-./logdissect.py -s --outlog=devtests/files/testhost.log --host=shade devtests/files/exsyslog
+echo Running testsource.log:
+./logdissect.py -s --outlog=devtests/files/testsource.log --source=shade devtests/files/exsyslog
 
-echo Running diff test for testhost:
-diff devtests/files/testhost.log devtests/files/exsyslog
+echo Running diff test for testsource:
+diff devtests/files/testsource.log devtests/files/exsyslog
 
 echo Running testprocess.log:
 ./logdissect.py -s --outlog=devtests/files/testprocess.log --process=systemd devtests/files/exsyslog

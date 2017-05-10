@@ -39,8 +39,14 @@ class MorphModule(OurModule):
         if not args.process:
             return data
         else:
-            newdata = data
-            newdata.entries = []
+            # newdata = data
+            # newdata.entries = []
+            newdata = LogData()
+            newdata.source_path = data.source_path
+            newdata.source_file = data.source_file
+            newdata.source_file_mtime = data.source_file_mtime
+            newdata.parser = data.parser
+
             for entry in data.entries:
                 if entry.source_process == args.process[0]:
                     newdata.entries.append(entry)

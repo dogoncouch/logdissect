@@ -6,10 +6,13 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - `tcpdump` parser for parsing tcpdump terminal output
 - `parse_line()` parser functions
 - More LogEntry attributes
+- Morphers: `dest`, `rdest`, `rsource`, `rprocess`, `protocol`
+
 ### Changed
 - More data in JSON arrays
 - Librarification: modules geared toward public use
 - Morph/parse/output options now optional
+- Moved `host` parser to `source`
 
 ## [1.3.1] - 2017-04-24
 ### Fixed

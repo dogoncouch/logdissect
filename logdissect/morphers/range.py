@@ -40,8 +40,14 @@ class MorphModule(OurModule):
         else:
             ourlimits = args.range[0].split('-')
 
-            newdata = data
-            newdata.entries = []
+            # newdata = data
+            # newdata.entries = []
+            newdata = LogData()
+            newdata.source_path = data.source_path
+            newdata.source_file = data.source_file
+            newdata.source_file_mtime = data.source_file_mtime
+            newdata.parser = data.parser
+            
 
             for entry in data.entries:
                 if int(entry.date_stamp) >= \
