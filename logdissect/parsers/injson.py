@@ -49,11 +49,12 @@ class ParseModule(OurModule):
         entrylist = json.loads(jsonstr)
         for entry in entrylist:
             thisentry = LogEntry()
+            thisentry.source_path = entry['source_path']
+            thisentry.raw_text = entry['raw_text']
             thisentry.date_stamp = entry['date_stamp']
             thisentry.tzone = entry['tzone']
             thisentry.raw_stamp = entry['raw_stamp']
             thisentry.message = entry['message']
-            thisentry.source_path = entry['source_path']
             thisentry.source_host = entry['source_host']
             thisentry.dest_host = entry['dest_host']
             thisentry.protocol = entry['protocol']
