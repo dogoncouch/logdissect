@@ -30,20 +30,18 @@ from logdissect.data.data import LogData
 
 class ParseModule(OurModule):
     def __init__(self):
-        """Initialize the standard syslog parsing module"""
-        self.name = 'syslog'
-        self.desc = 'syslog parsing module'
+        """Initialize the syslog ISODATE parsing module"""
+        self.name = 'syslogiso'
+        self.desc = 'syslog ISODATE parsing module'
         self.date_format = \
-                re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\s+\S+\[?\d*?\]?):")
+                re.compile(r"^(\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d\.?\d+?[+-]\d\d:?\d\d\s+\S+\s+\S+\[?\d*?\]?):")
 
 
 
     def parse_file(self, sourcepath):
         """Parse a syslog file into a LogData object"""
-        # newdata = data
         data = LogData()
-        data.parser = 'syslog'
-        # newdata.entries = []
+        data.parser = 'syslogiso'
 	current_entry = LogEntry()
         data.source_path = sourcepath
         data.source_file = data.source_path.split('/')[-1]
@@ -54,22 +52,8 @@ class ParseModule(OurModule):
         timestamp = \
                 datetime.fromtimestamp(data.source_file_mtime)
         data.source_file_year = timestamp.year
-        entryyear = timestamp.year
-        recentdatestamp = '99999999999999'
         
-        # Set our timezone
-        if time.daylight:
-            tzone = str(int(float(time.altzone) / 60 // 60)).rjust(2, '0') + \
-                    str(int(float(time.altzone) / 60 % 60)).ljust(2, '0')
-        else:
-            tzone = str(int(float(time.timezone) / 60 // 60)).rjust(2, '0') + \
-                    str(int(float(time.timezone) / 60 % 60)).ljust(2, '0')
-        if not '-' in tzone:
-            tzone = '+' + tzone
                         
-        # Parsing works in reverse. This helps with multi-line entries,
-        # and logs that span multiple years (December to January shift).
-        
         # Get our lines:
         # To Do: Add check for zipped files right here:
         with open(str(data.source_path), 'r') as logfile:
@@ -78,28 +62,17 @@ class ParseModule(OurModule):
         # Parse our lines:
         for line in loglines:
             ourline = line.rstrip()
-            # if len(current_entry.raw_text) >0:
-            # if current_entry.raw_text:
-            #     ourline = ourline + '\n' + \
-            #             current_entry.raw_text
             
             # Send the line to self.parse_line
-            datestampnoyear, rawstamp, sourcehost, sourceprocess, \
+            datestampnoyear, tzone, rawstamp, sourcehost, sourceprocess, \
                     sourcepid, message = self.parse_line(ourline)
            
 
-            # Check for Dec-Jan jump and set the year:
-            if int(datestampnoyear[0:4]) > int(recentdatestamp[0:4]):
-                entryyear = entryyear - 1
-            recentdatestamp = datestampnoyear
-
-            
             # Set our attributes:
-            current_entry.parser = 'syslog'
+            current_entry.parser = 'syslogiso'
             current_entry.raw_text = ourline
-            current_entry.date_stamp_noyear = datestampnoyear
-            current_entry.date_stamp = str(entryyear) \
-                    + str(datestampnoyear)
+            current_entry.date_stamp_noyear = datestamp[4:]
+            current_entry.date_stamp = datestamp
             current_entry.tzone = tzone
             current_entry.raw_stamp = rawstamp
             current_entry.message = message
@@ -128,20 +101,18 @@ class ParseModule(OurModule):
                 pass
 
 
-            # Get the date stamp (without year)
-            months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
-                    'Apr':'04', 'May':'05', 'Jun':'06', \
-                    'Jul':'07', 'Aug':'08', 'Sep':'09', \
-                    'Oct':'10', 'Nov':'11', 'Dec':'12'}
-            intmonth = months[attr_list[0].strip()]
-            daydate = str(attr_list[1].strip()).zfill(2)
-            timelist = str(str(attr_list[2]).replace(':',''))
-            datestampnoyear = str(intmonth) + str(daydate) + str(timelist)
-            
-            
             # Set our attributes:
-            sourcehost = attr_list[3]
-            sourceproclist = attr_list[4].split('[')
+            datestamp = attr_list[0][:-6].strip('-').strip('T').strip(':')
+            if attr_list[0][-1] == 'Z':
+                tzone = '+0000'
+                datestamp = \
+                        attr_list[0][:-1].strip('-').strip('T').strip(':')
+            else:
+                tzone = attr_list[0][-5:].strip(':')
+                datestamp = \
+                        attr_list[0][:-6].strip('-').strip('T').strip(':')
+            sourcehost = attr_list[1]
+            sourceproclist = attr_list[2].split('[')
             sourceprocess = sourceproclist[0]
             if len(sourceproclist) > 1:
                 sourcepid = sourceproclist[1].strip(']')
@@ -150,8 +121,8 @@ class ParseModule(OurModule):
             message = line[len(match[0]) + 2:]
 
             
-            return datestampnoyear, rawstamp, sourcehost, sourceprocess, \
-                    sourcepid, message
+            return datestamp, tzone, rawstamp, sourcehost, \
+                    sourceprocess, sourcepid, message
 
 
         else: return None

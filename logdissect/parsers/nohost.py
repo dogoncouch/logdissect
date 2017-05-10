@@ -63,6 +63,8 @@ class ParseModule(OurModule):
         else:
             tzone = str(int(float(time.timezone) / 60 // 60)).rjust(2, '0') + \
                     str(int(float(time.timezone) / 60 % 60)).ljust(2, '0')
+        if not '-' in tzone:
+            tzone = '+' + tzone
 
 
         # Parsing works in reverse. This helps with multi-line entries,
