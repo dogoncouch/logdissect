@@ -45,6 +45,8 @@ class OutputModule(OurModule):
                     'date_stamp': entry.date_stamp,
                     'tzone': entry.tzone,
                     'raw_stamp': entry.raw_stamp,
+                    'facility': entry.facility,
+                    'severity': entry.severity,
                     'message': entry.message,
                     'source_path': entry.source_path,
                     'source_host': entry.source_host,

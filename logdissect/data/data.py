@@ -30,6 +30,8 @@ class LogEntry:
         self.tzone = None # new
         self.raw_text = None
         self.raw_stamp = None # new
+        self.facility = None # new
+        self.severity = None # new
         self.message = None # new
         self.source_path = None
         self.source_host = None
