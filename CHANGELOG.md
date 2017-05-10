@@ -8,6 +8,8 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - More LogEntry attributes
 ### Changed
 - More data in JSON arrays
+- Librarification: modules geared toward public use
+- Morph/parse/output options now optional
 
 ## [1.3.1] - 2017-04-24
 ### Fixed
