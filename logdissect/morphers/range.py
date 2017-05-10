@@ -25,20 +25,20 @@ from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 
 class MorphModule(OurModule):
-    def __init__(self, options=[]):
+    def __init__(self, args=[]):
         """Initialize the range morphing module"""
         self.name = "range"
         self.desc = "match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)"
 
-        options.add_argument('--range', action='append', dest='range',
+        args.add_argument('--range', action='append', dest='range',
                 help='match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)')
 
-    def morph_data(self, data, options=[]):
+    def morph_data(self, data, args=[]):
         """Morph log data by timestamp range (single log)"""
-        if not options.range:
+        if not args.range:
             return data
         else:
-            ourlimits = options.range[0].split('-')
+            ourlimits = args.range[0].split('-')
             newdata = LogData()
             for entry in data.entries:
                 if int(entry.date_stamp) >= \

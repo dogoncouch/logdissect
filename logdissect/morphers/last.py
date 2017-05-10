@@ -27,22 +27,22 @@ from time import strftime
 import datetime
 
 class MorphModule(OurModule):
-    def __init__(self, options=[]):
+    def __init__(self, args=[]):
         """Initialize the 'last' morphing module"""
         self.name = "last"
         self.desc = "match a preceeding time period (5m/3h/2d/etc)"
 
-        options.add_argument('--last', action='append', dest='last',
+        args.add_argument('--last', action='append', dest='last',
                 help='match a preceeding time period (5m/3h/2d/etc)')
 
-    def morph_data(self, data, options=[]):
+    def morph_data(self, data, args=[]):
         """Morph log data by preceeding time period (single log)"""
-        if not options.last:
+        if not args.last:
             return data
         else:
             # Set the units and number from the option:
-            lastunit = options.last[0][-1]
-            lastnum = options.last[0][:-1]
+            lastunit = args.last[0][-1]
+            lastnum = args.last[0][:-1]
             
             # Set the start time:
             if lastunit == 's':

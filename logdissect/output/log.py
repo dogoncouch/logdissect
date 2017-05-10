@@ -24,32 +24,32 @@ from logdissect.output.type import OutputModule as OurModule
 from logdissect.data.data import LogData
 
 class OutputModule(OurModule):
-    def __init__(self, options=[]):
+    def __init__(self, args=[]):
         """Initialize the log file output module"""
         self.name = 'log'
         self.desc = 'output to standard log file format'
         self.output_path = ''
 
-        options.add_argument('--outlog', action='append', dest='outlog',
+        args.add_argument('--outlog', action='append', dest='outlog',
                 help='set the output file for standard log output')
-        options.add_argument('--label', action='append', dest='label',
+        args.add_argument('--label', action='append', dest='label',
                 help='set label type for entries in OUTLOG (fname|fpath)')
 
-    def write_output(self, data, options=[]):
+    def write_output(self, data, args=[]):
         """Write log data to a log file"""
-        if not options.outlog:
+        if not args.outlog:
             return 0
         lastpath = ''
-        with open(str(options.outlog[0]), 'w') as output_file:
+        with open(str(args.outlog[0]), 'w') as output_file:
             for entry in data.entries:
-                if options.label:
+                if args.label:
                     if entry.source_path == lastpath:
                         output_file.write(entry.raw_text + '\n')
-                    elif options.label[0] == 'fname':
+                    elif args.label[0] == 'fname':
                         output_file.write('======== ' + \
                                 entry.source_path.split('/')[-1] + \
                                 ' >>>>\n' + entry.raw_text + '\n')
-                    elif options.label[0] == 'fpath':
+                    elif args.label[0] == 'fpath':
                         output_file.write('======== ' + \
                                 entry.source_path  + \
                                 ' >>>>\n' + entry.raw_text + '\n')

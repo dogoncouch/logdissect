@@ -21,13 +21,13 @@
 # SOFTWARE.
 
 class OutputModule:
-    def __init__(self, options=[]):
+    def __init__(self, args=[]):
         """Initialize an output module"""
         self.name = ""
         self.desc = ""
         self.output_path = ""
         pass
 
-    def write_output(self, data, options=[]):
+    def write_output(self, data, args=[]):
         """Write output to our format"""
         pass

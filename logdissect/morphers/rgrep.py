@@ -26,20 +26,20 @@ from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 
 class MorphModule(OurModule):
-    def __init__(self, options=[]):
+    def __init__(self, args=[]):
         """Initialize the rgrep morphing module"""
         self.name = "rgrep"
         self.desc = "filter out a pattern"
 
-        options.add_argument('--rgrep', action='append', dest='rpattern',
+        args.add_argument('--rgrep', action='append', dest='rpattern',
                 help='filter out a pattern')
 
-    def morph_data(self, data, options=[]):
+    def morph_data(self, data, args=[]):
         """Remove entries containing specified pattern (single log)"""
-        if not options.rpattern:
+        if not args.rpattern:
             return data
         else:
-            repattern = re.compile(r".*({}).*".format(options.rpattern[0]))
+            repattern = re.compile(r".*({}).*".format(args.rpattern[0]))
             newdata = LogData()
             for entry in data.entries:
                 if not re.match(repattern, entry.raw_text):

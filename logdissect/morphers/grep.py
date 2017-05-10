@@ -26,20 +26,20 @@ from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 
 class MorphModule(OurModule):
-    def __init__(self, options=[]):
+    def __init__(self, args=[]):
         """Initialize the grep morphing module"""
         self.name = "grep"
         self.desc = "match a pattern"
 
-        options.add_argument('--grep', action='append', dest='pattern',
+        args.add_argument('--grep', action='append', dest='pattern',
                 help='match a pattern')
 
-    def morph_data(self, data, options=[]):
+    def morph_data(self, data, args=[]):
         """Return entries containing specified pattern (single log)"""
-        if not options.pattern:
+        if not args.pattern:
             return data
         else:
-            repattern = re.compile(r".*({}).*".format(options.pattern[0]))
+            repattern = re.compile(r".*({}).*".format(args.pattern[0]))
             newdata = LogData()
             for entry in data.entries:
                 if re.match(repattern, entry.raw_text):

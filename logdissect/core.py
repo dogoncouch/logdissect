@@ -99,7 +99,7 @@ class LogDissectCore:
         for m in self.morph_modules:
             ourmorph = self.morph_modules[m]
             ourlog = ourmorph.morph_data(self.data_set.finalized_data,
-                    options=self.args)
+                    args=self.args)
             self.data_set.finalized_data = ourlog
             del(ourlog)
             del(ourmorph)
@@ -109,7 +109,7 @@ class LogDissectCore:
         for f in logdissect.output.__formats__:
             ouroutput = self.output_modules[f]
             ouroutput.write_output(self.data_set.finalized_data,
-                    options=self.args)
+                    args=self.args)
             del(ouroutput)
 
         # Output to terminal if silent mode is not set:
@@ -204,7 +204,7 @@ class LogDissectCore:
         for morpher in sorted(logdissect.morphers.__morphers__):
             self.morph_modules[morpher] = \
                 __import__('logdissect.morphers.' + morpher, globals(), \
-                locals(), [logdissect]).MorphModule(options=self.morph_args)
+                locals(), [logdissect]).MorphModule(args=self.morph_args)
 
     # Output modules (log file, csv, html, etc)
     def list_outputs(self, *args):
@@ -221,7 +221,7 @@ class LogDissectCore:
         for output in sorted(logdissect.output.__formats__):
             self.output_modules[output] = \
                 __import__('logdissect.output.' + output, globals(), \
-                locals(), [logdissect]).OutputModule(options=self.output_args)
+                locals(), [logdissect]).OutputModule(args=self.output_args)
 
 
                 
