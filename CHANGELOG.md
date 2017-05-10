@@ -7,12 +7,16 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - `parse_line()` parser functions
 - More LogEntry attributes
 - Morphers: `dest`, `rdest`, `rsource`, `rprocess`, `protocol`
+- `syslogiso` parser for ISO 8601 datestamp format (ISODATE)
 
 ### Changed
 - More data in JSON arrays
-- Librarification: modules geared toward public use
-- Morph/parse/output options now optional
+- Module redesign: geared toward public use
+- Morph/output options now optional
+- Removed parse options
+- Changed `--no-host` option to `nohost` parser
 - Moved `host` parser to `source`
+- Moved `parse_log()` functions to `parse_file()`
 
 ## [1.3.1] - 2017-04-24
 ### Fixed
