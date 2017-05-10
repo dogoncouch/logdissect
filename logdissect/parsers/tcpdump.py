@@ -35,6 +35,8 @@ class ParseModule(OurModule):
         self.desc = 'tcpdump terminal output parsing module'
         self.date_format = \
                 re.compile(r"^(\d{2}:\d{2}:\d{2}\.\d+\s+\w+,?\s?\w?\s+[\w\-\.]+\s+>\s+[\w\-\.]+):")
+        self.date_format_backup = \
+                re.compile(r"^(\d{2}:\d{2}:\d{2}\.\d+)\s+")
 
 
 
@@ -77,54 +79,65 @@ class ParseModule(OurModule):
         # Parse our lines:
         for line in loglines:
             ourline = line.rstrip()
-            if current_entry.raw_text:
-                current_entry.raw_text = ourline + '\n' + \
-                        current_entry.raw_text
-            else: current_entry.raw_text = ourline
+            # if current_entry.raw_text:
+            #     current_entry.raw_text = ourline + '\n' + \
+            #             current_entry.raw_text
+            # else: current_entry.raw_text = ourline
             
-            tstamp, rawstamp, protocol, sourcehost, desthost, \
-                    message = self.parse_line(ourline)
+            attributes = self.parse_line(ourline)
+            if attributes:
+                tstamp, rawstamp, protocol, sourcehost, desthost, \
+                        sourcepid, process, message = attributes
             
-            # match = re.findall(self.date_format, ourline)
-            # if match:
-            #     attr_list = str(match[0]).split(' ')
-            #     try:
-            #         attr_list.remove('')
-            #     except ValueError:
-            #         pass
-            #     
-            #     tstamp = attr_list[0].replace(':', '')
-            #     if attr_list[1][-1] == ',':
-            #         protocol = attr_list[1] + attr_list.pop(2)
-            #     else:
-            #         protocol = attr_list[1]
-            #     rawstamp = ourline[:len(match[0])]
-            #     message = ourline[len(match[0]) + 2:]
-            #     sourcehost = attr_list[2]
-            #     desthost = attr_list[4]
-            #     # tnum = float(tstamp)
-            
-            # Set the current day:
-            if float(tstamp) > oldtnum:
-                currentday = currentday - datetime.timedelta(days=1)
-            
-            ymdstamp = currentday.strftime('%Y%m%d')
-            
-            # Set the attributes for current_entry:
-            current_entry.date_stamp = ymdstamp + tstamp
-            current_entry.tzone = tzone
-            current_entry.raw_stamp = rawstamp
-            current_entry.message = message
-            current_entry.source_host = sourcehost
-            current_entry.dest_host = desthost
-            current_entry.protocol = protocol
+                # tstamp, rawstamp, protocol, sourcehost, desthost, \
+                #         message = self.parse_line(ourline)
+                
+                # match = re.findall(self.date_format, ourline)
+                # if match:
+                #     attr_list = str(match[0]).split(' ')
+                #     try:
+                #         attr_list.remove('')
+                #     except ValueError:
+                #         pass
+                #     
+                #     tstamp = attr_list[0].replace(':', '')
+                #     if attr_list[1][-1] == ',':
+                #         protocol = attr_list[1] + attr_list.pop(2)
+                #     else:
+                #         protocol = attr_list[1]
+                #     rawstamp = ourline[:len(match[0])]
+                #     message = ourline[len(match[0]) + 2:]
+                #     sourcehost = attr_list[2]
+                #     desthost = attr_list[4]
+                #     # tnum = float(tstamp)
+                
+                # Set the current day:
+                if float(tstamp) > oldtnum:
+                    currentday = currentday - datetime.timedelta(days=1)
+                
+                ymdstamp = currentday.strftime('%Y%m%d')
+                
+                # Set the attributes for current_entry:
+                current_entry.date_stamp = ymdstamp + tstamp
+                current_entry.tzone = tzone
+                current_entry.raw_stamp = rawstamp
+                current_entry.message = message
+                current_entry.source_host = sourcehost
+                current_entry.dest_host = desthost
+                current_entry.protocol = protocol
+
+            else:
+                current_entry.date_stamp = '0'
+
+            current_entry.raw_text = ourline
             current_entry.source_path = data.source_path
-            
-            
+                
+                
             # Append and reset current_entry
             newdata.entries.append(current_entry)
             current_entry = LogEntry()
             oldtnum = float(tstamp)
+            
         
         # Write the entries to the log object
         newdata.entries.reverse()
@@ -151,6 +164,18 @@ class ParseModule(OurModule):
             message = line[len(match[0]) + 2:]
             # tnum = float(tstamp)
             
-            return tstamp, rawstamp, protocol, sourcehost, desthost, message
+            return tstamp, rawstamp, protocol, sourcehost, desthost, \
+                    None, None, message
+
         else:
-            return '0', '0', '0', '0', '0', line
+            match = re.findall(self.date_format_backup, line)
+            if match:
+                tstamp = match[0].replace(':', '')
+                rawstamp = line[:len(match[0])]
+                message = line[len(match[0]) + 1:]
+                
+                return tstamp, rawstamp, None, None, None, \
+                        None, None, message
+            
+            else:
+                return None
