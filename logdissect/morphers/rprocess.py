@@ -28,21 +28,21 @@ from logdissect.data.data import LogData
 class MorphModule(OurModule):
     def __init__(self, args=[]):
         """Initialize the process morphing module"""
-        self.name = "process"
-        self.desc = "match a source process"
+        self.name = "rprocess"
+        self.desc = "filter out a source process"
 
-        args.add_argument('--process', action='append', dest='process',
-                help='match a source process')
+        args.add_argument('--rprocess', action='append', dest='rprocess',
+                help='filter out a source process')
 
     def morph_data(self, data, args=[]):
-        """Return entries from specified process (single log)"""
-        if not args.process:
+        """Remove entries from specified process (single log)"""
+        if not args.rprocess:
             return data
         else:
             newdata = data
             newdata.entries = []
             for entry in data.entries:
-                if entry.source_process == args.process[0]:
+                if entry.source_process != args.rprocess[0]:
                     newdata.entries.append(entry)
 
             return newdata

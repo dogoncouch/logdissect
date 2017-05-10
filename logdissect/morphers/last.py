@@ -60,7 +60,9 @@ class MorphModule(OurModule):
             ourstart = starttime.strftime('%Y%m%d%H%M%S')
             
             # Pull out the specified time period:
-            newdata = LogData()
+            newdata = data
+            newdata.entries = []
+            
             for entry in data.entries:
                 if int(entry.date_stamp) >= int(ourstart): 
                     newdata.entries.append(entry)

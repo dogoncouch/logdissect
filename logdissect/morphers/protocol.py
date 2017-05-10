@@ -20,27 +20,29 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import re
 from logdissect.morphers.type import MorphModule as OurModule
 from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
 
 class MorphModule(OurModule):
     def __init__(self, args=[]):
-        """Initialize the host morphing module"""
-        self.name = "host"
-        self.desc = "match a source host"
+        """Initialize the protocol morphing module"""
+        self.name = "protocol"
+        self.desc = "match a protocol"
 
-        args.add_argument('--host', action='append', dest='host',
-                help='match a source host')
+        args.add_argument('--protocol', action='append', dest='protocol',
+                help='match a source protocol')
 
     def morph_data(self, data, args=[]):
-        """Return entries from specified host (single log)"""
-        if not args.host:
+        """Return entries with specified protocol (single log)"""
+        if not args.protocol:
             return data
         else:
-            newdata = LogData()
+            newdata = data
+            newdata.entries = []
             for entry in data.entries:
-                if entry.source_host == args.host[0]:
+                if entry.source_process == args.protocol[0]:
                     newdata.entries.append(entry)
 
             return newdata

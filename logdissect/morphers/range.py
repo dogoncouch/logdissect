@@ -39,7 +39,10 @@ class MorphModule(OurModule):
             return data
         else:
             ourlimits = args.range[0].split('-')
-            newdata = LogData()
+
+            newdata = data
+            newdata.entries = []
+
             for entry in data.entries:
                 if int(entry.date_stamp) >= \
                         int(ourlimits[0].ljust(14, '0')): 
