@@ -51,9 +51,6 @@ Options
       -s                 silence terminal output
       --verbose          set verbose terminal output
     
-    parse options:
-      --no-host          parse syslog entries with no source host
-    
     morph options:
       --grep PATTERN     match a pattern
       --host HOST        match a source host
