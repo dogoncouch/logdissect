@@ -55,6 +55,7 @@ class ParseModule(OurModule):
             thisentry.source_path = entry['source_path']
             thisentry.raw_text = entry['raw_text']
             thisentry.date_stamp = entry['date_stamp']
+            thisentry.date_stamp_utc = entry['date_stamp_utc']
             thisentry.tzone = entry['tzone']
             thisentry.raw_stamp = entry['raw_stamp']
             thisentry.facility = entry['facility']

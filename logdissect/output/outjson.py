@@ -43,6 +43,7 @@ class OutputModule(OurModule):
             thisentry = {'parser': entry.parser,
                     'raw_text': entry.raw_text,
                     'date_stamp': entry.date_stamp,
+                    'date_stamp_utc': entry.date_stamp_utc,
                     'tzone': entry.tzone,
                     'raw_stamp': entry.raw_stamp,
                     'facility': entry.facility,
