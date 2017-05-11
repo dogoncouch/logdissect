@@ -34,5 +34,5 @@ diff devtests/files/diffresults.log devtests/files/diffexresults
 
 echo
 echo - There should be no errors.
-echo - Times should be around 0m0.300s on an i3.
+echo - Times should be around 0m0.340s on an i3.
 echo - Diff results should be empty.

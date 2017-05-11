@@ -136,8 +136,8 @@ class LogDissectCore:
                 action='store_true', dest='list_outputs',
                 help=_('return a list of available output formats'))
         self.arg_parser.add_argument('-p',
-                action='store', dest='parser', default='syslog',
-                help=_('select a parser (default: syslog)'))
+                action='store', dest='parser', default='syslogbsd',
+                help=_('select a parser (default: syslogbsd)'))
         self.arg_parser.add_argument('-s',
                 action='store_true', dest = 'silentmode',
                 help=_('silence terminal output'))

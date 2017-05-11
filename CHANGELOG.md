@@ -23,6 +23,7 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - Moved merge to LogDataSet method
 - Moved sort to LogData method
 - Updated time sort method to use time zones
+- Renamed `syslog` parser to `syslogbsd`
 
 
 ## [1.3.1] - 2017-04-24

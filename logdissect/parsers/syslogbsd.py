@@ -33,7 +33,7 @@ class ParseModule(OurModule):
     def __init__(self):
         """Initialize the standard syslog parsing module"""
         self.name = 'syslog'
-        self.desc = 'syslog parsing module'
+        self.desc = 'syslog (standard BSD timestamp) parsing module'
         self.date_format = \
                 re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\s+\S+\[?\d*?\]?):")
 
