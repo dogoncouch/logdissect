@@ -20,35 +20,46 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import datetime
 
 class LogEntry:
     def __init__(self):
-        """Initialize a log entry"""
+        """Initialize data object for a log entry"""
         self.parser = None
         self.date_stamp_noyear = None
         self.date_stamp = None
-        self.tzone = None # new
+        self.tzone = None
         self.raw_text = None
-        self.raw_stamp = None # new
-        self.facility = None # new
-        self.severity = None # new
-        self.message = None # new
+        self.raw_stamp = None
+        self.facility = None # To Do
+        self.severity = None # To Do
+        self.message = None
         self.source_path = None
         self.source_host = None
         self.source_port = None # To Do
         self.source_process = None
         self.source_pid = None
-        self.dest_host = None # new
+        self.dest_host = None
         self.dest_port = None # To Do
-        self.protocol = None # new
+        self.protocol = None
 
-    def _date_to_utc(self):
-        if int(self.tzone) < 0 and self.tzone[-2] == '30':
-            tminus = self.tzone[:-2] + '70'
-            return float(self.date_stamp) + int(self.tzone)
+    def _utc_date(self):
+        """Return datestamp converted to UTC"""
+        if '.' in self.date_stamp:
+            t = datetime.datetime.strptime(self,date_stamp,
+                    '%Y%m%d%H%M%S.%f')
         else:
-            return float(self.date_stamp) + int(self.tzone)
-
+            t = datetime.datetime.strptime(self.date_stamp, '%Y%m%d%H%M%S')
+        tdelta = datetime.timedelta(hours = int(self.tzone[1:3]),
+                minutes = int(self.tzone[3:5]))
+        
+        if self.tzone[0] == '-':
+            ut = t - tdelta
+            return ut.strftime('%Y%m%d%H%M%S.%f')
+        else:
+            ut = t + tdelta
+            return ut.strftime('%Y%m%d%H%M%S.%f')
+        
 
 class LogData:
     def __init__(self):
@@ -61,7 +72,7 @@ class LogData:
 
     def sort_time(self):
         """Sort entries by datestamp"""
-        self.entries.sort(key=lambda x: x._date_to_utc())
+        self.entries.sort(key=lambda x: x._utc_date())
 
     def sort_path(self):
         """Sort entries by source path"""
