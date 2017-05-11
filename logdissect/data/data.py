@@ -54,7 +54,7 @@ class LogData:
 
     def sort_time(self):
         """Sort entries by datestamp"""
-        self.entries.sort(key=lambda x: float(x.date_stamp))
+        self.entries.sort(key=lambda x: float(x.date_stamp) + int(x.tzone))
 
     def sort_path(self):
         """Sort entries by source path"""

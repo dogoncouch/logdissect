@@ -144,6 +144,9 @@ class LogDissectCore:
         self.arg_parser.add_argument('--verbose',
                 action='store_true', dest = 'verbosemode',
                 help=_('set verbose terminal output'))
+        self.arg_parser.add_argument('--unzip',
+                action='store_true', dest='unzip',
+                help=_('include files compressed with gzip'))
         self.arg_parser.add_argument('files',
                 # nargs needs to be * not + so --list-morphers/etc
                 # will work without file arg
@@ -164,8 +167,13 @@ class LogDissectCore:
             if os.path.isfile(f):
                 # To Do: Add check for unzip option here:
                 fparts = str(f).split('.')
-                if fparts[-1] == 'gz' or fparts[-1] == 'bz2' or \
-                        fparts[-1] == 'zip':
+                if fparts[-1] == 'gz':
+                    if args.unzip:
+                        fullpath = os.path.abspath(str(f))
+                        self.input_files.append(fullpath)
+                    else:
+                        return 0
+                elif fparts[-1] == 'bz2' or fparts[-1] == 'zip':
                     return 0
                 else:
                     fullpath = os.path.abspath(str(f))

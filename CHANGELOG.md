@@ -9,6 +9,7 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - Morphers: `dest`, `rdest`, `rsource`, `rprocess`, `protocol`
 - `syslogiso` parser for ISO 8601 datestamp format (ISODATE)
 - More sorting methods (path, facility/severity)
+- Option to include archives compressed with gzip
 
 ### Changed
 - More data in JSON arrays
@@ -21,6 +22,8 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - Moved `parse_log()` functions to `parse_file()`
 - Moved merge to LogDataSet method
 - Moved sort to LogData method
+- Updated time sort method to use time zones
+
 
 ## [1.3.1] - 2017-04-24
 ### Fixed

@@ -23,6 +23,7 @@
 import os
 import re
 import datetime
+import gzip
 from logdissect.parsers.type import ParseModule as OurModule
 from logdissect.data.data import LogEntry
 from logdissect.data.data import LogData
@@ -71,8 +72,13 @@ class ParseModule(OurModule):
         # and logs that span multiple years (December to January shift).
         
         # Get our lines:
-        with open(str(data.source_path), 'r') as logfile:
-            loglines = reversed(logfile.readlines())
+        fparts = sourcepath.split('.')
+        if fparts[-1] == 'gz':
+            with gzip.open(str(sourcepath), 'r') as logfile:
+                loglines = reversed(logfile.readlines())
+        else:
+            with open(str(data.source_path), 'r') as logfile:
+                loglines = reversed(logfile.readlines())
 
         # Parse our lines:
         for line in loglines:
