@@ -9,6 +9,7 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - Morphers: `dest`, `rdest`, `rsource`, `rprocess`, `protocol`
 - `syslogiso` parser for ISO 8601 datestamp format (ISODATE)
 - More sorting methods (path, facility/severity)
+- `_date_to_utc()` method for LogEntry objects
 - Option to include archives compressed with gzip
 
 ### Changed

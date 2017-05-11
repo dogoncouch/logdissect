@@ -42,6 +42,13 @@ class LogEntry:
         self.dest_port = None # To Do
         self.protocol = None # new
 
+    def _date_to_utc(self):
+        if int(self.tzone) < 0 and self.tzone[-2] == '30':
+            tminus = self.tzone[:-2] + '70'
+            return float(self.date_stamp) + int(self.tzone)
+        else:
+            return float(self.date_stamp) + int(self.tzone)
+
 
 class LogData:
     def __init__(self):
@@ -54,7 +61,8 @@ class LogData:
 
     def sort_time(self):
         """Sort entries by datestamp"""
-        self.entries.sort(key=lambda x: float(x.date_stamp) + int(x.tzone))
+        self.entries.sort(key=lambda x: x._date_to_utc())
+        # self.entries.sort(key=lambda x: float(x.date_stamp) + int(x.tzone))
 
     def sort_path(self):
         """Sort entries by source path"""
