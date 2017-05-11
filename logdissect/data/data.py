@@ -46,20 +46,24 @@ class LogEntry:
 
     def _utc_date(self):
         """Return datestamp converted to UTC"""
-        if '.' in self.date_stamp:
-            t = datetime.datetime.strptime(self,date_stamp,
-                    '%Y%m%d%H%M%S.%f')
+        if self.date_stamp == '0':
+            return '0'
         else:
-            t = datetime.datetime.strptime(self.date_stamp, '%Y%m%d%H%M%S')
-        tdelta = datetime.timedelta(hours = int(self.tzone[1:3]),
-                minutes = int(self.tzone[3:5]))
-        
-        if self.tzone[0] == '-':
-            ut = t - tdelta
-            return ut.strftime('%Y%m%d%H%M%S.%f')
-        else:
-            ut = t + tdelta
-            return ut.strftime('%Y%m%d%H%M%S.%f')
+            if '.' in self.date_stamp:
+                t = datetime.datetime.strptime(self.date_stamp,
+                        '%Y%m%d%H%M%S.%f')
+            else:
+                t = datetime.datetime.strptime(self.date_stamp,
+                        '%Y%m%d%H%M%S')
+            tdelta = datetime.timedelta(hours = int(self.tzone[1:3]),
+                    minutes = int(self.tzone[3:5]))
+            
+            if self.tzone[0] == '-':
+                ut = t - tdelta
+                return ut.strftime('%Y%m%d%H%M%S.%f')
+            else:
+                ut = t + tdelta
+                return ut.strftime('%Y%m%d%H%M%S.%f')
         
 
 class LogData:

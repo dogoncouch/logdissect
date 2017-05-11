@@ -48,6 +48,7 @@ class ParseModule(OurModule):
         data.parser = 'tcpdump'
         # newdata.entries = []
 	current_entry = LogEntry()
+        data.source_path = sourcepath
         data.source_file = data.source_path.split('/')[-1]
 
         # Set our start year:
@@ -133,6 +134,7 @@ class ParseModule(OurModule):
                 current_entry.protocol = protocol
 
             else:
+                tstamp = '0'
                 current_entry.date_stamp = '0'
 
             current_entry.parser = 'tcpdump'
