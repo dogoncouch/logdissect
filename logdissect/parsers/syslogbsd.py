@@ -101,12 +101,13 @@ class ParseModule(OurModule):
 
             
             # Set our attributes:
-            current_entry.parser = 'syslog'
+            current_entry.parser = 'syslogbsd'
             current_entry.raw_text = ourline
             current_entry.date_stamp_noyear = datestampnoyear
             current_entry.date_stamp = str(entryyear) \
                     + str(datestampnoyear)
             current_entry.tzone = tzone
+            current_entry.date_stamp_utc = current_entry._utc_date()
             current_entry.raw_stamp = rawstamp
             current_entry.message = message
             current_entry.source_host = sourcehost

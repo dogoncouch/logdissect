@@ -68,10 +68,10 @@ class LogDissectCore:
             # List options, if asked:
             if self.args.list_parsers:
                 self.list_parsers()
-            if self.args.list_morphers:
-                self.list_morphers()
-            if self.args.list_outputs:
-                self.list_outputs()
+            # if self.args.list_morphers:
+            #     self.list_morphers()
+            # if self.args.list_outputs:
+            #     self.list_outputs()
             if self.args.verbosemode: print('Loading input files')
             self.load_inputs()
             if self.args.verbosemode: print('Running parsers')
@@ -198,14 +198,14 @@ class LogDissectCore:
                 locals(), [logdissect]).ParseModule()
 
     # Morphing modules (range, grep, etc)
-    def list_morphers(self, *args):
-        """Return a list of available morphing modules"""
-        print '==== Available morphing modules: ===='
-        print
-        for morpher in sorted(self.morph_modules):
-            print string.ljust(self.morph_modules[morpher].name, 16) + \
-                ': ' + self.morph_modules[morpher].desc
-        sys.exit(0)
+    # def list_morphers(self, *args):
+    #     """Return a list of available morphing modules"""
+    #     print '==== Available morphing modules: ===='
+    #     print
+    #     for morpher in sorted(self.morph_modules):
+    #         print string.ljust(self.morph_modules[morpher].name, 16) + \
+    #             ': ' + self.morph_modules[morpher].desc
+    #     sys.exit(0)
 
     def load_morphers(self):
         """Load morphing module(s)"""
@@ -215,14 +215,14 @@ class LogDissectCore:
                 locals(), [logdissect]).MorphModule(args=self.morph_args)
 
     # Output modules (log file, csv, html, etc)
-    def list_outputs(self, *args):
-        """Return a list of available output modules"""
-        print '==== Available output modules ===='
-        print
-        for output in sorted(self.output_modules):
-            print string.ljust(self.output_modules[output].name, 16) + \
-                ': ' + self.output_modules[output].desc
-        sys.exit(0)
+    # def list_outputs(self, *args):
+    #     """Return a list of available output modules"""
+    #     print '==== Available output modules ===='
+    #     print
+    #     for output in sorted(self.output_modules):
+    #         print string.ljust(self.output_modules[output].name, 16) + \
+    #             ': ' + self.output_modules[output].desc
+    #     sys.exit(0)
     
     def load_outputs(self):
         """Load output module(s)"""

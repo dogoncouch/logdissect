@@ -109,6 +109,7 @@ class ParseModule(OurModule):
             current_entry.date_stamp = str(entry_year) \
                     + str(current_entry.date_stamp_noyear)
             current_entry.tzone = tzone
+            current_entry.date_stamp_utc = current_entry._utc_date()
             current_entry.raw_stamp = rawstamp
             current_entry.message = message
             current_entry.source_host = sourcehost

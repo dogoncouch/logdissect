@@ -28,6 +28,7 @@ class LogEntry:
         self.parser = None
         self.date_stamp_noyear = None
         self.date_stamp = None
+        self.date_stamp_utc = None
         self.tzone = None
         self.raw_text = None
         self.raw_stamp = None
@@ -72,7 +73,7 @@ class LogData:
 
     def sort_time(self):
         """Sort entries by datestamp"""
-        self.entries.sort(key=lambda x: x._utc_date())
+        self.entries.sort(key=lambda x: x.date_stamp_utc)
 
     def sort_path(self):
         """Sort entries by source path"""

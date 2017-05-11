@@ -125,6 +125,7 @@ class ParseModule(OurModule):
                 # Set the attributes for current_entry:
                 current_entry.date_stamp = ymdstamp + tstamp
                 current_entry.tzone = tzone
+                current_entry.date_stamp_utc = current_entry._utc_date()
                 current_entry.raw_stamp = rawstamp
                 current_entry.message = message
                 current_entry.source_host = sourcehost
