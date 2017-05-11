@@ -32,7 +32,7 @@ class MorphModule(OurModule):
         self.desc = "match a protocol"
 
         args.add_argument('--protocol', action='append', dest='protocol',
-                help='match a source protocol')
+                help='match a protocol')
 
     def morph_data(self, data, args=[]):
         """Return entries with specified protocol (single log)"""

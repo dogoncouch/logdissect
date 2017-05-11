@@ -129,12 +129,12 @@ class LogDissectCore:
         self.arg_parser.add_argument('--list-parsers',
                 action='store_true', dest='list_parsers',
                 help=_('return a list of available parsers'))
-        self.arg_parser.add_argument('--list-morphers',
-                action='store_true', dest='list_morphers',
-                help=_('return a list of available morphers'))
-        self.arg_parser.add_argument('--list-outputs',
-                action='store_true', dest='list_outputs',
-                help=_('return a list of available output formats'))
+        # self.arg_parser.add_argument('--list-morphers',
+        #         action='store_true', dest='list_morphers',
+        #         help=_('return a list of available morphers'))
+        # self.arg_parser.add_argument('--list-outputs',
+        #         action='store_true', dest='list_outputs',
+        #         help=_('return a list of available output formats'))
         self.arg_parser.add_argument('-p',
                 action='store', dest='parser', default='syslogbsd',
                 help=_('select a parser (default: syslogbsd)'))
