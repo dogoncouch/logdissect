@@ -144,7 +144,7 @@ class LogDissectCore:
         self.arg_parser.add_argument('--verbose',
                 action='store_true', dest = 'verbosemode',
                 help=_('set verbose terminal output'))
-        self.arg_parser.add_argument('--unzip',
+        self.arg_parser.add_argument('-z', '--unzip',
                 action='store_true', dest='unzip',
                 help=_('include files compressed with gzip'))
         self.arg_parser.add_argument('files',
