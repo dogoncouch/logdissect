@@ -1,4 +1,4 @@
-.TH MARKLAR 3
+.TH LOGDISSECT 3
 .SH NAME
 The logdissect module contains utilities for parsing, filtering, and exporting syslog data.
 
@@ -42,7 +42,7 @@ The logdissect module comes with the logdissect log analysis program. It contain
     LogData also contains a few sorting methods. \fBsort_time()\fR sorts entries by their date_stamp_utc attribute. \fBsort_path()\fR sorts by path. \fBsort_facility\fR sorts by facility, with each facility sorted by severity.
 
 \fBlogdissect.data.LogDataSet()\fR
-    LogDataSet is the data type for a logdissect project. It contains the following attributes: data_set(a list containing LogData objects), finalized_data (a LogData object to hold all of the hold logs).
+    LogDataSet is the data type for a logdissect project. It contains the following attributes: data_set (a list containing LogData objects), finalized_data (a LogData object to hold all of the hold logs).
 
     LogDataSet also contains the \fBmerge_logs()\fR method, which merges the logs in data_set and sorts them using LogData's sort_time() method.
 
