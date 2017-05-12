@@ -130,18 +130,18 @@ class LogDissectCore:
         # Module list options:
         self.arg_parser.add_argument('--version', action='version',
                 version='%(prog)s ' + str(__version__))
+        self.arg_parser.add_argument('--verbose',
+                action='store_true', dest = 'verbosemode',
+                help=_('set verbose terminal output'))
+        self.arg_parser.add_argument('-s',
+                action='store_true', dest = 'silentmode',
+                help=_('silence terminal output'))
         self.arg_parser.add_argument('--list-parsers',
                 action='store_true', dest='list_parsers',
                 help=_('return a list of available parsers'))
         self.arg_parser.add_argument('-p',
                 action='store', dest='parser', default='syslogbsd',
                 help=_('select a parser (default: syslogbsd)'))
-        self.arg_parser.add_argument('-s',
-                action='store_true', dest = 'silentmode',
-                help=_('silence terminal output'))
-        self.arg_parser.add_argument('--verbose',
-                action='store_true', dest = 'verbosemode',
-                help=_('set verbose terminal output'))
         self.arg_parser.add_argument('-z', '--unzip',
                 action='store_true', dest='unzip',
                 help=_('include files compressed with gzip'))
