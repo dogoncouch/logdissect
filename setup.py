@@ -49,7 +49,7 @@ Options
       --list-parsers       return a list of available parsers
       -p PARSER            select a parser (default: syslogbsd)
       -z, --unzip          include files compressed with gzip
-      -t TZONE             specify timezone offset for parsing (e.g. '+0500')
+      -t TZONE             specify timezone offset to UTC (e.g. '+0500')
     
     morph options:
       --dest DEST          match a destination host
@@ -66,7 +66,7 @@ Options
     
     output options:
       --outlog OUTLOG      set the output file for standard log output
-      --label LABEL        set label type for entries in OUTLOG (fname|fpath)
+      --label LABEL        set label type for OUTLOG (fname|fpath)
       --outjson OUTJSON    set the output file for JSON output
 
 Links
