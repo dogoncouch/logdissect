@@ -32,12 +32,12 @@ Replace \<parser\> with one of the available parsers:
 Parsers contain two methods (except the ldjson parser, which has no parse\_line() method):
 
 ### parse\_file(\<file>)
-Accepts a filename as input, and outputs a LogData object (described below).
+Accepts a filename as input, and returns a LogData object (described below).
 
 Parsers have a tzone attribute that uses standard ISO 8601 time zone formatting (e.g. `+0500`, `-0200`); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the ldjson parser).
 
 ### parse\_line(\<line>)
-Accepts a log line as input, and outputs a tuple containing attributes. Tuples vary from parser to parser; their values are described in the docstrings for each parse\_line() method.
+Accepts a log line as input, and returns a tuple containing attributes. Tuples vary from parser to parser; their values are described in the docstrings for each parse\_line() method.
 
 ## Data Objects
 ### logdissect.data.LogEntry()
