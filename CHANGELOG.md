@@ -20,7 +20,7 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - Morph/output options now optional
 - Removed parse options
 - Changed `--no-host` option to `nohost` parser
-- Moved `host` parser to `source`
+- Moved `host` morpher to `source`
 - Moved `injson` parser to `ldjson`
 - Moved `parse_log()` functions to `parse_file()`
 - Moved merge to LogDataSet method
