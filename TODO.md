@@ -10,3 +10,4 @@ To do list for [logdissect](https://github.com/dogoncouch/logdissect)
 - `syslogiso` parser
 - `.gz` option
 - New morphers
+- Library usage
