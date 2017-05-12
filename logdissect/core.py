@@ -28,9 +28,9 @@ import string
 import logdissect.parsers
 import logdissect.morphers
 import logdissect.output
-from logdissect.data.data import LogEntry
-from logdissect.data.data import LogData
-from logdissect.data.data import LogDataSet
+from logdissect.data import LogEntry
+from logdissect.data import LogData
+from logdissect.data import LogDataSet
 from logdissect import __version__
 from argparse import ArgumentParser
 import gettext

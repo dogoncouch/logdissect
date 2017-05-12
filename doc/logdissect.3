@@ -1,0 +1,81 @@
+.TH MARKLAR 3
+.SH NAME
+The logdissect module contains utilities for parsing, filtering, and exporting syslog data.
+
+.SH SYNOPSIS
+    \fBimport logdissect
+    myparser = logdissect.parsers.syslogbsd.ParseModule()
+    attribute_tuple = myparser.parse_line(\fI<RAW_LINE>\fB)
+    logdataobject = myparser.parse_log(\fI<LOG_FILE_PATH>\fB)
+
+.SH DESCRIPTION
+The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, and store log information. It also contains objects for filtering and outputting log information that have no user-friendly API at this point, but will in the future.
+
+.SH PARSERS
+\fBlogdissect.parsers.<parser>.ParseModule()\fR
+    Replace <parser> with one of the available parsers:
+    \fBsyslogbsd\fR - standard syslog
+    \fBsyslogiso\fR - syslog with ISO 8601 datestamp
+    \fBnohost\fR - syslog with no host attribute
+    \fBtcpdump\fR - tcpdump terminal output
+    \fBldjson\fR - logdissect JSON output
+    
+    Parsers contain two methods (except the ldjson parser, which has no parse_line() method):
+
+\fBparse_file(\fI<file>\fB)\fR
+    Accepts a filename as input, and outputs a LogData object (described below).
+
+    Parsers have a tzone attribute that uses standard ISO 8601 time zone formatting (e.g. '+0500', '-0200'); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the ldjson parser).
+
+\fBparse_line(\fI<line>\fB)\fR
+    Accepts a log line as input, and outputs a tuple containing attributes. Tuples vary from parser to parser; their values are described in the docstrings for each parse_line() method.
+
+.SH DATA OBJECTS
+\fBlogdissect.data.LogEntry()\fR
+    LogEntry is the data type for a single log entry. It contains the following attributes: parser, date_stamp_noyear, date_stamp, date_stamp_utc, tzone, raw_text, raw_stamp, facility, severity, message, source_path (the file it was parsed from), source_host, source_port, source_process, source_pid, dest_host, dest_port, protocol.
+
+    LogEntry also contains the \fB_utc_date\fR method, which uses the datestamp and timezone to convert its timestamp to UTC.
+
+\fBlogdissect.data.LogData()\fR
+    LogData is the data type for a single log. It contains the following attributes: entries (a list containing LogEntry objects), source_path (the file it was parsed from), source_file, source_file_mtime, parser.
+
+    LogData also contains a few sorting methods. \fBsort_time()\fR sorts entries by their date_stamp_utc attribute. \fBsort_path()\fR sorts by path. \fBsort_facility\fR sorts by facility, with each facility sorted by severity.
+
+\fBlogdissect.data.LogDataSet()\fR
+    LogDataSet is the data type for a logdissect project. It contains the following attributes: data_set(a list containing LogData objects), finalized_data (a LogData object to hold all of the hold logs).
+
+    LogDataSet also contains the \fBmerge_logs()\fR method, which merges the logs in data_set and sorts them using LogData's sort_time() method.
+
+.SH SEE ALSO
+    logdissect(1)
+
+.SH FILES
+    /usr/share/doc/logdissect/README.md
+    /usr/share/doc/logdissect/CHANGELOG
+    /usr/share/doc/logdissect/LICENSE
+
+.SH AUTHOR
+    Dan Persons (dpersonsdev@gmail.com)
+
+.SH COPYRIGHT
+MIT License
+
+Copyright (c) 2017 Dan Persons
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

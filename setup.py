@@ -79,6 +79,7 @@ from sys import prefix
 from logdissect import __version__
 
 ourdata = [(join(prefix, 'share/man/man1'), ['doc/logdissect.1']),
+        (join(prefix, 'share/man/man3'), ['doc/logdissect.3']),
         (join(prefix, 'share/doc/logdissect'), ['README.md', 'LICENSE', 
             'CHANGELOG.md'])]
 
@@ -91,7 +92,9 @@ setup(name = 'logdissect', version = str(__version__),
         keywords = ['log', 'syslog', 'analysis', 'forensics', 'security',
             'cli', 'secops', 'sysadmin', 'forensic-analysis',
             'log-analysis', 'log-analyzer', 'log-viewer'],
-        packages = ['logdissect', 'logdissect.data', 'logdissect.parsers',
+        packages = ['logdissect', 'logdissect.parsers',
+            'logdissect.morphers', 'logdissect.output'],
+        py_modules = ['logdissect', 'logdissect.parsers',
             'logdissect.morphers', 'logdissect.output'],
         entry_points = \
                 { 'console_scripts': [ 'logdissect = logdissect.core:main' ]},
