@@ -65,13 +65,8 @@ class LogDissectCore:
             self.load_morphers()
             self.load_outputs()
             self.config_options()
-            # List options, if asked:
             if self.args.list_parsers:
                 self.list_parsers()
-            # if self.args.list_morphers:
-            #     self.list_morphers()
-            # if self.args.list_outputs:
-            #     self.list_outputs()
             if self.args.verbosemode: print('Loading input files')
             self.load_inputs()
             if self.args.verbosemode: print('Running parsers')
@@ -166,7 +161,6 @@ class LogDissectCore:
         """Load the specified inputs"""
         for f in self.args.files:
             if os.path.isfile(f):
-                # To Do: Add check for unzip option here:
                 fparts = str(f).split('.')
                 if fparts[-1] == 'gz':
                     if args.unzip:
@@ -198,16 +192,6 @@ class LogDissectCore:
                 __import__('logdissect.parsers.' + parser, globals(), \
                 locals(), [logdissect]).ParseModule()
 
-    # Morphing modules (range, grep, etc)
-    # def list_morphers(self, *args):
-    #     """Return a list of available morphing modules"""
-    #     print '==== Available morphing modules: ===='
-    #     print
-    #     for morpher in sorted(self.morph_modules):
-    #         print string.ljust(self.morph_modules[morpher].name, 16) + \
-    #             ': ' + self.morph_modules[morpher].desc
-    #     sys.exit(0)
-
     def load_morphers(self):
         """Load morphing module(s)"""
         for morpher in sorted(logdissect.morphers.__morphers__):
@@ -215,16 +199,6 @@ class LogDissectCore:
                 __import__('logdissect.morphers.' + morpher, globals(), \
                 locals(), [logdissect]).MorphModule(args=self.morph_args)
 
-    # Output modules (log file, csv, html, etc)
-    # def list_outputs(self, *args):
-    #     """Return a list of available output modules"""
-    #     print '==== Available output modules ===='
-    #     print
-    #     for output in sorted(self.output_modules):
-    #         print string.ljust(self.output_modules[output].name, 16) + \
-    #             ': ' + self.output_modules[output].desc
-    #     sys.exit(0)
-    
     def load_outputs(self):
         """Load output module(s)"""
         for output in sorted(logdissect.output.__formats__):
