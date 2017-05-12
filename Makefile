@@ -25,6 +25,8 @@
 
 all: install clean
 
+default: all
+
 install:
 	python setup.py install
 
