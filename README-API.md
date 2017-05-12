@@ -2,8 +2,7 @@
 ### logdissect is now beta testing version 2.0!
 To install the development version, follow the instructions in [README-TESTING.md](README-TESTING.md).
 
-Read the changelog:
-[https://github.com/dogoncouch/logdissect/CHANGELOG.md](https://github.com/dogoncouch/logdissect/CHANGELOG.md)
+Read more about the changes in [CHANGELOG.md](CHANGELOG.md)
 
 # logdissect API
 For program documentation, see [README.md](README.md)
