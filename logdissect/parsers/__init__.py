@@ -21,3 +21,4 @@
 # SOFTWARE.
 
 __all__ = ['syslogbsd', 'syslogiso', 'nohost', 'ldjson', 'tcpdump']
+__path__ = ['syslogbsd', 'syslogiso', 'nohost', 'ldjson', 'tcpdump']

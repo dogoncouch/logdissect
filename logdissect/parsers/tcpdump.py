@@ -97,7 +97,7 @@ class ParseModule(OurModule):
             attributes = self.parse_line(ourline)
             if attributes:
                 tstamp, rawstamp, protocol, sourcehost, desthost, \
-                        sourcepid, process, message = attributes
+                        sourceprocess, sourcepid, message = attributes
             
                 
                 # Set the current day:
@@ -137,6 +137,7 @@ class ParseModule(OurModule):
 
 
     def parse_line(self, line):
+        """Returns tstamp (hhmmss[.f]), rawstamp, protocol, sourcehost, desthost, sourceprocess (None), sourcepid (None), message"""
         match = re.findall(self.date_format, line)
         if match:
             attr_list = str(match[0]).split(' ')

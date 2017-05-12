@@ -30,10 +30,10 @@ class MorphModule(OurModule):
     def __init__(self, args=[]):
         """Initialize the 'last' morphing module"""
         self.name = "last"
-        self.desc = "match a preceeding time period (5m/3h/2d/etc)"
+        self.desc = "match a preceeding time period (e.g. 5m/3h/2d/etc)"
 
         args.add_argument('--last', action='append', dest='last',
-                help='match a preceeding time period (5m/3h/2d/etc)')
+                help='match a preceeding time period (e.g. 5m/3h/2d/etc)')
 
     def morph_data(self, data, args=[]):
         """Morph log data by preceeding time period (single log)"""

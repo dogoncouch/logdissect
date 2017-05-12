@@ -125,6 +125,7 @@ class ParseModule(OurModule):
 
 
     def parse_line(self, line):
+        """Returns datestamp (mmddHHMMSS), rawstamp, sourcehost, sourceprocess, sourcepid, message"""
         match = re.findall(self.date_format, line)
         if match:
             attr_list = str(match[0]).split(' ')

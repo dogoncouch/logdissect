@@ -147,7 +147,7 @@ class LogDissectCore:
                 help=_('include files compressed with gzip'))
         self.arg_parser.add_argument('-t',
                 action='store', dest='tzone',
-                help=_('specify timezone offset for parsing (eg \'+0500\')'))
+                help=_('specify timezone offset for parsing (e.g. \'+0500\')'))
         self.arg_parser.add_argument('files',
                 # nargs needs to be * not + so --list-morphers/etc
                 # will work without file arg
