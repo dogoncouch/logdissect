@@ -91,6 +91,10 @@ class LogDissectCore:
         parsedset = LogDataSet()
         for log in self.input_files:
             parsemodule = self.parse_modules[self.args.parser]
+            try:
+                if self.args.tzone:
+                    parsemodule.tzone = self.args.tzone
+            except NameError: pass
             parsedset.data_set.append(parsemodule.parse_file(log))
         self.data_set = parsedset
         del(parsedset)
@@ -129,12 +133,6 @@ class LogDissectCore:
         self.arg_parser.add_argument('--list-parsers',
                 action='store_true', dest='list_parsers',
                 help=_('return a list of available parsers'))
-        # self.arg_parser.add_argument('--list-morphers',
-        #         action='store_true', dest='list_morphers',
-        #         help=_('return a list of available morphers'))
-        # self.arg_parser.add_argument('--list-outputs',
-        #         action='store_true', dest='list_outputs',
-        #         help=_('return a list of available output formats'))
         self.arg_parser.add_argument('-p',
                 action='store', dest='parser', default='syslogbsd',
                 help=_('select a parser (default: syslogbsd)'))
@@ -147,6 +145,9 @@ class LogDissectCore:
         self.arg_parser.add_argument('-z', '--unzip',
                 action='store_true', dest='unzip',
                 help=_('include files compressed with gzip'))
+        self.arg_parser.add_argument('-t',
+                action='store', dest='tzone',
+                help=_('specify timezone offset for parsing (eg \'+0500\')'))
         self.arg_parser.add_argument('files',
                 # nargs needs to be * not + so --list-morphers/etc
                 # will work without file arg

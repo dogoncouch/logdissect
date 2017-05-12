@@ -32,14 +32,13 @@ class ParseModule(OurModule):
         """Initialize the JSON parsing module"""
         self.name = 'ldjson'
         self.desc = 'logdissect JSON parsing module'
+        self.tzone = None
 
 
 
     def parse_file(self, sourcepath):
         """Parse a JSON array into a LogData object"""
 
-        # newdata = data
-        # newdata.entries = []
         data = LogData()
         data.source_path = sourcepath
 
@@ -56,7 +55,10 @@ class ParseModule(OurModule):
             thisentry.raw_text = entry['raw_text']
             thisentry.date_stamp = entry['date_stamp']
             thisentry.date_stamp_utc = entry['date_stamp_utc']
-            thisentry.tzone = entry['tzone']
+            if self.tzone:
+                thisentry.tzone = self.tzone
+            else:
+                thisentry.tzone = entry['tzone']
             thisentry.raw_stamp = entry['raw_stamp']
             thisentry.facility = entry['facility']
             thisentry.severity = entry['severity']

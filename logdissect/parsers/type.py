@@ -23,13 +23,14 @@
 class ParseModule:
     def __init__(self, options=[]):
         """Initialize a log parsing module"""
-        self.name = ""
-        self.desc = ""
-        self.date_format = ""
+        self.name = ''
+        self.desc = ''
+        self.date_format = ''
+        self.tzone = None
         pass
 
     def parse_file(self, data, options=[]):
-        """Parse a log into a LogData object"""
+        """Parse a log file into a LogData object"""
         pass
 
     def parse_line(self, line):

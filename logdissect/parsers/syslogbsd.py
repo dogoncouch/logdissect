@@ -36,15 +36,14 @@ class ParseModule(OurModule):
         self.desc = 'syslog (standard BSD timestamp) parsing module'
         self.date_format = \
                 re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\s+\S+\[?\d*?\]?):")
+        self.tzone = None
 
 
 
     def parse_file(self, sourcepath):
         """Parse a syslog file into a LogData object"""
-        # newdata = data
         data = LogData()
         data.parser = 'syslog'
-        # newdata.entries = []
 	current_entry = LogEntry()
         data.source_path = sourcepath
         data.source_file = data.source_path.split('/')[-1]
@@ -59,20 +58,24 @@ class ParseModule(OurModule):
         recentdatestamp = '99999999999999'
         
         # Set our timezone
-        if time.daylight:
-            tzone = str(int(float(time.altzone) / 60 // 60)).rjust(2, '0') + \
-                    str(int(float(time.altzone) / 60 % 60)).ljust(2, '0')
-        else:
-            tzone = str(int(float(time.timezone) / 60 // 60)).rjust(2, '0') + \
-                    str(int(float(time.timezone) / 60 % 60)).ljust(2, '0')
-        if not '-' in tzone:
-            tzone = '+' + tzone
+        if not self.tzone:
+            if time.daylight:
+                self.tzone = \
+                        str(int(float(time.altzone) / 60 // 60)).rjust(2,
+                                '0') + \
+                        str(int(float(time.altzone) / 60 % 60)).ljust(2, '0')
+            else:
+                self.tzone = \
+                        str(int(float(time.timezone) / 60 // 60)).rjust(2,
+                                '0') + \
+                        str(int(float(time.timezone) / 60 % 60)).ljust(2, '0')
+            if not '-' in self.tzone:
+                self.tzone = '+' + self.tzone
                         
         # Parsing works in reverse. This helps with multi-line entries,
         # and logs that span multiple years (December to January shift).
         
         # Get our lines:
-        # To Do: Add check for zipped files right here:
         fparts = sourcepath.split('.')
         if fparts[-1] == 'gz':
             with gzip.open(str(sourcepath), 'r') as logfile:
@@ -84,10 +87,6 @@ class ParseModule(OurModule):
         # Parse our lines:
         for line in loglines:
             ourline = line.rstrip()
-            # if len(current_entry.raw_text) >0:
-            # if current_entry.raw_text:
-            #     ourline = ourline + '\n' + \
-            #             current_entry.raw_text
             
             # Send the line to self.parse_line
             datestampnoyear, rawstamp, sourcehost, sourceprocess, \
@@ -99,14 +98,14 @@ class ParseModule(OurModule):
                 entryyear = entryyear - 1
             recentdatestamp = datestampnoyear
 
-            
+
             # Set our attributes:
             current_entry.parser = 'syslogbsd'
             current_entry.raw_text = ourline
             current_entry.date_stamp_noyear = datestampnoyear
             current_entry.date_stamp = str(entryyear) \
                     + str(datestampnoyear)
-            current_entry.tzone = tzone
+            current_entry.tzone = self.tzone
             current_entry.date_stamp_utc = current_entry._utc_date()
             current_entry.raw_stamp = rawstamp
             current_entry.message = message

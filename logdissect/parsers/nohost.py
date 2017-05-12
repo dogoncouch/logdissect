@@ -35,16 +35,15 @@ class ParseModule(OurModule):
         self.desc = 'syslog (without host) parsing module'
         self.date_format = \
                 re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\[?\d*\]?):")
+        self.tzone = None
 
 
 
     def parse_file(self, sourcepath):
         """Parse a syslog file with no host fields into a LogData object"""
-        # newdata = data
         data = LogData()
         data.source_path = sourcepath
         data.parser = 'nohost'
-        # data.entries = []
         current_entry = LogEntry()
         data.source_file = data.source_path.split('/')[-1]
 
@@ -58,14 +57,19 @@ class ParseModule(OurModule):
         recentdatestamp = '99999999999999'
         
         # Set our timezone
-        if time.daylight:
-            tzone = str(int(float(time.altzone) / 60 // 60)).rjust(2, '0') + \
-                    str(int(float(time.altzone) / 60 % 60)).ljust(2, '0')
-        else:
-            tzone = str(int(float(time.timezone) / 60 // 60)).rjust(2, '0') + \
-                    str(int(float(time.timezone) / 60 % 60)).ljust(2, '0')
-        if not '-' in tzone:
-            tzone = '+' + tzone
+        if not self.tzone:
+            if time.daylight:
+                self.tzone = \
+                        str(int(float(time.altzone) / 60 // 60)).rjust(2,
+                                '0') + \
+                        str(int(float(time.altzone) / 60 % 60)).ljust(2, '0')
+            else:
+                self.tzone = \
+                        str(int(float(time.timezone) / 60 // 60)).rjust(2,
+                                '0') + \
+                        str(int(float(time.timezone) / 60 % 60)).ljust(2, '0')
+            if not '-' in self.tzone:
+                self.tzone = '+' + self.tzone
 
 
         # Parsing works in reverse. This helps with multi-line entries,
@@ -83,9 +87,6 @@ class ParseModule(OurModule):
         # Parse our lines:
         for line in loglines:
             ourline = line.rstrip()
-            # if len(current_entry.raw_text) >0:
-            #     ourline = ourline + '\n' + \
-            #             current_entry.raw_text
             
             # Send the line to self.parse_line
             datestampnoyear, rawstamp, sourcehost, sourceprocess, \
@@ -98,17 +99,13 @@ class ParseModule(OurModule):
             recentdatestamp = datestampnoyear
 
             
-            
-            # Split source process/PID
-            sourceproclist = attr_list[4].split('[')
-            
             # Set our attributes:
             current_entry.parser = 'nohost'
             current_entry.raw_text = ourline
             current_entry.date_stamp_noyear = date_stamp_noyear
             current_entry.date_stamp = str(entry_year) \
                     + str(current_entry.date_stamp_noyear)
-            current_entry.tzone = tzone
+            current_entry.tzone = self.tzone
             current_entry.date_stamp_utc = current_entry._utc_date()
             current_entry.raw_stamp = rawstamp
             current_entry.message = message
@@ -146,8 +143,6 @@ class ParseModule(OurModule):
                 daydate = str(attr_list[1].strip()).zfill(2)
                 timelist = str(str(attr_list[2]).replace(':',''))
                 datestampnoyear = str(int_month) + str(daydate) + str(timelist)
-                
-                # Split source process/PID
                 
                 # Set our attributes:
                 sourceproclist = attr_list[3].split('[')

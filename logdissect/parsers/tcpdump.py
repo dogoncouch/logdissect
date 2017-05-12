@@ -38,15 +38,14 @@ class ParseModule(OurModule):
                 re.compile(r"^(\d{2}:\d{2}:\d{2}\.\d+\s+\w+,?\s?\w?\s+[\w\-\.]+\s+>\s+[\w\-\.]+):")
         self.date_format_backup = \
                 re.compile(r"^(\d{2}:\d{2}:\d{2}\.\d+)\s+")
+        self.tzone = None
 
 
 
     def parse_file(self, sourcepath):
         """Parse tcpdump terminal output from file into a LogData object"""
-        # newdata = data
         data = LogData()
         data.parser = 'tcpdump'
-        # newdata.entries = []
 	current_entry = LogEntry()
         data.source_path = sourcepath
         data.source_file = data.source_path.split('/')[-1]
@@ -64,14 +63,19 @@ class ParseModule(OurModule):
         currentday = timestamp
         
         # Set our timezone
-        if time.daylight:
-            tzone = str(int(float(time.altzone) / 60 // 60)).rjust(2, '0') + \
-                    str(int(float(time.altzone) / 60 % 60)).ljust(2, '0')
-        else:
-            tzone = str(int(float(time.timezone) / 60 // 60)).rjust(2, '0') + \
-                    str(int(float(time.timezone) / 60 % 60)).ljust(2, '0')
-        if not '-' in tzone:
-            tzone = '+' + tzone
+        if not self.tzone:
+            if time.daylight:
+                self.tzone = \
+                        str(int(float(time.altzone) / 60 // 60)).rjust(2,
+                                '0') + \
+                        str(int(float(time.altzone) / 60 % 60)).ljust(2, '0')
+            else:
+                self.tzone = \
+                        str(int(float(time.timezone) / 60 // 60)).rjust(2,
+                                '0') + \
+                        str(int(float(time.timezone) / 60 % 60)).ljust(2, '0')
+            if not '-' in self.tzone:
+                self.tzone = '+' + self.tzone
         
 
         # Parsing works in reverse. This helps with multi-line entries,
@@ -95,27 +99,6 @@ class ParseModule(OurModule):
                 tstamp, rawstamp, protocol, sourcehost, desthost, \
                         sourcepid, process, message = attributes
             
-                # tstamp, rawstamp, protocol, sourcehost, desthost, \
-                #         message = self.parse_line(ourline)
-                
-                # match = re.findall(self.date_format, ourline)
-                # if match:
-                #     attr_list = str(match[0]).split(' ')
-                #     try:
-                #         attr_list.remove('')
-                #     except ValueError:
-                #         pass
-                #     
-                #     tstamp = attr_list[0].replace(':', '')
-                #     if attr_list[1][-1] == ',':
-                #         protocol = attr_list[1] + attr_list.pop(2)
-                #     else:
-                #         protocol = attr_list[1]
-                #     rawstamp = ourline[:len(match[0])]
-                #     message = ourline[len(match[0]) + 2:]
-                #     sourcehost = attr_list[2]
-                #     desthost = attr_list[4]
-                #     # tnum = float(tstamp)
                 
                 # Set the current day:
                 if float(tstamp) > oldtnum:
@@ -125,7 +108,7 @@ class ParseModule(OurModule):
                 
                 # Set the attributes for current_entry:
                 current_entry.date_stamp = ymdstamp + tstamp
-                current_entry.tzone = tzone
+                current_entry.tzone = self.tzone
                 current_entry.date_stamp_utc = current_entry._utc_date()
                 current_entry.raw_stamp = rawstamp
                 current_entry.message = message
@@ -171,7 +154,6 @@ class ParseModule(OurModule):
             sourcehost = attr_list[2]
             desthost = attr_list[4]
             message = line[len(match[0]) + 2:]
-            # tnum = float(tstamp)
             
             return tstamp, rawstamp, protocol, sourcehost, desthost, \
                     None, None, message

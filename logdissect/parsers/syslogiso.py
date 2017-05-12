@@ -36,6 +36,7 @@ class ParseModule(OurModule):
         self.desc = 'syslog ISODATE parsing module'
         self.date_format = \
                 re.compile(r"^(\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d\.?\d+?[+-]\d\d:?\d\d\s+\S+\s+\S+\[?\d*?\]?):")
+        self.tzone = None
 
 
 
@@ -81,7 +82,10 @@ class ParseModule(OurModule):
             current_entry.raw_text = ourline
             current_entry.date_stamp_noyear = datestamp[4:]
             current_entry.date_stamp = datestamp
-            current_entry.tzone = tzone
+            if self.tzone:
+                current_entry.tzone = self.tzone
+            else:
+                current_entry.tzone = tzone
             current_entry.date_stamp_utc = current_entry._utc_date()
             current_entry.raw_stamp = rawstamp
             current_entry.message = message
