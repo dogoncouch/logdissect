@@ -1,5 +1,14 @@
+# NOTICE:
+### logdissect is now beta testing the version 2.0 branch!
+To install the development version, follow the instructions in [README-TESTING.md](README-TESTING.md).
+
+Read the changelog:
+[https://github.com/dogoncouch/logdissect/CHANGELOG.md](https://github.com/dogoncouch/logdissect/CHANGELOG.md)
+
 # logdissect API
-The logdissect module contains utilities for parsing, filtering, and exporting syslog data.
+For program documentation, see [README.md](README.md)
+
+The logdissect module contains utilities for parsing, storing, filtering, and exporting log data.
 
 ## Synopsis
     import logdissect

@@ -13,30 +13,37 @@ logdissect - A robust CLI syslog forensics tool.
   usage: \fBlogdissect\fR [\fBoptions\fR] \fBfiles\fR
   
   positional arguments:
-    \fBfile\fR               specify input files
+    \fBfile\fR                 specify input files
   
   optional arguments:
-    \fB-h\fR, \fB--help\fR         show this help message and exit
-    \fB--version\fR          show program's version number and exit
-    \fB--list-parsers\fR     return a list of available parsers
-    \fB--list-morphers\fR    return a list of available morphers
-    \fB--list-outputs\fR     return a list of available output formats
-    \fB-p\fR \fIPARSER\fR          select a parser (default: syslog)
-    \fB-s\fR                 silence terminal output
-    \fB--verbose\fR          set verbose terminal output
+    \fB-h\fR, \fB--help\fR           show this help message and exit
+    \fB--version\fR            show program's version number and exit
+    \fB--verbose\fR            set verbose terminal output
+    \fB-s\fR                   silence terminal output
+    \fB--list-parsers\fR       return a list of available parsers
+    \fB-p\fR \fIPARSER\fR            select a parser (default: syslog)
+    \fB-z\fR, \fB--unzip\fR          include files compressed with gzip
+    \fB-t\fR \fITZONE\fR             specify timezone offset for parsing (e.g. '+0500')
+
   
   morph options:
-    \fB--grep\fR \fIPATTERN\fR     match a pattern
-    \fB--host\fR \fIHOST\fR        match a source host
-    \fB--last\fR \fILAST\fR        match a preceeding time period (5m/3h/2d/etc)
-    \fB--process\fR \fIPROCESS\fR  match a source process
-    \fB--range\fR \fIRANGE\fR      match a time range <YYYYMMDDhhmm-YYYYMMDDhhmm>
-    \fB--rgrep\fR \fIRPATTERN\fR   filter out a pattern
+    \fB--dest\fR \fIDEST\fR          match a destination host
+    \fB--grep\fR \fIPATTERN\fR       match a pattern
+    \fB--last\fR \fILAST\fR          match a preceeding time period (5m/3h/2d/etc)
+    \fB--process\fR \fIPROCESS\fR    match a source process
+    \fB--protocol\fR \fIPROTOCOL\fR  match a protocol
+    \fB--range\fR \fIRANGE\fR        match a time range <YYYYMMDDhhmm-YYYYMMDDhhmm>
+    \fB--rdest\fR \fIRDEST\fR        filter out a destination host
+    \fB--rgrep\fR \fIRPATTERN\fR     filter out a pattern
+    \fB--rprocess\fR \fIRPROCESS\fR  filter out a source process
+    \fB--rsource\fR \fIRSOURCE\fR    filter out a source host
+    \fB--source\fR \fISOURCE\fR      match a source host
+
   
   output options:
-    \fB--outlog \fIOUTLOG\fR    set the output file for standard log output
-    \fB--label \fILABEL\fR      set label type for entries in OUTLOG (fname|fpath)
-    \fB--outjson \fIOUTJSON\fR  set the output file for JSON output
+    \fB--outlog \fIOUTLOG\fR      set the output file for standard log output
+    \fB--label \fILABEL\fR        set label type for entries in OUTLOG (fname|fpath)
+    \fB--outjson \fIOUTJSON\fR    set the output file for JSON output
 
 .SH EXAMPLES
     logdissect --last=10m auth.log
@@ -55,8 +62,6 @@ logdissect - A robust CLI syslog forensics tool.
 3. --range shortcuts: The range module will fill in your ranges with zeroes if they are shorter than 14 characters. If you want to get a range of 20170204120000 to 20170204130000, you can save time and use 2017020412 and 2017020413.
 
 4. --last options: the last option should be a number followed by either 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days (e.g. --last=20m).
-
-5. Zipped files: Files that end in .gz, .bz2, or .zip are ignored.
 
 .SH SEE ALSO
     logdissect(3)

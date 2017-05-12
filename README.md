@@ -1,53 +1,67 @@
+# NOTICE:
+### logdissect is now beta testing the version 2.0 branch!
+To install the development version, follow the instructions in [README-TESTING.md](README-TESTING.md).
+
+Read the changelog:
+[https://github.com/dogoncouch/logdissect/CHANGELOG.md](https://github.com/dogoncouch/logdissect/CHANGELOG.md)
+
 # logdissect
+For API documentation, see [README-API.md](README-API.md)
+
 logdissect is a tool for analyzing syslog files. It can merge entries from multiple log files and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to a standard syslog file, or to a JSON array along with some metadata..
 
-# Installing
+## Installing
 See the latest instructions on the [releases page](https://github.com/dogoncouch/logdissect/releases).
 
-# Options
+## Options
 
-    usage: logdissect [-h] [--no-host] [--grep PATTERN] [--host HOST]
-                      [--last LAST] [--process PROCESS] [--range RANGE]
-                      [--rgrep RPATTERN] [--outlog OUTLOG] [--label LABEL]
-                      [--outjson OUTJSON] [--version] [--list-parsers]
-                      [--list-morphers] [--list-outputs] [-p PARSER] [-s]
-                      [--verbose]
+    usage: logdissect [-h] [--dest DEST] [--grep PATTERN] [--last LAST]
+                      [--process PROCESS] [--protocol PROTOCOL] [--range RANGE]
+                      [--rdest RDEST] [--rgrep RPATTERN] [--rprocess RPROCESS]
+                      [--rsource RSOURCE] [--source SOURCE] [--outlog OUTLOG]
+                      [--label LABEL] [--outjson OUTJSON] [--version] [--verbose]
+                      [-s] [--list-parsers] [-p PARSER] [-z] [-t TZONE]
                       [file [file ...]]
     
     positional arguments:
-      file               specify input files
+      file                 specify input files
     
     optional arguments:
-      -h, --help         show this help message and exit
-      --version          show program's version number and exit
-      --list-parsers     return a list of available parsers
-      --list-morphers    return a list of available morphers
-      --list-outputs     return a list of available output formats
-      -p PARSER          select a parser (default: syslog)
-      -s                 silence terminal output
-      --verbose          set verbose terminal output
+      -h, --help           show this help message and exit
+      --version            show program's version number and exit
+      --verbose            set verbose terminal output
+      -s                   silence terminal output
+      --list-parsers       return a list of available parsers
+      -p PARSER            select a parser (default: syslogbsd)
+      -z, --unzip          include files compressed with gzip
+      -t TZONE             specify timezone offset for parsing (e.g. '+0500')
     
     morph options:
-      --grep PATTERN     match a pattern
-      --host HOST        match a source host
-      --last LAST        match a preceeding time period (5m/3h/2d/etc)
-      --process PROCESS  match a source process
-      --range RANGE      match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)
-      --rgrep RPATTERN   filter out a pattern
+      --dest DEST          match a destination host
+      --grep PATTERN       match a pattern
+      --last LAST          match a preceeding time period (e.g. 5m/3h/2d/etc)
+      --process PROCESS    match a source process
+      --protocol PROTOCOL  match a protocol
+      --range RANGE        match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)
+      --rdest RDEST        filter out a destination host
+      --rgrep RPATTERN     filter out a pattern
+      --rprocess RPROCESS  filter out a source process
+      --rsource RSOURCE    filter out a source host
+      --source SOURCE      match a source host
     
     output options:
-      --outlog OUTLOG    set the output file for standard log output
-      --label LABEL      set label type for entries in OUTLOG (fname|fpath)
-      --outjson OUTJSON  set the output file for JSON output
+      --outlog OUTLOG      set the output file for standard log output
+      --label LABEL        set label type for entries in OUTLOG (fname|fpath)
+      --outjson OUTJSON    set the output file for JSON output
 
-# Examples
+## Examples
     
     logdissect --last=10m auth.log
     logdissect --last=2m *
     logdissect -v --range=20160202020202-20170227213200 --label=fpath messages debug apache2/error.log
     logdissect -s --outlog=myaccess.log --grep=192.168.1.56 --last=30d --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
 
-# Notes
+## Notes
 1. metadata: logdissect uses file modification times to assign years to syslog date stamps. This allows it to parse logs that span more than one year without a problem. If you are copying log files, always use `` cp -p `` (or `` cp --preserve=timestamps `` ) and `` scp -p `` to preserve original mtimes and other file metadata.
 
 2. Re-parsing: If you are planning on parsing an output file back into logdissect at some point, using JSON is highly recommended. The JSON output module uses date stamps that include a year. Re-parsing a standard log output file will cause problems if the file has a different mtime than the original logs.
@@ -56,15 +70,13 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 
 4. --last options: The last option should be a number followed by either 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days (e.g. --last=20m).
 
-5. Zipped files: Files that end in .gz, .bz2, or .zip are ignored.
-
-# Support
+## Support
 Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub.
 
-# Author
+## Author
     Dan Persons (dpersonsdev@gmail.com)
 
-# Copyright
+## Copyright
 MIT License
 
 Copyright (c) 2017 Dan Persons

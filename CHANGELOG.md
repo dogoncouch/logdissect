@@ -11,6 +11,8 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - More sorting methods (path, facility/severity)
 - `_date_to_utc()` method for LogEntry objects
 - Option to include archives compressed with gzip
+- `-z` option to manually set time zone
+- API documentation (README-API.md, man 3 logdissect)
 
 ### Changed
 - More data in JSON arrays

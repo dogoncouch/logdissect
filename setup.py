@@ -30,39 +30,44 @@ Options
 
 ::
 
-    usage: logdissect.py [-h] [--no-host] [--grep PATTERN] [--host HOST]
-                         [--last LAST] [--process PROCESS] [--range RANGE]
-                         [--rgrep RPATTERN] [--outlog OUTLOG] [--label LABEL]
-                         [--outjson OUTJSON] [--version] [--list-parsers]
-                         [--list-morphers] [--list-outputs] [-p PARSER] [-s]
-                         [--verbose]
-                         [file [file ...]]
+    usage: logdissect [-h] [--dest DEST] [--grep PATTERN] [--last LAST]
+                      [--process PROCESS] [--protocol PROTOCOL] [--range RANGE]
+                      [--rdest RDEST] [--rgrep RPATTERN] [--rprocess RPROCESS]
+                      [--rsource RSOURCE] [--source SOURCE] [--outlog OUTLOG]
+                      [--label LABEL] [--outjson OUTJSON] [--version] [--verbose]
+                      [-s] [--list-parsers] [-p PARSER] [-z] [-t TZONE]
+                      [file [file ...]]
 
     positional arguments:
-      file               specify input files
+      file                 specify input files
     
     optional arguments:
-      -h, --help         show this help message and exit
-      --version          show program's version number and exit
-      --list-parsers     return a list of available parsers
-      --list-morphers    return a list of available morphers
-      --list-outputs     return a list of available output formats
-      -p PARSER          select a parser (default: syslog)
-      -s                 silence terminal output
-      --verbose          set verbose terminal output
+      -h, --help           show this help message and exit
+      --version            show program's version number and exit
+      --verbose            set verbose terminal output
+      -s                   silence terminal output
+      --list-parsers       return a list of available parsers
+      -p PARSER            select a parser (default: syslogbsd)
+      -z, --unzip          include files compressed with gzip
+      -t TZONE             specify timezone offset for parsing (e.g. '+0500')
     
     morph options:
-      --grep PATTERN     match a pattern
-      --host HOST        match a source host
-      --last LAST        match a preceeding time period (5m/3h/2d/etc)
-      --process PROCESS  match a source process
-      --range RANGE      match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)
-      --rgrep RPATTERN   filter out a pattern
+      --dest DEST          match a destination host
+      --grep PATTERN       match a pattern
+      --last LAST          match a preceeding time period (e.g. 5m/3h/2d/etc)
+      --process PROCESS    match a source process
+      --protocol PROTOCOL  match a protocol
+      --range RANGE        match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)
+      --rdest RDEST        filter out a destination host
+      --rgrep RPATTERN     filter out a pattern
+      --rprocess RPROCESS  filter out a source process
+      --rsource RSOURCE    filter out a source host
+      --source SOURCE      match a source host
     
     output options:
-      --outlog OUTLOG    set the output file for standard log output
-      --label LABEL      set label type for entries in OUTLOG (fname|fpath)
-      --outjson OUTJSON  set the output file for JSON output
+      --outlog OUTLOG      set the output file for standard log output
+      --label LABEL        set label type for entries in OUTLOG (fname|fpath)
+      --outjson OUTJSON    set the output file for JSON output
 
 Links
 `````
