@@ -16,7 +16,7 @@ The logdissect module contains utilities for parsing, storing, filtering, and ex
     logdataobject = myparser.parse_log(<LOG_FILE_PATH>)
 
 ## Description
-The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, and store log information. It also contains objects for filtering and outputting log information that have no user-friendly API at this point, but will in the future.
+The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, and store log information.
 
 ## Parsers
 ### logdissect.parsers.\<parser>.ParseModule()
