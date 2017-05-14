@@ -70,7 +70,7 @@ To install the latest release, see the latest instructions on the [releases page
 4. --last options: The last option should be a number followed by either 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days (e.g. --last=20m).
 
 ## Support
-Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub.
+Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub, or emailed to [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com).
 
 ## Contributing
 Contributions are welcome in the form of code, bug fixes, or testing feedback. For more on how to contribute to logdissect, see [README-DEV.md](README-DEV.md)
