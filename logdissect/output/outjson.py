@@ -30,7 +30,7 @@ class OutputModule(OurModule):
         self.name = 'outjson'
         self.desc = 'output to JSON arrays'
 
-        args.add_argument('--outjson', action='append', dest='outjson',
+        args.add_argument('--outjson', action='store', dest='outjson',
                 help='set the output file for JSON output')
 
     def write_output(self, data, args=[]):
@@ -61,5 +61,5 @@ class OutputModule(OurModule):
         logstring = json.dumps(entrylist, indent=2, sort_keys=True,
                 separators=(',', ': '))
 
-        with open(str(args.outjson[0]), 'w') as output_file:
+        with open(str(args.outjson), 'w') as output_file:
             output_file.write(logstring)

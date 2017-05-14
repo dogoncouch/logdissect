@@ -1,6 +1,6 @@
 # NOTICE:
 ### logdissect is now beta testing version 2.0!
-To install the development version, follow the instructions in [README-TESTING.md](README-TESTING.md).
+To install the development version, follow the instructions in [README-CONTRIBUTING.md](README-CONTRIBUTING.md).
 
 Read more about the changes in [CHANGELOG.md](CHANGELOG.md)
 
@@ -71,6 +71,9 @@ See the latest instructions on the [releases page](https://github.com/dogoncouch
 
 ## Support
 Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub.
+
+## Contributing
+Contributions are welcome in the form of code, bug fixes, or testing feedback. For more on how to contribute to logdissect, see [README-CONTRIBUTING.md](README-CONTRIBUTING.md)
 
 ## Author
     Dan Persons (dpersonsdev@gmail.com)

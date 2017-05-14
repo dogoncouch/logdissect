@@ -30,9 +30,9 @@ class OutputModule(OurModule):
         self.desc = 'output to standard log file format'
         self.output_path = ''
 
-        args.add_argument('--outlog', action='append', dest='outlog',
+        args.add_argument('--outlog', action='store', dest='outlog',
                 help='set the output file for standard log output')
-        args.add_argument('--label', action='append', dest='label',
+        args.add_argument('--label', action='store', dest='label',
                 help='set label type for OUTLOG (fname|fpath)')
 
     def write_output(self, data, args=[]):
@@ -40,16 +40,16 @@ class OutputModule(OurModule):
         if not args.outlog:
             return 0
         lastpath = ''
-        with open(str(args.outlog[0]), 'w') as output_file:
+        with open(str(args.outlog), 'w') as output_file:
             for entry in data.entries:
                 if args.label:
                     if entry.source_path == lastpath:
                         output_file.write(entry.raw_text + '\n')
-                    elif args.label[0] == 'fname':
+                    elif args.label == 'fname':
                         output_file.write('======== ' + \
                                 entry.source_path.split('/')[-1] + \
                                 ' >>>>\n' + entry.raw_text + '\n')
-                    elif args.label[0] == 'fpath':
+                    elif args.label == 'fpath':
                         output_file.write('======== ' + \
                                 entry.source_path  + \
                                 ' >>>>\n' + entry.raw_text + '\n')
