@@ -13,7 +13,7 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - Option to include archives compressed with gzip
 - `-z` option to manually set time zone
 - API documentation (README-API.md, man 3 logdissect)
-- Instructions for contributing (README-CONTRIBUTING.md)
+- Instructions for contributing (README-DEV.md)
 
 ### Changed
 - More data in JSON arrays
