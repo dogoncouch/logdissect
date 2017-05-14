@@ -9,24 +9,36 @@ For program documentation, see [README.md](README.md)
 
 The logdissect module contains utilities for parsing, storing, filtering, and exporting log data.
 
+## Index
+- [Introduction](#introduction)
+- [Objects and Methods](#objects-and-methods)
+  - [Parsers](#parsers)
+  - [Data Objects](#data-objects)
+- [Author](#author)
+- [Copyright](#copyright)
+
+# Introduction
 ## Synopsis
     import logdissect
     myparser = logdissect.parsers.syslogbsd.ParseModule()
     attribute_tuple = myparser.parse_line(<RAW_LINE>)
     logdataobject = myparser.parse_log(<LOG_FILE_PATH>)
+    logentryobject = logdissect.data.LogEntry()
 
 ## Description
 The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, and store log information.
+
+# Objects and Methods
 
 ## Parsers
 ### logdissect.parsers.\<parser>.ParseModule()
 Replace \<parser\> with one of the available parsers:
 
-`` syslogbsd `` - standard syslog<br>
-`` syslogiso `` - syslog with ISO 8601 datestamp<br>
-`` nohost `` - syslog with no host attribute<br>
-`` tcpdump `` - tcpdump terminal output<br>
-`` ldjson `` - logdissect JSON output<br>
+- `` syslogbsd `` - standard syslog
+- `` syslogiso `` - syslog with ISO 8601 datestamp
+- `` nohost `` - syslog with no host attribute
+- `` tcpdump `` - tcpdump terminal output
+- `` ldjson `` - logdissect JSON output
     
 Parsers contain two methods (except the ldjson parser, which has no parse\_line() method):
 
@@ -40,18 +52,18 @@ Accepts a log line as input, and returns a tuple containing attributes. Tuples v
 
 ## Data Objects
 ### logdissect.data.LogEntry()
-LogEntry is the data type for a single log entry. It contains the following attributes:
+LogEntry is the data type for a single log entry. LogEntry objects have the following attributes:
 - `parser`
 - `date_stamp_noyear`
 - `date_stamp`
 - `date_stamp_utc`
-- `tzone`
+- `tzone` - time zone
 - `raw_text`
 - `raw_stamp`
 - `facility`
 - `severity`
 - `message`
-- `source_path` (the file it was parsed from)
+- `source_path` - the file it was parsed from
 - `source_host`
 - `source_port`
 - `source_process`
@@ -60,17 +72,29 @@ LogEntry is the data type for a single log entry. It contains the following attr
 - `dest_port`
 - `protocol`
 
-LogEntry also contains the `_utc_date` method, which uses the datestamp and timezone to convert its timestamp to UTC.
+LogEntry objects have one method:
+- `_utc_date` - uses the datestamp and tzone extrapolate a UTC timestamp
 
 ### logdissect.data.LogData()
-LogData is the data type for a single log. It contains the following attributes: `entries` (a list containing LogEntry objects), `source_path` (the file it was parsed from), `source_file`, `source_file_mtime`, `parser`.
+LogData is the data type for a single log. LogData objects have the following attributes:
+- `entries` (a list containing LogEntry objects)
+- `source_path` (the file it was parsed from)
+- `source_file`
+- `source_file_mtime`
+- `parser`
 
-LogData also contains a few sorting methods. `` sort_time() `` sorts entries by their `date_stamp_utc` attribute. `` sort_path()  `` sorts by path. `` sort_facility `` sorts by facility, with each facility sorted by severity.
+LogData objects have a few sorting methods:
+- `` sort_time() `` - sorts entries by their `date_stamp_utc` attribute
+- `` sort_path()  `` - sorts by path
+- `` sort_facility `` - sorts by facility, then severity
 
 ### logdissect.data.LogDataSet()
-LogDataSet is the data type for a logdissect project. It contains the following attributes: `data_set` (a list containing LogData objects), `finalized_data` (a LogData object to hold all of the hold logs).
+LogDataSet is the data type for a logdissect project. LogDataSet objects have the following attributes:
+- `data_set` - a list containing LogData objects
+- `finalized_data` - a LogData object to hold all of the hold logs
 
-LogDataSet also contains the `` merge_logs() `` method, which merges the logs in `data_set` and sorts them using LogData's `sort_time()` method.
+LogDataSet objects also have one method:
+- `` merge_logs() `` - merges the logs in `data_set` and sorts them using LogData's `sort_time()` method
 
 # Author
 Dan Persons (dpersonsdev@gmail.com)
@@ -78,7 +102,7 @@ Dan Persons (dpersonsdev@gmail.com)
 # Copyright
 MIT License
 
-Copyright (c) 2017 Dan Persons
+Copyright (c) 2017 Dan Persons (dpersonsdev@gmail.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
