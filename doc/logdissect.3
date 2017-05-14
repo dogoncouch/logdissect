@@ -7,44 +7,81 @@ The logdissect module contains utilities for parsing, filtering, and exporting s
     myparser = logdissect.parsers.syslogbsd.ParseModule()
     attribute_tuple = myparser.parse_line(\fI<RAW_LINE>\fB)
     logdataobject = myparser.parse_log(\fI<LOG_FILE_PATH>\fB)
+    logentryobject = logdissect.data.LogEntry()
 
 .SH DESCRIPTION
 The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, and store log information.
 
 .SH PARSERS
 \fBlogdissect.parsers.<parser>.ParseModule()\fR
-    Replace <parser> with one of the available parsers:
+.br
+Replace <parser> with one of the available parsers:
     \fBsyslogbsd\fR - standard syslog
     \fBsyslogiso\fR - syslog with ISO 8601 datestamp
     \fBnohost\fR - syslog with no host attribute
     \fBtcpdump\fR - tcpdump terminal output
     \fBldjson\fR - logdissect JSON output
     
-    Parsers contain two methods (except the ldjson parser, which has no parse_line() method):
+Parsers contain two methods (except the ldjson parser, which has no parse_line() method):
 
 \fBparse_file(\fI<file>\fB)\fR
-    Accepts a filename as input, and returns a LogData object (described below).
+.br
+Accepts a filename as input, and returns a LogData object (described below).
 
-    Parsers have a tzone attribute that uses standard ISO 8601 offset to UTC (e.g. '+0500', '-0200'); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the ldjson parser).
+Parsers have a tzone attribute that uses standard ISO 8601 offset to UTC (e.g. '+0500', '-0200'); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the ldjson parser).
 
 \fBparse_line(\fI<line>\fB)\fR
-    Accepts a log line as input, and returns a tuple containing attributes. Tuples vary from parser to parser; their values are described in the docstrings for each parse_line() method.
+.br
+Accepts a log line as input, and returns a tuple containing attributes. Tuples vary from parser to parser; their values are described in the docstrings for each parse_line() method.
 
 .SH DATA OBJECTS
 \fBlogdissect.data.LogEntry()\fR
-    LogEntry is the data type for a single log entry. It contains the following attributes: parser, date_stamp_noyear, date_stamp, date_stamp_utc, tzone, raw_text, raw_stamp, facility, severity, message, source_path (the file it was parsed from), source_host, source_port, source_process, source_pid, dest_host, dest_port, protocol.
+.br
+LogEntry is the data type for a single log entry. LogEntry objects contain the following attributes:
+    \fBparser\fR
+    \fBdate_stamp_noyear\fR
+    \fBdate_stamp\fR
+    \fBdate_stamp_utc\fR
+    \fBtzone\fR
+    \fBraw_text\fR
+    \fBraw_stamp\fR
+    \fBfacility\fR
+    \fBseverity\fR
+    \fBmessage\fR
+    \fBsource_path\fR - the file it was parsed from
+    \fBsource_host\fR
+    \fBsource_port\fR
+    \fBsource_process\fR
+    \fBsource_pid\fR
+    \fBdest_host\fR
+    \fBdest_port\fR
+    \fBprotocol\fR
 
-    LogEntry also contains the \fB_utc_date\fR method, which uses the datestamp and timezone to convert its timestamp to UTC.
+LogEntry objects have one method:
+    \fB_utc_date\fR - uses datestamp and tzone attributes to extrapolate date_stamp_utc
 
 \fBlogdissect.data.LogData()\fR
-    LogData is the data type for a single log. It contains the following attributes: entries (a list containing LogEntry objects), source_path (the file it was parsed from), source_file, source_file_mtime, parser.
+.br
+LogData is the data type for a single log. LogData objects contain the following attributes:
+    \fBentries\fR - a list containing LogEntry objects
+    \fBsource_path\fR - the file it was parsed from
+    \fBsource_file\fR
+    \fBsource_file_mtime\fR
+    \fBparser\fR
 
-    LogData also contains a few sorting methods. \fBsort_time()\fR sorts entries by their date_stamp_utc attribute. \fBsort_path()\fR sorts by path. \fBsort_facility\fR sorts by facility, with each facility sorted by severity.
+LogData objects have a few sorting methods:    
+    \fBsort_time()\fR - sorts entries by their date_stamp_utc attribute
+    \fBsort_path()\fR - sorts by path
+    \fBsort_facility\fR - sorts by facility, then severity.
 
 \fBlogdissect.data.LogDataSet()\fR
-    LogDataSet is the data type for a logdissect project. It contains the following attributes: data_set (a list containing LogData objects), finalized_data (a LogData object to hold all of the hold logs).
+.br
+LogDataSet is the data type for a logdissect project. LogDataSet objects contain the following attributes:
+    \fBdata_set\fR - a list containing LogData objects
+    \fBfinalized_data\fR - a LogData object to hold all of the hold logs
 
-    LogDataSet also contains the \fBmerge_logs()\fR method, which merges the logs in data_set and sorts them using LogData's sort_time() method.
+LogDataSet objects have one method:
+    \fBmerge_logs()\fR - merges the logs in data_set into finalized_data, and sorts them using LogData's sort_time() method
 
 .SH SEE ALSO
     logdissect(1)
