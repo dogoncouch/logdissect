@@ -94,7 +94,7 @@ LogDataSet is the data type for a logdissect project. LogDataSet objects have th
 - `finalized_data` - a LogData object to hold all of the hold logs
 
 LogDataSet objects have one method:
-- `` merge_logs() `` - merges the logs in `data_set` and sorts them using LogData's `sort_time()` method
+- `` merge_logs() `` - merges the logs in `data_set` into `finalized_data`, and sorts them using LogData's `sort_time()` method
 
 # Author
 Dan Persons (dpersonsdev@gmail.com)
