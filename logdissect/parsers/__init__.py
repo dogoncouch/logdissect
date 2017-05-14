@@ -21,3 +21,9 @@
 # SOFTWARE.
 
 __all__ = ['syslogbsd', 'syslogiso', 'nohost', 'ldjson', 'tcpdump']
+
+import logdissect.parsers.syslogbsd
+import logdissect.parsers.syslogiso
+import logdissect.parsers.nohost
+import logdissect.parsers.ldjson
+import logdissect.parsers.tcpdump

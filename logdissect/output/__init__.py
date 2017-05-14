@@ -21,3 +21,6 @@
 # SOFTWARE.
 
 __formats__ = ['log', 'outjson']
+
+import logdissect.output.log
+import logdissect.output.outjson

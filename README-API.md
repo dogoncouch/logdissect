@@ -40,7 +40,25 @@ Accepts a log line as input, and returns a tuple containing attributes. Tuples v
 
 ## Data Objects
 ### logdissect.data.LogEntry()
-LogEntry is the data type for a single log entry. It contains the following attributes: `parser`, `date_stamp_noyear`, `date_stamp`, `date_stamp_utc`, `tzone`, `raw_text`, `raw_stamp`, `facility`, `severity`, `message`, `source_path` (the file it was parsed from), `source_host`, `source_port`, `source_process`, `source_pid`, `dest_host`, `dest_port`, `protocol`.
+LogEntry is the data type for a single log entry. It contains the following attributes:
+- `parser`
+- `date_stamp_noyear`
+- `date_stamp`
+- `date_stamp_utc`
+- `tzone`
+- `raw_text`
+- `raw_stamp`
+- `facility`
+- `severity`
+- `message`
+- `source_path` (the file it was parsed from)
+- `source_host`
+- `source_port`
+- `source_process`
+- `source_pid`
+- `dest_host`
+- `dest_port`
+- `protocol`
 
 LogEntry also contains the `_utc_date` method, which uses the datestamp and timezone to convert its timestamp to UTC.
 

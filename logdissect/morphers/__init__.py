@@ -22,3 +22,15 @@
 
 __morphers__ = ['last', 'range', 'grep', 'rgrep', 'source', 'rsource',
         'dest', 'rdest', 'process', 'rprocess', 'protocol']
+
+import logdissect.morphers.last
+import logdissect.morphers.range
+import logdissect.morphers.grep
+import logdissect.morphers.rgrep
+import logdissect.morphers.source
+import logdissect.morphers.rsource
+import logdissect.morphers.dest
+import logdissect.morphers.rdest
+import logdissect.morphers.process
+import logdissect.morphers.rprocess
+import logdissect.morphers.protocol
