@@ -77,8 +77,8 @@ LogEntry objects have one method:
 
 ### logdissect.data.LogData()
 LogData is the data type for a single log. LogData objects have the following attributes:
-- `entries` (a list containing LogEntry objects)
-- `source_path` (the file it was parsed from)
+- `entries` - a list containing LogEntry objects
+- `source_path` - the file it was parsed from
 - `source_file`
 - `source_file_mtime`
 - `parser`
