@@ -73,7 +73,7 @@ To install the latest release, see the latest instructions on the [releases page
 Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub.
 
 ## Contributing
-Contributions are welcome in the form of code, bug fixes, or testing feedback. For more on how to contribute to logdissect, see [README-CONTRIBUTING.md](README-CONTRIBUTING.md)
+Contributions are welcome in the form of code, bug fixes, or testing feedback. For more on how to contribute to logdissect, see [README-DEV.md](README-DEV.md)
 
 ## Author
     Dan Persons (dpersonsdev@gmail.com)

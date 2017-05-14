@@ -1,6 +1,6 @@
 # NOTICE:
 ### logdissect is now beta testing version 2.0!
-To install the development version, follow the instructions in [README-TESTING.md](README-TESTING.md).
+To install the development version, follow the instructions in [README-DEV.md](README-DEV.md).
 
 Read more about the changes in [CHANGELOG.md](CHANGELOG.md)
 
