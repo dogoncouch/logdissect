@@ -30,16 +30,14 @@ class MorphModule(OurModule):
         self.name = "rdest"
         self.desc = "filter out a destination host"
 
-        args.add_argument('--rdest', action='append', dest='rdest',
+        args.add_argument('--rdest', action='store', dest='rdest',
                 help='filter out a destination host')
 
-    def morph_data(self, data, args=[]):
+    def morph_data(self, data, args):
         """Remove entries from specified destination host (single log)"""
         if not args.rdest:
             return data
         else:
-            # newdata = data
-            # newdata.entries = []
             newdata = LogData()
             newdata.source_path = data.source_path
             newdata.source_file = data.source_file
@@ -47,7 +45,7 @@ class MorphModule(OurModule):
             newdata.parser = data.parser
 
             for entry in data.entries:
-                if entry.source_host != args.rdest[0]:
+                if entry.source_host != args.rdest:
                     newdata.entries.append(entry)
 
             return newdata

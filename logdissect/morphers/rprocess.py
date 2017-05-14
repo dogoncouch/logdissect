@@ -26,15 +26,15 @@ from logdissect.data import LogEntry
 from logdissect.data import LogData
 
 class MorphModule(OurModule):
-    def __init__(self, args=[]):
+    def __init__(self, args):
         """Initialize the process morphing module"""
         self.name = "rprocess"
         self.desc = "filter out a source process"
 
-        args.add_argument('--rprocess', action='append', dest='rprocess',
+        args.add_argument('--rprocess', action='store', dest='rprocess',
                 help='filter out a source process')
 
-    def morph_data(self, data, args=[]):
+    def morph_data(self, data, args):
         """Remove entries from specified process (single log)"""
         if not args.rprocess:
             return data
@@ -42,7 +42,7 @@ class MorphModule(OurModule):
             newdata = data
             newdata.entries = []
             for entry in data.entries:
-                if entry.source_process != args.rprocess[0]:
+                if entry.source_process != args.rprocess:
                     newdata.entries.append(entry)
 
             return newdata

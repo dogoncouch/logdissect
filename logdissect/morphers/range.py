@@ -25,34 +25,31 @@ from logdissect.data import LogEntry
 from logdissect.data import LogData
 
 class MorphModule(OurModule):
-    def __init__(self, args=[]):
+    def __init__(self, args):
         """Initialize the range morphing module"""
         self.name = "range"
         self.desc = "match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)"
 
-        args.add_argument('--range', action='append', dest='range',
+        args.add_argument('--range', action='store', dest='range',
                 help='match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)')
 
-    def morph_data(self, data, args=[]):
+    def morph_data(self, data, args):
         """Morph log data by timestamp range (single log)"""
         if not args.range:
             return data
         else:
-            ourlimits = args.range[0].split('-')
+            ourlimits = args.range.split('-')
 
-            # newdata = data
-            # newdata.entries = []
             newdata = LogData()
             newdata.source_path = data.source_path
             newdata.source_file = data.source_file
             newdata.source_file_mtime = data.source_file_mtime
             newdata.parser = data.parser
             
-
+            firstdate = int(ourlimits[0].ljust(14, '0'))
+            lastdate = int(ourlimits[1].ljust(14, '0'))
             for entry in data.entries:
-                if int(entry.date_stamp) >= \
-                        int(ourlimits[0].ljust(14, '0')): 
-                    if int(entry.date_stamp) <= \
-                            int(ourlimits[1].ljust(14, '0')):
+                if int(entry.date_stamp) >= firstdate: 
+                    if int(entry.date_stamp) <= lastdate:
                         newdata.entries.append(entry)
             return newdata

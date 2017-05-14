@@ -26,11 +26,11 @@
 # Run it after changes to make sure everything still works.
 
 echo Running diff tests for time
-time devtests/difftests.sh > devtests/files/diffresults.log
+time tests/difftests.sh > tests/files/diffresults.log
 
 echo
 echo Diff for diff tests:
-diff devtests/files/diffresults.log devtests/files/diffexresults
+diff tests/files/diffresults.log tests/files/diffexresults
 
 echo
 echo - There should be no errors.

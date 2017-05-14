@@ -25,60 +25,60 @@
 # NOTE: Run this file from the repository root (one dir up)
 
 echo Running testall.log
-./logdissect.py -s --outlog=devtests/files/testall.log devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py -s --outlog=tests/files/testall.log tests/files/exsyslog tests/files/exmeslog
 
 echo Running with \* input option
-./logdissect.py -s --outlog=devtests/files/teststar.log devtests/files/ex*
+./logdissect.py -s --outlog=tests/files/teststar.log tests/files/ex*
 
 echo Diff for teststar::
-diff devtests/files/teststarexlog devtests/files/teststar.log 
+diff tests/files/teststarexlog tests/files/teststar.log 
 
 echo Running testrange.log
-./logdissect.py -s --outlog=devtests/files/testrange.log --range 20160202020202-20170227213200 devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py -s --outlog=tests/files/testrange.log --range 20160202020202-20170227213200 tests/files/exsyslog tests/files/exmeslog
 
 echo Diff for testrange:
-diff devtests/files/testrangeexlog devtests/files/testrange.log
+diff tests/files/testrangeexlog tests/files/testrange.log
 
 echo Running testnone.log
-./logdissect.py -s --outlog=devtests/files/testnone.log --range=20160202020202-20160227213200 devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py -s --outlog=tests/files/testnone.log --range=20160202020202-20160227213200 tests/files/exsyslog tests/files/exmeslog
 
 echo Diff for testnone:
-diff devtests/files/testnoneexlog devtests/files/testnone.log
+diff tests/files/testnoneexlog tests/files/testnone.log
 
 echo Running testgrep.log
-./logdissect.py -s --outlog=devtests/files/testgrep.log --grep=software devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py -s --outlog=tests/files/testgrep.log --grep=software tests/files/exsyslog tests/files/exmeslog
 
 echo Diff for testgrep:
-diff devtests/files/testgrepexlog devtests/files/testgrep.log
+diff tests/files/testgrepexlog tests/files/testgrep.log
 
 echo Running testjson.log:
-./logdissect.py -s --outjson=devtests/files/testjson.log devtests/files/exmeslog devtests/files/exsyslog
+./logdissect.py -s --outjson=tests/files/testjson.log tests/files/exmeslog tests/files/exsyslog
 
 echo Running testinjson.log
-./logdissect.py -s -p ldjson --outjson=devtests/files/testinjson.log devtests/files/testjson.log
+./logdissect.py -s -p ldjson --outjson=tests/files/testinjson.log tests/files/testjson.log
 
 echo Diff test for testinjson:
-diff devtests/files/testinjson.log devtests/files/testjson.log
+diff tests/files/testinjson.log tests/files/testjson.log
 
 echo Running testsource.log:
-./logdissect.py -s --outlog=devtests/files/testsource.log --source=shade devtests/files/exsyslog
+./logdissect.py -s --outlog=tests/files/testsource.log --source=shade tests/files/exsyslog
 
 echo Running diff test for testsource:
-diff devtests/files/testsource.log devtests/files/exsyslog
+diff tests/files/testsource.log tests/files/exsyslog
 
 echo Running testprocess.log:
-./logdissect.py -s --outlog=devtests/files/testprocess.log --process=systemd devtests/files/exsyslog
+./logdissect.py -s --outlog=tests/files/testprocess.log --process=systemd tests/files/exsyslog
 
 echo Running diff test for testprocess:
-diff devtests/files/testprocess.log devtests/files/testprocessexlog
+diff tests/files/testprocess.log tests/files/testprocessexlog
 
 echo Running testfname.log
-./logdissect.py -s --outlog=devtests/files/testfname.log --label=fname devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py -s --outlog=tests/files/testfname.log --label=fname tests/files/exsyslog tests/files/exmeslog
 
 echo Diff for testfname:
-diff devtests/files/testfnameexlog devtests/files/testfname.log
+diff tests/files/testfnameexlog tests/files/testfname.log
 
 echo Running testfpath.log
-./logdissect.py -s --outlog=devtests/files/testfpath.log --label=fpath devtests/files/exsyslog devtests/files/exmeslog
+./logdissect.py -s --outlog=tests/files/testfpath.log --label=fpath tests/files/exsyslog tests/files/exmeslog
 
 echo Diffs should be the same, and there should be no errors.

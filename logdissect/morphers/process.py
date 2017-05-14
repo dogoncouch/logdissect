@@ -26,21 +26,19 @@ from logdissect.data import LogEntry
 from logdissect.data import LogData
 
 class MorphModule(OurModule):
-    def __init__(self, args=[]):
+    def __init__(self, args):
         """Initialize the process morphing module"""
         self.name = "process"
         self.desc = "match a source process"
 
-        args.add_argument('--process', action='append', dest='process',
+        args.add_argument('--process', action='store', dest='process',
                 help='match a source process')
 
-    def morph_data(self, data, args=[]):
+    def morph_data(self, data, args):
         """Return entries from specified process (single log)"""
         if not args.process:
             return data
         else:
-            # newdata = data
-            # newdata.entries = []
             newdata = LogData()
             newdata.source_path = data.source_path
             newdata.source_file = data.source_file
@@ -48,7 +46,7 @@ class MorphModule(OurModule):
             newdata.parser = data.parser
 
             for entry in data.entries:
-                if entry.source_process == args.process[0]:
+                if entry.source_process == args.process:
                     newdata.entries.append(entry)
 
             return newdata

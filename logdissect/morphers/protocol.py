@@ -26,21 +26,19 @@ from logdissect.data import LogEntry
 from logdissect.data import LogData
 
 class MorphModule(OurModule):
-    def __init__(self, args=[]):
+    def __init__(self, args):
         """Initialize the protocol morphing module"""
         self.name = "protocol"
         self.desc = "match a protocol"
 
-        args.add_argument('--protocol', action='append', dest='protocol',
+        args.add_argument('--protocol', action='store', dest='protocol',
                 help='match a protocol')
 
-    def morph_data(self, data, args=[]):
+    def morph_data(self, data, args):
         """Return entries with specified protocol (single log)"""
         if not args.protocol:
             return data
         else:
-            # newdata = data
-            # newdata.entries = []
             newdata = LogData()
             newdata.source_path = data.source_path
             newdata.source_file = data.source_file
@@ -48,7 +46,7 @@ class MorphModule(OurModule):
             newdata.parser = data.parser
 
             for entry in data.entries:
-                if entry.source_process == args.protocol[0]:
+                if entry.source_process == args.protocol:
                     newdata.entries.append(entry)
 
             return newdata
