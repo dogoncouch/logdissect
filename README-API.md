@@ -14,7 +14,6 @@ The logdissect module contains utilities for parsing, storing, filtering, and ex
 - [Objects and Methods](#objects-and-methods)
   - [Parsers](#parsers)
   - [Data Objects](#data-objects)
-- [Author](#author)
 - [Copyright](#copyright)
 
 # Introduction
@@ -95,9 +94,6 @@ LogDataSet is the data type for a logdissect project. LogDataSet objects have th
 
 LogDataSet objects have one method:
 - `` merge_logs() `` - merges the logs in `data_set` into `finalized_data`, and sorts them using LogData's `sort_time()` method
-
-# Author
-Dan Persons (dpersonsdev@gmail.com)
 
 # Copyright
 MIT License
