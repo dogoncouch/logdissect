@@ -11,7 +11,7 @@ For API documentation, see [README-API.md](README-API.md)
 
 - [Introduction](#introduction)
   - [Description](#description)
-  - [Installing](#installing)f
+  - [Installing](#installing)
 - [Usage](#usage)
   - [Options](#options)
   - [Examples](#examples)
