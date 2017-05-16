@@ -7,10 +7,32 @@ Read more about the changes in [CHANGELOG.md](CHANGELOG.md)
 # logdissect
 For API documentation, see [README-API.md](README-API.md)
 
+## Index
+
+- [Introduction](#introduction)
+  - [Description](#description)
+  - [Installing](#installing)f
+- [Usage](#usage)
+  - [Options](#options)
+  - [Examples](#examples)
+  - [Notes](#notes)
+- [Community](#community)
+  - [API](#api)
+  - [Support](#support)
+  - [Contributing](#contributing)
+- [Copyright](#copyright)
+
+
+# Introduction
+
+
+## Description
 logdissect is a command line utility and library module for analyzing syslog files. It can merge entries from multiple log files and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to a standard syslog file, or to a JSON array along with some metadata..
 
 ## Installing
 To install the latest release, see the latest instructions on the [releases page](https://github.com/dogoncouch/logdissect/releases). To install the development source, see the instructions in [README-DEV.md](README-DEV.md).
+
+# Usage
 
 ## Options
 
@@ -69,19 +91,22 @@ To install the latest release, see the latest instructions on the [releases page
 
 4. --last options: The last option should be a number followed by either 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days (e.g. --last=20m).
 
+# Community
+
+## API
+logdissect 2.0 provides a stable API for parsing log files, and storing data. For more information on API usage, see  [README-API.md](README-API.md).
+
 ## Support
 Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub, or emailed to [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com).
 
 ## Contributing
-Contributions are welcome in the form of code, bug fixes, or testing feedback. For more on how to contribute to logdissect, see [README-DEV.md](README-DEV.md)
+Contributions are welcome in the form of code, bug fixes, or testing feedback. For more on how to contribute to logdissect, see [README-DEV.md](README-DEV.md).
 
-## Author
-    Dan Persons (dpersonsdev@gmail.com)
 
-## Copyright
+# Copyright
 MIT License
 
-Copyright (c) 2017 Dan Persons
+Copyright (c) 2017 Dan Persons (dpersonsdev@gmail.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
