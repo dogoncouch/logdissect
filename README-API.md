@@ -51,7 +51,7 @@ Accepts a log line as input, and returns a dictionary containing the following k
 
 - `year` - a 4-digit string
 - `month` - a 2-digit string
-- `day` - a two-digit string
+- `day` - a 2-digit string
 - `tstamp` - a 6-digit string with optional decimal places
 - `tzone` - `+` or `-` followed by a 4-digit offset to utc (HHMM)
 - `raw_stamp` - the raw stamp with attributes, as it was parsed
