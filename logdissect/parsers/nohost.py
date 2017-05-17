@@ -89,31 +89,60 @@ class ParseModule(OurModule):
             ourline = line.rstrip()
             
             # Send the line to self.parse_line
-            datestampnoyear, rawstamp, sourcehost, sourceprocess, \
-                    sourcepid, message = self.parse_line(ourline)
+            # datestampnoyear, rawstamp, sourcehost, sourceprocess, \
+            #         sourcepid, message = self.parse_line(ourline)
+
+            # ====
+
+            entry = self.parse_line(ourline)
+
+            datestampnoyear = entry['year'] + entry['month'] + \
+                    entry['day'] + entry['tstamp']
            
-
             # Check for Dec-Jan jump and set the year:
-            if int(datestampnoyear) > int(recentdatestamp):
+            if int(entry['month'] + entry['day']) > int(recentdatestamp[0:4]):
                 entryyear = entryyear - 1
-            recentdatestamp = datestampnoyear
+            recentdatestamp = entry['month'] + entry['day']
 
-            
             # Set our attributes:
             current_entry.parser = 'nohost'
             current_entry.raw_text = ourline
             current_entry.date_stamp_noyear = date_stamp_noyear
-            current_entry.date_stamp = str(entry_year) \
-                    + str(current_entry.date_stamp_noyear)
+            current_entry.date_stamp = str(entryyear) + \
+                    entry['month'] + entry['day'] + entry['tstamp']
+            current_entry.year = str(entryyear)
+            current_entry.month = entry['month']
+            current_entry.day = entry['day']
+            current_entry.tstamp = entry['tstamp']
             current_entry.tzone = self.tzone
             current_entry.date_stamp_utc = current_entry._utc_date()
-            current_entry.raw_stamp = rawstamp
-            current_entry.message = message
-            current_entry.source_host = sourcehost
-            current_entry.source_process = sourceprocess
-            current_entry.source_pid = sourcepid
+            current_entry.raw_stamp = entry['raw_stamp']
+            current_entry.message = entry['message']
+            current_entry.source_host = None
+            current_entry.source_process = entry['source_process']
+            current_entry.source_pid = entry['source_pid']
             current_entry.source_path = \
                     data.source_path
+
+
+            # ^^^^
+            
+            
+            # Set our attributes:
+            # current_entry.parser = 'nohost'
+            # current_entry.raw_text = ourline
+            # current_entry.date_stamp_noyear = date_stamp_noyear
+            # current_entry.date_stamp = str(entry_year) \
+            #         + str(current_entry.date_stamp_noyear)
+            # current_entry.tzone = self.tzone
+            # current_entry.date_stamp_utc = current_entry._utc_date()
+            # current_entry.raw_stamp = rawstamp
+            # current_entry.message = message
+            # current_entry.source_host = sourcehost
+            # current_entry.source_process = sourceprocess
+            # current_entry.source_pid = sourcepid
+            # current_entry.source_path = \
+            #         data.source_path
 
             # Append and reset current_entry
             data.entries.append(current_entry)
@@ -125,7 +154,7 @@ class ParseModule(OurModule):
 
 
     def parse_line(self, line):
-        """Returns datestamp (mmddHHMMSS), rawstamp, None, sourceprocess, sourcepid, message"""
+        """Parse a syslog line (with no host) into a dictionary"""
         match = re.findall(self.date_format, line)
         if match:
             attr_list = str(match[0]).split(' ')
@@ -143,20 +172,44 @@ class ParseModule(OurModule):
             intmonth = months[attr_list[0].strip()]
             daydate = str(attr_list[1].strip()).zfill(2)
             timelist = str(str(attr_list[2]).replace(':',''))
-            datestampnoyear = str(int_month) + str(daydate) + str(timelist)
+            # datestampnoyear = str(int_month) + str(daydate) + str(timelist)
             
             # Set our attributes:
             sourceproclist = attr_list[3].split('[')
-            sourceprocess = sourceproclist[0]
+            # sourceprocess = sourceproclist[0]
             if len(sourceproclist) > 1:
                 sourcepid = sourceproclist[1].strip(']')
             else: sourcepid = None
-            rawstamp = line[:len(match[0])]
-            message = line[len(match[0]) + 2:]
+            # rawstamp = line[:len(match[0])]
+            # message = line[len(match[0]) + 2:]
+
+            # ====
+            
+            entry = {}
+            entry['year'] = None
+            entry['month'] = intmonth
+            entry['day'] = daydate
+            entry['tstamp'] = str(timelist)
+            entry['tzone'] = None
+            entry['raw_stamp'] = line[:len(match[0])]
+            entry['facility'] = None
+            entry['severity'] = None
+            entry['source_host'] = None
+            entry['source_port'] = None
+            entry['source_process'] = sourceproclist[0]
+            entry['source_pid'] = sourcepid
+            entry['dest_host'] = None
+            entry['dest_port'] = None
+            entry['protocol'] = None
+            entry['message'] = line[len(match[0]) + 2:]
+
+            return entry
+            
+        # ^^^^
 
             
-            return datestampnoyear, rawstamp, None, sourceprocess, \
-                    sourcepid, message
+            # return datestampnoyear, rawstamp, None, sourceprocess, \
+            #         sourcepid, message
 
 
         else: return None

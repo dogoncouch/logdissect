@@ -61,6 +61,7 @@ class ParseModule(OurModule):
         entry_day = timestamp.day
         oldtnum = 999999.999999
         currentday = timestamp
+        ymdstamp = currentday.strftime('%Y%m%d')
         
         # Set our timezone
         if not self.tzone:
@@ -96,29 +97,59 @@ class ParseModule(OurModule):
             
             attributes = self.parse_line(ourline)
             if attributes:
-                tstamp, rawstamp, protocol, sourcehost, desthost, \
-                        sourceprocess, sourcepid, message = attributes
+                # tstamp, rawstamp, protocol, sourcehost, desthost, \
+                #         sourceprocess, sourcepid, message = attributes
             
                 
                 # Set the current day:
-                if float(tstamp) > oldtnum:
+                # if float(tstamp) > oldtnum:
+                #     currentday = currentday - datetime.timedelta(days=1)
+                #     ymdstamp = currentday.strftime('%Y%m%d')
+                
+                # ====
+            
+                entry = attributes
+
+                if float(entry['tstamp']) > oldtnum:
                     currentday = currentday - datetime.timedelta(days=1)
-                
-                ymdstamp = currentday.strftime('%Y%m%d')
-                
-                # Set the attributes for current_entry:
-                current_entry.date_stamp = ymdstamp + tstamp
+                    ymdstamp = currentday.strftime('%Y%m%d')
+            
+                # Check for Dec-Jan jump and set the year:
+                if int(entry['month'] + entry['day']) > int(recentdatestamp[0:4]):
+                    entryyear = entryyear - 1
+                recentdatestamp = entry['month'] + entry['day']
+            
+            
+                # Set our attributes:
+                # current_entry.date_stamp_noyear = date_stamp_noyear
+                current_entry.date_stamp = ymdstamp + entry['tstamp']
+                current_entry.year = ymdstamp[0:4]
+                current_entry.month = ymdstamp[4:6]
+                current_entry.day = ymdstamp[6:8]
+                current_entry.tstamp = entry['tstamp']
                 current_entry.tzone = self.tzone
                 current_entry.date_stamp_utc = current_entry._utc_date()
-                current_entry.raw_stamp = rawstamp
-                current_entry.message = message
-                current_entry.source_host = sourcehost
-                current_entry.dest_host = desthost
-                current_entry.protocol = protocol
+                current_entry.raw_stamp = entry['raw_stamp']
+                current_entry.message = entry['message']
+                current_entry.source_host = entry['source_host']
+                current_entry.dest_host = entry['dest_host']
+                current_entry.protocol = entry['protocol']
+            
+            
+                # ^^^^
+                # Set the attributes for current_entry:
+                # current_entry.date_stamp = ymdstamp + tstamp
+                # current_entry.tzone = self.tzone
+                # current_entry.date_stamp_utc = current_entry._utc_date()
+                # current_entry.raw_stamp = rawstamp
+                # current_entry.message = message
+                # current_entry.source_host = sourcehost
+                # current_entry.dest_host = desthost
+                # current_entry.protocol = protocol
 
             else:
-                tstamp = '0'
                 current_entry.date_stamp = '0'
+                current_entry.date_stamp_utc = '0'
 
             current_entry.parser = 'tcpdump'
             current_entry.raw_text = ourline
@@ -137,7 +168,7 @@ class ParseModule(OurModule):
 
 
     def parse_line(self, line):
-        """Returns tstamp (hhmmss[.f]), rawstamp, protocol, sourcehost, desthost, sourceprocess (None), sourcepid (None), message"""
+        """Parse a line of tcpdump terminal output into a dictionary"""
         match = re.findall(self.date_format, line)
         if match:
             attr_list = str(match[0]).split(' ')
@@ -147,17 +178,40 @@ class ParseModule(OurModule):
                 pass
             
             tstamp = attr_list[0].replace(':', '')
-            rawstamp = line[:len(match[0])]
+            # rawstamp = line[:len(match[0])]
             if attr_list[1][-1] == ',':
                 protocol = attr_list[1] + attr_list.pop(2)
             else:
                 protocol = attr_list[1]
-            sourcehost = attr_list[2]
-            desthost = attr_list[4]
-            message = line[len(match[0]) + 2:]
+            # sourcehost = attr_list[2]
+            # desthost = attr_list[4]
+            # message = line[len(match[0]) + 2:]
             
-            return tstamp, rawstamp, protocol, sourcehost, desthost, \
-                    None, None, message
+            # ====
+    
+            entry = {}
+            entry['year'] = None
+            entry['month'] = None
+            entry['day'] = None
+            entry['tstamp'] = tstamp
+            entry['tzone'] = None
+            entry['raw_stamp'] = line[:len(match[0])]
+            entry['facility'] = None
+            entry['severity'] = None
+            entry['source_host'] = attr_list[2]
+            entry['source_port'] = None
+            entry['source_process'] = None
+            entry['source_pid'] = None
+            entry['dest_host'] = attr_list[4]
+            entry['dest_port'] = None
+            entry['protocol'] = protocol
+            entry['message'] = line[len(match[0]) + 2:]
+
+            return entry
+        
+        # ^^^^
+            # return tstamp, rawstamp, protocol, sourcehost, desthost, \
+            #         None, None, message
 
         else:
             match = re.findall(self.date_format_backup, line)
@@ -166,8 +220,29 @@ class ParseModule(OurModule):
                 rawstamp = line[:len(match[0])]
                 message = line[len(match[0]) + 1:]
                 
-                return tstamp, rawstamp, None, None, None, \
-                        None, None, message
+                # ====
+            
+                entry = {}
+                entry['year'] = None
+                entry['month'] = None
+                entry['day'] = None
+                entry['tstamp'] = tstamp
+                entry['tzone'] = None
+                entry['raw_stamp'] = line[:len(match[0])]
+                entry['source_host'] = None
+                entry['source_port'] = None
+                entry['source_process'] = None
+                entry['source_pid'] = None
+                entry['dest_host'] = None
+                entry['dest_port'] = None
+                entry['protocol'] = None
+                entry['message'] = line[len(match[0]) + 2:]
+            
+                return entry
+        
+            # ^^^^
+                # return tstamp, rawstamp, None, None, None, \
+                #         None, None, message
             
             else:
                 return None

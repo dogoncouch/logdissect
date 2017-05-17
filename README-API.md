@@ -47,15 +47,37 @@ Accepts a filename as input, and returns a LogData object (described below).
 Parsers have a `tzone` attribute that uses standard ISO 8601 offset to UTC (e.g. `+0500`, `-0200`); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the ldjson parser).
 
 #### parse\_line(\<line>)
-Accepts a log line as input, and returns a tuple containing attributes. Tuples vary from parser to parser; their values are described in the docstrings for each parse\_line() method.
+Accepts a log line as input, and returns a dictionary containing the following keys:
+
+- `year` - a 4-digit string
+- `month` - a 2-digit string
+- `day` - a two-digit string
+- `tstamp` - a 6-digit string with optional decimal places
+- `tzone` - `+` or `-` followed by a 4-digit offset to utc (HHMM)
+- `raw_stamp` - the raw stamp with attributes, as it was parsed
+- `facility` - the log facility
+- `severity` - the severity
+- `source_host` - the source host
+- `source_port` - the source port
+- `source_process` - the source process
+- `source_pid` - the source PID
+- `dest_host` - the destination host
+- `dest_port` - the destination port
+- `protocol` - the protocol
+- `message` - the message
+
+Attributes that were not parsed will be returned as `None`. The ldjson parser has no parse\_line() method.
 
 ## Data Objects
 ### logdissect.data.LogEntry()
 LogEntry is the data type for a single log entry. LogEntry objects have the following attributes:
 - `parser`
-- `date_stamp_noyear`
 - `date_stamp`
 - `date_stamp_utc`
+- `year`
+- `month`
+- `day`
+- `tstamp`
 - `tzone` - time zone
 - `raw_text`
 - `raw_stamp`

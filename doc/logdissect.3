@@ -32,7 +32,26 @@ Parsers have a tzone attribute that uses standard ISO 8601 offset to UTC (e.g. '
 
 \fBparse_line(\fI<line>\fB)\fR
 .br
-Accepts a log line as input, and returns a tuple containing attributes. Tuples vary from parser to parser; their values are described in the docstrings for each parse_line() method.
+Accepts a log line as input, and returns a dictionary containing the following keys:
+
+\fByear\fR - a 4-digit string
+\fBmonth\fR - a 2-digit string
+\fBday\fR - a two-digit string
+\fBtstamp\fR - a 6-digit string with optional decimal places
+\fBtzone\fR - \fB+\fR or \fB-\fR followed by a 4-digit offset to utc (HHMM)
+\fBraw_stamp\fR - the raw stamp with attributes, as it was parsed
+\fBfacility\fR - the log facility
+\fBseverity\fR - the severity
+\fBsource_host\fR - the source host
+\fBsource_port\fR - the source port
+\fBsource_process\fR - the source process
+\fBsource_pid\fR - the source PID
+\fBdest_host\fR - the destination host
+\fBdest_port\fR - the destination port
+\fBprotocol\fR - the protocol
+\fBmessage\fR - the message
+
+Attributes that were not parsed will be returned as \fBNone\fR. The ldjson parser has no parse_line() method.
 
 .SH DATA OBJECTS
 \fBlogdissect.data.LogEntry()\fR

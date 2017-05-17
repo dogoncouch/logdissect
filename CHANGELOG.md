@@ -2,6 +2,10 @@
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
 ## [Unreleased]
+### Changed
+- `parse_line()` returns predictable dictionary instead of random values
+
+## [2.0-beta-2] - 2017-05-15
 ### Added
 - `tcpdump` parser for parsing tcpdump terminal output
 - `parse_line()` parser functions

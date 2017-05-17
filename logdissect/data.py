@@ -29,6 +29,10 @@ class LogEntry:
         self.date_stamp_noyear = None
         self.date_stamp = None
         self.date_stamp_utc = None
+        self.year = None
+        self.month = None
+        self.day = None
+        self.tstamp = None
         self.tzone = None
         self.raw_text = None
         self.raw_stamp = None
