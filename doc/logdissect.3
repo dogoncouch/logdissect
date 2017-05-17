@@ -5,7 +5,7 @@ The logdissect module contains utilities for parsing, filtering, and exporting s
 .SH SYNOPSIS
     \fBimport logdissect
     myparser = logdissect.parsers.syslogbsd.ParseModule()
-    attribute_tuple = myparser.parse_line(\fI<RAW_LINE>\fB)
+    attribute_dict = myparser.parse_line(\fI<RAW_LINE>\fB)
     logdataobject = myparser.parse_log(\fI<LOG_FILE_PATH>\fB)
     logentryobject = logdissect.data.LogEntry()
 

@@ -20,7 +20,7 @@ The logdissect module contains utilities for parsing, storing, filtering, and ex
 ## Synopsis
     import logdissect
     myparser = logdissect.parsers.syslogbsd.ParseModule()
-    attribute_tuple = myparser.parse_line(<RAW_LINE>)
+    attribute_dict = myparser.parse_line(<RAW_LINE>)
     logdataobject = myparser.parse_file(<LOG_FILE_PATH>)
     logentryobject = logdissect.data.LogEntry()
 
