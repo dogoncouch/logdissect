@@ -47,7 +47,7 @@ Accepts a filename as input, and returns a LogData object (described below).
 Parsers have a `tzone` attribute that uses standard ISO 8601 offset to UTC (e.g. `+0500`, `-0200`); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the ldjson parser).
 
 #### parse\_line(\<line>)
-Accepts a log line as input, and returns a dictionary containing the following keys:
+Accepts a log line as input, and returns a dictionary of strings containing the following keys:
 
 - `year` - a 4-digit string
 - `month` - a 2-digit string
