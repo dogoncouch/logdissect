@@ -110,14 +110,11 @@ class ParseModule(OurModule):
             
                 entry = attributes
 
+                # Check for day change:
                 if float(entry['tstamp']) > oldtnum:
+                    oldday - currentday
                     currentday = currentday - datetime.timedelta(days=1)
                     ymdstamp = currentday.strftime('%Y%m%d')
-            
-                # Check for Dec-Jan jump and set the year:
-                if int(entry['month'] + entry['day']) > int(recentdatestamp[0:4]):
-                    entryyear = entryyear - 1
-                recentdatestamp = entry['month'] + entry['day']
             
             
                 # Set our attributes:

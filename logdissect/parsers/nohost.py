@@ -54,7 +54,7 @@ class ParseModule(OurModule):
                 datetime.datetime.fromtimestamp(data.source_file_mtime)
         data.source_file_year = timestamp.year
         entryyear = timestamp.year
-        recentdatestamp = '99999999999999'
+        currentmonth = '99'
         
         # Set our timezone
         if not self.tzone:
@@ -100,9 +100,9 @@ class ParseModule(OurModule):
                     entry['day'] + entry['tstamp']
            
             # Check for Dec-Jan jump and set the year:
-            if int(entry['month'] + entry['day']) > int(recentdatestamp[0:4]):
+            if int(entry['month']) > int(currentmonth):
                 entryyear = entryyear - 1
-            recentdatestamp = entry['month'] + entry['day']
+            currentmonth = entry['month']
 
             # Set our attributes:
             current_entry.parser = 'nohost'
