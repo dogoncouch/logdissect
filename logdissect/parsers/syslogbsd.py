@@ -89,10 +89,6 @@ class ParseModule(OurModule):
             ourline = line.rstrip()
             
             # Send the line to self.parse_line
-            # datestampnoyear, rawstamp, sourcehost, sourceprocess, \
-            #         sourcepid, message = self.parse_line(ourline)
-            
-            # ====
 
             entry = self.parse_line(ourline)
 
@@ -105,7 +101,6 @@ class ParseModule(OurModule):
             # Set our attributes:
             current_entry.parser = 'syslogbsd'
             current_entry.raw_text = ourline
-            # current_entry.date_stamp_noyear = date_stamp_noyear
             current_entry.date_stamp = str(entryyear) \
                     + entry['month'] + entry['day'] + entry['tstamp']
             current_entry.year = str(entryyear)
@@ -122,24 +117,6 @@ class ParseModule(OurModule):
             current_entry.source_path = \
                     data.source_path
 
-
-            # ^^^^
-            
-            # Set our attributes:
-            # current_entry.parser = 'syslogbsd'
-            # current_entry.raw_text = ourline
-            # current_entry.date_stamp_noyear = datestampnoyear
-            # current_entry.date_stamp = str(entryyear) \
-            #         + str(datestampnoyear)
-            # current_entry.tzone = self.tzone
-            # current_entry.date_stamp_utc = current_entry._utc_date()
-            # current_entry.raw_stamp = rawstamp
-            # current_entry.message = message
-            # current_entry.source_host = sourcehost
-            # current_entry.source_process = sourceprocess
-            # current_entry.source_pid = sourcepid
-            # current_entry.source_path = \
-            #         data.source_path
 
             # Append and reset current_entry
             data.entries.append(current_entry)
@@ -173,16 +150,10 @@ class ParseModule(OurModule):
             
             
             # Set our attributes:
-            # sourcehost = attr_list[3]
             sourceproclist = attr_list[4].split('[')
-            # sourceprocess = sourceproclist[0]
             if len(sourceproclist) > 1:
                 sourcepid = sourceproclist[1].strip(']')
             else: sourcepid = None
-            # rawstamp = line[:len(match[0])]
-            # message = line[len(match[0]) + 2:]
-
-            # ====
             
             entry = {}
             entry['year'] = None
@@ -204,12 +175,5 @@ class ParseModule(OurModule):
 
             return entry
         
-        # ^^^^
-
-
-            
-            return datestampnoyear, rawstamp, sourcehost, sourceprocess, \
-                    sourcepid, message
-
 
         else: return None

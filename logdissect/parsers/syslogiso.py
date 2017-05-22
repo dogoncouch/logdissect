@@ -72,14 +72,11 @@ class ParseModule(OurModule):
         for line in loglines:
             ourline = line.rstrip()
             
-            # ====
-
             entry = self.parse_line(ourline)
 
             # Set our attributes:
             current_entry.parser = 'syslogiso'
             current_entry.raw_text = ourline
-            # current_entry.date_stamp_noyear = date_stamp_noyear
             current_entry.date_stamp = str(entry_year) \
                     + entry['month'] + entry['day'] + entry['tstamp']
             current_entry.year = str(entry_year)
@@ -96,30 +93,6 @@ class ParseModule(OurModule):
             current_entry.source_path = \
                     data.source_path
 
-
-            # ^^^^
-            # Send the line to self.parse_line
-            # datestampnoyear, tzone, rawstamp, sourcehost, sourceprocess, \
-            #         sourcepid, message = self.parse_line(ourline)
-           
-
-            # Set our attributes:
-            # current_entry.parser = 'syslogiso'
-            # current_entry.raw_text = ourline
-            # current_entry.date_stamp_noyear = datestamp[4:]
-            # current_entry.date_stamp = datestamp
-            # if self.tzone:
-            #     current_entry.tzone = self.tzone
-            # else:
-            #     current_entry.tzone = tzone
-            # current_entry.date_stamp_utc = current_entry._utc_date()
-            # current_entry.raw_stamp = rawstamp
-            # current_entry.message = message
-            # current_entry.source_host = sourcehost
-            # current_entry.source_process = sourceprocess
-            # current_entry.source_pid = sourcepid
-            # current_entry.source_path = \
-            #         data.source_path
 
             # Append and reset current_entry
             data.entries.append(current_entry)
@@ -151,17 +124,10 @@ class ParseModule(OurModule):
                 tzone = attr_list[0][-5:].strip(':')
                 datestamp = \
                         attr_list[0][:-6].strip('-').strip('T').strip(':')
-            # sourcehost = attr_list[1]
             sourceproclist = attr_list[2].split('[')
-            # sourceprocess = sourceproclist[0]
             if len(sourceproclist) > 1:
                 sourcepid = sourceproclist[1].strip(']')
             else: sourcepid = None
-            # rawstamp = line[:len(match[0])]
-            # message = line[len(match[0]) + 2:]
-
-            
-            # ====
             
             entry = {}
             entry['year'] = datestamp[0:4]
@@ -183,9 +149,5 @@ class ParseModule(OurModule):
 
             return entry
         
-        # ^^^^
-            # return datestamp, tzone, rawstamp, sourcehost, \
-            #         sourceprocess, sourcepid, message
-
 
         else: return None

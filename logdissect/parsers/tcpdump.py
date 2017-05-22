@@ -97,16 +97,6 @@ class ParseModule(OurModule):
             
             attributes = self.parse_line(ourline)
             if attributes:
-                # tstamp, rawstamp, protocol, sourcehost, desthost, \
-                #         sourceprocess, sourcepid, message = attributes
-            
-                
-                # Set the current day:
-                # if float(tstamp) > oldtnum:
-                #     currentday = currentday - datetime.timedelta(days=1)
-                #     ymdstamp = currentday.strftime('%Y%m%d')
-                
-                # ====
             
                 entry = attributes
 
@@ -118,7 +108,6 @@ class ParseModule(OurModule):
             
             
                 # Set our attributes:
-                # current_entry.date_stamp_noyear = date_stamp_noyear
                 current_entry.date_stamp = ymdstamp + entry['tstamp']
                 current_entry.year = ymdstamp[0:4]
                 current_entry.month = ymdstamp[4:6]
@@ -133,17 +122,6 @@ class ParseModule(OurModule):
                 current_entry.protocol = entry['protocol']
             
             
-                # ^^^^
-                # Set the attributes for current_entry:
-                # current_entry.date_stamp = ymdstamp + tstamp
-                # current_entry.tzone = self.tzone
-                # current_entry.date_stamp_utc = current_entry._utc_date()
-                # current_entry.raw_stamp = rawstamp
-                # current_entry.message = message
-                # current_entry.source_host = sourcehost
-                # current_entry.dest_host = desthost
-                # current_entry.protocol = protocol
-
             else:
                 current_entry.date_stamp = '0'
                 current_entry.date_stamp_utc = '0'
@@ -175,16 +153,10 @@ class ParseModule(OurModule):
                 pass
             
             tstamp = attr_list[0].replace(':', '')
-            # rawstamp = line[:len(match[0])]
             if attr_list[1][-1] == ',':
                 protocol = attr_list[1] + attr_list.pop(2)
             else:
                 protocol = attr_list[1]
-            # sourcehost = attr_list[2]
-            # desthost = attr_list[4]
-            # message = line[len(match[0]) + 2:]
-            
-            # ====
     
             entry = {}
             entry['year'] = None
@@ -206,10 +178,6 @@ class ParseModule(OurModule):
 
             return entry
         
-        # ^^^^
-            # return tstamp, rawstamp, protocol, sourcehost, desthost, \
-            #         None, None, message
-
         else:
             match = re.findall(self.date_format_backup, line)
             if match:
@@ -237,9 +205,5 @@ class ParseModule(OurModule):
             
                 return entry
         
-            # ^^^^
-                # return tstamp, rawstamp, None, None, None, \
-                #         None, None, message
-            
             else:
                 return None
