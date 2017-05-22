@@ -41,8 +41,8 @@ class MorphModule(OurModule):
             return data
         else:
             # Set the units and number from the option:
-            lastunit = args.last[0][-1]
-            lastnum = args.last[0][:-1]
+            lastunit = args.last[-1]
+            lastnum = args.last[:-1]
             
             # Set the start time:
             if lastunit == 's':
