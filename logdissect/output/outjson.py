@@ -51,7 +51,9 @@ class OutputModule(OurModule):
                     'message': entry.message,
                     'source_path': entry.source_path,
                     'source_host': entry.source_host,
+                    'source_port': entry.source_port,
                     'dest_host': entry.dest_host,
+                    'dest_port': entry.dest_port,
                     'protocol': entry.protocol,
                     'source_process': entry.source_process,
                     'source_pid': entry.source_pid}
