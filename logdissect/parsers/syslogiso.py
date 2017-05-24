@@ -83,7 +83,7 @@ class ParseModule(OurModule):
             current_entry.month = entry['month']
             current_entry.day = entry['day']
             current_entry.tstamp = entry['tstamp']
-            current_entry.tzone = self.tzone
+            current_entry.tzone = entry['tzone']
             current_entry.date_stamp_utc = current_entry._utc_date()
             current_entry.raw_stamp = entry['raw_stamp']
             current_entry.message = entry['message']
@@ -115,7 +115,7 @@ class ParseModule(OurModule):
 
 
             # Set our attributes:
-            datestamp = attr_list[0][:-6].strip('-').strip('T').strip(':')
+            # datestamp = attr_list[0][:-6].strip('-').strip('T').strip(':')
             if attr_list[0][-1] == 'Z':
                 tzone = '+0000'
                 datestamp = \
