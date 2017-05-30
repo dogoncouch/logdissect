@@ -1,7 +1,7 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
-## [Unreleased]
+## [2.0] - 2017-05-30
 ### Changed
 - `parse_line()` returns predictable dictionary instead of random values
 
