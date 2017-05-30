@@ -3,7 +3,7 @@ Contributions are welcome in the form of code or testing feedback.
 
 ## Testing
 ### logdissect is now beta testing version 2.0!
-To test the beta version, see the instructions for [installing development source](#installing-development-source). Feedback on earlier versions is also welcome. All issues and comments can be directed to the [issues page on GitHub](https://github.com/dogoncouch/logdissect/issues), or emailed to [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com).
+User feedback helps logdissect get better. All issues and comments can be directed to the [issues page on GitHub](https://github.com/dogoncouch/logdissect/issues), or emailed to [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com). Please ensure you are using the latest release. 
 
 ## Coding
 If you have a bug fix, or an idea for a module, we would love to hear about it! You can start an [issue on GitHub](https://github.com/dogoncouch/logdissect/issues), or email the author at [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com).
