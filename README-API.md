@@ -33,7 +33,7 @@ Replace \<parser\> with one of the available parsers:
 - `` tcpdump `` - tcpdump terminal output
 - `` ldjson `` - logdissect JSON output
     
-Parsers contain two methods (except the ldjson parser, which has no parse\_line() method):
+Parsers have two methods (except the ldjson parser, which has no parse\_line() method):
 
 #### parse\_file(\<file>)
 Accepts a filename as input, and returns a LogData object (described below).

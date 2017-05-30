@@ -22,7 +22,7 @@ Replace <parser> with one of the available parsers:
     \fBtcpdump\fR - tcpdump terminal output
     \fBldjson\fR - logdissect JSON output
     
-Parsers contain two methods (except the ldjson parser, which has no parse_line() method):
+Parsers have two methods (except the ldjson parser, which has no parse_line() method):
 
 \fBparse_file(\fI<file>\fB)\fR
 .br
@@ -56,7 +56,7 @@ Attributes that were not parsed will be returned as \fBNone\fR. The ldjson parse
 .SH DATA OBJECTS
 \fBlogdissect.data.LogEntry()\fR
 .br
-LogEntry is the data type for a single log entry. LogEntry objects contain the following attributes:
+LogEntry is the data type for a single log entry. LogEntry objects have the following attributes:
     \fBparser\fR
     \fBdate_stamp_noyear\fR
     \fBdate_stamp\fR
@@ -81,7 +81,7 @@ LogEntry objects have one method:
 
 \fBlogdissect.data.LogData()\fR
 .br
-LogData is the data type for a single log. LogData objects contain the following attributes:
+LogData is the data type for a single log. LogData objects have the following attributes:
     \fBentries\fR - a list containing LogEntry objects
     \fBsource_path\fR - the file it was parsed from
     \fBsource_file\fR
@@ -95,7 +95,7 @@ LogData objects have a few sorting methods:
 
 \fBlogdissect.data.LogDataSet()\fR
 .br
-LogDataSet is the data type for a logdissect project. LogDataSet objects contain the following attributes:
+LogDataSet is the data type for a logdissect project. LogDataSet objects have the following attributes:
     \fBdata_set\fR - a list containing LogData objects
     \fBfinalized_data\fR - a LogData object to hold all of the hold logs
 
