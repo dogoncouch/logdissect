@@ -2,10 +2,6 @@
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
 ## [2.0] - 2017-05-30
-### Changed
-- `parse_line()` returns predictable dictionary instead of random values
-
-## [2.0-beta-2] - 2017-05-15
 ### Added
 - `tcpdump` parser for parsing tcpdump terminal output
 - `parse_line()` parser functions
@@ -33,10 +29,10 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 - Updated time sort method to use time zones
 - Renamed `syslog` parser to `syslogbsd`
 - `logdissect` now loads everything when imported as a module
-
+- `parse_line()` returns a predictable dictionary instead of random values
 
 ## [1.3.1] - 2017-04-24
-### Fixed
+### Added
 - Add `--no-host` option for syslog configurations with no host attribute
 
 ## [1.3] - 2017-04-21
