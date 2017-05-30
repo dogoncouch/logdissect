@@ -106,7 +106,7 @@ LogData objects have a few sorting methods:
 ### logdissect.data.LogDataSet()
 LogDataSet is the data type for a logdissect project. LogDataSet objects have the following attributes:
 - `data_set` - a list containing LogData objects
-- `finalized_data` - a LogData object to hold all of the hold combined entries
+- `finalized_data` - a LogData object to hold all of the combined entries
 
 LogDataSet objects have one method:
 - `` merge_logs() `` - merges the logs in `data_set` into `finalized_data`, and sorts them using LogData's `sort_time()` method
