@@ -1,6 +1,10 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
+## [2.0.1] - 2017-06-07
+### Fixed
+- Compatibility issues
+
 ## [2.0] - 2017-05-30
 ### Added
 - `tcpdump` parser for parsing tcpdump terminal output
