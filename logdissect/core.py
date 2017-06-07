@@ -178,11 +178,10 @@ class LogDissectCore:
     # Parsing modules:
     def list_parsers(self, *args):
         """Return a list of available parsing modules"""
-        print '==== Available parsing modules: ===='
-        print
+        print('==== Available parsing modules: ====\n')
         for parser in sorted(self.parse_modules):
-            print string.ljust(self.parse_modules[parser].name, 16) + \
-                ': ' + self.parse_modules[parser].desc
+            print(string.ljust(self.parse_modules[parser].name, 16) + \
+                ': ' + self.parse_modules[parser].desc)
         sys.exit(0)
     
     def load_parsers(self):
