@@ -44,7 +44,7 @@ class ParseModule(OurModule):
         """Parse a syslog file into a LogData object"""
         data = LogData()
         data.parser = 'syslogiso'
-	current_entry = LogEntry()
+        current_entry = LogEntry()
         data.source_path = sourcepath
         data.source_file = data.source_path.split('/')[-1]
 

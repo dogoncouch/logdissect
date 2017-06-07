@@ -46,7 +46,7 @@ class ParseModule(OurModule):
         """Parse tcpdump terminal output from file into a LogData object"""
         data = LogData()
         data.parser = 'tcpdump'
-	current_entry = LogEntry()
+        current_entry = LogEntry()
         data.source_path = sourcepath
         data.source_file = data.source_path.split('/')[-1]
 

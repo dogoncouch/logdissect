@@ -7,5 +7,3 @@ __all__ = ['core', 'data']
 import logdissect.parsers
 import logdissect.morphers
 import logdissect.output
-import data
-import core
