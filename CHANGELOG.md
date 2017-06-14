@@ -1,6 +1,13 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
+## [2.1] - 2017-06-14
+### Added
+- Python 3 compatibility
+
+### Fixed
+- Module loading issue (logdissect.data)
+
 ## [2.0.2] - 2017-06-13
 ### Fixed
 - Python version issue
