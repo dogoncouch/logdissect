@@ -113,5 +113,5 @@ setup(name = 'logdissect', version = str(__version__),
             "License :: OSI Approved :: MIT License",
             "Natural Language :: English",
             "Operating System :: POSIX",
-            "Programming Language :: Python :: 2",
+            "Programming Language :: Python",
             "Topic :: System :: Systems Administration"])
