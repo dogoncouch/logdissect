@@ -1,5 +1,5 @@
 # logdissect
-For API documentation, see [README-API.md](README-API.md)
+For library documentation, see [README-API.md](README-API.md)
 
 ## Index
 
@@ -87,8 +87,8 @@ To install the latest release, see the latest instructions on the [releases page
 
 # Community
 
-## API
-logdissect 2.0 provides a stable API for parsing log files, and storing data. For more information on API usage, see  [README-API.md](README-API.md).
+## Library
+logdissect 2.0 provides a stable API for parsing log files, and storing data. For more information on library usage, see  [README-API.md](README-API.md).
 
 ## Support
 Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub, or emailed to [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com).
