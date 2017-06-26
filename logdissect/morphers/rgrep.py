@@ -31,7 +31,7 @@ class MorphModule(OurModule):
         self.name = "rgrep"
         self.desc = "filter out a pattern"
 
-        args.add_argument('--rgrep', action='store', dest='rpattern',
+        args.add_argument('--rgrep', action='append', dest='rpattern',
                 help='filter out a pattern')
 
     def morph_data(self, data, args):
@@ -39,14 +39,22 @@ class MorphModule(OurModule):
         if not args.rpattern:
             return data
         else:
-            repattern = re.compile(r".*({}).*".format(args.rpattern))
             newdata = LogData()
             newdata.source_path = data.source_path
             newdata.source_file = data.source_file
             newdata.source_file_mtime = data.source_file_mtime
             newdata.parser = data.parser
 
+            for rpat in args.rpattern:
+                repattern[rpat] = re.compile(r".*({}).*".format(args.rpattern))
+
             for entry in data.entries:
-                if not re.match(repattern, entry.raw_text):
+                match = False
+                for r in args.rgrep:
+                    if re.match(repattern[r], entry.raw_text):
+                        match = True
+
+                if not match:
                     newdata.entries.append(entry)
+
             return newdata

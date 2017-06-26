@@ -30,7 +30,7 @@ class MorphModule(OurModule):
         self.name = "source"
         self.desc = "match a source host"
 
-        args.add_argument('--source', action='store', dest='source',
+        args.add_argument('--source', action='append', dest='source',
                 help='match a source host')
 
     def morph_data(self, data, args):
@@ -45,7 +45,9 @@ class MorphModule(OurModule):
             newdata.parser = data.parser
 
             for entry in data.entries:
-                if entry.source_host == args.source:
-                    newdata.entries.append(entry)
+                for s in args.source:
+                    if entry.source_host == s:
+                        newdata.entries.append(entry)
+                        break
 
             return newdata

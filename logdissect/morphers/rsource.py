@@ -30,7 +30,7 @@ class MorphModule(OurModule):
         self.name = "rsource"
         self.desc = "filter out a source host"
 
-        args.add_argument('--rsource', action='store', dest='rsource',
+        args.add_argument('--rsource', action='append', dest='rsource',
                 help='filter out a source host')
 
     def morph_data(self, data, args):
@@ -45,7 +45,12 @@ class MorphModule(OurModule):
             newdata.parser = data.parser
 
             for entry in data.entries:
-                if entry.source_host != args.rsource:
-                    newdata.entries.append(entry)
+                match = False
+                for r in args.rsource:
+                    if entry.source_host == r:
+                        match = True
+
+                    if not match:
+                        newdata.entries.append(entry)
 
             return newdata

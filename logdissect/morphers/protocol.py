@@ -31,7 +31,7 @@ class MorphModule(OurModule):
         self.name = "protocol"
         self.desc = "match a protocol"
 
-        args.add_argument('--protocol', action='store', dest='protocol',
+        args.add_argument('--protocol', action='append', dest='protocol',
                 help='match a protocol')
 
     def morph_data(self, data, args):
@@ -46,7 +46,9 @@ class MorphModule(OurModule):
             newdata.parser = data.parser
 
             for entry in data.entries:
-                if entry.source_process == args.protocol:
-                    newdata.entries.append(entry)
+                for p in args.protocol:
+                    if entry.source_process == p:
+                        newdata.entries.append(entry)
+                        break
 
             return newdata

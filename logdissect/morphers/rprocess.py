@@ -31,7 +31,7 @@ class MorphModule(OurModule):
         self.name = "rprocess"
         self.desc = "filter out a source process"
 
-        args.add_argument('--rprocess', action='store', dest='rprocess',
+        args.add_argument('--rprocess', action='append', dest='rprocess',
                 help='filter out a source process')
 
     def morph_data(self, data, args):
@@ -39,10 +39,19 @@ class MorphModule(OurModule):
         if not args.rprocess:
             return data
         else:
-            newdata = data
-            newdata.entries = []
+            newdata = LogData()
+            newdata.source_path = data.source_path
+            newdata.source_file = data.source_file
+            newdata.source_file_mtime = data.source_file_mtime
+            newdata.parser = data.parser
+
             for entry in data.entries:
-                if entry.source_process != args.rprocess:
+                match = False
+                for r in args.rprocess:
+                    if entry.source_process == r:
+                        match = True
+
+                if not match:
                     newdata.entries.append(entry)
 
             return newdata

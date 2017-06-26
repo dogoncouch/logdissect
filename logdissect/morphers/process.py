@@ -31,7 +31,7 @@ class MorphModule(OurModule):
         self.name = "process"
         self.desc = "match a source process"
 
-        args.add_argument('--process', action='store', dest='process',
+        args.add_argument('--process', action='append', dest='process',
                 help='match a source process')
 
     def morph_data(self, data, args):
@@ -46,7 +46,9 @@ class MorphModule(OurModule):
             newdata.parser = data.parser
 
             for entry in data.entries:
-                if entry.source_process == args.process:
-                    newdata.entries.append(entry)
+                for p in args.process:
+                    if entry.source_process == p:
+                        newdata.entries.append(entry)
+                        break
 
             return newdata
