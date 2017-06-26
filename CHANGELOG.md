@@ -1,6 +1,10 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
+## [Unreleased]
+### Added
+- Support for multiple instances of all non-time-based morphers
+
 ## [2.1] - 2017-06-14
 ### Added
 - Python 3 compatibility
