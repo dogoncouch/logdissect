@@ -31,15 +31,14 @@ class MorphModule(OurModule):
         self.name = "grep"
         self.desc = "match a pattern"
 
-        args.add_argument('--grep', action='store', dest='pattern',
+        args.add_argument('--grep', action='append', dest='pattern',
                 help='match a pattern')
 
     def morph_data(self, data, args):
-        """Return entries containing specified pattern (single log)"""
+        """Return entries containing specified patterns (single log)"""
         if not args.pattern:
             return data
         else:
-            repattern = re.compile(r".*({}).*".format(args.pattern))
 
             newdata = LogData()
             newdata.source_path = data.source_path
@@ -47,7 +46,13 @@ class MorphModule(OurModule):
             newdata.source_file_mtime = data.source_file_mtime
             newdata.parser = data.parser
 
+            repattern = {}
+            for pat in args.pattern:
+                print(pat)
+                repattern[pat] = re.compile(r".*({}).*".format(pat))
             for entry in data.entries:
-                if re.match(repattern, entry.raw_text):
-                    newdata.entries.append(entry)
+                for repat in repattern:
+                    if re.match(repattern[repat], entry.raw_text):
+                        newdata.entries.append(entry)
+                        break
             return newdata
