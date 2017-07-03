@@ -72,7 +72,7 @@ To install the latest release, see the latest instructions on the [releases page
 ## Examples
     
     logdissect --last=10m auth.log
-    logdissect --last=2m *
+    logdissect --last=1h --process systemd --process CRON messages
     logdissect -v --range=20160202020202-20170227213200 --label=fpath messages debug apache2/error.log
     logdissect -s --outlog=myaccess.log --grep=192.168.1.56 --last=30d --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
 
@@ -84,6 +84,8 @@ To install the latest release, see the latest instructions on the [releases page
 3. --range shortcuts: The range module will fill in your ranges with zeroes if they are shorter than 14 characters. If you want to get a range of 20170204120000 to 20170204130000, you can save time and use 2017020412 and 2017020413.
 
 4. --last options: The last option should be a number followed by either 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days (e.g. --last=20m).
+
+5. Multiple options: All non-time-based morphers can be used more than once.
 
 # Community
 

@@ -1,7 +1,7 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
-## [Unreleased]
+## [2.2] - 2017-07-03
 ### Added
 - Support for multiple instances of all non-time-based morphers
 - Python 3 library installation in Makefile
