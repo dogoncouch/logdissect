@@ -23,12 +23,23 @@
 # Makefile for logdissect
 # https://github.com/dogoncouch/logdissect
 
+ISPYTWO := $(sh -c "python2 --version" dot 2>/dev/null)
+ISPYTHREE := $(sh -c "python3 --version" dot 2>/dev/null)
+
 all: install clean
 
 default: all
 
 install:
-	python setup.py install
+ifndef ISPYTHREE:
+	@echo Installing for Python 3
+	python3 setup.py install
+endif
+
+ifndef ISPYTWO:
+	@echo Installing for Python 2
+	python2 setup.py install
+endif
 
 clean:
 	rm -rf build dist logdissect.egg-info
