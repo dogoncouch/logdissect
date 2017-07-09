@@ -88,7 +88,7 @@ LogEntry is the data type for a single log entry. LogEntry objects have the foll
 - `protocol`
 
 LogEntry objects have one method:
-- `_utc_date` - uses the datestamp and tzone extrapolate a UTC timestamp
+- `_utc_date` - uses the datestamp and tzone to extrapolate a UTC timestamp
 
 ### logdissect.data.LogData()
 LogData is the data type for a single log. LogData objects have the following attributes:
