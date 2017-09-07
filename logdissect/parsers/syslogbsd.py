@@ -92,6 +92,8 @@ class ParseModule(OurModule):
 
             entry = self.parse_line(ourline)
 
+            if not entry: continue
+            
             # Check for Dec-Jan jump and set the year:
             if int(entry['month']) > int(currentmonth):
                 entryyear = entryyear - 1

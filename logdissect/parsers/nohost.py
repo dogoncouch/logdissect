@@ -92,6 +92,8 @@ class ParseModule(OurModule):
 
             entry = self.parse_line(ourline)
 
+            if not entry: continue
+            
             datestampnoyear = entry['year'] + entry['month'] + \
                     entry['day'] + entry['tstamp']
            

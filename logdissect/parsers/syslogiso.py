@@ -74,6 +74,8 @@ class ParseModule(OurModule):
             
             entry = self.parse_line(ourline)
 
+            if not entry: continue
+            
             # Set our attributes:
             current_entry.parser = 'syslogiso'
             current_entry.raw_text = ourline
