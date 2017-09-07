@@ -1,6 +1,10 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
+## [Unreleased]
+### Fixed
+- Syslog parsers now ignore lines without stamp
+
 ## [2.2] - 2017-07-03
 ### Added
 - Support for multiple instances of all non-time-based morphers
