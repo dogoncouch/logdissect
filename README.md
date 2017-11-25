@@ -71,10 +71,10 @@ To install the latest release, see the latest instructions on the [releases page
 
 ## Examples
     
-    logdissect --last=10m auth.log
-    logdissect --last=1h --process systemd --process CRON messages
-    logdissect -v --range=20160202020202-20170227213200 --label=fpath messages debug apache2/error.log
-    logdissect -s --outlog=myaccess.log --grep=192.168.1.56 --last=30d --label=fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
+    logdissect --last 10m auth.log
+    logdissect --last 1h --process systemd --process CRON messages
+    logdissect -v --range 20160202020202-20170227213200 --label fpath messages debug apache2/error.log
+    logdissect -s --outlog myaccess.log --grep 192.168.1.56 --last 30d --label fname /var/log/apache2/access.log /var/log/apache2/other_vhosts_access.log
 
 ## Notes
 1. metadata: logdissect uses file modification times to assign years to syslog date stamps. This allows it to parse logs that span more than one year without a problem. If you are copying log files, always use `` cp -p `` (or `` cp --preserve=timestamps `` ) and `` scp -p `` to preserve original mtimes and other file metadata.
