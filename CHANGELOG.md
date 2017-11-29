@@ -4,6 +4,7 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 ## [Unreleased]
 ### Fixed
 - Syslog parsers now ignore lines without stamp
+- Daylight savings check logic
 
 ## [2.2] - 2017-07-03
 ### Added
