@@ -65,7 +65,7 @@ class ParseModule(OurModule):
         
         # Set our timezone
         if not self.tzone:
-            if time.daylight:
+            if time.localtime().tm_isdst:
                 self.tzone = \
                         str(int(float(time.altzone) / 60 // 60)).rjust(2,
                                 '0') + \
