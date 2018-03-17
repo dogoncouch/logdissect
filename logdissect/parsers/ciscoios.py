@@ -31,9 +31,9 @@ from logdissect.data import LogData
 
 class ParseModule(OurModule):
     def __init__(self):
-        """Initialize the standard syslog parsing module"""
-        self.name = 'syslogbsd'
-        self.desc = 'syslog (standard BSD timestamp) parsing module'
+        """Initialize the cisco ios parsing module"""
+        self.name = 'ciscoios'
+        self.desc = 'cisco ios parsing module'
         self.date_format = \
                 re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+\S+\s+\d+:\s+(\S+):\s+%([a-zA-Z0-9_]+)-(\d)-[a-zA-Z0-9_]+: (.*)")
         self.fields = ['date_stamp', 'source_host', 'severity',
@@ -43,7 +43,7 @@ class ParseModule(OurModule):
 
 
     def parse_file(self, sourcepath):
-        """Parse a syslog file into a LogData object"""
+        """Parse a cisco ios syslog file into a LogData object"""
         data = LogData()
         data.parser = 'syslog'
         current_entry = LogEntry()
@@ -132,7 +132,7 @@ class ParseModule(OurModule):
 
 
     def parse_line(self, line):
-        """Parse a syslog line (with standard BSD timestamp) into a dictionary"""
+        """Parse a cisco ios syslog line into a dictionary"""
         match = re.findall(self.date_format, line)
         if match:
             entry = {}

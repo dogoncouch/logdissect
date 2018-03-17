@@ -1,6 +1,13 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
+## [Unreleased]
+### Added
+- Cisco IOS parser
+
+### Fixed
+- Python3 --list-parsers error
+
 ## [2.2.1] - 2018-01-10
 ### Fixed
 - Syslog parsers now ignore lines without stamp

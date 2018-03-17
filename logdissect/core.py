@@ -180,7 +180,7 @@ class LogDissectCore:
         """Return a list of available parsing modules"""
         print('==== Available parsing modules: ====\n')
         for parser in sorted(self.parse_modules):
-            print(string.ljust(self.parse_modules[parser].name, 16) + \
+            print(self.parse_modules[parser].name.ljust(16) + \
                 ': ' + self.parse_modules[parser].desc)
         sys.exit(0)
     
