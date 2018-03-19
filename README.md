@@ -69,6 +69,20 @@ To install the latest release, see the latest instructions on the [releases page
       --label LABEL        set label type for OUTLOG (fname|fpath)
       --outjson OUTJSON    set the output file for JSON output
 
+## Parsers
+Output of `--list-parsers` option:
+```
+==== Available parsing modules: ====
+
+ciscoios        : cisco ios parsing module
+ldjson          : logdissect JSON parsing module
+nohost          : syslog (without host) parsing module
+syslogbsd       : syslog (standard BSD timestamp) parsing module
+syslogiso       : syslog ISODATE parsing module
+tcpdump         : tcpdump terminal output parsing module
+windowsrsyslog  : windows rsyslog agent log parsing module
+```
+
 ## Examples
     
     logdissect --last 10m auth.log

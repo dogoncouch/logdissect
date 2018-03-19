@@ -45,6 +45,17 @@ logdissect - A robust CLI syslog forensics tool.
     \fB--label \fILABEL\fR        set label type for OUTLOG (fname|fpath)
     \fB--outjson \fIOUTJSON\fR    set the output file for JSON output
 
+
+  ==== Available parsing modules: ====
+  
+  ciscoios        : cisco ios parsing module
+  ldjson          : logdissect JSON parsing module
+  nohost          : syslog (without host) parsing module
+  syslogbsd       : syslog (standard BSD timestamp) parsing module
+  syslogiso       : syslog ISODATE parsing module
+  tcpdump         : tcpdump terminal output parsing module
+  windowsrsyslog  : windows rsyslog agent log parsing module
+  
 .SH EXAMPLES
 logdissect --last 10m auth.log
 .br
