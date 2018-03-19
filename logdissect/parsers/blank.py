@@ -20,22 +20,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-#import os
-#import re
-#from datetime import datetime
-#import time
-#import gzip
-from logdissect.parsers.type import ParseModule as OurModule
-#from logdissect.data import LogEntry
-#from logdissect.data import LogData
-
-class ParseModule(OurModule):
-    def __init__(self):
-        """Initialize the windows rsyslog agent parsing module"""
-        self.name = 'windowsrsyslog'
-        self.desc = 'windows rsyslog agent log parsing module'
-        self.date_format = \
-                re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+(\S+)\s+(\S+)\s+(.*)")
-        self.fields = ['date_stamp', 'source_host', 'source_process',
-            'message']
-        self.tzone = None
+class ParseModule:
+    def __init__(self, options=[]):
+        """Initialize a log parsing module"""
+        self.name = ''
+        self.desc = ''
+        self.date_format = ''
+        self.fields = []
+        #self.backup_date_format = None
+        #self.backup_fields = []
+        #self.tzone = None
+        # Options to convert datestamp: standard, iso
+        # Set to None to skip conversion. Default is standard.
+        #self.datestamp_type = 'standard'

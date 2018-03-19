@@ -64,10 +64,10 @@ class LogEntry:
             
             if self.tzone[0] == '-':
                 ut = t - tdelta
-                return ut.strftime('%Y%m%d%H%M%S.%f')
             else:
                 ut = t + tdelta
-                return ut.strftime('%Y%m%d%H%M%S.%f')
+
+            self.date_stamp_utc = ut.strftime('%Y%m%d%H%M%S.%f')
         
 
 class LogData:
