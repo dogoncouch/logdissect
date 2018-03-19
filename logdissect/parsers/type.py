@@ -140,6 +140,7 @@ class ParseModule:
 
         if match:
             entry = logdissect.parsers.utils.get_blank_entry()
+            entry['parser'] = self.name
 
             matchlist = list(zip(fields, match[0]))
             for f, v in matchlist:
