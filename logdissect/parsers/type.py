@@ -68,7 +68,7 @@ class ParseModule:
 
         # Set our timezone
         if not self.tzone:
-            self.tzone = util.get_tzone()
+            self.tzone = logdissect.parsers.utils.get_tzone()
 
         # Parsing works in reverse. This helps with multi-line entries,
         # and logs that span multiple years (December to January shift).
