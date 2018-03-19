@@ -165,7 +165,7 @@ class ParseModule(OurModule):
             intmonth = months[datelist[0].strip()]
             daydate = str(datelist[1].strip()).zfill(2)
             timestring = str(datelist[2]).replace(':','')
-            datestampnoyear = str(intmonth) + str(daydate) + str(timelist)
+            datestampnoyear = intmonth + daydate + timestring
 
 
             # Set our attributes:
