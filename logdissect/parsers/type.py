@@ -112,7 +112,6 @@ class ParseModule:
                 else:
                     current_entry.tzone = self.tzone
                 current_entry._utc_date()
-                current_entry.raw_stamp = entry['raw_stamp']
                 current_entry.message = entry['message']
                 current_entry.source_host = entry['source_host']
                 current_entry.source_process = entry['source_process']
