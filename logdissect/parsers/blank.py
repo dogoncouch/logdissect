@@ -20,16 +20,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class ParseModule:
+import re
+from logdissect.parsers.type import ParseModule as OurModule
+
+class ParseModule(OurModule):
     def __init__(self, options=[]):
         """Initialize a log parsing module"""
         self.name = ''
         self.desc = ''
         self.date_format = ''
         self.fields = []
-        #self.backup_date_format = None
-        #self.backup_fields = []
-        #self.tzone = None
+        self.backup_date_format = None
+        self.backup_fields = []
+        self.tzone = None
         # Options to convert datestamp: standard, iso
         # Set to None to skip conversion. Default is standard.
-        #self.datestamp_type = 'standard'
+        self.datestamp_type = 'standard'

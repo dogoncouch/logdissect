@@ -27,7 +27,7 @@ import time
 import gzip
 from logdissect.data import LogEntry
 from logdissect.data import LogData
-import logdissect.parser.utils as utils
+import logdissect.parsers.utils
 
 class ParseModule:
     def __init__(self, options=[]):
@@ -46,6 +46,12 @@ class ParseModule:
 
     def parse_file(self, sourcepath):
         """Parse a file into a LogData object"""
+        # Get regex objects:
+        self.date_regex = re.compile(
+                r'{}'.format(self.date_format))
+        if self.backup_date_format:
+            self.backup_date_regex = re.compile(
+                    r'{}'.format(self.backup_date_format))
         data = LogData()
         data.parser = self.name
         current_entry = LogEntry()
@@ -94,7 +100,8 @@ class ParseModule:
                 # Set our attributes:
                 current_entry.parser = entry['parser']
                 current_entry.raw_text = ourline
-                current_entry.date_stamp = str(entryyear) \
+                current_entry.date_stamp = entry['date_stamp']
+                current_entry.numeric_date_stamp = str(entryyear) \
                         + entry['month'] + entry['day'] + entry['tstamp']
                 current_entry.year = str(entryyear)
                 current_entry.month = entry['month']
@@ -124,15 +131,15 @@ class ParseModule:
 
     def parse_line(self, line):
         """Parse a line into a dictionary"""
-        match = re.findall(self.date_format, line)
+        match = re.findall(self.date_regex, line)
         if match:
             fields = self.fields
-        elif self.backup_date_format and not match:
-            match = re.findall(self.backup_date_format, line)
+        elif self.backup_date_regex and not match:
+            match = re.findall(self.backup_date_regex, line)
             fields = self.backup_fields
 
         if match:
-            entry = utils.get_blank_entry()
+            entry = logdissect.parsers.utils.get_blank_entry()
 
             matchlist = list(zip(fields, match[0]))
             for f, v in matchlist:
@@ -140,9 +147,9 @@ class ParseModule:
 
             if entry['date_stamp']:
                 if self.datestamp_type == 'standard':
-                    entry = utils.convert_standard_datestamp(entry)
+                    entry = logdissect.parsers.utils.convert_standard_datestamp(entry)
                 elif self.datestamp_type == 'iso':
-                    entry = utils.convert_iso_datestamp(entry)
+                    entry = logdissect.parsers.utils.convert_iso_datestamp(entry)
             
             return entry
 

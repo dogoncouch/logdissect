@@ -35,7 +35,7 @@ class ParseModule(OurModule):
         self.name = 'syslogbsd'
         self.desc = 'syslog (standard BSD timestamp) parsing module'
         self.date_format = \
-                re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\s+\S+\[?\d*?\]?):")
+                "^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\s+\S+\s+\S+\[?\d*?\]?):"
         self.tzone = None
 
 

@@ -21,10 +21,10 @@
 # SOFTWARE.
 
 #import os
-#import re
 #from datetime import datetime
 #import time
 #import gzip
+#import re
 from logdissect.parsers.type import ParseModule as OurModule
 #from logdissect.data import LogEntry
 #from logdissect.data import LogData
@@ -35,7 +35,7 @@ class ParseModule(OurModule):
         self.name = 'windowsrsyslog'
         self.desc = 'windows rsyslog agent log parsing module'
         self.date_format = \
-                re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+(\S+)\s+(\S+)\s+(.*)")
+                "^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+(\S+)\s+(\S+)\s+(.*)"
         self.fields = ['date_stamp', 'source_host', 'source_process',
             'message']
         self.tzone = None

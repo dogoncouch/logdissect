@@ -29,6 +29,8 @@ class LogEntry:
         self.date_stamp_noyear = None
         self.date_stamp = None
         self.date_stamp_utc = None
+        self.numeric_date_stamp = None
+        self.numeric_date_stamp_utc = None
         self.year = None
         self.month = None
         self.day = None
@@ -50,14 +52,14 @@ class LogEntry:
 
     def _utc_date(self):
         """Return datestamp converted to UTC"""
-        if self.date_stamp == '0':
+        if self.numeric_date_stamp == '0':
             return '0'
         else:
-            if '.' in self.date_stamp:
-                t = datetime.datetime.strptime(self.date_stamp,
+            if '.' in self.numeric_date_stamp:
+                t = datetime.datetime.strptime(self.numeric_date_stamp,
                         '%Y%m%d%H%M%S.%f')
             else:
-                t = datetime.datetime.strptime(self.date_stamp,
+                t = datetime.datetime.strptime(self.numeric_date_stamp,
                         '%Y%m%d%H%M%S')
             tdelta = datetime.timedelta(hours = int(self.tzone[1:3]),
                     minutes = int(self.tzone[3:5]))
@@ -67,7 +69,7 @@ class LogEntry:
             else:
                 ut = t + tdelta
 
-            self.date_stamp_utc = ut.strftime('%Y%m%d%H%M%S.%f')
+            self.numeric_date_stamp_utc = ut.strftime('%Y%m%d%H%M%S.%f')
         
 
 class LogData:
@@ -81,7 +83,7 @@ class LogData:
 
     def sort_time(self):
         """Sort entries by datestamp"""
-        self.entries.sort(key=lambda x: x.date_stamp_utc)
+        self.entries.sort(key=lambda x: x.numeric_date_stamp_utc)
 
     def sort_path(self):
         """Sort entries by source path"""

@@ -23,6 +23,7 @@
 __all__ = ['syslogbsd', 'syslogiso', 'nohost', 'ldjson', 'tcpdump',
         'ciscoios', 'windowsrsyslog']
 
+import logdissect.parsers.utils
 import logdissect.parsers.syslogbsd
 import logdissect.parsers.syslogiso
 import logdissect.parsers.nohost

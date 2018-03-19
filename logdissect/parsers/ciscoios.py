@@ -35,7 +35,7 @@ class ParseModule(OurModule):
         self.name = 'ciscoios'
         self.desc = 'cisco ios parsing module'
         self.date_format = \
-                re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+\S+\s+\d+:\s+(\S+):\s+%([a-zA-Z0-9_]+)-(\d)-[a-zA-Z0-9_]+: (.*)")
+                "^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+\S+\s+\d+:\s+(\S+):\s+%([a-zA-Z0-9_]+)-(\d)-[a-zA-Z0-9_]+: (.*)"
         self.fields = ['date_stamp', 'source_host', 'severity',
                 'source_process', 'message']
         self.tzone = None
