@@ -20,14 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-#import os
-#from datetime import datetime
-#import time
-#import gzip
-#import re
 from logdissect.parsers.type import ParseModule as OurModule
-#from logdissect.data import LogEntry
-#from logdissect.data import LogData
 
 class ParseModule(OurModule):
     def __init__(self):
