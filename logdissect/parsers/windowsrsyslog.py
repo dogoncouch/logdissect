@@ -31,19 +31,19 @@ from logdissect.data import LogData
 
 class ParseModule(OurModule):
     def __init__(self):
-        """Initialize the cisco ios parsing module"""
-        self.name = 'ciscoios'
-        self.desc = 'cisco ios parsing module'
+        """Initialize the windows rsyslog agent parsing module"""
+        self.name = 'windowsrsyslog'
+        self.desc = 'windows rsyslog agent log parsing module'
         self.date_format = \
-                re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+\S+\s+\d+:\s+(\S+):\s+%([a-zA-Z0-9_]+)-(\d)-[a-zA-Z0-9_]+: (.*)")
-        self.fields = ['date_stamp', 'source_host', 'severity',
-                'source_process', 'message']
+                re.compile(r"^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+(\S+)\s+(\S+)\s+(.*)")
+        self.fields = ['date_stamp', 'source_host', 'source_process',
+            'message']
         self.tzone = None
 
 
 
     def parse_file(self, sourcepath):
-        """Parse a cisco ios syslog file into a LogData object"""
+        """Parse a windows rsyslog agent file into a LogData object"""
         data = LogData()
         data.parser = 'syslog'
         current_entry = LogEntry()
@@ -91,7 +91,6 @@ class ParseModule(OurModule):
             ourline = line.rstrip()
 
             # Send the line to self.parse_line
-
             entry = self.parse_line(ourline)
 
             if not entry: continue
@@ -132,7 +131,7 @@ class ParseModule(OurModule):
 
 
     def parse_line(self, line):
-        """Parse a cisco ios syslog line into a dictionary"""
+        """Parse a windows rsyslog agent line into a dictionary"""
         match = re.findall(self.date_format, line)
         if match:
             entry = {}
