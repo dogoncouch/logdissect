@@ -49,7 +49,7 @@ class MorphModule(OurModule):
             firstdate = int(ourlimits[0].ljust(14, '0'))
             lastdate = int(ourlimits[1].ljust(14, '0'))
             for entry in data.entries:
-                if int(entry.date_stamp) >= firstdate: 
-                    if int(entry.date_stamp) <= lastdate:
+                if int(entry.numeric_date_stamp) >= firstdate: 
+                    if int(entry.numeric_date_stamp) <= lastdate:
                         newdata.entries.append(entry)
             return newdata

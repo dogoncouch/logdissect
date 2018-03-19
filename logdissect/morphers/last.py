@@ -67,6 +67,6 @@ class MorphModule(OurModule):
             newdata.parser = data.parser
             
             for entry in data.entries:
-                if int(entry.date_stamp) >= int(ourstart): 
+                if int(entry.numeric_date_stamp) >= int(ourstart): 
                     newdata.entries.append(entry)
             return newdata
