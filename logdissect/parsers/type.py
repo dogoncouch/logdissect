@@ -107,7 +107,10 @@ class ParseModule:
                 current_entry.month = entry['month']
                 current_entry.day = entry['day']
                 current_entry.tstamp = entry['tstamp']
-                current_entry.tzone = entry['tzone']
+                if entry['tzone']:
+                    current_entry.tzone = entry['tzone']
+                else:
+                    current_entry.tzone = self.tzone
                 current_entry._utc_date()
                 current_entry.raw_stamp = entry['raw_stamp']
                 current_entry.message = entry['message']

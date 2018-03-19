@@ -26,6 +26,7 @@ from datetime import datetime
 def get_blank_entry():
     """Return a blank entry dictionary"""
     entry = {}
+    entry['parser'] = None
     entry['date_stamp'] = None
     entry['tzone'] = None
     entry['facility'] = None
