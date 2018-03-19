@@ -136,7 +136,7 @@ class ParseModule:
         match = re.findall(self.date_regex, line)
         if match:
             fields = self.fields
-        elif self.backup_date_regex and not match:
+        elif self.backup_date_format and not match:
             match = re.findall(self.backup_date_regex, line)
             fields = self.backup_fields
 
