@@ -38,7 +38,7 @@ class OutputModule(OurModule):
         if not args.outjson:
             return 0
         else:
-            logstring = json.dumps(data['entries', indent=2, sort_keys=True,
+            logstring = json.dumps(data['entries'], indent=2, sort_keys=True,
                     separators=(',', ': '))
         
             with open(str(args.outjson), 'w') as output_file:
