@@ -46,5 +46,5 @@ class OutputModule(OurModule):
             else:
                 logstring = json.dumps(data['entries'], sort_keys=True)
         
-            with open(str(args.nicejson), 'w') as output_file:
+            with open(str(args.sojson), 'w') as output_file:
                 output_file.write(logstring)

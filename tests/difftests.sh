@@ -52,10 +52,10 @@ echo Diff for testgrep:
 diff tests/files/testgrepexlog tests/files/testgrep.log
 
 echo Running testjson.log:
-./logdissect.py -s --outjson=tests/files/testjson.log tests/files/exmeslog tests/files/exsyslog
+./logdissect.py -s --sojson=tests/files/testjson.log tests/files/exmeslog tests/files/exsyslog
 
 echo Running testinjson.log
-./logdissect.py -s -p ldjson --outjson=tests/files/testinjson.log tests/files/testjson.log
+./logdissect.py -s -p sojson --sojson=tests/files/testinjson.log tests/files/testjson.log
 
 echo Diff test for testinjson:
 diff tests/files/testinjson.log tests/files/testjson.log
