@@ -93,7 +93,9 @@ class LogDissectCore:
                 if self.args.tzone:
                     parsemodule.tzone = self.args.tzone
             except NameError: pass
-            parsedset['data_set'].append(parsemodule.parse_file(log))
+            ourlog = {}
+            ourlog['entries'] = parsemodule.parse_file(log)
+            parsedset['data_set'].append(ourlog)
         self.data_set = parsedset
         del(parsedset)
 
