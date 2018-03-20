@@ -37,7 +37,7 @@ class ParseModule(OurModule):
         """Parse a JSON array into a LogData object"""
 
         # Open input file and read JSON array:
-        with open(data.source_path, 'r') as logfile:
+        with open(sourcepath, 'r') as logfile:
             jsonstr = logfile.read()
 
         # Set our attributes for this entry and add it to data.entries:

@@ -2,7 +2,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade gnome-shell[22595]: st_widget_get_theme_node called on the widget [0x18ef30a0 ShellGenericContainer \"dash\"] which is not in the stage.",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exmeslog",
     "source_pid": "22595",
     "source_process": "gnome-shell"
@@ -10,7 +10,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade gnome-shell[22595]: st_widget_get_theme_node called on the widget [0x16899460 ShellGenericContainer \"dash\"] which is not in the stage.",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exmeslog",
     "source_pid": "22595",
     "source_process": "gnome-shell"
@@ -18,7 +18,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade gnome-shell[22595]: st_widget_get_theme_node called on the widget [0x1c635c50 ShellGenericContainer \"dash\"] which is not in the stage.",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exmeslog",
     "source_pid": "22595",
     "source_process": "gnome-shell"
@@ -26,7 +26,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade gnome-shell[22595]: st_widget_get_theme_node called on the widget [0x167935a0 ShellGenericContainer \"dash\"] which is not in the stage.",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exmeslog",
     "source_pid": "22595",
     "source_process": "gnome-shell"
@@ -34,7 +34,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade gnome-shell[22595]: st_widget_get_theme_node called on the widget [0x1b356c50 ShellGenericContainer \"dash\"] which is not in the stage.",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exmeslog",
     "source_pid": "22595",
     "source_process": "gnome-shell"
@@ -42,7 +42,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0245 Gs  no app for changed user-theme@gnome-shell-extensions.gcampax.github.com",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exmeslog",
     "source_pid": "22740",
     "source_process": "gnome-software-service.desktop"
@@ -50,7 +50,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0275 Gs  no app for changed places-menu@gnome-shell-extensions.gcampax.github.com",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exmeslog",
     "source_pid": "22740",
     "source_process": "gnome-software-service.desktop"
@@ -58,7 +58,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0276 Gs  no app for changed alternate-tab@gnome-shell-extensions.gcampax.github.com",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exmeslog",
     "source_pid": "22740",
     "source_process": "gnome-software-service.desktop"
@@ -66,7 +66,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0277 Gs  no app for changed nohotcorner@azuri.free.fr",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exmeslog",
     "source_pid": "22740",
     "source_process": "gnome-software-service.desktop"
@@ -74,7 +74,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0304 Gs  no app for changed dash-to-dock@micxgx.gmail.com",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exmeslog",
     "source_pid": "22740",
     "source_process": "gnome-software-service.desktop"
@@ -82,7 +82,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0277 Gs  no app for changed nohotcorner@azuri.free.fr",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exsyslog",
     "source_pid": "22740",
     "source_process": "gnome-software-service.desktop"
@@ -90,7 +90,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade gnome-software-service.desktop[22740]: 02:30:46:0304 Gs  no app for changed dash-to-dock@micxgx.gmail.com",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exsyslog",
     "source_pid": "22740",
     "source_process": "gnome-software-service.desktop"
@@ -98,7 +98,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade dbus[593]: [system] Successfully activated service 'org.freedesktop.hostname1'",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exsyslog",
     "source_pid": "593",
     "source_process": "dbus"
@@ -106,7 +106,7 @@
   {
     "date_stamp": "20170227213046",
     "raw_text": "Feb 27 21:30:46 shade systemd[1]: Started Hostname Service.",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exsyslog",
     "source_pid": "1",
     "source_process": "systemd"
@@ -114,7 +114,7 @@
   {
     "date_stamp": "20170227213052",
     "raw_text": "Feb 27 21:30:52 shade dbus-daemon[22491]: Activating via systemd: service name='org.gnome.Terminal' unit='gnome-terminal-server.service'",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exsyslog",
     "source_pid": "22491",
     "source_process": "dbus-daemon"
@@ -122,7 +122,7 @@
   {
     "date_stamp": "20170227213052",
     "raw_text": "Feb 27 21:30:52 shade systemd[22475]: Starting GNOME Terminal Server...",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exsyslog",
     "source_pid": "22475",
     "source_process": "systemd"
@@ -130,7 +130,7 @@
   {
     "date_stamp": "20170227213052",
     "raw_text": "Feb 27 21:30:52 shade dbus-daemon[22491]: Successfully activated service 'org.gnome.Terminal'",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exsyslog",
     "source_pid": "22491",
     "source_process": "dbus-daemon"
@@ -138,7 +138,7 @@
   {
     "date_stamp": "20170227213052",
     "raw_text": "Feb 27 21:30:52 shade systemd[22475]: Started GNOME Terminal Server.",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exsyslog",
     "source_pid": "22475",
     "source_process": "systemd"
@@ -146,7 +146,7 @@
   {
     "date_stamp": "20170227213457",
     "raw_text": "Feb 27 21:34:57 shade tracker-extract[22716]: unable to create file '/run/user/1000/dconf/user': Permission denied.  dconf will not work properly.",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exsyslog",
     "source_pid": "22716",
     "source_process": "tracker-extract"
@@ -154,7 +154,7 @@
   {
     "date_stamp": "20170227213501",
     "raw_text": "Feb 27 21:35:01 shade CRON[5030]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)",
-    "source_host": "shade",
+    "log_source": "shade",
     "source_path": "/home/dogoncouch/src/logdissect/devtests/files/exsyslog",
     "source_pid": "5030",
     "source_process": "CRON"
