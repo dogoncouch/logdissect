@@ -102,7 +102,7 @@ def get_utc_date(entry):
         else:
             t = datetime.strptime(entry['numeric_date_stamp'],
                     '%Y%m%d%H%M%S')
-        tdelta = datetime.timedelta(hours = int(entry['tzone'][1:3]),
+        tdelta = timedelta(hours = int(entry['tzone'][1:3]),
                 minutes = int(entry['tzone'][3:5]))
         
         if self.tzone[0] == '-':
