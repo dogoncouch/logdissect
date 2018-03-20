@@ -45,8 +45,6 @@ class MorphModule(OurModule):
                 repatterns[pat] = re.compile(r".*({}).*".format(pat))
 
             for entry in data['entries']:
-
-            for entry in data['entries']:
                 for repat in repatterns:
                     if re.match(repatterns[repat], entry['raw_text']):
                         newdata['entries'].append(entry)
