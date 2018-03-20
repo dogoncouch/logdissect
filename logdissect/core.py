@@ -73,7 +73,7 @@ class LogDissectCore:
             self.run_parse()
             if self.args.verbosemode: print('Merging data')
             self.data_set['finalized_data'] = \
-                    logdissect.parser.utils.merge_logs(
+                    logdissect.parsers.utils.merge_logs(
                             self.data_set['data_set'])
             if self.args.verbosemode: print('Running morphers')
             self.run_morph()
