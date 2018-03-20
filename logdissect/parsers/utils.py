@@ -23,26 +23,6 @@
 import time
 from datetime import datetime, timedelta
 
-def get_blank_entry():
-    """Return a blank entry dictionary"""
-    entry = {}
-    entry['parser'] = None
-    entry['date_stamp'] = None
-    entry['tzone'] = None
-    entry['facility'] = None
-    entry['severity'] = None
-    entry['log_source'] = None
-    entry['source_host'] = None
-    entry['source_port'] = None
-    entry['source_process'] = None
-    entry['source_pid'] = None
-    entry['dest_host'] = None
-    entry['dest_port'] = None
-    entry['protocol'] = None
-    entry['message'] = None
-
-    return entry
-
 def convert_standard_datestamp(entry):
     """Set date and time attributes based on a standard date stamp"""
     # Get the date stamp (without year)

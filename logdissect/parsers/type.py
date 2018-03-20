@@ -87,21 +87,21 @@ class ParseModule:
             entry = self.parse_line(ourline)
 
             if entry:
-                # Check for Dec-Jan jump and set the year:
-                if int(entry['month']) > int(currentmonth):
-                    entryyear = entryyear - 1
-                currentmonth = entry['month']
+                if 'date_stamp' in self.fields:
+                    # Check for Dec-Jan jump and set the year:
+                    if int(entry['month']) > int(currentmonth):
+                        entryyear = entryyear - 1
+                    currentmonth = entry['month']
 
-                
+                    entry['numeric_date_stamp'] = str(entryyear) \
+                            + entry['month'] + entry['day'] + entry['tstamp']
+                    entry['year'] = str(entryyear)
+                    if self.tzone:
+                        entry['tzone'] = self.tzone
+                    elif not entry['tzone']:
+                        entry['tzone'] = self.backuptzone
+                    entry = logdissect.parsers.utils.get_utc_date(entry)
                 entry['raw_text'] = ourline
-                entry['numeric_date_stamp'] = str(entryyear) \
-                        + entry['month'] + entry['day'] + entry['tstamp']
-                entry['year'] = str(entryyear)
-                if self.tzone:
-                    entry['tzone'] = self.tzone
-                elif not entry['tzone']:
-                    entry['tzone'] = self.backuptzone
-                entry = logdissect.parsers.utils.get_utc_date(entry)
                 entry['source_path'] = data['source_path']
 
                 # Append current entry
@@ -125,19 +125,20 @@ class ParseModule:
             fields = self.backup_fields
 
         if match:
-            entry = logdissect.parsers.utils.get_blank_entry()
+            entry = {}
+            entry['raw_text'] = line
             entry['parser'] = self.name
 
             matchlist = list(zip(fields, match[0]))
             for f, v in matchlist:
                 entry[f] = v
 
-            if entry['date_stamp']:
+            if 'date_stamp' in entry.keys():
                 if self.datestamp_type == 'standard':
                     entry = logdissect.parsers.utils.convert_standard_datestamp(entry)
                 elif self.datestamp_type == 'iso':
                     entry = logdissect.parsers.utils.convert_iso_datestamp(entry)
-            
+
             return entry
 
         else:

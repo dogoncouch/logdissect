@@ -15,11 +15,10 @@ The logdissect module contains utilities for parsing, storing, filtering, and ex
     import logdissect
     myparser = logdissect.parsers.syslogbsd.ParseModule()
     attribute_dict = myparser.parse_line(<RAW_LINE>)
-    logdataobject = myparser.parse_file(<LOG_FILE_PATH>)
-    logentryobject = logdissect.data.LogEntry()
+    file_dict = myparser.parse_file(<PATH/TO/FILE>)
 
 ## Description
-The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, and store log information.
+The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files.
 
 # Objects and Methods
 
@@ -27,11 +26,13 @@ The logdissect module comes with the logdissect log analysis program. It contain
 ### logdissect.parsers.\<parser>.ParseModule()
 Replace \<parser\> with one of the available parsers:
 
-- `` syslogbsd `` - standard syslog
+- `` ciscoios `` - Cisco IOS logs
+- `` syslog `` - standard syslog
 - `` syslogiso `` - syslog with ISO 8601 datestamp
-- `` nohost `` - syslog with no host attribute
+- `` syslognohost `` - syslog with no host attribute
 - `` tcpdump `` - tcpdump terminal output
 - `` ldjson `` - logdissect JSON output
+- `` windowsrsyslog `` - windows rsyslog agent forwarded logs
     
 Parsers have two methods (except the ldjson parser, which has no parse\_line() method):
 
@@ -41,7 +42,7 @@ Accepts a filename as input, and returns a LogData object (described below).
 Parsers have a `tzone` attribute that uses standard ISO 8601 offset to UTC (e.g. `+0500`, `-0200`); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the ldjson parser).
 
 #### parse\_line(\<line>)
-Accepts a log line as input, and returns a dictionary of strings containing the following keys:
+Accepts a log line as input, and returns a dictionary of strings. There are two built-in keys, `raw_text` and `parser`, and parsers can add their own keys. Parsers that have a `date_stamp` field 
 
 - `year` - a 4-digit string
 - `month` - a 2-digit string
@@ -61,55 +62,6 @@ Accepts a log line as input, and returns a dictionary of strings containing the 
 - `message` - the message
 
 Attributes that were not parsed will be returned as `None`. The ldjson parser has no parse\_line() method.
-
-## Data Objects
-### logdissect.data.LogEntry()
-LogEntry is the data type for a single log entry. LogEntry objects have the following attributes:
-- `parser`
-- `date_stamp`
-- `date_stamp_utc`
-- `year`
-- `month`
-- `day`
-- `tstamp`
-- `tzone` - time zone
-- `raw_text`
-- `raw_stamp`
-- `facility`
-- `severity`
-- `message`
-- `source_path` - the file it was parsed from
-- `source_host`
-- `source_port`
-- `source_process`
-- `source_pid`
-- `dest_host`
-- `dest_port`
-- `protocol`
-
-LogEntry objects have one method:
-- `_utc_date` - uses the datestamp and tzone to extrapolate a UTC timestamp
-
-### logdissect.data.LogData()
-LogData is the data type for a single log. LogData objects have the following attributes:
-- `entries` - a list containing LogEntry objects
-- `source_path` - the file it was parsed from
-- `source_file`
-- `source_file_mtime`
-- `parser`
-
-LogData objects have a few sorting methods:
-- `` sort_time() `` - sorts entries by their `date_stamp_utc` attribute
-- `` sort_path()  `` - sorts by path
-- `` sort_facility `` - sorts by facility, then severity
-
-### logdissect.data.LogDataSet()
-LogDataSet is the data type for a logdissect project. LogDataSet objects have the following attributes:
-- `data_set` - a list containing LogData objects
-- `finalized_data` - a LogData object to hold all of the combined entries
-
-LogDataSet objects have one method:
-- `` merge_logs() `` - merges the logs in `data_set` into `finalized_data`, and sorts them using LogData's `sort_time()` method
 
 # Copyright
 MIT License
