@@ -21,31 +21,30 @@
 # SOFTWARE.
 
 import json
-from logdissect.parsers.type import ParseModule as OurModule
+from logdissect.output.type import OutputModule as OurModule
 
+class OutputModule(OurModule):
+    def __init__(self, args=[]):
+        """Initialize the single object JSON output module"""
+        self.name = 'sojson'
+        self.desc = 'output to a single JSON object'
 
-class ParseModule(OurModule):
-    def __init__(self):
-        """Initialize the JSON parsing module"""
-        self.name = 'ldjson'
-        self.desc = 'logdissect JSON parsing module'
-        self.tzone = None
+        args.add_argument('--sojson', action='store', dest='sojson',
+                help='set the output file for single object JSON output')
+        args.add_argument('--pretty', action='store_true', dest='pretty',
+                help='use pretty formatting for sojson output')
 
-
-
-    def parse_file(self, sourcepath):
-        """Parse a JSON array into a LogData object"""
-
-        # Open input file and read JSON array:
-        with open(sourcepath, 'r') as logfile:
-            jsonstr = logfile.read()
-
-        # Set our attributes for this entry and add it to data.entries:
-        data = {}
-        data['entries'] = json.loads(jsonstr)
-        if self.tzone:
-            for e in data['entries']:
-                e['tzone'] = self.tzone
-
-        # Return the parsed data
-        return data
+    def write_output(self, data, args=[]):
+        """Write log data to a single JSON object"""
+        if not args.sojson:
+            return 0
+        else:
+            if args.pretty:
+                logstring = json.dumps(
+                        data['entries'], indent=2, sort_keys=True,
+                        separators=(',', ': '))
+            else:
+                logstring = json.dumps(data['entries'], sort_keys=True)
+        
+            with open(str(args.nicejson), 'w') as output_file:
+                output_file.write(logstring)

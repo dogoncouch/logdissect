@@ -20,8 +20,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-__formats__ = ['log', 'linejson', 'sojson']
+import json
+from logdissect.output.type import OutputModule as OurModule
 
-import logdissect.output.log
-import logdissect.output.linejson
-import logdissect.output.sojson
+class OutputModule(OurModule):
+    def __init__(self, args=[]):
+        """Initialize the line by line JSON output module"""
+        self.name = 'linejson'
+        self.desc = 'output JSON objects (one per line)'
+
+        args.add_argument('--linejson', action='store', dest='linejson',
+                help='set the output file for line by line JSON output')
+
+    def write_output(self, data, args=[]):
+        """Write log data to a file with one JSON object per line"""
+        if not args.linejson:
+            return 0
+        else:
+            entrylist = []
+            for entry in data['entries']:
+                entrystring = json.dumps(entry, sort_keys=True)
+                entrylist.append(entrystring)
+        
+            with open(str(args.linejson), 'w') as output_file:
+                output_file.write('\n'.join(entrylist))

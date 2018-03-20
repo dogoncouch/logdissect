@@ -21,24 +21,31 @@
 # SOFTWARE.
 
 import json
-from logdissect.output.type import OutputModule as OurModule
+from logdissect.parsers.type import ParseModule as OurModule
 
-class OutputModule(OurModule):
-    def __init__(self, args=[]):
-        """Initialize the JSON output module"""
-        self.name = 'outjson'
-        self.desc = 'output to JSON arrays'
 
-        args.add_argument('--outjson', action='store', dest='outjson',
-                help='set the output file for JSON output')
+class ParseModule(OurModule):
+    def __init__(self):
+        """Initialize the single object JSON parsing module"""
+        self.name = 'sojson'
+        self.desc = 'logdissect single object JSON parsing module'
+        self.tzone = None
 
-    def write_output(self, data, args=[]):
-        """Write log data to a JSON array"""
-        if not args.outjson:
-            return 0
-        else:
-            logstring = json.dumps(data['entries'], indent=2, sort_keys=True,
-                    separators=(',', ': '))
-        
-            with open(str(args.outjson), 'w') as output_file:
-                output_file.write(logstring)
+
+
+    def parse_file(self, sourcepath):
+        """Parse single JSON object into a LogData object"""
+
+        # Open input file and read JSON array:
+        with open(sourcepath, 'r') as logfile:
+            jsonstr = logfile.read()
+
+        # Set our attributes for this entry and add it to data.entries:
+        data = {}
+        data['entries'] = json.loads(jsonstr)
+        if self.tzone:
+            for e in data['entries']:
+                e['tzone'] = self.tzone
+
+        # Return the parsed data
+        return data

@@ -33,12 +33,13 @@ To install the latest release, see the latest instructions on the [releases page
 ```
 usage: logdissect.py [-h] [--dhost DHOST] [--grep PATTERN] [--last LAST]
                      [--process PROCESS] [--protocol PROTOCOL] [--range RANGE]
-                     [--utc] [--rdhost RDHOST] [--rgrep RPATTERN]
-                     [--rprocess RPROCESS] [--rprotocol RPROTOCOL]
-                     [--rshost RSHOST] [--rsource RSOURCE] [--shost SHOST]
-                     [--source SOURCE] [--outlog OUTLOG] [--label LABEL]
-                     [--outjson OUTJSON] [--version] [--verbose] [-s]
-                     [--list-parsers] [-p PARSER] [-z] [-t TZONE]
+                     [--utc] [--rdhost DHOST] [--rgrep PATTERN]
+                     [--rprocess PROCESS] [--rprotocol PROTOCOL]
+                     [--rshost SHOST] [--rsource SOURCE] [--shost SHOST]
+                     [--source SOURCE] [--linejson LINEJSON] [--outlog OUTLOG]
+                     [--label LABEL] [--sojson SOJSON] [--pretty] [--version]
+                     [--verbose] [-s] [--list-parsers] [-p PARSER] [-z]
+                     [-t TZONE]
                      [file [file ...]]
 
 positional arguments:
@@ -50,7 +51,7 @@ optional arguments:
   --verbose             set verbose terminal output
   -s                    silence terminal output
   --list-parsers        return a list of available parsers
-  -p PARSER             select a parser (default: syslogbsd)
+  -p PARSER             select a parser (default: syslog)
   -z, --unzip           include files compressed with gzip
   -t TZONE              specify timezone offset to UTC (e.g. '+0500')
 
@@ -72,18 +73,21 @@ filter options:
   --source SOURCE       match a log source
 
 output options:
+  --linejson LINEJSON   set the output file for line by line JSON output
   --outlog OUTLOG       set the output file for standard log output
   --label LABEL         set label type for OUTLOG (fname|fpath)
-  --outjson OUTJSON     set the output file for JSON output
+  --sojson SOJSON       set the output file for single object JSON output
+  --pretty              use pretty formatting for sojson output
 ```
 
 ## Parsers
 Output of `--list-parsers` option:
 ```
-==== ==== Available parsing modules: ====
+==== Available parsing modules: ====
 
 ciscoios        : cisco ios parsing module
-ldjson          : logdissect JSON parsing module
+linejson        : logdissect object-per-line JSON parsing module
+sojson          : logdissect single object JSON parsing module
 syslog          : syslog (standard timestamp) parsing module
 syslogiso       : syslog (ISO timestamp) parsing module
 syslognohost    : syslog (standard timestamp, no host) parsing module
@@ -101,7 +105,7 @@ windowsrsyslog  : windows rsyslog agent log parsing module
 ## Notes
 1. metadata: logdissect uses file modification times to assign years to syslog date stamps. This allows it to parse logs that span more than one year without a problem. If you are copying log files, always use `` cp -p `` (or `` cp --preserve=timestamps `` ) and `` scp -p `` to preserve original mtimes and other file metadata.
 
-2. Re-parsing: If you are planning on parsing an output file back into logdissect at some point, using JSON is highly recommended. The JSON output module uses date stamps that include a year. Re-parsing a standard log output file will cause problems if the file has a different mtime than the original logs.
+2. Re-parsing: If you are planning on parsing an output file back into logdissect at some point, using JSON is highly recommended. The JSON output modules use date stamps that include a year. Re-parsing a standard log output file will cause problems if the file has a different mtime than the original logs.
 
 3. --range shortcuts: The range module will fill in your ranges with zeroes if they are shorter than 14 characters. If you want to get a range of 20170204120000 to 20170204130000, you can save time and use 2017020412 and 2017020413.
 
