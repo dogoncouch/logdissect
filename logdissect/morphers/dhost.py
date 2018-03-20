@@ -33,7 +33,7 @@ class MorphModule(OurModule):
 
     def morph_data(self, data, args):
         """Return entries with specified destination host (single log)"""
-        if not args.dest:
+        if not args.dhost:
             return data
         else:
             newdata = data

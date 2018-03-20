@@ -33,7 +33,7 @@ class MorphModule(OurModule):
 
     def morph_data(self, data, args):
         """Remove entries from specified destination host (single log)"""
-        if not args.rdest:
+        if not args.rdhost:
             return data
         else:
             newdata = data
