@@ -6,7 +6,7 @@ logdissect - A robust CLI syslog forensics tool.
 \fBlogdissect\fR [\fB-h\fR] [\fB--dhost \fIDHOST\fR] [\fB--grep \fIPATTERN\fR] [\fB--last \fILAST\fR] [\fB--process \fIPROCESS\fR] [\fB--protocol \fIPROTOCOL\fR] [\fB--range \fIRANGE\fR] [\fB--rdhost \fIDHOST\fR] [\fB--rgrep \fIPATTERN\fR] [\fB--rprocess \fIPROCESS\fR] [\fB--rshost \fISHOST\fR] [\fB--rsource \fISOURCE\fR] [\fB--shost \fISHOST\fR] [\fB--source \fISOURCE\fR] [\fB--outlog \fIOUTLOG\fR] [\fB--label \fILABEL\fR] [\fB--outjson \fIOUTJSON\fR] [\fB--version\fR] [\fB--verbose\fR] [\fB-s\fR] [\fB--list-parsers\fR] [\fB-p \fIPARSER\fR] [\fB-z\fR] [\fB-t \fITZONE\fR] [\fBfile \fR[\fBfile ...\fR]]
 
 .SH DESCRIPTION
-\fBlogdissect\fP is a tool for gaining insight into syslog files. It can merge multiple log files together and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output a to standard syslog file, or to a JSON array along with some metadata.
+\fBlogdissect\fR is a command line utility and library module for analyzing syslog files and other data. It can merge entries from multiple files and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to a standard log file, or to a JSON array along with some metadata.
 
 .SH OPTIONS
 
