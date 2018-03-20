@@ -34,13 +34,13 @@ echo Diff for teststar::
 diff tests/files/teststarexlog tests/files/teststar.log 
 
 echo Running testrange.log
-./logdissect.py -s --outlog=tests/files/testrange.log --range 20160202020202-20170227213200 tests/files/exsyslog tests/files/exmeslog
+./logdissect.py -s --outlog=tests/files/testrange.log --range 20170202020202-20170227213200 tests/files/exsyslog tests/files/exmeslog
 
 echo Diff for testrange:
 diff tests/files/testrangeexlog tests/files/testrange.log
 
 echo Running testnone.log
-./logdissect.py -s --outlog=tests/files/testnone.log --range=20160202020202-20160227213200 tests/files/exsyslog tests/files/exmeslog
+./logdissect.py -s --outlog=tests/files/testnone.log --range=20170202020202-20170224213200 tests/files/exsyslog tests/files/exmeslog
 
 echo Diff for testnone:
 diff tests/files/testnoneexlog tests/files/testnone.log

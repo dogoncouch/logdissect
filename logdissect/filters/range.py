@@ -45,21 +45,23 @@ class FilterModule(OurModule):
 
             firstdate = int(ourlimits[0].ljust(14, '0'))
             lastdate = int(ourlimits[1].ljust(14, '0'))
-            if args.utc:
-                if '.' in entry['numeric_date_stamp_utc']:
-                    dstamp = int(entry['numeric_date_stamp_utc'].split('.')[0])
-                else:
-                    dstamp = int(entry['numeric_date_stamp_utc'])
-                for entry in data['entries']:
+            for entry in data['entries']:
+                if args.utc:
+                    if '.' in entry['numeric_date_stamp_utc']:
+                        dstamp = int(
+                                entry['numeric_date_stamp_utc'].split(
+                                    '.')[0])
+                    else:
+                        dstamp = int(entry['numeric_date_stamp_utc'])
                     if dstamp >= firstdate:
                         if dstamp <= lastdate:
                             newdata['entries'].append(entry)
-            else:
-                if '.' in entry['numeric_date_stamp']:
-                    dstamp = int(entry['numeric_date_stamp'].split('.')[0])
                 else:
-                    dstamp = int(entry['numeric_date_stamp'])
-                for entry in data['entries']:
+                    if '.' in entry['numeric_date_stamp']:
+                        dstamp = int(
+                                entry['numeric_date_stamp'].split('.')[0])
+                    else:
+                        dstamp = int(entry['numeric_date_stamp'])
                     if dstamp >= firstdate:
                         if dstamp <= lastdate:
                             newdata['entries'].append(entry)
