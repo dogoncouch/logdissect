@@ -26,8 +26,6 @@ import datetime
 import time
 import gzip
 from logdissect.parsers.type import ParseModule as OurModule
-from logdissect.data import LogEntry
-from logdissect.data import LogData
 
 class ParseModule(OurModule):
     def __init__(self):

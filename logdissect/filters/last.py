@@ -20,20 +20,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from logdissect.morphers.type import MorphModule as OurModule
+from logdissect.filters.type import FilterModule as OurModule
 from time import strftime
 from datetime import datetime, timedelta
 
-class MorphModule(OurModule):
+class FilterModule(OurModule):
     def __init__(self, args):
-        """Initialize the 'last' morphing module"""
+        """Initialize the 'last' filter module"""
         self.name = "last"
         self.desc = "match a preceeding time period (e.g. 5m/3h/2d/etc)"
 
         args.add_argument('--last', action='store', dest='last',
                 help='match a preceeding time period (e.g. 5m/3h/2d/etc)')
 
-    def morph_data(self, data, args):
+    def filer_data(self, data, args):
         """Morph log data by preceeding time period (single log)"""
         if not args.last:
             return data

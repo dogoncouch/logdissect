@@ -20,34 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import re
-from logdissect.morphers.type import MorphModule as OurModule
-
-class MorphModule(OurModule):
+class FilterModule:
     def __init__(self, args):
-        """Initialize the grep morphing module"""
-        self.name = "grep"
-        self.desc = "match a pattern"
+        """Initialize a filter module"""
+        self.name = ""
+        self.desc = ""
+        pass
 
-        args.add_argument('--grep', action='append', dest='pattern',
-                help='match a pattern')
-
-    def morph_data(self, data, args):
-        """Return entries containing specified patterns (single log)"""
-        if not args.pattern:
-            return data
-        else:
-            newdata = data
-            newdata['entries'] = []
-
-            repatterns = {}
-            for pat in args.pattern:
-                repatterns[pat] = re.compile(r".*({}).*".format(pat))
-
-            for entry in data['entries']:
-                for repat in repatterns:
-                    if re.match(repatterns[repat], entry['raw_text']):
-                        newdata['entries'].append(entry)
-                        break
-
-            return newdata
+    def filer_data(self, data, args):
+        """Morph log data in some way (single log)"""
+        pass

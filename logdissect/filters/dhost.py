@@ -20,13 +20,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class MorphModule:
-    def __init__(self, args):
-        """Initialize a morphing module"""
-        self.name = ""
-        self.desc = ""
-        pass
+from logdissect.filters.type import FilterModule as OurModule
 
-    def morph_data(self, data, args):
-        """Morph log data in some way (single log)"""
-        pass
+class FilterModule(OurModule):
+    def __init__(self, args):
+        """Initialize the dest host filter module"""
+        self.name = "dhost"
+        self.desc = "match a destination host"
+
+        args.add_argument('--dhost', action='append', dest='dhost',
+                help='match a destination host')
+
+    def filer_data(self, data, args):
+        """Return entries with specified destination host (single log)"""
+        if not args.dhost:
+            return data
+        else:
+            newdata = data
+            newdata['entries'] = []
+
+            for entry in data['entries']:
+                if entry['dest_host'] in args.dhost:
+                    newdata['entries'].append(entry)
+
+            return newdata

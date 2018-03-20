@@ -21,18 +21,18 @@
 # SOFTWARE.
 
 import re
-from logdissect.morphers.type import MorphModule as OurModule
+from logdissect.filters.type import FilterModule as OurModule
 
-class MorphModule(OurModule):
+class FilterModule(OurModule):
     def __init__(self, args):
-        """Initialize the protocol morphing module"""
+        """Initialize the protocol filter module"""
         self.name = "protocol"
         self.desc = "match a protocol"
 
         args.add_argument('--protocol', action='append', dest='protocol',
                 help='match a protocol')
 
-    def morph_data(self, data, args):
+    def filer_data(self, data, args):
         """Return entries with specified protocol (single log)"""
         if not args.protocol:
             return data

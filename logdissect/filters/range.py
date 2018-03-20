@@ -20,11 +20,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from logdissect.morphers.type import MorphModule as OurModule
+from logdissect.filters.type import FilterModule as OurModule
 
-class MorphModule(OurModule):
+class FilterModule(OurModule):
     def __init__(self, args):
-        """Initialize the range morphing module"""
+        """Initialize the range filter module"""
         self.name = "range"
         self.desc = "match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)"
 
@@ -33,7 +33,7 @@ class MorphModule(OurModule):
         args.add_argument('--utc', action='store_true', dest='utc',
                 help='use UTC for range matching')
 
-    def morph_data(self, data, args):
+    def filer_data(self, data, args):
         """Morph log data by timestamp range (single log)"""
         if not args.range:
             return data

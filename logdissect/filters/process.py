@@ -21,18 +21,18 @@
 # SOFTWARE.
 
 import re
-from logdissect.morphers.type import MorphModule as OurModule
+from logdissect.filters.type import FilterModule as OurModule
 
-class MorphModule(OurModule):
+class FilterModule(OurModule):
     def __init__(self, args):
-        """Initialize the process morphing module"""
+        """Initialize the process filter module"""
         self.name = "process"
         self.desc = "match a source process"
 
         args.add_argument('--process', action='append', dest='process',
                 help='match a source process')
 
-    def morph_data(self, data, args):
+    def filer_data(self, data, args):
         """Return entries from specified process (single log)"""
         if not args.process:
             return data

@@ -26,11 +26,8 @@ import os
 import sys
 import string
 import logdissect.parsers
-import logdissect.morphers
+import logdissect.filters
 import logdissect.output
-from logdissect.data import LogEntry
-from logdissect.data import LogData
-from logdissect.data import LogDataSet
 from logdissect import __version__
 from argparse import ArgumentParser
 import gettext
@@ -43,15 +40,15 @@ class LogDissectCore:
         """Initialize logdissect job"""
         self.input_files = []
         self.parse_modules = {}
-        self.morph_modules = {}
+        self.filter_modules = {}
         self.output_modules = {}
         self.data_set = {}
         self.args = None
         self.arg_parser = ArgumentParser()
         self.parse_args = \
                 self.arg_parser.add_argument_group('parse options')
-        self.morph_args = \
-                self.arg_parser.add_argument_group('morph options')
+        self.filter_args = \
+                self.arg_parser.add_argument_group('filter options')
         self.output_args = \
                 self.arg_parser.add_argument_group('output options')
     
@@ -62,7 +59,7 @@ class LogDissectCore:
         """Execute a logdissect job"""
         try:
             self.load_parsers()
-            self.load_morphers()
+            self.load_filters()
             self.load_outputs()
             self.config_args()
             if self.args.list_parsers:
@@ -75,8 +72,8 @@ class LogDissectCore:
             self.data_set['finalized_data'] = \
                     logdissect.parsers.utils.merge_logs(
                             self.data_set['data_set'])
-            if self.args.verbosemode: print('Running morphers')
-            self.run_morph()
+            if self.args.verbosemode: print('Running filters')
+            self.run_filters()
             if self.args.verbosemode: print('Running output')
             self.run_output()
         except KeyboardInterrupt:
@@ -97,15 +94,15 @@ class LogDissectCore:
         self.data_set = parsedset
         del(parsedset)
 
-    def run_morph(self):
-        for m in self.morph_modules:
-            ourmorph = self.morph_modules[m]
-            ourlog = ourmorph.morph_data(
+    def run_filters(self):
+        for m in self.filter_modules:
+            ourfilter = self.filter_modules[m]
+            ourlog = ourfilter.filter_data(
                     self.data_set['finalized_data'],
                     args=self.args)
             self.data_set['finalized_data'] = ourlog
             del(ourlog)
-            del(ourmorph)
+            del(ourfilter)
 
     def run_output(self):
         """Output finalized data"""
@@ -148,13 +145,13 @@ class LogDissectCore:
                 action='store', dest='tzone',
                 help=_('specify timezone offset to UTC (e.g. \'+0500\')'))
         self.arg_parser.add_argument('files',
-                # nargs needs to be * not + so --list-morphers/etc
+                # nargs needs to be * not + so --list-filters/etc
                 # will work without file arg
                 metavar='file', nargs='*',
                 help=_('specify input files'))
 
         # self.arg_parser.add_argument_group(self.parse_args)
-        self.arg_parser.add_argument_group(self.morph_args)
+        self.arg_parser.add_argument_group(self.filter_args)
         self.arg_parser.add_argument_group(self.output_args)
         self.args = self.arg_parser.parse_args()
 
@@ -195,12 +192,12 @@ class LogDissectCore:
                 __import__('logdissect.parsers.' + parser, globals(), \
                 locals(), [logdissect]).ParseModule()
 
-    def load_morphers(self):
-        """Load morphing module(s)"""
-        for morpher in sorted(logdissect.morphers.__morphers__):
-            self.morph_modules[morpher] = \
-                __import__('logdissect.morphers.' + morpher, globals(), \
-                locals(), [logdissect]).MorphModule(args=self.morph_args)
+    def load_filters(self):
+        """Load filter module(s)"""
+        for f in sorted(logdissect.filters.__filters__):
+            self.filter_modules[f] = \
+                __import__('logdissect.filters.' + f, globals(), \
+                locals(), [logdissect]).FilterModule(args=self.filter_args)
 
     def load_outputs(self):
         """Load output module(s)"""

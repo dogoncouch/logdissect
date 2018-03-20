@@ -20,27 +20,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from logdissect.morphers.type import MorphModule as OurModule
+__filters__ = ['last', 'range', 'grep', 'rgrep', 'source', 'rsource',
+        'shost', 'rshost', 'dhost', 'rdhost', 'process', 'rprocess',
+        'protocol', 'rprotocol']
 
-class MorphModule(OurModule):
-    def __init__(self, args):
-        """Initialize the reverse source host morphing module"""
-        self.name = "rshost"
-        self.desc = "filter out a source host"
-
-        args.add_argument('--rshost', action='append', dest='rshost',
-                help='Filter out a source host')
-
-    def morph_data(self, data, args):
-        """Remove entries from specified source host (single log)"""
-        if not args.rshost:
-            return data
-        else:
-            newdata = data
-            newdata['entries'] = []
-
-            for entry in data['entries']:
-                if entry['source_host'] not in args.rshost:
-                    newdata['entries'].append(entry)
-
-            return newdata
+import logdissect.filters.last
+import logdissect.filters.range
+import logdissect.filters.grep
+import logdissect.filters.rgrep
+import logdissect.filters.source
+import logdissect.filters.rsource
+import logdissect.filters.shost
+import logdissect.filters.rshost
+import logdissect.filters.dhost
+import logdissect.filters.rdhost
+import logdissect.filters.process
+import logdissect.filters.rprocess
+import logdissect.filters.protocol
+import logdissect.filters.rprotocol

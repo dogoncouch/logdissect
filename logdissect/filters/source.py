@@ -20,28 +20,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import re
-from logdissect.morphers.type import MorphModule as OurModule
+from logdissect.filters.type import FilterModule as OurModule
 
-class MorphModule(OurModule):
+class FilterModule(OurModule):
     def __init__(self, args):
-        """Initialize the process morphing module"""
-        self.name = "rprocess"
-        self.desc = "filter out a source process"
+        """Initialize the log source filter module"""
+        self.name = "source"
+        self.desc = "match a log source"
 
-        args.add_argument('--rprocess', action='append', dest='rprocess',
-                help='filter out a source process')
+        args.add_argument('--source', action='append', dest='source',
+                help='match a log source')
 
-    def morph_data(self, data, args):
-        """Remove entries from specified process (single log)"""
-        if not args.rprocess:
+    def filer_data(self, data, args):
+        """Return entries from specified log source (single log)"""
+        if not args.source:
             return data
         else:
             newdata = data
             newdata['entries'] = []
 
             for entry in data['entries']:
-                if entry['source_process'] not in args.rprocess:
+                if entry['log_source'] in args.source:
                     newdata['entries'].append(entry)
 
             return newdata

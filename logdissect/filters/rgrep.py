@@ -20,21 +20,37 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-__morphers__ = ['last', 'range', 'grep', 'rgrep', 'source', 'rsource',
-        'shost', 'rshost', 'dhost', 'rdhost', 'process', 'rprocess',
-        'protocol', 'rprotocol']
+import re
+from logdissect.filters.type import FilterModule as OurModule
 
-import logdissect.morphers.last
-import logdissect.morphers.range
-import logdissect.morphers.grep
-import logdissect.morphers.rgrep
-import logdissect.morphers.source
-import logdissect.morphers.rsource
-import logdissect.morphers.shost
-import logdissect.morphers.rshost
-import logdissect.morphers.dhost
-import logdissect.morphers.rdhost
-import logdissect.morphers.process
-import logdissect.morphers.rprocess
-import logdissect.morphers.protocol
-import logdissect.morphers.rprotocol
+class FilterModule(OurModule):
+    def __init__(self, args):
+        """Initialize the rgrep filter module"""
+        self.name = "rgrep"
+        self.desc = "filter out a pattern"
+
+        args.add_argument('--rgrep', action='append', dest='rpattern',
+                metavar='PATTERN', help='filter out a pattern')
+
+    def filer_data(self, data, args):
+        """Remove entries containing specified pattern (single log)"""
+        if not args.rpattern:
+            return data
+        else:
+            newdata = data
+            newdata['entries'] = []
+
+            repatterns = {}
+            for rpat in args.rpattern:
+                repatterns[rpat] = re.compile(r".*({}).*".format(args.rpattern))
+
+            for entry in data['entries']:
+                match = False
+                for r in args.rgrep:
+                    if re.match(repatterns[r], entry['raw_text']):
+                        match = True
+
+                if not match:
+                    newdata['entries'].append(entry)
+
+            return newdata

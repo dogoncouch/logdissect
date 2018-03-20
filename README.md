@@ -30,56 +30,63 @@ To install the latest release, see the latest instructions on the [releases page
 # Usage
 
 ## Options
+```
+usage: logdissect.py [-h] [--dhost DHOST] [--grep PATTERN] [--last LAST]
+                     [--process PROCESS] [--protocol PROTOCOL] [--range RANGE]
+                     [--utc] [--rdhost RDHOST] [--rgrep RPATTERN]
+                     [--rprocess RPROCESS] [--rprotocol RPROTOCOL]
+                     [--rshost RSHOST] [--rsource RSOURCE] [--shost SHOST]
+                     [--source SOURCE] [--outlog OUTLOG] [--label LABEL]
+                     [--outjson OUTJSON] [--version] [--verbose] [-s]
+                     [--list-parsers] [-p PARSER] [-z] [-t TZONE]
+                     [file [file ...]]
 
-    usage: logdissect [-h] [--dest DEST] [--grep PATTERN] [--last LAST]
-                      [--process PROCESS] [--protocol PROTOCOL] [--range RANGE]
-                      [--rdest RDEST] [--rgrep RPATTERN] [--rprocess RPROCESS]
-                      [--rsource RSOURCE] [--source SOURCE] [--outlog OUTLOG]
-                      [--label LABEL] [--outjson OUTJSON] [--version] [--verbose]
-                      [-s] [--list-parsers] [-p PARSER] [-z] [-t TZONE]
-                      [file [file ...]]
-    
-    positional arguments:
-      file                 specify input files
-    
-    optional arguments:
-      -h, --help           show this help message and exit
-      --version            show program's version number and exit
-      --verbose            set verbose terminal output
-      -s                   silence terminal output
-      --list-parsers       return a list of available parsers
-      -p PARSER            select a parser (default: syslogbsd)
-      -z, --unzip          include files compressed with gzip
-      -t TZONE             specify timezone offset to GMT (e.g. '+0500')
-    
-    morph options:
-      --dest DEST          match a destination host
-      --grep PATTERN       match a pattern
-      --last LAST          match a preceeding time period (e.g. 5m/3h/2d/etc)
-      --process PROCESS    match a source process
-      --protocol PROTOCOL  match a protocol
-      --range RANGE        match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)
-      --rdest RDEST        filter out a destination host
-      --rgrep RPATTERN     filter out a pattern
-      --rprocess RPROCESS  filter out a source process
-      --rsource RSOURCE    filter out a source host
-      --source SOURCE      match a source host
-    
-    output options:
-      --outlog OUTLOG      set the output file for standard log output
-      --label LABEL        set label type for OUTLOG (fname|fpath)
-      --outjson OUTJSON    set the output file for JSON output
+positional arguments:
+  file                  specify input files
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --verbose             set verbose terminal output
+  -s                    silence terminal output
+  --list-parsers        return a list of available parsers
+  -p PARSER             select a parser (default: syslogbsd)
+  -z, --unzip           include files compressed with gzip
+  -t TZONE              specify timezone offset to UTC (e.g. '+0500')
+
+filter options:
+  --dhost DHOST         match a destination host
+  --grep PATTERN        match a pattern
+  --last LAST           match a preceeding time period (e.g. 5m/3h/2d/etc)
+  --process PROCESS     match a source process
+  --protocol PROTOCOL   match a protocol
+  --range RANGE         match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)
+  --utc                 use UTC for range matching
+  --rdhost DHOST        filter out a destination host
+  --rgrep PATTERN       filter out a pattern
+  --rprocess PROCESS    filter out a source process
+  --rprotocol PROTOCOL  filter out a protocol
+  --rshost SHOST        filter out a source host
+  --rsource SOURCE      filter out a log source
+  --shost SHOST         match a source host
+  --source SOURCE       match a log source
+
+output options:
+  --outlog OUTLOG       set the output file for standard log output
+  --label LABEL         set label type for OUTLOG (fname|fpath)
+  --outjson OUTJSON     set the output file for JSON output
+```
 
 ## Parsers
 Output of `--list-parsers` option:
 ```
-==== Available parsing modules: ====
+==== ==== Available parsing modules: ====
 
 ciscoios        : cisco ios parsing module
 ldjson          : logdissect JSON parsing module
-nohost          : syslog (without host) parsing module
-syslogbsd       : syslog (standard BSD timestamp) parsing module
-syslogiso       : syslog ISODATE parsing module
+syslog          : syslog (standard timestamp) parsing module
+syslogiso       : syslog (ISO timestamp) parsing module
+syslognohost    : syslog (standard timestamp, no host) parsing module
 tcpdump         : tcpdump terminal output parsing module
 windowsrsyslog  : windows rsyslog agent log parsing module
 ```
@@ -100,7 +107,7 @@ windowsrsyslog  : windows rsyslog agent log parsing module
 
 4. --last options: The last option should be a number followed by either 's' for seconds, 'm' for minutes, 'h' for hours, or 'd' for days (e.g. --last=20m).
 
-5. Multiple options: All non-time-based morphers can be used more than once.
+5. Multiple options: All non-time-based filters can be used more than once.
 
 # Community
 

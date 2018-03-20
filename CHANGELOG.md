@@ -4,9 +4,16 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 ## [Unreleased]
 ### Added
 - Cisco IOS parser
+- Windows rsyslog agent parser
 
 ### Fixed
 - Python3 --list-parsers error
+
+### Updated
+- Data is now stored in dicts instead of custom objects
+- `log_source` attribute replaces old `source_host` for logs
+- Parser logic is more modular
+- Parsers can now use any fields
 
 ## [2.2.1] - 2018-01-10
 ### Fixed

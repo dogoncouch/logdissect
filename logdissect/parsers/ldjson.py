@@ -22,9 +22,6 @@
 
 import json
 from logdissect.parsers.type import ParseModule as OurModule
-from logdissect.data import LogEntry
-from logdissect.data import LogData
-
 
 
 class ParseModule(OurModule):
@@ -39,36 +36,16 @@ class ParseModule(OurModule):
     def parse_file(self, sourcepath):
         """Parse a JSON array into a LogData object"""
 
-        data = LogData()
-        data.source_path = sourcepath
-
         # Open input file and read JSON array:
         with open(data.source_path, 'r') as logfile:
             jsonstr = logfile.read()
-        
+
         # Set our attributes for this entry and add it to data.entries:
-        entrylist = json.loads(jsonstr)
-        for entry in entrylist:
-            thisentry = LogEntry()
-            thisentry.parser = entry['parser']
-            thisentry.source_path = entry['source_path']
-            thisentry.raw_text = entry['raw_text']
-            thisentry.date_stamp = entry['date_stamp']
-            thisentry.date_stamp_utc = entry['date_stamp_utc']
-            if self.tzone:
-                thisentry.tzone = self.tzone
-            else:
-                thisentry.tzone = entry['tzone']
-            thisentry.raw_stamp = entry['raw_stamp']
-            thisentry.facility = entry['facility']
-            thisentry.severity = entry['severity']
-            thisentry.message = entry['message']
-            thisentry.source_host = entry['source_host']
-            thisentry.dest_host = entry['dest_host']
-            thisentry.protocol = entry['protocol']
-            thisentry.source_process = entry['source_process']
-            thisentry.source_pid = entry['source_pid']
-            data.entries.append(thisentry)
+        data = {}
+        data['entries'] = json.loads(jsonstr)
+        if self.tzone:
+            for e in data['entries']:
+                e['tzone'] = self.tzone
 
         # Return the parsed data
         return data

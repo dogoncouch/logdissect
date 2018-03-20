@@ -20,27 +20,34 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from logdissect.morphers.type import MorphModule as OurModule
+import re
+from logdissect.filters.type import FilterModule as OurModule
 
-class MorphModule(OurModule):
+class FilterModule(OurModule):
     def __init__(self, args):
-        """Initialize the dest host morphing module"""
-        self.name = "dhost"
-        self.desc = "match a destination host"
+        """Initialize the grep filter module"""
+        self.name = "grep"
+        self.desc = "match a pattern"
 
-        args.add_argument('--dhost', action='append', dest='dhost',
-                help='match a destination host')
+        args.add_argument('--grep', action='append', dest='pattern',
+                help='match a pattern')
 
-    def morph_data(self, data, args):
-        """Return entries with specified destination host (single log)"""
-        if not args.dhost:
+    def filer_data(self, data, args):
+        """Return entries containing specified patterns (single log)"""
+        if not args.pattern:
             return data
         else:
             newdata = data
             newdata['entries'] = []
 
+            repatterns = {}
+            for pat in args.pattern:
+                repatterns[pat] = re.compile(r".*({}).*".format(pat))
+
             for entry in data['entries']:
-                if entry['dest_host'] in args.dhost:
-                    newdata['entries'].append(entry)
+                for repat in repatterns:
+                    if re.match(repatterns[repat], entry['raw_text']):
+                        newdata['entries'].append(entry)
+                        break
 
             return newdata

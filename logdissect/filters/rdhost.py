@@ -20,27 +20,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from logdissect.morphers.type import MorphModule as OurModule
+from logdissect.filters.type import FilterModule as OurModule
 
-class MorphModule(OurModule):
-    def __init__(self, args):
-        """Initialize the source host morphing module"""
-        self.name = "shost"
-        self.desc = "match a source host"
+class FilterModule(OurModule):
+    def __init__(self, args=[]):
+        """Initialize the rdest filter module"""
+        self.name = "rdest"
+        self.desc = "filter out a destination host"
 
-        args.add_argument('--shost', action='append', dest='shost',
-                help='match a source host')
+        args.add_argument('--rdhost', action='append', dest='rdhost',
+                metavar='DHOST', help='filter out a destination host')
 
-    def morph_data(self, data, args):
-        """Return entries from specified source host (single log)"""
-        if not args.shost:
+    def filer_data(self, data, args):
+        """Remove entries from specified destination host (single log)"""
+        if not args.rdhost:
             return data
         else:
             newdata = data
             newdata['entries'] = []
 
             for entry in data['entries']:
-                if entry['source_host'] in args.shost:
+                if entry['dest_host'] not in args.rdhost:
                     newdata['entries'].append(entry)
 
             return newdata

@@ -3,7 +3,7 @@
 logdissect - A robust CLI syslog forensics tool.
 
 .SH SYNOPSIS
-\fBlogdissect\fR [\fB-h\fR] [\fB--dest \fIDEST\fR] [\fB--grep \fIPATTERN\fR] [\fB--last \fILAST\fR] [\fB--process \fIPROCESS\fR] [\fB--protocol \fIPROTOCOL\fR] [\fB--range \fIRANGE\fR] [\fB--rdest \fIRDEST\fR] [\fB--rgrep \fIRPATTERN\fR] [\fB--rprocess \fIRPROCESS\fR] [\fB--rsource \fIRSOURCE\fR] [\fB--outlog \fIOUTLOG\fR] [\fB--label \fILABEL\fR] [\fB--outjson \fIOUTJSON\fR] [\fB--version\fR] [\fB--verbose\fR] [\fB-s\fR] [\fB--list-parsers\fR] [\fB-p \fIPARSER\fR] [\fB-z\fR] [\fB-t \fITZONE\fR] [\fBfile \fR[\fBfile ...\fR]]
+\fBlogdissect\fR [\fB-h\fR] [\fB--dhost \fIDHOST\fR] [\fB--grep \fIPATTERN\fR] [\fB--last \fILAST\fR] [\fB--process \fIPROCESS\fR] [\fB--protocol \fIPROTOCOL\fR] [\fB--range \fIRANGE\fR] [\fB--rdhost \fIDHOST\fR] [\fB--rgrep \fIPATTERN\fR] [\fB--rprocess \fIPROCESS\fR] [\fB--rshost \fISHOST\fR] [\fB--rsource \fISOURCE\fR] [\fB--shost \fISHOST\fR] [\fB--source \fISOURCE\fR] [\fB--outlog \fIOUTLOG\fR] [\fB--label \fILABEL\fR] [\fB--outjson \fIOUTJSON\fR] [\fB--version\fR] [\fB--verbose\fR] [\fB-s\fR] [\fB--list-parsers\fR] [\fB-p \fIPARSER\fR] [\fB-z\fR] [\fB-t \fITZONE\fR] [\fBfile \fR[\fBfile ...\fR]]
 
 .SH DESCRIPTION
 \fBlogdissect\fP is a tool for gaining insight into syslog files. It can merge multiple log files together and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output a to standard syslog file, or to a JSON array along with some metadata.
@@ -27,17 +27,21 @@ logdissect - A robust CLI syslog forensics tool.
 
   
   morph options:
-    \fB--dest\fR \fIDEST\fR          match a destination host
+    \fB--dhost\fR \fIDHOST\fR        match a destination host
     \fB--grep\fR \fIPATTERN\fR       match a pattern
     \fB--last\fR \fILAST\fR          match a preceeding time period (5m/3h/2d/etc)
     \fB--process\fR \fIPROCESS\fR    match a source process
     \fB--protocol\fR \fIPROTOCOL\fR  match a protocol
     \fB--range\fR \fIRANGE\fR        match a time range <YYYYMMDDhhmm-YYYYMMDDhhmm>
-    \fB--rdest\fR \fIRDEST\fR        filter out a destination host
-    \fB--rgrep\fR \fIRPATTERN\fR     filter out a pattern
-    \fB--rprocess\fR \fIRPROCESS\fR  filter out a source process
-    \fB--rsource\fR \fIRSOURCE\fR    filter out a source host
-    \fB--source\fR \fISOURCE\fR      match a source host
+    \fB--utc\fR                use UTC for range matching
+    \fB--rdhost\fR \fIDHOST\fR       filter out a destination host
+    \fB--rgrep\fR \fIPATTERN\fR      filter out a pattern
+    \fB--rprocess\fR \fIPROCESS\fR   filter out a source process
+    \fB--rprotocol\fR \fIPROTOCOL\fR match a protocol
+    \fB--rshost\fR \fISHOST\fR       filter out a source host
+    \fB--rsource\fR \fISOURCE\fR     filter out a log source
+    \fB--shost\fR \fISHOST\fR        match a source host
+    \fB--source\fR \fISOURCE\fR      match a log source
 
   
   output options:
@@ -50,12 +54,12 @@ logdissect - A robust CLI syslog forensics tool.
   
   ciscoios        : cisco ios parsing module
   ldjson          : logdissect JSON parsing module
-  nohost          : syslog (without host) parsing module
-  syslogbsd       : syslog (standard BSD timestamp) parsing module
-  syslogiso       : syslog ISODATE parsing module
+  syslog          : syslog (standard timestamp) parsing module
+  syslogiso       : syslog (ISO timestamp) parsing module
+  syslognohost    : syslog (standard timestamp, no host) parsing module
   tcpdump         : tcpdump terminal output parsing module
   windowsrsyslog  : windows rsyslog agent log parsing module
-  
+
 .SH EXAMPLES
 logdissect --last 10m auth.log
 .br

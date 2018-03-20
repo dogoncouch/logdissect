@@ -21,7 +21,6 @@
 # SOFTWARE.
 
 from logdissect.output.type import OutputModule as OurModule
-from logdissect.data import LogData
 
 class OutputModule(OurModule):
     def __init__(self, args=[]):

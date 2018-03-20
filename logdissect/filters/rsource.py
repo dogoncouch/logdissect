@@ -20,37 +20,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import re
-from logdissect.morphers.type import MorphModule as OurModule
+from logdissect.filters.type import FilterModule as OurModule
 
-class MorphModule(OurModule):
+class FilterModule(OurModule):
     def __init__(self, args):
-        """Initialize the rgrep morphing module"""
-        self.name = "rgrep"
-        self.desc = "filter out a pattern"
+        """Initialize the reverse log source filter module"""
+        self.name = "rsource"
+        self.desc = "filter out a log source"
 
-        args.add_argument('--rgrep', action='append', dest='rpattern',
-                help='filter out a pattern')
+        args.add_argument('--rsource', action='append', dest='rsource',
+                metavar='SOURCE', help='filter out a log source')
 
-    def morph_data(self, data, args):
-        """Remove entries containing specified pattern (single log)"""
-        if not args.rpattern:
+    def filer_data(self, data, args):
+        """Remove entries from specified log source (single log)"""
+        if not args.rsource:
             return data
         else:
             newdata = data
             newdata['entries'] = []
 
-            repatterns = {}
-            for rpat in args.rpattern:
-                repatterns[rpat] = re.compile(r".*({}).*".format(args.rpattern))
-
             for entry in data['entries']:
-                match = False
-                for r in args.rgrep:
-                    if re.match(repatterns[r], entry['raw_text']):
-                        match = True
-
-                if not match:
+                if entry['log_source'] not in args.rsource:
                     newdata['entries'].append(entry)
 
             return newdata
