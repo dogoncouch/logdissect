@@ -21,36 +21,26 @@
 # SOFTWARE.
 
 from logdissect.morphers.type import MorphModule as OurModule
-from logdissect.data import LogEntry
-from logdissect.data import LogData
 
 class MorphModule(OurModule):
-    def __init__(self, args=[]):
-        """Initialize the rdest morphing module"""
-        self.name = "rdest"
-        self.desc = "filter out a destination host"
+    def __init__(self, args):
+        """Initialize the dest host morphing module"""
+        self.name = "dhost"
+        self.desc = "match a destination host"
 
-        args.add_argument('--rdest', action='append', dest='rdest',
-                help='filter out a destination host')
+        args.add_argument('--dhost', action='append', dest='dhost',
+                help='match a destination host')
 
     def morph_data(self, data, args):
-        """Remove entries from specified destination host (single log)"""
-        if not args.rdest:
+        """Return entries with specified destination host (single log)"""
+        if not args.dest:
             return data
         else:
-            newdata = LogData()
-            newdata.source_path = data.source_path
-            newdata.source_file = data.source_file
-            newdata.source_file_mtime = data.source_file_mtime
-            newdata.parser = data.parser
+            newdata = data
+            newdata['entries'] = []
 
-            for entry in data.entries:
-                match = False
-                for r in args.rdest:
-                    if entry.source_host == r:
-                        match = True
-                
-                if not match:
-                    newdata.entries.append(entry)
+            for entry in data['entries']:
+                if entry['dest_host'] in args.dhost:
+                    newdata['entries'].append(entry)
 
             return newdata

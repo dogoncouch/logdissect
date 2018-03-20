@@ -21,7 +21,8 @@
 # SOFTWARE.
 
 __morphers__ = ['last', 'range', 'grep', 'rgrep', 'source', 'rsource',
-        'dest', 'rdest', 'process', 'rprocess', 'protocol']
+        'shost', 'rshost', 'dhost', 'rdhost', 'process', 'rprocess',
+        'protocol', 'rprotocol']
 
 import logdissect.morphers.last
 import logdissect.morphers.range
@@ -29,8 +30,11 @@ import logdissect.morphers.grep
 import logdissect.morphers.rgrep
 import logdissect.morphers.source
 import logdissect.morphers.rsource
-import logdissect.morphers.dest
-import logdissect.morphers.rdest
+import logdissect.morphers.shost
+import logdissect.morphers.rshost
+import logdissect.morphers.dhost
+import logdissect.morphers.rdhost
 import logdissect.morphers.process
 import logdissect.morphers.rprocess
 import logdissect.morphers.protocol
+import logdissect.morphers.rprotocol

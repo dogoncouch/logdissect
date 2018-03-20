@@ -21,10 +21,8 @@
 # SOFTWARE.
 
 from logdissect.morphers.type import MorphModule as OurModule
-from logdissect.data import LogEntry
-from logdissect.data import LogData
 from time import strftime
-import datetime
+from datetime import datetime, timedelta
 
 class MorphModule(OurModule):
     def __init__(self, args):
@@ -46,27 +44,25 @@ class MorphModule(OurModule):
             
             # Set the start time:
             if lastunit == 's':
-                starttime = datetime.datetime.now() - \
-                        datetime.timedelta(seconds=int(lastnum))
+                starttime = datetime.utcnow() - \
+                        timedelta(seconds=int(lastnum))
             if lastunit == 'm':
-                starttime = datetime.datetime.now() - \
-                        datetime.timedelta(minutes=int(lastnum))
+                starttime = datetime.utcnow() - \
+                        timedelta(minutes=int(lastnum))
             if lastunit == 'h':
-                starttime = datetime.datetime.now() - \
-                        datetime.timedelta(hours=int(lastnum))
+                starttime = datetime.utcnow() - \
+                        timedelta(hours=int(lastnum))
             if lastunit == 'd':
-                starttime = datetime.datetime.now() - \
-                        datetime.timedelta(days=int(lastnum))
+                starttime = datetime.utcnow() - \
+                        timedelta(days=int(lastnum))
             ourstart = starttime.strftime('%Y%m%d%H%M%S')
             
             # Pull out the specified time period:
-            newdata = LogData()
-            newdata.source_path = data.source_path
-            newdata.source_file = data.source_file
-            newdata.source_file_mtime = data.source_file_mtime
-            newdata.parser = data.parser
-            
-            for entry in data.entries:
-                if int(entry.numeric_date_stamp) >= int(ourstart): 
-                    newdata.entries.append(entry)
+            newdata = data
+            newdata['entries'] = []
+
+            for entry in data['entries']:
+                if int(entry['numeric_date_stamp_utc']) >= int(ourstart): 
+                    newdata['entries'].append(entry)
+
             return newdata

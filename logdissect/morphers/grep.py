@@ -22,8 +22,6 @@
 
 import re
 from logdissect.morphers.type import MorphModule as OurModule
-from logdissect.data import LogEntry
-from logdissect.data import LogData
 
 class MorphModule(OurModule):
     def __init__(self, args):
@@ -39,21 +37,19 @@ class MorphModule(OurModule):
         if not args.pattern:
             return data
         else:
+            newdata = data
+            newdata['entries'] = []
 
-            newdata = LogData()
-            newdata.source_path = data.source_path
-            newdata.source_file = data.source_file
-            newdata.source_file_mtime = data.source_file_mtime
-            newdata.parser = data.parser
-
-            repattern = {}
+            repatterns = {}
             for pat in args.pattern:
-                repattern[pat] = re.compile(r".*({}).*".format(pat))
-            
-            for entry in data.entries:
-                for repat in repattern:
-                    if re.match(repattern[repat], entry.raw_text):
-                        newdata.entries.append(entry)
+                repatterns[pat] = re.compile(r".*({}).*".format(pat))
+
+            for entry in data['entries']:
+
+            for entry in data['entries']:
+                for repat in repatterns:
+                    if re.match(repatterns[repat], entry['raw_text']):
+                        newdata['entries'].append(entry)
                         break
 
             return newdata

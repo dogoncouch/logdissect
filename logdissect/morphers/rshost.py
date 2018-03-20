@@ -24,23 +24,23 @@ from logdissect.morphers.type import MorphModule as OurModule
 
 class MorphModule(OurModule):
     def __init__(self, args):
-        """Initialize the log source morphing module"""
-        self.name = "source"
-        self.desc = "match a log source"
+        """Initialize the reverse source host morphing module"""
+        self.name = "rshost"
+        self.desc = "filter out a source host"
 
-        args.add_argument('--source', action='append', dest='source',
-                help='match a log source')
+        args.add_argument('--rshost', action='append', dest='rshost',
+                help='Filter out a source host')
 
     def morph_data(self, data, args):
-        """Return entries from specified log source (single log)"""
-        if not args.source:
+        """Remove entries from specified source host (single log)"""
+        if not args.shost:
             return data
         else:
             newdata = data
             newdata['entries'] = []
 
             for entry in data['entries']:
-                if entry['log_source'] in args.source:
+                if entry['source_host'] not in args.rshost:
                     newdata['entries'].append(entry)
 
             return newdata

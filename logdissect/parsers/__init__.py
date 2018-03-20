@@ -20,13 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-__all__ = ['syslogbsd', 'syslogiso', 'nohost', 'ldjson', 'tcpdump',
+__all__ = ['syslog', 'syslogiso', 'syslognohost', 'ldjson', 'tcpdump',
         'ciscoios', 'windowsrsyslog']
 
 import logdissect.parsers.utils
-import logdissect.parsers.syslogbsd
+import logdissect.parsers.syslog
 import logdissect.parsers.syslogiso
-import logdissect.parsers.nohost
+import logdissect.parsers.syslognohost
 import logdissect.parsers.ldjson
 import logdissect.parsers.tcpdump
 import logdissect.parsers.ciscoios

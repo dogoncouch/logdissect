@@ -29,10 +29,11 @@ class ParseModule(OurModule):
         self.desc = 'cisco ios parsing module'
         self.date_format = \
                 "^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+\S+\s+\d+:\s+(\S+):\s+%([a-zA-Z0-9_]+)-(\d)-[a-zA-Z0-9_]+: (.*)"
-        self.fields = ['date_stamp', 'source_host', 'severity',
+        self.fields = ['date_stamp', 'log_source', 'severity',
                 'source_process', 'message']
-        self.backup_date_format = None
-        self.backup_fields = []
+        self.backup_date_format = "^([A-Z][a-z]{2}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}\.?\d*)\s+(\S+)\s+([^\[\]]+)\s%[a-zA-Z0-9_]+-\w-([a-zA-Z0-9_]+): (.*)"
+        self.backup_fields = ['date_stamp', 'log_source', 'source_process',
+        'action', 'message']
         self.tzone = None
         # Options to convert datestamp: standard, iso
         # Set to None to skip conversion. Default is standard.

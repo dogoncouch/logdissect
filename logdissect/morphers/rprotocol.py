@@ -20,34 +20,28 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import re
 from logdissect.morphers.type import MorphModule as OurModule
-from logdissect.data import LogEntry
-from logdissect.data import LogData
 
 class MorphModule(OurModule):
     def __init__(self, args):
-        """Initialize the dest morphing module"""
-        self.name = "dest"
-        self.desc = "match a destination host"
+        """Initialize the rprotocol morphing module"""
+        self.name = "rprotocol"
+        self.desc = "filter out a protocol"
 
-        args.add_argument('--dest', action='append', dest='dest',
-                help='match a destination host')
+        args.add_argument('--rprotocol', action='append', dest='rprotocol',
+                help='filter out a protocol')
 
     def morph_data(self, data, args):
-        """Return entries with specified destination host (single log)"""
-        if not args.dest:
+        """Return entries without specified protocol (single log)"""
+        if not args.rprotocol:
             return data
         else:
-            newdata = LogData()
-            newdata.source_path = data.source_path
-            newdata.source_file = data.source_file
-            newdata.source_file_mtime = data.source_file_mtime
-            newdata.parser = data.parser
+            newdata = data
+            newdata['entries'] = []
 
-            for entry in data.entries:
-                for d in args.dest:
-                    if entry.source_host == d:
-                        newdata.entries.append(entry)
-                        break
+            for entry in data['entries']:
+                if entry['protocol'] not in args.rprotocol:
+                    newdata['entries'].append(entry)
 
             return newdata

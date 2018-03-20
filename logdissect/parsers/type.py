@@ -52,23 +52,22 @@ class ParseModule:
         if self.backup_date_format:
             self.backup_date_regex = re.compile(
                     r'{}'.format(self.backup_date_format))
-        data = LogData()
-        data.parser = self.name
-        current_entry = LogEntry()
-        data.source_path = sourcepath
-        data.source_file = data.source_path.split('/')[-1]
+        data = {}
+        data['entries'] = []
+        data['parser'] = self.name
+        data['source_path'] = sourcepath
+        data['source_file'] = sourcepath.split('/')[-1]
 
         # Set our start year:
-        data.source_file_mtime = \
-                os.path.getmtime(data.source_path)
-        timestamp = datetime.fromtimestamp(data.source_file_mtime)
-        data.source_file_year = timestamp.year
+        data['source_file_mtime'] = os.path.getmtime(data['source_path'])
+        timestamp = datetime.fromtimestamp(data['source_file_mtime'])
+        data['source_file_year'] = timestamp.year
         entryyear = timestamp.year
         currentmonth = '99'
 
         # Set our timezone
         if not self.tzone:
-            self.tzone = logdissect.parsers.utils.get_tzone()
+            self.backuptzone = logdissect.parsers.utils.get_local_tzone()
 
         # Parsing works in reverse. This helps with multi-line entries,
         # and logs that span multiple years (December to January shift).
@@ -90,44 +89,31 @@ class ParseModule:
             entry = self.parse_line(ourline)
 
             if entry:
-                current_entry = LogEntry()
-
                 # Check for Dec-Jan jump and set the year:
                 if int(entry['month']) > int(currentmonth):
                     entryyear = entryyear - 1
                     currentmonth = entry['month']
 
-                # Set our attributes:
-                current_entry.parser = entry['parser']
-                current_entry.raw_text = ourline
-                current_entry.date_stamp = entry['date_stamp']
-                current_entry.numeric_date_stamp = str(entryyear) \
+                
+                entry['raw_text'] = ourline
+                entry['numeric_date_stamp'] = str(entryyear) \
                         + entry['month'] + entry['day'] + entry['tstamp']
-                current_entry.year = str(entryyear)
-                current_entry.month = entry['month']
-                current_entry.day = entry['day']
-                current_entry.tstamp = entry['tstamp']
-                if entry['tzone']:
-                    current_entry.tzone = entry['tzone']
-                else:
-                    current_entry.tzone = self.tzone
-                current_entry._utc_date()
-                current_entry.message = entry['message']
-                current_entry.source_host = entry['source_host']
-                current_entry.source_process = entry['source_process']
-                current_entry.source_pid = entry['source_pid']
-                current_entry.source_path = \
-                        data.source_path
-            
-            
+                entry['year'] = str(entryyear)
+                if self.tzone:
+                    entry['tzone'] = self.tzone
+                elif not entry['tzone']:
+                    entry['tzone'] = self.backuptzone
+                entry = logdissect.parser.utils.get_utc_date(entry)
+                entry['source_path'] = data['source_path']
+
                 # Append and reset current_entry
-                data.entries.append(current_entry)
+                data['entries'].append(current_entry)
 
             else:
                 continue
 
         # Write the entries to the log object
-        data.entries.reverse()
+        data['entries'].reverse()
         return data
 
 

@@ -45,7 +45,7 @@ class LogDissectCore:
         self.parse_modules = {}
         self.morph_modules = {}
         self.output_modules = {}
-        self.data_set = LogDataSet()
+        self.data_set = {}
         self.args = None
         self.arg_parser = ArgumentParser()
         self.parse_args = \
@@ -64,7 +64,7 @@ class LogDissectCore:
             self.load_parsers()
             self.load_morphers()
             self.load_outputs()
-            self.config_options()
+            self.config_args()
             if self.args.list_parsers:
                 self.list_parsers()
             if self.args.verbosemode: print('Loading input files')
@@ -72,7 +72,9 @@ class LogDissectCore:
             if self.args.verbosemode: print('Running parsers')
             self.run_parse()
             if self.args.verbosemode: print('Merging data')
-            self.data_set.merge_logs()
+            self.data_set['finalized_data'] = \
+                    logdissect.parser.utils.merge_logs(
+                            self.data_set['data_set'])
             if self.args.verbosemode: print('Running morphers')
             self.run_morph()
             if self.args.verbosemode: print('Running output')
@@ -83,23 +85,23 @@ class LogDissectCore:
     def run_parse(self):
         """Parse one or more log files"""
         # Data set already has source file names from load_inputs
-        parsedset = LogDataSet()
+        parsedset = {}
         for log in self.input_files:
             parsemodule = self.parse_modules[self.args.parser]
             try:
                 if self.args.tzone:
                     parsemodule.tzone = self.args.tzone
             except NameError: pass
-            parsedset.data_set.append(parsemodule.parse_file(log))
+            parsedset['data_set'].append(parsemodule.parse_file(log))
         self.data_set = parsedset
         del(parsedset)
 
     def run_morph(self):
         for m in self.morph_modules:
             ourmorph = self.morph_modules[m]
-            ourlog = ourmorph.morph_data(self.data_set.finalized_data,
+            ourlog = ourmorph.morph_data(self.data_set['finalized_data'],
                     args=self.args)
-            self.data_set.finalized_data = ourlog
+            self.data_set['finalized_data'] = ourlog
             del(ourlog)
             del(ourmorph)
 
@@ -107,7 +109,7 @@ class LogDissectCore:
         """Output finalized data"""
         for f in logdissect.output.__formats__:
             ouroutput = self.output_modules[f]
-            ouroutput.write_output(self.data_set.finalized_data,
+            ouroutput.write_output(self.data_set['finalized_data'],
                     args=self.args)
             del(ouroutput)
 
@@ -115,12 +117,12 @@ class LogDissectCore:
         if not self.args.silentmode:
             if self.args.verbosemode:
                 print('\n==== ++++ ==== Output: ==== ++++ ====\n')
-            for line in self.data_set.finalized_data.entries:
-                print(line.raw_text)
+            for line in self.data_set['finalized_data']['entries']:
+                print(line['raw_text'])
 
 
 
-    def config_options(self):
+    def config_args(self):
         """Set config options"""
         # Module list options:
         self.arg_parser.add_argument('--version', action='version',

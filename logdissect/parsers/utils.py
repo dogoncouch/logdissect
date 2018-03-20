@@ -31,6 +31,7 @@ def get_blank_entry():
     entry['tzone'] = None
     entry['facility'] = None
     entry['severity'] = None
+    entry['log_source']
     entry['source_host'] = None
     entry['source_port'] = None
     entry['source_process'] = None
@@ -88,7 +89,33 @@ def convert_iso_datestamp(entry):
     return entry
 
 
-def get_tzone():
+def get_utc_date(entry):
+    """Return datestamp converted to UTC"""
+    if entry['numeric_date_stamp'] == '0':
+        entry['numeric_date_stamp_utc'] = '0'
+        return entry
+
+    else:
+        if '.' in entry['numeric_date_stamp']:
+            t = datetime.datetime.strptime(entry['numeric_date_stamp'],
+                    '%Y%m%d%H%M%S.%f')
+        else:
+            t = datetime.datetime.strptime(entry['numeric_date_stamp'],
+                    '%Y%m%d%H%M%S')
+        tdelta = datetime.timedelta(hours = int(entry['tzone'][1:3]),
+                minutes = int(entry['tzone'][3:5]))
+        
+        if self.tzone[0] == '-':
+            ut = t - tdelta
+        else:
+            ut = t + tdelta
+
+        entry['numeric_date_stamp_utc'] = ut.strftime('%Y%m%d%H%M%S.%f')
+        
+        return entry
+
+
+def get_local_tzone():
     """Get the current time zone on the local host"""
     if time.localtime().tm_isdst:
         tzone = \
@@ -104,3 +131,15 @@ def get_tzone():
         tzone = '+' + tzone
 
     return tzone
+
+
+def merge_logs(dataset):
+    """Merge log dictionaries together into one log dictionary"""
+    ourlog = {}
+    ourlog['entries'] = []
+    for d in dataset:
+        ourlog['entries'] = ourlog['entries'] + d['entries']
+    ourlog['entries'] = ourlog['entries'].sort(
+            key= lambda x: x['numeric_date_stamp_utc']
+
+    return ourlog

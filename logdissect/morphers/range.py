@@ -21,8 +21,6 @@
 # SOFTWARE.
 
 from logdissect.morphers.type import MorphModule as OurModule
-from logdissect.data import LogEntry
-from logdissect.data import LogData
 
 class MorphModule(OurModule):
     def __init__(self, args):
@@ -32,6 +30,8 @@ class MorphModule(OurModule):
 
         args.add_argument('--range', action='store', dest='range',
                 help='match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)')
+        args.add_argument('--utc', action='store_true', dest='utc',
+                help='use UTC for range matching')
 
     def morph_data(self, data, args):
         """Morph log data by timestamp range (single log)"""
@@ -40,16 +40,20 @@ class MorphModule(OurModule):
         else:
             ourlimits = args.range.split('-')
 
-            newdata = LogData()
-            newdata.source_path = data.source_path
-            newdata.source_file = data.source_file
-            newdata.source_file_mtime = data.source_file_mtime
-            newdata.parser = data.parser
-            
+            newdata = data
+            newdata['entries'] = []
+
             firstdate = int(ourlimits[0].ljust(14, '0'))
             lastdate = int(ourlimits[1].ljust(14, '0'))
-            for entry in data.entries:
-                if int(entry.numeric_date_stamp) >= firstdate: 
-                    if int(entry.numeric_date_stamp) <= lastdate:
-                        newdata.entries.append(entry)
+            if args.utc:
+                for entry in data['entries']:
+                    if int(entry['numeric_date_stamp_utc']) >= firstdate: 
+                        if int(entry['numeric_date_stamp_utc']) <= lastdate:
+                            newdata['entries'].append(entry)
+            else:
+                for entry in data['entries']:
+                    if int(entry['numeric_date_stamp']) >= firstdate: 
+                        if int(entry['numeric_date_stamp']) <= lastdate:
+                            newdata['entries'].append(entry)
+
             return newdata

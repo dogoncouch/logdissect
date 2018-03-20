@@ -21,36 +21,26 @@
 # SOFTWARE.
 
 from logdissect.morphers.type import MorphModule as OurModule
-from logdissect.data import LogEntry
-from logdissect.data import LogData
 
 class MorphModule(OurModule):
     def __init__(self, args):
-        """Initialize the host morphing module"""
+        """Initialize the reverse log source morphing module"""
         self.name = "rsource"
-        self.desc = "filter out a source host"
+        self.desc = "filter out a log source"
 
         args.add_argument('--rsource', action='append', dest='rsource',
-                help='filter out a source host')
+                help='filter out a log source')
 
     def morph_data(self, data, args):
-        """Remove entries from specified host (single log)"""
+        """Remove entries from specified log source (single log)"""
         if not args.rsource:
             return data
         else:
-            newdata = LogData()
-            newdata.source_path = data.source_path
-            newdata.source_file = data.source_file
-            newdata.source_file_mtime = data.source_file_mtime
-            newdata.parser = data.parser
+            newdata = data
+            newdata['entries'] = []
 
-            for entry in data.entries:
-                match = False
-                for r in args.rsource:
-                    if entry.source_host == r:
-                        match = True
-
-                    if not match:
-                        newdata.entries.append(entry)
+            for entry in data['entries']:
+                if entry['log_source'] not in args.rsource:
+                    newdata['entries'].append(entry)
 
             return newdata
