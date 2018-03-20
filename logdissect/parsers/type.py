@@ -75,10 +75,10 @@ class ParseModule:
         # Get our lines:
         fparts = sourcepath.split('.')
         if fparts[-1] == 'gz':
-            with gzip.open(str(sourcepath), 'r') as logfile:
+            with gzip.open(sourcepath, 'r') as logfile:
                 loglines = reversed(logfile.readlines())
         else:
-            with open(str(data.source_path), 'r') as logfile:
+            with open(str(sourcepath), 'r') as logfile:
                 loglines = reversed(logfile.readlines())
 
         # Parse our lines:
