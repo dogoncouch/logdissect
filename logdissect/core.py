@@ -100,7 +100,8 @@ class LogDissectCore:
     def run_morph(self):
         for m in self.morph_modules:
             ourmorph = self.morph_modules[m]
-            ourlog = ourmorph.morph_data(self.data_set['finalized_data'],
+            ourlog = ourmorph.morph_data(
+                    self.data_set['finalized_data'],
                     args=self.args)
             self.data_set['finalized_data'] = ourlog
             del(ourlog)

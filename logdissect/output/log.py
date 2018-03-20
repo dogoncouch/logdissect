@@ -41,17 +41,17 @@ class OutputModule(OurModule):
             return 0
         lastpath = ''
         with open(str(args.outlog), 'w') as output_file:
-            for entry in data.entries:
+            for entry in data['entries']:
                 if args.label:
-                    if entry.source_path == lastpath:
-                        output_file.write(entry.raw_text + '\n')
+                    if entry['source_path'] == lastpath:
+                        output_file.write(entry['raw_text'] + '\n')
                     elif args.label == 'fname':
                         output_file.write('======== ' + \
-                                entry.source_path.split('/')[-1] + \
-                                ' >>>>\n' + entry.raw_text + '\n')
+                                entry['source_path'].split('/')[-1] + \
+                                ' >>>>\n' + entry['raw_text'] + '\n')
                     elif args.label == 'fpath':
                         output_file.write('======== ' + \
-                                entry.source_path  + \
-                                ' >>>>\n' + entry.raw_text + '\n')
-                else: output_file.write(entry.raw_text + '\n')
-                lastpath = entry.source_path
+                                entry['source_path']  + \
+                                ' >>>>\n' + entry['raw_text'] + '\n')
+                else: output_file.write(entry['raw_text'] + '\n')
+                lastpath = entry['source_path']

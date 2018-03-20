@@ -37,31 +37,9 @@ class OutputModule(OurModule):
         """Write log data to a JSON array"""
         if not args.outjson:
             return 0
+        else:
+            logstring = json.dumps(data['entries', indent=2, sort_keys=True,
+                    separators=(',', ': '))
         
-        entrylist = []
-        for entry in data.entries:
-            thisentry = {'parser': entry.parser,
-                    'raw_text': entry.raw_text,
-                    'date_stamp': entry.date_stamp,
-                    'date_stamp_utc': entry.date_stamp_utc,
-                    'tzone': entry.tzone,
-                    'raw_stamp': entry.raw_stamp,
-                    'facility': entry.facility,
-                    'severity': entry.severity,
-                    'message': entry.message,
-                    'source_path': entry.source_path,
-                    'source_host': entry.source_host,
-                    'source_port': entry.source_port,
-                    'dest_host': entry.dest_host,
-                    'dest_port': entry.dest_port,
-                    'protocol': entry.protocol,
-                    'source_process': entry.source_process,
-                    'source_pid': entry.source_pid}
-            
-            entrylist.append(thisentry)
-
-        logstring = json.dumps(entrylist, indent=2, sort_keys=True,
-                separators=(',', ': '))
-
-        with open(str(args.outjson), 'w') as output_file:
-            output_file.write(logstring)
+            with open(str(args.outjson), 'w') as output_file:
+                output_file.write(logstring)
