@@ -31,7 +31,7 @@ def get_blank_entry():
     entry['tzone'] = None
     entry['facility'] = None
     entry['severity'] = None
-    entry['log_source']
+    entry['log_source'] = None
     entry['source_host'] = None
     entry['source_port'] = None
     entry['source_process'] = None
