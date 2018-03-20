@@ -93,7 +93,7 @@ class ParseModule:
             if entry:
                 if 'date_stamp' in self.fields:
                     # Check for Dec-Jan jump and set the year:
-                    if self.datestamp_type = 'standard':
+                    if self.datestamp_type == 'standard':
                         if int(entry['month']) > int(currentmonth):
                             entryyear = entryyear - 1
                         currentmonth = entry['month']

@@ -20,9 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import time.localtime
-import time.timezone
-import time.altzone
+from time import localtime
+from time import timezone
+from time import altzone
 from datetime import datetime, timedelta
 
 def convert_standard_datestamp(entry):
@@ -65,7 +65,8 @@ def convert_nodate_datestamp(entry, datedata):
     entry['year'] = str(datedata['timestamp'].year)
     entry['month'] = str(datedata['timestamp'].month)
     entry['day'] = str(datedata['timestamp'].day)
-    entry['numeric_date_stamp'] = 
+    entry['numeric_date_stamp'] = entry['year'] + entry['month'] + \
+            entry['day'] + entry['tstamp']
 
     return entry, datedata
 
@@ -146,16 +147,16 @@ def get_utc_date(entry):
 
 def get_local_tzone():
     """Get the current time zone on the local host"""
-    if time.localtime().tm_isdst:
+    if localtime().tm_isdst:
         tzone = \
-                str(int(float(time.altzone) / 60 // 60)).rjust(2,
+                str(int(float(altzone) / 60 // 60)).rjust(2,
                         '0') + \
-                str(int(float(time.altzone) / 60 % 60)).ljust(2, '0')
+                str(int(float(altzone) / 60 % 60)).ljust(2, '0')
     else:
         tzone = \
-                str(int(float(time.timezone) / 60 // 60)).rjust(2,
+                str(int(float(timezone) / 60 // 60)).rjust(2,
                         '0') + \
-                str(int(float(time.timezone) / 60 % 60)).ljust(2, '0')
+                str(int(float(timezone) / 60 % 60)).ljust(2, '0')
     if not '-' in tzone and not '+' in tzone:
         tzone = '+' + tzone
 
