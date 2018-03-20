@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def get_blank_entry():
     """Return a blank entry dictionary"""
