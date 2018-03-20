@@ -86,6 +86,7 @@ class LogDissectCore:
         """Parse one or more log files"""
         # Data set already has source file names from load_inputs
         parsedset = {}
+        parsedset['data_set'] = []
         for log in self.input_files:
             parsemodule = self.parse_modules[self.args.parser]
             try:
