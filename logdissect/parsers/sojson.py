@@ -29,7 +29,15 @@ class ParseModule(OurModule):
         """Initialize the single object JSON parsing module"""
         self.name = 'sojson'
         self.desc = 'logdissect single object JSON parsing module'
+        self.date_format = None
+        self.fields = []
+        self.backup_date_format = None
+        self.backup_fields = []
         self.tzone = None
+        # Options to convert datestamp:
+        # standard, iso, nodate, unix, now
+        # Set to None to skip conversion
+        self.datestamp_type = None
 
 
 

@@ -32,6 +32,7 @@ class ParseModule(OurModule):
         self.backup_date_format = None
         self.backup_fields = []
         self.tzone = None
-        # Options to convert datestamp: standard, iso
+        # Options to convert datestamp:
+        # standard, iso, nodate, unix, now
         # Set to None to skip conversion. Default is standard.
         self.datestamp_type = 'standard'

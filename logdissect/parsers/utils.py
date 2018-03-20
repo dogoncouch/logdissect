@@ -20,7 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import time
+import time.localtime
+import time.timezone
+import time.altzone
 from datetime import datetime, timedelta
 
 def convert_standard_datestamp(entry):
@@ -50,6 +52,24 @@ def convert_standard_datestamp(entry):
     return entry
 
 
+def convert_nodate_datestamp(entry, datedata):
+    """Set date and time attributes based on timestamp with no date"""
+    entry['tstamp'] = entry['date_stamp'].replace(':', '')
+    # Remember, we're parsing in reverse.
+    if float(entry['tstamp']) > datedata['entry_time']:
+        datedata['timestamp'] = datedata['timestamp'] - timedelta(days=1)
+    if '.' in entry['tstamp']:
+        datedata['entry_time'] = int(entry['tstamp']).split('.')[0]
+    else:
+        datedata['entry_time'] = int(entry['tstamp'])
+    entry['year'] = str(datedata['timestamp'].year)
+    entry['month'] = str(datedata['timestamp'].month)
+    entry['day'] = str(datedata['timestamp'].day)
+    entry['numeric_date_stamp'] = 
+
+    return entry, datedata
+
+
 def convert_iso_datestamp(entry):
     """Set date and time attributes based on an iso date stamp"""
     # Set our attributes:
@@ -65,6 +85,35 @@ def convert_iso_datestamp(entry):
     entry['day'] = datestamp[6:8]
     entry['tstamp'] = datestamp[8:]
     entry['tzone'] = tzone
+    entry['numeric_date_stamp'] = entry['year'] + entry['month'] + \
+            entry['day'] + entry['tstamp']
+
+    return entry
+
+
+def convert_unix_datestamp(entry):
+    """Set date and time attributes based on a unix date stamp"""
+    timestamp = datetime.fromtimestamp(float(entry['date_stamp']))
+    entry['year'] = str(timestamp.year)
+    entry['month'] = str(timestamp.month)
+    entry['day'] = str(timestamp.day)
+    entry['tstamp'] = str(timestamp.strftime('%H%M%S.%f'))
+    entry['numeric_date_stamp'] = entry['year'] + entry['month'] + \
+            entry['day'] + entry['tstamp']
+
+    return entry
+
+
+def convert_now_datestamp(entry):
+    """Set date and time attributes based on a unix date stamp"""
+    timestamp = datetime.now()
+    entry['date_stamp'] = timestamp.strftime('%Y %b %d %H:%M:%S.%f')
+    entry['year'] = str(timestamp.year)
+    entry['month'] = str(timestamp.month)
+    entry['day'] = str(timestamp.day)
+    entry['tstamp'] = timestamp.strftime('%H%M%S.%f')
+    entry['numeric_date_stamp'] = entry['year'] + entry['month'] + \
+            entry['day'] + entry['tstamp']
 
     return entry
 

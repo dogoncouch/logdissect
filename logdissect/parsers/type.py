@@ -37,7 +37,8 @@ class ParseModule:
         self.backup_date_format = None
         self.backup_fields = []
         self.tzone = None
-        # Options to convert datestamp: standard, iso
+        # Options to convert datestamp:
+        # standard, iso, nodate, unix, now
         # Set to None to skip conversion
         self.datestamp_type = 'standard'
 
@@ -62,6 +63,9 @@ class ParseModule:
         data['source_file_year'] = timestamp.year
         entryyear = timestamp.year
         currentmonth = '99'
+        if self.datestamp_type == 'nodate':
+            self.datedata['timestamp'] = timestamp
+            self.datedata['entry_time'] = int(timestamp.strftime('%H%M%S'))
 
         # Set our timezone
         if not self.tzone:
@@ -89,13 +93,15 @@ class ParseModule:
             if entry:
                 if 'date_stamp' in self.fields:
                     # Check for Dec-Jan jump and set the year:
-                    if int(entry['month']) > int(currentmonth):
-                        entryyear = entryyear - 1
-                    currentmonth = entry['month']
-
-                    entry['numeric_date_stamp'] = str(entryyear) \
-                            + entry['month'] + entry['day'] + entry['tstamp']
-                    entry['year'] = str(entryyear)
+                    if self.datestamp_type = 'standard':
+                        if int(entry['month']) > int(currentmonth):
+                            entryyear = entryyear - 1
+                        currentmonth = entry['month']
+                    
+                        entry['numeric_date_stamp'] = str(entryyear) \
+                                + entry['month'] + entry['day'] + \
+                                entry['tstamp']
+                        entry['year'] = str(entryyear)
                     if self.tzone:
                         entry['tzone'] = self.tzone
                     elif not entry['tzone']:
@@ -137,7 +143,18 @@ class ParseModule:
                 if self.datestamp_type == 'standard':
                     entry = logdissect.parsers.utils.convert_standard_datestamp(entry)
                 elif self.datestamp_type == 'iso':
-                    entry = logdissect.parsers.utils.convert_iso_datestamp(entry)
+                    entry = logdissect.parsers.utils.convert_iso_datestamp(
+                            entry)
+                elif self.datestamp_type == 'nodate':
+                    entry, datedata = \
+                            logdissect.parsers.utils.convert_nodate_datestamp(
+                            entry, datedata)
+                elif self.datestamp_type == 'unix':
+                    entry = logdissect.parsers.utils.convert_unix_datestamp(
+                            entry)
+                elif self.datestamp_type == 'now':
+                    entry = logdissect.parsers.utils.convert_now_datestamp(
+                            entry)
 
             return entry
 
