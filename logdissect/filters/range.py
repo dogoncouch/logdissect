@@ -33,7 +33,7 @@ class FilterModule(OurModule):
         args.add_argument('--utc', action='store_true', dest='utc',
                 help='use UTC for range matching')
 
-    def filer_data(self, data, args):
+    def filter_data(self, data, args):
         """Morph log data by timestamp range (single log)"""
         if not args.range:
             return data

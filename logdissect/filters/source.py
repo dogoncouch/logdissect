@@ -31,7 +31,7 @@ class FilterModule(OurModule):
         args.add_argument('--source', action='append', dest='source',
                 help='match a log source')
 
-    def filer_data(self, data, args):
+    def filter_data(self, data, args):
         """Return entries from specified log source (single log)"""
         if not args.source:
             return data

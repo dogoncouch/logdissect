@@ -31,7 +31,7 @@ class FilterModule(OurModule):
         args.add_argument('--rsource', action='append', dest='rsource',
                 metavar='SOURCE', help='filter out a log source')
 
-    def filer_data(self, data, args):
+    def filter_data(self, data, args):
         """Remove entries from specified log source (single log)"""
         if not args.rsource:
             return data

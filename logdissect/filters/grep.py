@@ -32,7 +32,7 @@ class FilterModule(OurModule):
         args.add_argument('--grep', action='append', dest='pattern',
                 help='match a pattern')
 
-    def filer_data(self, data, args):
+    def filter_data(self, data, args):
         """Return entries containing specified patterns (single log)"""
         if not args.pattern:
             return data

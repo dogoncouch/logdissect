@@ -32,7 +32,7 @@ class FilterModule(OurModule):
         args.add_argument('--protocol', action='append', dest='protocol',
                 help='match a protocol')
 
-    def filer_data(self, data, args):
+    def filter_data(self, data, args):
         """Return entries with specified protocol (single log)"""
         if not args.protocol:
             return data

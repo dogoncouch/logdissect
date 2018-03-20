@@ -31,7 +31,7 @@ class FilterModule(OurModule):
         args.add_argument('--dhost', action='append', dest='dhost',
                 help='match a destination host')
 
-    def filer_data(self, data, args):
+    def filter_data(self, data, args):
         """Return entries with specified destination host (single log)"""
         if not args.dhost:
             return data

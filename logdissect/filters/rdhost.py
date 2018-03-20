@@ -31,7 +31,7 @@ class FilterModule(OurModule):
         args.add_argument('--rdhost', action='append', dest='rdhost',
                 metavar='DHOST', help='filter out a destination host')
 
-    def filer_data(self, data, args):
+    def filter_data(self, data, args):
         """Remove entries from specified destination host (single log)"""
         if not args.rdhost:
             return data

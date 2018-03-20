@@ -32,7 +32,7 @@ class FilterModule(OurModule):
         args.add_argument('--process', action='append', dest='process',
                 help='match a source process')
 
-    def filer_data(self, data, args):
+    def filter_data(self, data, args):
         """Return entries from specified process (single log)"""
         if not args.process:
             return data

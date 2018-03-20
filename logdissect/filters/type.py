@@ -27,6 +27,6 @@ class FilterModule:
         self.desc = ""
         pass
 
-    def filer_data(self, data, args):
+    def filter_data(self, data, args):
         """Morph log data in some way (single log)"""
         pass

@@ -32,7 +32,7 @@ class FilterModule(OurModule):
         args.add_argument('--rgrep', action='append', dest='rpattern',
                 metavar='PATTERN', help='filter out a pattern')
 
-    def filer_data(self, data, args):
+    def filter_data(self, data, args):
         """Remove entries containing specified pattern (single log)"""
         if not args.rpattern:
             return data

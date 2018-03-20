@@ -32,7 +32,7 @@ class FilterModule(OurModule):
         args.add_argument('--rprotocol', action='append', dest='rprotocol',
                 metavar='PROTOCOL', help='filter out a protocol')
 
-    def filer_data(self, data, args):
+    def filter_data(self, data, args):
         """Return entries without specified protocol (single log)"""
         if not args.rprotocol:
             return data

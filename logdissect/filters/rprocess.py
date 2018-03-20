@@ -32,7 +32,7 @@ class FilterModule(OurModule):
         args.add_argument('--rprocess', action='append', dest='rprocess',
                 metavar='PROCESS', help='filter out a source process')
 
-    def filer_data(self, data, args):
+    def filter_data(self, data, args):
         """Remove entries from specified process (single log)"""
         if not args.rprocess:
             return data

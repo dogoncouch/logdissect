@@ -33,7 +33,7 @@ class FilterModule(OurModule):
         args.add_argument('--last', action='store', dest='last',
                 help='match a preceeding time period (e.g. 5m/3h/2d/etc)')
 
-    def filer_data(self, data, args):
+    def filter_data(self, data, args):
         """Morph log data by preceeding time period (single log)"""
         if not args.last:
             return data
