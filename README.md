@@ -1,5 +1,4 @@
 # logdissect
-For library documentation, see [README-API.md](README-API.md)
 
 ## Index
 
@@ -17,9 +16,9 @@ For library documentation, see [README-API.md](README-API.md)
   - [Contributing](#contributing)
 - [Copyright](#copyright)
 
+For library documentation, see [README-API.md](README-API.md)
 
 # Introduction
-
 
 ## Description
 logdissect is a command line utility and library module for analyzing syslog files. It can merge entries from multiple log files and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to a standard syslog file, or to a JSON array along with some metadata..
@@ -116,7 +115,7 @@ windowsrsyslog  : windows rsyslog agent log parsing module
 # Community
 
 ## Library
-logdissect 2.0 and above provides a stable API for parsing log files, and storing data. For more information on library usage, see  [README-API.md](README-API.md).
+logdissect 2.0 and above provides a stable API for parsing log lines and files. For more information on library usage, see  [README-API.md](README-API.md).
 
 ## Support
 Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub, or emailed to [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com).

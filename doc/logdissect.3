@@ -10,97 +10,53 @@ The logdissect module contains utilities for parsing, filtering, and exporting s
     logentryobject = logdissect.data.LogEntry()
 
 .SH DESCRIPTION
-The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, and store log information.
+The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files.
 
 .SH PARSERS
 \fBlogdissect.parsers.<parser>.ParseModule()\fR
 .br
 Replace <parser> with one of the available parsers:
-    \fBsyslogbsd\fR - standard syslog
+    \fBciscoios\fR - Cisco IOS logs
+    \fBsyslog\fR - standard syslog
     \fBsyslogiso\fR - syslog with ISO 8601 datestamp
-    \fBnohost\fR - syslog with no host attribute
+    \fBsyslognohost\fR - syslog with no host attribute
     \fBtcpdump\fR - tcpdump terminal output
-    \fBldjson\fR - logdissect JSON output
+    \fBsojson\fR - logdissect single-object JSON output
+    \fBlinejson\fR - logdissect object-per-line JSON output
+    \fBwindowsrsyslog\fR - Windows rsyslog agent forwarded logs
     
-Parsers have two methods (except the ldjson parser, which has no parse_line() method):
+Parsers have two methods (except the sojson parser, which has no parse_line() method):
 
 \fBparse_file(\fI<file>\fB)\fR
 .br
-Accepts a filename as input, and returns a LogData object (described below).
+Accepts a filename as input, and returns a dictionary with some metadata, and a list of entry dictionaries (`entries`).
 
-Parsers have a tzone attribute that uses standard ISO 8601 offset to UTC (e.g. '+0500', '-0200'); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the ldjson parser).
+Parsers have a \fBtzone\fR attribute that uses standard ISO 8601 offset to UTC (e.g. \fB+0500\fR, \fB-0200\fR); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the sojson parser).
 
 \fBparse_line(\fI<line>\fB)\fR
 .br
-Accepts a log line as input, and returns a dictionary of strings containing the following keys:
+Accepts a log line as input, and returns a dictionary of strings. There are two built-in keys, \fBraw_text\fR and \fBparser\fR, and parsers can add their own keys.
 
-\fByear\fR - a 4-digit string
-\fBmonth\fR - a 2-digit string
-\fBday\fR - a 2-digit string
-\fBtstamp\fR - a 6-digit string with optional decimal and extra places
-\fBtzone\fR - \fB+\fR or \fB-\fR followed by a 4-digit offset to utc (HHMM)
-\fBraw_stamp\fR - the raw stamp with attributes, as it was parsed
-\fBfacility\fR - the log facility
-\fBseverity\fR - the severity
-\fBsource_host\fR - the source host
-\fBsource_port\fR - the source port
-\fBsource_process\fR - the source process
-\fBsource_pid\fR - the source PID
-\fBdest_host\fR - the destination host
-\fBdest_port\fR - the destination port
-\fBprotocol\fR - the protocol
-\fBmessage\fR - the message
+Parsers have a \fBdatestamp_type\fR attribute that defines how timestamps will be converted. The options are as follows:
 
-Attributes that were not parsed will be returned as \fBNone\fR. The ldjson parser has no parse_line() method.
+    \fB`standard`\fR - Standard syslog date stamps
+    \fB`nodate`\fR - Time stamps with no date (i.e. tcpdump)
+    \fB`iso`\fR - ISO8601 timestamps
+    \fB`unix`\fR - Unix timestamps
+    \fB`now`\fR - Always set date stamp to time parsed
+    \fB`None`\fR - Skip conversion
 
-.SH DATA OBJECTS
-\fBlogdissect.data.LogEntry()\fR
-.br
-LogEntry is the data type for a single log entry. LogEntry objects have the following attributes:
-    \fBparser\fR
-    \fBdate_stamp_noyear\fR
-    \fBdate_stamp\fR
-    \fBdate_stamp_utc\fR
-    \fBtzone\fR
-    \fBraw_text\fR
-    \fBraw_stamp\fR
-    \fBfacility\fR
-    \fBseverity\fR
-    \fBmessage\fR
-    \fBsource_path\fR - the file it was parsed from
-    \fBsource_host\fR
-    \fBsource_port\fR
-    \fBsource_process\fR
-    \fBsource_pid\fR
-    \fBdest_host\fR
-    \fBdest_port\fR
-    \fBprotocol\fR
+Conversion happens with any parser that has a \fBdate_stamp\fR field in \fBfields\fR (the \fBnow\fR datestamp type doesn't require a \fBdate_stamp\fR field), and adds the following attributes to the entry dictionary:
 
-LogEntry objects have one method:
-    \fB_utc_date\fR - uses datestamp and tzone attributes to to extrapolate date_stamp_utc
+    \fByear\fR - a 4-digit string (or None)
+    \fBmonth\fR - a 2-digit string
+    \fBday\fR - a 2-digit string
+    \fBtstamp\fR - a 6-digit string with optional decimal and extra places
+    \fBtzone\fR - \fB+\fR or \fB-\fR followed by a 4-digit offset to utc (HHMM)
+    \fBnumeric_date_stamp\fR - a datestamp in the form of YYYYmmddHHMMSS[.ffffff]
+    \fBdate_stamp\fR - a standard date stamp (added for `now` datestamp type only)
 
-\fBlogdissect.data.LogData()\fR
-.br
-LogData is the data type for a single log. LogData objects have the following attributes:
-    \fBentries\fR - a list containing LogEntry objects
-    \fBsource_path\fR - the file it was parsed from
-    \fBsource_file\fR
-    \fBsource_file_mtime\fR
-    \fBparser\fR
-
-LogData objects have a few sorting methods:    
-    \fBsort_time()\fR - sorts entries by their date_stamp_utc attribute
-    \fBsort_path()\fR - sorts by path
-    \fBsort_facility\fR - sorts by facility, then severity.
-
-\fBlogdissect.data.LogDataSet()\fR
-.br
-LogDataSet is the data type for a logdissect project. LogDataSet objects have the following attributes:
-    \fBdata_set\fR - a list containing LogData objects
-    \fBfinalized_data\fR - a LogData object to hold all of the hold logs
-
-LogDataSet objects have one method:
-    \fBmerge_logs()\fR - merges the logs in data_set into finalized_data, and sorts them using LogData's sort_time() method
+The sojson parser has no parse_line() method.
 
 .SH SEE ALSO
     logdissect(1)

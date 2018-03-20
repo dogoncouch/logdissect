@@ -30,30 +30,40 @@ Replace \<parser\> with one of the available parsers:
 - `` syslogiso `` - syslog with ISO 8601 datestamp
 - `` syslognohost `` - syslog with no host attribute
 - `` tcpdump `` - tcpdump terminal output
-- `` ldjson `` - logdissect JSON output
+- `` sojson `` - logdissect single-object JSON output
+- `` linejson `` - logdissect object-per-line JSON output
 - `` windowsrsyslog `` - windows rsyslog agent forwarded logs
     
-Parsers have two methods (except the ldjson parser, which has no parse\_line() method):
+Parsers have two methods (except the sojson parser, which has no parse\_line() method):
 
 #### parse\_file(\<file>)
 Accepts a filename as input, and returns a dictionary with some metadata, and a list of entry dictionaries (`entries`).
 
-Parsers have a `tzone` attribute that uses standard ISO 8601 offset to UTC (e.g. `+0500`, `-0200`); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the ldjson parser).
+Parsers have a `tzone` attribute that uses standard ISO 8601 offset to UTC (e.g. `+0500`, `-0200`); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the sojson parser).
 
 #### parse\_line(\<line>)
 Accepts a log line as input, and returns a dictionary of strings. There are two built-in keys, `raw_text` and `parser`, and parsers can add their own keys.
 
-Parsers have a `datestamp_type` attribute that defines how timestamps will be converted. The default is `standard`, which will convert from standard syslog timestamps. There is also an `iso` option, which will convert from iso8601 timestamps, or `None` for no conversion.
+Parsers have a `datestamp_type` attribute that defines how timestamps will be converted. The options are as follows:
 
-Conversion happens with any parser that has a `date_stamp` field, and adds the following attributes to the entry dictionary:
+- `standard` - Standard syslog date stamps
+- `nodate` - Time stamps with no date (i.e. tcpdump)
+- `iso` - ISO8601 timestamps
+- `unix` - Unix timestamps
+- `now` - Always set date stamp to time parsed
+- `None` - Skip conversion
+
+Conversion happens with any parser that has a `date_stamp` field in `fields` (the `now` datestamp type doesn't require a `date_stamp` field), and adds the following attributes to the entry dictionary:
 
 - `year` - a 4-digit string (or None)
 - `month` - a 2-digit string
 - `day` - a 2-digit string
 - `tstamp` - a 6-digit string with optional decimal and extra places
 - `tzone` - `+` or `-` followed by a 4-digit offset to utc (HHMM)
+- `numeric_date_stamp` - a datestamp in the form of YYYYmmddHHMMSS[.ffffff]
+- `date_stamp` - a standard date stamp (added for `now` datestamp type only)
 
-The ldjson parser has no parse\_line() method.
+The sojson parser has no parse\_line() method.
 
 # Copyright
 MIT License

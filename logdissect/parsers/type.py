@@ -152,9 +152,9 @@ class ParseModule:
                 elif self.datestamp_type == 'unix':
                     entry = logdissect.parsers.utils.convert_unix_datestamp(
                             entry)
-                elif self.datestamp_type == 'now':
-                    entry = logdissect.parsers.utils.convert_now_datestamp(
-                            entry)
+            if self.datestamp_type == 'now':
+                entry = logdissect.parsers.utils.convert_now_datestamp(
+                        entry)
 
             return entry
 
