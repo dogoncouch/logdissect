@@ -106,8 +106,8 @@ class ParseModule:
                 entry = logdissect.parsers.utils.get_utc_date(entry)
                 entry['source_path'] = data['source_path']
 
-                # Append and reset current_entry
-                data['entries'].append(current_entry)
+                # Append current entry
+                data['entries'].append(entry)
 
             else:
                 continue
