@@ -136,8 +136,8 @@ class LogDissectCore:
                 action='store_true', dest='list_parsers',
                 help=_('return a list of available parsers'))
         self.arg_parser.add_argument('-p',
-                action='store', dest='parser', default='syslogbsd',
-                help=_('select a parser (default: syslogbsd)'))
+                action='store', dest='parser', default='syslog',
+                help=_('select a parser (default: syslog)'))
         self.arg_parser.add_argument('-z', '--unzip',
                 action='store_true', dest='unzip',
                 help=_('include files compressed with gzip'))
