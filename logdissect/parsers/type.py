@@ -90,7 +90,7 @@ class ParseModule:
                 # Check for Dec-Jan jump and set the year:
                 if int(entry['month']) > int(currentmonth):
                     entryyear = entryyear - 1
-                    currentmonth = entry['month']
+                currentmonth = entry['month']
 
                 
                 entry['raw_text'] = ourline

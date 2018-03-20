@@ -55,14 +55,18 @@ class FilterModule(OurModule):
             if lastunit == 'd':
                 starttime = datetime.utcnow() - \
                         timedelta(days=int(lastnum))
-            ourstart = starttime.strftime('%Y%m%d%H%M%S')
+            ourstart = int(starttime.strftime('%Y%m%d%H%M%S'))
             
             # Pull out the specified time period:
             newdata = {}
             newdata['entries'] = []
 
             for entry in data['entries']:
-                if int(entry['numeric_date_stamp_utc']) >= int(ourstart): 
+                if '.' in entry['numeric_date_stamp_utc']:
+                    dstamp = int(entry['numeric_date_stamp_utc'].split('.')[0])
+                else:
+                    dstamp = int(entry['numeric_date_stamp_utc'])
+                if dstamp >= ourstart: 
                     newdata['entries'].append(entry)
 
             return newdata
