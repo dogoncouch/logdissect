@@ -58,7 +58,7 @@ class FilterModule(OurModule):
             ourstart = starttime.strftime('%Y%m%d%H%M%S')
             
             # Pull out the specified time period:
-            newdata = data
+            newdata = {}
             newdata['entries'] = []
 
             for entry in data['entries']:

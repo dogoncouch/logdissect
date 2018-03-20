@@ -36,7 +36,7 @@ class FilterModule(OurModule):
         if not args.rdhost:
             return data
         else:
-            newdata = data
+            newdata = {}
             newdata['entries'] = []
 
             for entry in data['entries']:

@@ -37,7 +37,7 @@ class FilterModule(OurModule):
         if not args.rprocess:
             return data
         else:
-            newdata = data
+            newdata = {}
             newdata['entries'] = []
 
             for entry in data['entries']:

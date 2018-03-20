@@ -37,7 +37,7 @@ class FilterModule(OurModule):
         if not args.rpattern:
             return data
         else:
-            newdata = data
+            newdata = {}
             newdata['entries'] = []
 
             repatterns = {}

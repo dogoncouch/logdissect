@@ -40,7 +40,7 @@ class FilterModule(OurModule):
         else:
             ourlimits = args.range.split('-')
 
-            newdata = data
+            newdata = {}
             newdata['entries'] = []
 
             firstdate = int(ourlimits[0].ljust(14, '0'))
