@@ -105,7 +105,7 @@ def get_utc_date(entry):
         tdelta = timedelta(hours = int(entry['tzone'][1:3]),
                 minutes = int(entry['tzone'][3:5]))
         
-        if self.tzone[0] == '-':
+        if entry['tzone'][0] == '-':
             ut = t - tdelta
         else:
             ut = t + tdelta
