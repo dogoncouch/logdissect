@@ -97,10 +97,10 @@ def get_utc_date(entry):
 
     else:
         if '.' in entry['numeric_date_stamp']:
-            t = datetime.datetime.strptime(entry['numeric_date_stamp'],
+            t = datetime.strptime(entry['numeric_date_stamp'],
                     '%Y%m%d%H%M%S.%f')
         else:
-            t = datetime.datetime.strptime(entry['numeric_date_stamp'],
+            t = datetime.strptime(entry['numeric_date_stamp'],
                     '%Y%m%d%H%M%S')
         tdelta = datetime.timedelta(hours = int(entry['tzone'][1:3]),
                 minutes = int(entry['tzone'][3:5]))
