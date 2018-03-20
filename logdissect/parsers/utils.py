@@ -56,17 +56,22 @@ def convert_nodate_datestamp(entry, datedata):
     """Set date and time attributes based on timestamp with no date"""
     entry['tstamp'] = entry['date_stamp'].replace(':', '')
     # Remember, we're parsing in reverse.
-    if float(entry['tstamp']) > datedata['entry_time']:
+    if '.' in entry['tstamp']:
+        tstamp = entry['tstamp'].split('.')[0]
+    else:
+        tstamp = entry['tstamp']
+    if int(tstamp) > datedata['entry_time']:
         datedata['timestamp'] = datedata['timestamp'] - timedelta(days=1)
     if '.' in entry['tstamp']:
-        datedata['entry_time'] = int(entry['tstamp']).split('.')[0]
+        datedata['entry_time'] = int(entry['tstamp'].split('.')[0])
     else:
         datedata['entry_time'] = int(entry['tstamp'])
     entry['year'] = str(datedata['timestamp'].year)
     entry['month'] = str(datedata['timestamp'].month)
-    entry['day'] = str(datedata['timestamp'].day)
+    entry['day'] = str(datedata['timestamp'].day).rjust(2, '0')
     entry['numeric_date_stamp'] = entry['year'] + entry['month'] + \
             entry['day'] + entry['tstamp']
+    entry['tzone'] = None
 
     return entry, datedata
 
@@ -134,14 +139,14 @@ def get_utc_date(entry):
                     '%Y%m%d%H%M%S')
         tdelta = timedelta(hours = int(entry['tzone'][1:3]),
                 minutes = int(entry['tzone'][3:5]))
-        
+
         if entry['tzone'][0] == '-':
             ut = t - tdelta
         else:
             ut = t + tdelta
 
         entry['numeric_date_stamp_utc'] = ut.strftime('%Y%m%d%H%M%S.%f')
-        
+
         return entry
 
 

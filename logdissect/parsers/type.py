@@ -64,6 +64,7 @@ class ParseModule:
         entryyear = timestamp.year
         currentmonth = '99'
         if self.datestamp_type == 'nodate':
+            self.datedata = {}
             self.datedata['timestamp'] = timestamp
             self.datedata['entry_time'] = int(timestamp.strftime('%H%M%S'))
 
@@ -146,9 +147,9 @@ class ParseModule:
                     entry = logdissect.parsers.utils.convert_iso_datestamp(
                             entry)
                 elif self.datestamp_type == 'nodate':
-                    entry, datedata = \
+                    entry, self.datedata = \
                             logdissect.parsers.utils.convert_nodate_datestamp(
-                            entry, datedata)
+                            entry, self.datedata)
                 elif self.datestamp_type == 'unix':
                     entry = logdissect.parsers.utils.convert_unix_datestamp(
                             entry)
