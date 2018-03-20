@@ -103,7 +103,7 @@ class ParseModule:
                     entry['tzone'] = self.tzone
                 elif not entry['tzone']:
                     entry['tzone'] = self.backuptzone
-                entry = logdissect.parser.utils.get_utc_date(entry)
+                entry = logdissect.parsers.utils.get_utc_date(entry)
                 entry['source_path'] = data['source_path']
 
                 # Append and reset current_entry
