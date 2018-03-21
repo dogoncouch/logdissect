@@ -192,6 +192,7 @@ def merge_logs(dataset, sort=True):
     ourlog['entries'] = []
     for d in dataset:
         ourlog['entries'] = ourlog['entries'] + d['entries']
-    ourlog['entries'].sort(key= lambda x: x['numeric_date_stamp_utc'])
+    if sort:
+        ourlog['entries'].sort(key= lambda x: x['numeric_date_stamp_utc'])
 
     return ourlog
