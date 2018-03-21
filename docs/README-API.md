@@ -5,8 +5,8 @@ The logdissect module contains utilities for parsing, merging, filtering, and ex
 
 ## Index
 - [Introduction](#introduction)
-  - [Description](#description)
   - [Synopsis](#synopsis)
+  - [Description](#description)
 - [Objects and Methods](#objects-and-methods)
   - [Parser Modules](#parsers-modules)
   - [Filter Modules](#filter-modules)
@@ -18,9 +18,6 @@ The logdissect module contains utilities for parsing, merging, filtering, and ex
 - [Copyright](#copyright)
 
 # Introduction
-## Description
-The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, merge and filter logs, and output to a few formats.
-
 ## Synopsis
 ```
 import logdissect
@@ -50,6 +47,9 @@ entry = logdissect.utils.get_utc_date(entry)
 # Merging
 log_dict = logdissect.utils.merge_logs(dataset, sort={True|False})
 ```
+
+## Description
+The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, merge and filter logs, and output to a few formats.
 
 # Objects and Methods
 
@@ -154,7 +154,7 @@ entry = logdissect.utils.convert_unix_datestamp(entry)
 entry = logdissect.utils.convert_now_datestamp(entry)
 ```
 
-Date stamp converters assign the following fields, based on an entry dictionary's `date_stamp` value:
+The `nodate` converter uses a datetime object to assign date values. Date stamp converters assign the following fields, based on an entry dictionary's `date_stamp` value:
 
 - `year` - a 4 digit string (set to `None` for standard converter)
 - `month` - a 2 digit string
