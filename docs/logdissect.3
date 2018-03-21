@@ -83,6 +83,7 @@ The sojson parser has no parse_line() method.
 
 .SH FILTER MODULES
 \fBmyfilter = logdissect.filters.<filter>.FilterModule()\fR
+.br
 Replace <filter> with one of the available filters:
 
     \fBsource\fR - match a log source
@@ -115,6 +116,7 @@ Time-based filters filter on the \fBnumeric_date_stamp\fR value. The \fBrange\fR
 
 .SH OUTPUT MODULES
 \fBmyoutput = logdissect.output.<output>.OutputModule()\fR
+.br
 Replace <output> with one of the available filters:
 
     \fBlog\fR - outputs to standard log file format
@@ -181,7 +183,7 @@ If \fBsort\fR is set to \fBTrue\fR, entries will be sorted by their \fBnumeric_d
 .SH FILES
     /usr/share/doc/logdissect/README.md
     /usr/share/doc/logdissect/README-API.md
-    /usr/share/doc/logdissect/README-DEV.md
+    /usr/share/doc/logdissect/CONTRIBUTING.md
     /usr/share/doc/logdissect/CHANGELOG.md
     /usr/share/doc/logdissect/LICENSE
 
