@@ -122,7 +122,7 @@ Filters have one method, `filter_data`. Usage for all filters except `last` and 
 `data` should be a log dictionary, with an `entries` value that contains a list of event dictionaries. `values` is a list containing strings to match or filter out.
 
 Syntax for the `last` and `range` filters differs slighty. Instead of `values`, they are passed `value`, which is a single string. The format of `value`:
-- `range` filter - YYYYmmddHHMMSS-YYYYmmddHHMMSS (time values can be shortened; filtere will fill in `0`s)
+- `range` filter - `YYYYmmddHHMMSS-YYYYmmddHHMMSS` (time values can be shortened; filtere will fill in `0`s)
 - `last` filter - a number, followed by either `m` for minutes, `h` for hours, or `d` for days (e.g. `20m`)
 
 Time-based filters filter on the `numeric_date_stamp` value. The `range` filter also has a `utc` keyword argument that defaults to false. If set to `True`, it will filter based on `numeric_date_stamp_utc`.
