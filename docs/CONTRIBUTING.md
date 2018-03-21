@@ -21,7 +21,7 @@ If you have a bug fix, or an idea for a module, we would love to hear about it! 
 
 All new modules should be based on the `dev` branch. New modules usually don't require any editing of existing files (except `__init__.py` files), so conflicts shouldn't be much of an issue. Get in touch beforehand if you need to change other existing files for your module, or if you want to add to `logdissect.utils`.
 
-Coding style should be as simple and readable as possible. Variable names should tell you exactly what a variable does. Avoid one-liners; equivalent blocks of code are usually easier to read.
+Code should run with both Python 2 and 3. Coding style should be as simple and readable as possible. Variable names should tell you exactly what a variable does. Use four spaces for indentation (no tabs), and avoid one-liners; equivalent blocks of code are usually easier to read.
 
 ### Parser Modules
 Creating a parser module is as simple as coming up with a regular expression, and some fields for it to parse. Parse modules are not limited to built-in fields; any field names can be defined. There is an example blank parser in `logdissect/parsers/blank.py`. Set the `datestamp_type` attribute for automatic date stamp conversion, which is required for merging and sorting logs. The options for `datestamp_type` are as follows:
