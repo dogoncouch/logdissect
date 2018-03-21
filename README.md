@@ -21,7 +21,7 @@ For library documentation, see the [API documentation](docs/README-API.md)
 # Introduction
 
 ## Description
-logdissect is a command line utility and library module for analyzing syslog files and other data. It can merge entries from multiple files and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to a standard log file, or to a JSON array along with some metadata.
+Logdissect is a CLI utility and Python library for analyzing log files and other data. It can parse, merge, filter, and export data (to log files, or JSON).
 
 ## Installing
 To install the latest release, see the latest instructions on the [releases page](https://github.com/dogoncouch/logdissect/releases). To install the development source, see the instructions in [CONTRIBUTING.md](docs/CONTRIBUTING.md#installing-development-source).
