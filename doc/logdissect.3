@@ -23,6 +23,7 @@ Replace <parser> with one of the available parsers:
     \fBtcpdump\fR - tcpdump terminal output
     \fBsojson\fR - logdissect single-object JSON output
     \fBlinejson\fR - logdissect object-per-line JSON output
+    \fBwebaccess\fR - web access logs
     \fBwindowsrsyslog\fR - Windows rsyslog agent forwarded logs
     
 Parsers have two methods (except the sojson parser, which has no parse_line() method):
@@ -39,12 +40,13 @@ Accepts a log line as input, and returns a dictionary of strings. There are two 
 
 Parsers have a \fBdatestamp_type\fR attribute that defines how timestamps will be converted. The options are as follows:
 
-    \fB`standard`\fR - Standard syslog date stamps
-    \fB`nodate`\fR - Time stamps with no date (i.e. tcpdump)
-    \fB`iso`\fR - ISO8601 timestamps
-    \fB`unix`\fR - Unix timestamps
-    \fB`now`\fR - Always set date stamp to time parsed
-    \fB`None`\fR - Skip conversion
+    \fBstandard\fR - standard syslog date stamps
+    \fBnodate\fR - time stamps with no date (i.e. tcpdump)
+    \fBiso\fR - ISO8601 timestamps
+    \fBwebaccess\fR - web access log date stamps
+    \fBunix\fR - Unix timestamps
+    \fBnow\fR - always set date stamp to time parsed
+    \fBNone\fR - skip conversion
 
 Conversion happens with any parser that has a \fBdate_stamp\fR field in \fBfields\fR (the \fBnow\fR datestamp type doesn't require a \fBdate_stamp\fR field), and adds the following attributes to the entry dictionary:
 
@@ -60,6 +62,15 @@ The sojson parser has no parse_line() method.
 
 .SH Util Functions
 .SH Date Stamp Conversion
+
+    import logdissect.util
+    entry = logdissect.utils.convert_standard_datestamp(entry)
+    entry = logdissect.utils.convert_nodate_datestamp(entry, datetimeobject)
+    entry = logdissect.utils.convert_iso_datestamp(entry)
+    entry = logdissect.utils.convert_webaccess_datestamp(entry)
+    entry = logdissect.utils.convert_unix_datestamp(entry)
+    entry = logdissect.utils.convert_now_datestamp(entry)
+
 Date stamp converters assign the following fields, based on an entry dictionary's \fBdate_stamp\fR value:
 
     \fByear\fR - a 4 digit string (set to \fBNone\fR for standard converter)
@@ -73,15 +84,9 @@ Date stamp converters assign the following fields, based on an entry dictionary'
     \fBstandard\fR - standard syslog datestamps
     \fBnodate\fR - timestamps with no date
     \fBiso\fR - ISO 8601 timestamps
+    \fBwebaccess\fR - web access log date stamps
     \fBunix\fR - Unix timestamps
     \fBnow\fR - use the current time
-
-    import logdissect.util
-    entry = logdissect.utils.convert_standard_datestamp(entry)
-    entry = logdissect.utils.convert_nodate_datestamp(entry, datetimeobject)
-    entry = logdissect.utils.convert_iso_datestamp(entry)
-    entry = logdissect.utils.convert_unix_datestamp(entry)
-    entry = logdissect.utils.convert_now_datestamp(entry)
 
 .SH Time Zone
 \fBlogdissect.utils.get_utc_date(entry)\fR

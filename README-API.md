@@ -46,12 +46,13 @@ Accepts a log line as input, and returns a dictionary of strings. There are two 
 
 Parsers have a `datestamp_type` attribute that defines how timestamps will be converted. The options are as follows:
 
-- `standard` - Standard syslog date stamps
-- `nodate` - Time stamps with no date (i.e. tcpdump)
-- `iso` - ISO8601 timestamps
+- `standard` - standard syslog date stamps
+- `nodate` - time stamps with no date (i.e. tcpdump)
+- `iso` - ISO 8601 timestamps
+- `webaccess` - web access log date stamps
 - `unix` - Unix timestamps
-- `now` - Always set date stamp to time parsed
-- `None` - Skip conversion
+- `now` - always set date stamp to time parsed
+- `None` - skip conversion
 
 Conversion happens with any parser that has a `date_stamp` field in `fields` (the `now` datestamp type doesn't require a `date_stamp` field), and adds the following attributes to the entry dictionary:
 
@@ -67,6 +68,15 @@ The sojson parser has no parse\_line() method.
 
 ## Util Functions
 ### Date Stamp Conversion
+```
+import logdissect.util
+entry = logdissect.utils.convert_standard_datestamp(entry)
+entry = logdissect.utils.convert_nodate_datestamp(entry, datetimeobject)
+entry = logdissect.utils.convert_iso_datestamp(entry)
+entry = logdissect.utils.convert_unix_datestamp(entry)
+entry = logdissect.utils.convert_now_datestamp(entry)
+```
+
 Date stamp converters assign the following fields, based on an entry dictionary's `date_stamp` value:
 
 - `year` - a 4 digit string (set to `None` for standard converter)
@@ -80,17 +90,9 @@ Date stamp converters assign the following fields, based on an entry dictionary'
 - `standard` - standard syslog datestamps
 - `nodate` - timestamps with no date
 - `iso` - ISO 8601 timestamps
+- `webaccess` - web access log date stamps
 - `unix` - Unix timestamps
 - `now` - use the current time
-
-```
-import logdissect.util
-entry = logdissect.utils.convert_standard_datestamp(entry)
-entry = logdissect.utils.convert_nodate_datestamp(entry, datetimeobject)
-entry = logdissect.utils.convert_iso_datestamp(entry)
-entry = logdissect.utils.convert_unix_datestamp(entry)
-entry = logdissect.utils.convert_now_datestamp(entry)
-```
 
 ### Time Zone
 ```

@@ -28,10 +28,10 @@ from datetime import datetime, timedelta
 def convert_standard_datestamp(entry):
     """Set date and time attributes based on a standard date stamp"""
     # Get the date stamp (without year)
-    months = {'Jan':'01', 'Feb':'02', 'Mar':'03', \
-            'Apr':'04', 'May':'05', 'Jun':'06', \
-            'Jul':'07', 'Aug':'08', 'Sep':'09', \
-            'Oct':'10', 'Nov':'11', 'Dec':'12'}
+    months = {'Jan': '01', 'Feb': '02', 'Mar': '03',
+            'Apr': '04', 'May': '05', 'Jun': '06',
+            'Jul': '07', 'Aug': '08', 'Sep': '09',
+            'Oct': '10', 'Nov': '11', 'Dec': '12'}
     datelist = entry['date_stamp'].split(' ')
     try:
         datelist.remove('')
@@ -91,6 +91,24 @@ def convert_iso_datestamp(entry):
     entry['day'] = datestamp[6:8]
     entry['tstamp'] = datestamp[8:]
     entry['tzone'] = tzone
+    entry['numeric_date_stamp'] = entry['year'] + entry['month'] + \
+            entry['day'] + entry['tstamp']
+
+    return entry
+
+
+def convert_webaccess_datestamp(entry):
+    """Set date and time attributes based on an iso date stamp"""
+    attrlist = entry['date_stamp'].split('/')
+    timelist = attrlist[-1].split(':')
+    entry['year'] = timelist[0]
+    months = {'Jan': '01', 'Feb': '02', 'Mar': '03',
+            'Apr': '04', 'May': '05', 'Jun': '06',
+            'Jul': '07', 'Aug': '08', 'Sep': '09',
+            'Oct': '10', 'Nov': '11', 'Dec': '12'}
+    entry['month'] = months[attrlist[1]]
+    entry['day'] = attrlist[0]
+    entry['tstamp'] = ''.join(timelist[1:])
     entry['numeric_date_stamp'] = entry['year'] + entry['month'] + \
             entry['day'] + entry['tstamp']
 
