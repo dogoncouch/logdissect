@@ -38,6 +38,11 @@ class FilterModule(OurModule):
             return data
         else:
             newdata = {}
+            newdata['parser'] = data['parser']
+            newdata['source_path'] = data['source_path']
+            newdata['source_file'] = data['source_file']
+            newdata['source_file_mtime'] = data['source_file_mtime']
+            newdata['source_file_year'] = data['source_file_year']
             newdata['entries'] = []
 
             for entry in data['entries']:

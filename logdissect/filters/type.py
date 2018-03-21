@@ -28,5 +28,5 @@ class FilterModule:
         pass
 
     def filter_data(self, data, args):
-        """Morph log data in some way (single log)"""
+        """Filter log data in some way (single log)"""
         pass
