@@ -141,7 +141,7 @@ Date stamp converters assign the following fields, based on an entry dictionary'
 .SH TIME ZONE
 \fBlogdissect.utils.get_utc_date(entry)\fR
 .br
-Sets the \fBnumeric_date_stamp_utc\fR value based on the \fBnumeric_date_stamp\fR value and the \fBtzone\fR value.
+Sets the \fBnumeric_date_stamp_utc\fR value based on the \fBnumeric_date_stamp\fR value and the \fBtzone\fR value, and returns the entry.
 
 \fBlogdissect.utils.get_local_tzone()\fR
 .br
@@ -150,7 +150,7 @@ Returns the local time zone.
 .SH MERGING
 \fBlogdissect.utils.merge_logs(dataset)\fR
 .br
-Merges multiple log dictionaries together. \fBdataset\fR is a dictionary with some metadata, and a \fBdata_set\fR value, which is a list of log dictionaries. Each log dictionary contains some metadata, and an \fBentries\fR value, which is a list of event dictionaries.
+Merges multiple log dictionaries together, and returns a single log dictionary. \fBdataset\fR is a dictionary with some metadata, and a \fBdata_set\fR value, which is a list of log dictionaries. Each log dictionary contains some metadata, and an \fBentries\fR value, which is a list of event dictionaries.
 
 .SH SEE ALSO
     logdissect(1)

@@ -148,21 +148,15 @@ Date stamp converters assign the following fields, based on an entry dictionary'
 - `now` - use the current time
 
 ## Time Zone
-```
-logdissect.utils.get_utc_date(entry)
-```
-Sets the `numeric_date_stamp_utc` value based on the `numeric_date_stamp` value and the `tzone` value.
+### logdissect.utils.get\_utc\_date(entry)
+Sets the `numeric_date_stamp_utc` value based on the `numeric_date_stamp` value and the `tzone` value, and returns the entry.
 
-```
-logdissect.utils.get_local_tzone()
-```
+### logdissect.utils.get\_local\_tzone()
 Returns the local time zone.
 
 ## Merging
-```
-logdissect.utils.merge_logs(dataset)
-```
-Merges multiple log dictionaries together. `dataset` is a dictionary with some metadata, and a `data_set` value, which is a list of log dictionaries. Each log dictionary contains some metadata, and an `entries` value, which is a list of event dictionaries.
+### logdissect.utils.merge\_logs(dataset)
+Merges multiple log dictionaries together, and returns a single log dictionary. `dataset` is a dictionary with some metadata, and a `data_set` value, which is a list of log dictionaries. Each log dictionary contains some metadata, and an `entries` value, which is a list of event dictionaries.
 
 # Copyright
 MIT License
