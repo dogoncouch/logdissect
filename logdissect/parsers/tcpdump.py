@@ -24,9 +24,9 @@ from logdissect.parsers.type import ParseModule as OurModule
 
 class ParseModule(OurModule):
     def __init__(self, options=[]):
-        """Initialize a log parsing module"""
-        self.name = ''
-        self.desc = ''
+        """Initialize the tcpdump terminal output parsing module"""
+        self.name = 'tcpdump'
+        self.desc = 'tcpdump terminal output parsing module'
         self.date_format = \
                 "^(\d{2}:\d{2}:\d{2}\.?\d*)\s+(\w+)\s+([\w\-\.]+)\s+>\s+([\w\-\.]+): (.*)"
         self.fields = ['date_stamp', 'protocol', 'source_host', 'dest_host',

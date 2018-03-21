@@ -91,6 +91,7 @@ syslog          : syslog (standard timestamp) parsing module
 syslogiso       : syslog (ISO timestamp) parsing module
 syslognohost    : syslog (standard timestamp, no host) parsing module
 tcpdump         : tcpdump terminal output parsing module
+webaccess       : web access log parsing module
 windowsrsyslog  : windows rsyslog agent log parsing module
 ```
 
