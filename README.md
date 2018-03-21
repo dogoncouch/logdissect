@@ -16,7 +16,7 @@
   - [Contributing](#contributing)
 - [Copyright](#copyright)
 
-For library documentation, see [README-API.md](README-API.md)
+For library documentation, see the [API documentation](docs/README-API.md)
 
 # Introduction
 
@@ -24,7 +24,7 @@ For library documentation, see [README-API.md](README-API.md)
 logdissect is a command line utility and library module for analyzing syslog files and other data. It can merge entries from multiple files and sort by timestamp, and filter the results by time range and other criteria. Results are output to the terminal by default, and can also be output to a standard log file, or to a JSON array along with some metadata.
 
 ## Installing
-To install the latest release, see the latest instructions on the [releases page](https://github.com/dogoncouch/logdissect/releases). To install the development source, see the instructions in [README-DEV.md](README-DEV.md).
+To install the latest release, see the latest instructions on the [releases page](https://github.com/dogoncouch/logdissect/releases). To install the development source, see the instructions in [CONTRIBUTING.md](docs/CONTRIBUTING.md#installing-development-source).
 
 # Usage
 
@@ -116,13 +116,13 @@ windowsrsyslog  : windows rsyslog agent log parsing module
 # Community
 
 ## API
-logdissect 2.0 and above provides a stable API for parsing log lines and files. For more information on library usage, see  [README-API.md](README-API.md).
+logdissect 2.0 and above provides a stable API for parsing log lines and files. For more information on library usage, see the [API documentation](docs/README-API.md).
 
 ## Support
 Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub, or emailed to [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com).
 
 ## Contributing
-Contributions are welcome in the form of code, bug fixes, or testing feedback. For more on how to contribute to logdissect, see [README-DEV.md](README-DEV.md).
+Contributions are welcome in the form of code, bug fixes, or testing feedback. For more on how to contribute to logdissect, see [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 
 # Copyright

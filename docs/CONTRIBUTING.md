@@ -1,11 +1,27 @@
 # Contributing to logdissect
 Contributions are welcome in the form of code or testing feedback.
 
+## Index
+
+- [Testing](#testing)
+- [Coding](#coding)
+  - [Parser Modules](#parser-modules)
+  - [Filter Modules](#filter-modules)
+  - [Output Modules](#output-modules)
+- [Installing Development Source](#installing-development-source)
+- [Usage](#usage)
+
 ## Testing
-User feedback helps logdissect get better. All issues and comments can be directed to the [issues page on GitHub](https://github.com/dogoncouch/logdissect/issues), or emailed to [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com). Please ensure you are using the latest release. 
+User feedback helps logdissect get better. All issues and comments can be directed to the [issues page on GitHub](https://github.com/dogoncouch/logdissect/issues), or emailed to [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com). Please ensure you are using the latest release.
+
+Issues based on bugs should be well documented, with any error message and an explanation of how the issue can be reproduced. Additional information such as Python version and operating system are also useful.
 
 ## Coding
-If you have a bug fix, or an idea for a module, we would love to hear about it! You can start an [issue on GitHub](https://github.com/dogoncouch/logdissect/issues), or email the author at [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com). All new modules should be based on the `dev` branch.
+If you have a bug fix, or an idea for a module, we would love to hear about it! You can start an [issue on GitHub](https://github.com/dogoncouch/logdissect/issues), or email the author at [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com).
+
+All new modules should be based on the `dev` branch. New modules usually don't require any editing of existing files (except `__init__.py` files), so conflicts shouldn't be much of an issue. Get in touch beforehand if you need to change other existing files for your module, or if you want to add to `logdissect.utils`.
+
+Coding style should be as simple and readable as possible. Variable names should tell you exactly what a variable does. Avoid one-liners; equivalent blocks of code are usually easier to read.
 
 ### Parser Modules
 Creating a parser module is as simple as coming up with a regular expression, and some fields for it to parse. Parse modules are not limited to built-in fields; any field names can be defined. There is an example blank parser in `logdissect/parsers/blank.py`. Set the `datestamp_type` attribute for automatic date stamp conversion, which is required for merging and sorting logs. The options for `datestamp_type` are as follows:
@@ -25,7 +41,7 @@ Creating a filter module is a bit more difficult. Check out the [filter API docu
 ### Output Modules
 Check out the [output API documentation](README-API.md#output-modules), and look at existing output modules to get an idea of how outputs work. Once you have created an output module, add it to the `all` variable and import it in `logdissect/output/__init__.py`.
 
-# Installing Development Source
+## Installing Development Source
 To install the latest development version of `` logdissect `` from source, follow these instructioons:
 
 Requirements: git, python-setuptools
@@ -34,7 +50,7 @@ Requirements: git, python-setuptools
     cd logdissect
     sudo make all
 
-# Usage
+## Usage
 For usage instructions, see [README.md](README.md).
 
 For API documentation, see [README-API.md](README-API.md)
