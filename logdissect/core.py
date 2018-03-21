@@ -71,7 +71,7 @@ class LogDissectCore:
             if self.args.verbosemode: print('Merging data')
             self.data_set['finalized_data'] = \
                     logdissect.utils.merge_logs(
-                            self.data_set['data_set'])
+                            self.data_set['data_set'], sort=True)
             if self.args.verbosemode: print('Running filters')
             self.run_filters()
             if self.args.verbosemode: print('Running output')
