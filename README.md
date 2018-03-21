@@ -115,7 +115,7 @@ windowsrsyslog  : windows rsyslog agent log parsing module
 
 # Community
 
-## Library
+## API
 logdissect 2.0 and above provides a stable API for parsing log lines and files. For more information on library usage, see  [README-API.md](README-API.md).
 
 ## Support
