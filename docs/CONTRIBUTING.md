@@ -1,5 +1,5 @@
 # Contributing to logdissect
-Contributions are welcome in the form of code or testing feedback.
+Contributions are welcome in the form of code or testing feedback. All contributors are expected to follow our [code of conduct](CODE_OF_CONDUCT.md).
 
 ## Index
 
@@ -51,6 +51,6 @@ Requirements: git, python-setuptools
     sudo make all
 
 ## Usage
-For usage instructions, see [README.md](README.md).
+For usage instructions, see [README.md](../README.md).
 
 For API documentation, see [README-API.md](README-API.md)

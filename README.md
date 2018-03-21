@@ -122,7 +122,7 @@ logdissect 2.0 and above provides a stable API for parsing log lines and files. 
 Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub, or emailed to [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com).
 
 ## Contributing
-Contributions are welcome in the form of code, bug fixes, or testing feedback. For more on how to contribute to logdissect, see [CONTRIBUTING.md](docs/CONTRIBUTING.md).
+Contributions are welcome in the form of code, bug fixes, or testing feedback. For more on how to contribute to logdissect, see the [code of conduct](docs/CODE_OF_CONDUCT.md) and [contributing guielines](docs/CONTRIBUTING.md).
 
 
 # Copyright
