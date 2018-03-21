@@ -28,11 +28,11 @@ class ParseModule(OurModule):
         self.name = 'webaccess'
         self.desc = 'web access log parsing module'
         self.date_format = \
-                '^(\S+)\s+-\s+-\s+\[(\S+)\s+([0-9+-]+)\] "(\S+)\s+(\S+)\s+(\S+)"\s+(\d+)\s+\d+\s+"(\S+)"\s+ "(.*)"'
+                '^(\S+)\s+-\s+-\s+\[(\S+)\s+([0-9+-]+)\]\s+"(\S+)\s+(\S+)\s+(\S+)"\s+(\d+)\s+\d+\s+"(\S+)"\s+"(.*)"'
         self.fields = ['source_host', 'date_stamp', 'tzone', 'command',
                 'path', 'protocol', 'result', 'referrer', 'user_agent_string']
         self.backup_date_format = \
-                '^(\S+)\s+-\s+-\s+\[(\S+)\] "(\S+)\s+(\S+)\s+(\S+)"\s+(\d+)\s+\d+\s+"(\S+)"\s+ "(.*)"'
+                '^(\S+)\s+-\s+-\s+\[(\S+)\]\s+"(\S+)\s+(\S+)\s+(\S+)"\s+(\d+)\s+\d+\s+"(\S+)"\s+"(.*)"'
         self.backup_fields = ['source_host', 'date_stamp', 'command',
                 'path', 'protocol', 'result', 'referrer', 'user_agent_string']
         self.tzone = None
