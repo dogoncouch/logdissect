@@ -45,4 +45,4 @@ clean:
 	rm -rf build dist logdissect.egg-info
 
 test:
-	./tests.sh
+	tests/tests.sh

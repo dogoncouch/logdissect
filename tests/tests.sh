@@ -34,5 +34,6 @@ diff tests/files/diffresults.log tests/files/diffexresults
 
 echo
 echo - There should be no errors.
-echo - Times should be below 0m0.400s on an i3.
+echo - Times should be below 0m0.400s on an i3 for Python 2.
+echo - Times should be below 0m0.800s on an i3 for Python 3.
 echo - Diff results should be empty.
