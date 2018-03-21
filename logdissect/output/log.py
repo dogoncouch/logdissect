@@ -23,23 +23,26 @@
 from logdissect.output.type import OutputModule as OurModule
 
 class OutputModule(OurModule):
-    def __init__(self, args=[]):
+    def __init__(self, args=None):
         """Initialize the log file output module"""
         self.name = 'log'
         self.desc = 'output to standard log file format'
         self.output_path = ''
 
-        args.add_argument('--outlog', action='store', dest='outlog',
-                help='set the output file for standard log output')
-        args.add_argument('--label', action='store', dest='label',
-                help='set label type for OUTLOG (fname|fpath)')
+        if args:
+            args.add_argument('--outlog', action='store', dest='outlog',
+                    help='set the output file for standard log output')
+            args.add_argument('--label', action='store', dest='label',
+                    help='set label type for OUTLOG (fname|fpath)')
 
-    def write_output(self, data, args=[]):
+    def write_output(self, data, args=None, filename=None, label=None):
         """Write log data to a log file"""
-        if not args.outlog:
-            return 0
+        if args:
+            if not args.outlog:
+                return 0
+        if not filename: filename=args.outlog
         lastpath = ''
-        with open(str(args.outlog), 'w') as output_file:
+        with open(str(filename), 'w') as output_file:
             for entry in data['entries']:
                 if args.label:
                     if entry['source_path'] == lastpath:

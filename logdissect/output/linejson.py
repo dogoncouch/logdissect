@@ -24,23 +24,25 @@ import json
 from logdissect.output.type import OutputModule as OurModule
 
 class OutputModule(OurModule):
-    def __init__(self, args=[]):
+    def __init__(self, args=None):
         """Initialize the line by line JSON output module"""
         self.name = 'linejson'
         self.desc = 'output JSON objects (one per line)'
 
-        args.add_argument('--linejson', action='store', dest='linejson',
-                help='set the output file for line by line JSON output')
+        if args:
+            args.add_argument('--linejson', action='store', dest='linejson',
+                    help='set the output file for line by line JSON output')
 
-    def write_output(self, data, args=[]):
+    def write_output(self, data, filename=None, args=None):
         """Write log data to a file with one JSON object per line"""
-        if not args.linejson:
-            return 0
-        else:
-            entrylist = []
-            for entry in data['entries']:
-                entrystring = json.dumps(entry, sort_keys=True)
-                entrylist.append(entrystring)
+        if args:
+            if not args.linejson:
+                return 0
+        if not filename: filename = args.linejson
+        entrylist = []
+        for entry in data['entries']:
+            entrystring = json.dumps(entry, sort_keys=True)
+            entrylist.append(entrystring)
         
-            with open(str(args.linejson), 'w') as output_file:
-                output_file.write('\n'.join(entrylist))
+        with open(str(filename), 'w') as output_file:
+            output_file.write('\n'.join(entrylist))

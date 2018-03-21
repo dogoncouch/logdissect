@@ -12,7 +12,7 @@ The logdissect module contains utilities for parsing, filtering, and exporting s
 .SH DESCRIPTION
 The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files.
 
-.SH PARSERS
+.SH PARSER MODULES
 \fBlogdissect.parsers.<parser>.ParseModule()\fR
 .br
 Replace <parser> with one of the available parsers:
@@ -60,7 +60,7 @@ Conversion happens with any parser that has a \fBdate_stamp\fR field in \fBfield
 
 The sojson parser has no parse_line() method.
 
-.SH Filters
+.SH FILTER MODULES
 \fBlogdissect.filters.<filter>.FilterModule()\fR
 Replace <filter> with one of the available filters:
 
@@ -81,7 +81,7 @@ Replace <filter> with one of the available filters:
 
 Filters have one method, \fBfilter_values\fR. Usage for all filters except \fBlast\fR and \fBrange\fR:
 
-\fBfilter\_data(\fIdata\fR, \fIvalues=[VALUE1, VALUE2]\fB)\fR
+\fBfilter\_data(\fIdata\fR, \fIvalues=['VALUE1', 'VALUE2']\fB)\fR
 .br
 \fBdata\fR should be a log dictionary, with an \fBentries\fR value that contains a list of event dictionaries. \fBvalues\fR is a list containing strings to match or filter out.
 .br
@@ -92,8 +92,26 @@ Syntax for the \fBlast\fR and \fBrange\fR filters differs slighty. Instead of \f
 
 Time-based filters filter on the \fBnumeric_date_stamp\fR value. The \fBrange\fR filter also has a \fButc\fR keyword argument that defaults to false. If set to \fBTrue\fR, it will filter based on \fBnumeric_date_stamp_utc\fR.
 
-.SH Util Functions
-.SH Date Stamp Conversion
+.SH OUTPUT MODULES
+\fBlogdissect.output.<output>.OutputModule()\fR
+Replace <output> with one of the available filters:
+
+    \fBlog\fR - outputs to standard log file format
+    \fBsojson\fR - outputs entry list to a single json object
+    \fBlinejson\fR - outputs one json entry dictionary object per line
+
+Output modules have one method, \fBwrite_output\fR. Usage:
+
+\fBwrite\_output(\fIdata\fR, \fIfilename='FILENAME'\fB)\fR
+.br
+\fBdata\fR should be a log dictionary, with an \fBentries\fR value that contains a list of event dictionaries.
+
+The \fBlog\fR output module also has a \fBlabel\fR keyword argument with a few possible settings. If set to \fB'fname'\fR, it will add source file names to the output. If set to '\fBfpath'\fR, it will add full source file paths to the output.
+
+The \fBsojson\fR output module has a \fBpretty\fR keyword argument. If set to true, the output will be formatted in a nice, human-readable style. The default is `False`.
+
+.SH UTIL FUNCTIONS
+.SH DATE STAMP CONVERSION
 
     import logdissect.util
     entry = logdissect.utils.convert_standard_datestamp(entry)
@@ -120,7 +138,7 @@ Date stamp converters assign the following fields, based on an entry dictionary'
     \fBunix\fR - Unix timestamps
     \fBnow\fR - use the current time
 
-.SH Time Zone
+.SH TIME ZONE
 \fBlogdissect.utils.get_utc_date(entry)\fR
 .br
 Sets the \fBnumeric_date_stamp_utc\fR value based on the \fBnumeric_date_stamp\fR value and the \fBtzone\fR value.
@@ -129,7 +147,7 @@ Sets the \fBnumeric_date_stamp_utc\fR value based on the \fBnumeric_date_stamp\f
 .br
 Returns the local time zone.
 
-.SH Merging
+.SH MERGING
 \fBlogdissect.utils.merge_logs(dataset)\fR
 .br
 Merges multiple log dictionaries together. \fBdataset\fR is a dictionary with some metadata, and a \fBdata_set\fR value, which is a list of log dictionaries. Each log dictionary contains some metadata, and an \fBentries\fR value, which is a list of event dictionaries.
