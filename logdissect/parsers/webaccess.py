@@ -31,7 +31,7 @@ class ParseModule(OurModule):
                 '^(\S+)\s+-\s+-\s+\[(\S+)\s+([0-9+-]+)\] "(\S+)\s+(\S+)\s+(\S+)"\s+(\d+)\s+\d+\s+"(\S+)"\s+ "(.*)"'
         self.fields = ['source_host', 'date_stamp', 'tzone', 'command',
                 'path', 'protocol', 'result', 'referrer', 'user_agent_string']
-        self.backup_date_format = None
+        self.backup_date_format = \
                 '^(\S+)\s+-\s+-\s+\[(\S+)\] "(\S+)\s+(\S+)\s+(\S+)"\s+(\d+)\s+\d+\s+"(\S+)"\s+ "(.*)"'
         self.backup_fields = ['source_host', 'date_stamp', 'command',
                 'path', 'protocol', 'result', 'referrer', 'user_agent_string']
