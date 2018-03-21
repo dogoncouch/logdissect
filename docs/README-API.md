@@ -5,6 +5,8 @@ The logdissect module contains utilities for parsing, merging, filtering, and ex
 
 ## Index
 - [Introduction](#introduction)
+  - [Description](#description)
+  - [Synopsis](#synopsis)
 - [Objects and Methods](#objects-and-methods)
   - [Parser Modules](#parsers-modules)
   - [Filter Modules](#filter-modules)
@@ -16,16 +18,38 @@ The logdissect module contains utilities for parsing, merging, filtering, and ex
 - [Copyright](#copyright)
 
 # Introduction
-## Synopsis
-    import logdissect
-    myparser = logdissect.parsers.syslog.ParseModule()
-    attribute_dict = myparser.parse_line(<RAW_LINE>)
-    file_dict = myparser.parse_file(<PATH/TO/FILE>)
-    myfilter = logdissect.filters.grep.FilterModule()
-    filterd_dict = myfilter.filter(file_dict, values=['error', 'fail'])
-
 ## Description
 The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, merge and filter logs, and output to a few formats.
+
+## Synopsis
+```
+import logdissect
+
+# Parsing
+myparser = logdissect.parsers.<parser>.ParseModule()
+attribute_dict = myparser.parse_line('<RAW_LINE>')
+file_dict = myparser.parse_file('<PATH/TO/FILE>')
+
+# Filtering
+myfilter = logdissect.filters.<filter>.FilterModule()
+filterd_dict = myfilter.filter(file_dict, values=['<VALUE1>', '<VALUE2>'])
+
+# Output
+myoutput = logdissect.output.<output>.OutputModule()
+myoutput.write_output(data, filename='FILENAME')
+
+# Time Zones
+entry = logdissect.utils.convert_standard_datestamp(entry)
+entry = logdissect.utils.convert_nodate_datestamp(entry, datetimeobject)
+entry = logdissect.utils.convert_iso_datestamp(entry)
+entry = logdissect.utils.convert_unix_datestamp(entry)
+entry = logdissect.utils.convert_now_datestamp(entry)
+
+entry = logdissect.utils.get_utc_date(entry)
+
+# Merging
+log_dict = logdissect.utils.merge_logs(dataset, sort={True|False})
+```
 
 # Objects and Methods
 
@@ -122,7 +146,7 @@ The `sojson` output module has a `pretty` keyword argument. If set to true, the 
 # Util Functions
 ## Date Stamp Conversion
 ```
-import logdissect.util
+import logdissect.utils
 entry = logdissect.utils.convert_standard_datestamp(entry)
 entry = logdissect.utils.convert_nodate_datestamp(entry, datetimeobject)
 entry = logdissect.utils.convert_iso_datestamp(entry)
