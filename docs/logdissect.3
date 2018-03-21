@@ -106,7 +106,7 @@ Filters have one method, \fBfilter_values\fR. Usage for all filters except \fBla
 \fBnew_data = myfilter.filter_data(\fIdata\fR, \fIvalues=['VALUE1', 'VALUE2']\fB)\fR
 .br
 \fBdata\fR should be a log dictionary, with an \fBentries\fR value that contains a list of event dictionaries. \fBvalues\fR is a list containing strings to match or filter out.
-.br
+
 Syntax for the \fBlast\fR and \fBrange\fR filters differs slighty. Instead of \fBvalues\fR, they are passed \fBvalue\fR, which is a single string. The format of \fBvalue\fR:
 
     \fBrange\fR filter - YYYYmmddHHMMSS-YYYYmmddHHMMSS (time values can be shortened; filter will fill in \fB0\fRs)
