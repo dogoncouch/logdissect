@@ -23,46 +23,53 @@
 from logdissect.filters.type import FilterModule as OurModule
 
 class FilterModule(OurModule):
-    def __init__(self, args):
+    def __init__(self, args=None):
         """Initialize the range filter module"""
         self.name = "range"
         self.desc = "match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)"
 
-        args.add_argument('--range', action='store', dest='range',
-                help='match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)')
-        args.add_argument('--utc', action='store_true', dest='utc',
-                help='use UTC for range matching')
+        if args:
+            args.add_argument('--range', action='store', dest='range',
+                    help='match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)')
+            args.add_argument('--utc', action='store_true', dest='utc',
+                    help='use UTC for range matching')
 
-    def filter_data(self, data, args):
+    def filter_data(self, data, value=None, utc=False, args=None):
         """Morph log data by timestamp range (single log)"""
-        if not args.range:
-            return data
-        else:
-            ourlimits = args.range.split('-')
+        if args:
+            if not args.range:
+                return data
+        if not value:
+            value = args.range
+            utc = args.utc
+        ourlimits = value.split('-')
 
-            newdata = {}
-            if 'parser' in data.keys():
-                newdata['parser'] = data['parser']
-                newdata['source_path'] = data['source_path']
-                newdata['source_file'] = data['source_file']
-                newdata['source_file_mtime'] = data['source_file_mtime']
-                newdata['source_file_year'] = data['source_file_year']
-            newdata['entries'] = []
+        newdata = {}
+        if 'parser' in data.keys():
+            newdata['parser'] = data['parser']
+            newdata['source_path'] = data['source_path']
+            newdata['source_file'] = data['source_file']
+            newdata['source_file_mtime'] = data['source_file_mtime']
+            newdata['source_file_year'] = data['source_file_year']
+        newdata['entries'] = []
 
-            firstdate = int(ourlimits[0].ljust(14, '0'))
-            lastdate = int(ourlimits[1].ljust(14, '0'))
-            for entry in data['entries']:
-                if args.utc:
-                    if '.' in entry['numeric_date_stamp_utc']:
-                        dstamp = int(
-                                entry['numeric_date_stamp_utc'].split(
-                                    '.')[0])
-                    else:
-                        dstamp = int(entry['numeric_date_stamp_utc'])
-                    if dstamp >= firstdate:
-                        if dstamp <= lastdate:
-                            newdata['entries'].append(entry)
-                else:
+        firstdate = int(ourlimits[0].ljust(14, '0'))
+        lastdate = int(ourlimits[1].ljust(14, '0'))
+        for entry in data['entries']:
+            if utc:
+                if 'numeric_date_stamp_utc' in entry:
+                    if 'numeric_date_stamp_utc' in entry:
+                        if '.' in entry['numeric_date_stamp_utc']:
+                            dstamp = int(
+                                    entry['numeric_date_stamp_utc'].split(
+                                        '.')[0])
+                        else:
+                            dstamp = int(entry['numeric_date_stamp_utc'])
+                        if dstamp >= firstdate:
+                            if dstamp <= lastdate:
+                                newdata['entries'].append(entry)
+            else:
+                if 'numeric_date_stamp' in entry:
                     if '.' in entry['numeric_date_stamp']:
                         dstamp = int(
                                 entry['numeric_date_stamp'].split('.')[0])
@@ -72,4 +79,4 @@ class FilterModule(OurModule):
                         if dstamp <= lastdate:
                             newdata['entries'].append(entry)
 
-            return newdata
+        return newdata

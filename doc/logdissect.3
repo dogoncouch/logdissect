@@ -60,6 +60,38 @@ Conversion happens with any parser that has a \fBdate_stamp\fR field in \fBfield
 
 The sojson parser has no parse_line() method.
 
+.SH Filters
+\fBlogdissect.filters.<filter>.FilterModule()\fR
+Replace <filter> with one of the available filters:
+
+    \fBsource\fR - match a log source
+    \fBrsource\fR - filter out a log source
+    \fBrange\fR - match a time range
+    \fBlast\fR - match a preceeding time range
+    \fBgrep\fR - match entries containing a regular expression
+    \fBrgrep\fR - filter out entries containing a regular expression
+    \fBshost` - match a source host
+    \fBrshost` - filter out a source host
+    \fBdhost` - match a destination host
+    \fBrdhost` - filter out a destination host
+    \fBprocess` - match a source process
+    \fBrprocess` - filter out a source process
+    \fBprotocol` - match a protocol
+    \fBrprotocol` - filter out a protocol
+
+Filters have one method, \fBfilter_values\fR. Usage for all filters except \fBlast\fR and \fBrange\fR:
+
+\fBfilter\_data(\fIdata\fR, \fIvalues=[VALUE1, VALUE2]\fB)\fR
+.br
+\fBdata\fR should be a log dictionary, with an \fBentries\fR value that contains a list of event dictionaries. \fBvalues\fR is a list containing strings to match or filter out.
+.br
+Syntax for the \fBlast\fR and \fBrange\fR filters differs slighty. Instead of \fBvalues\fR, they are passed \fBvalue\fR, which is a single string. The format of \fBvalue\fR:
+
+    \fBrange\fR filter - YYYYmmddHHMMSS-YYYYmmddHHMMSS (time values can be shortened; filter will fill in \fB0\fRs)
+    \fBlast\fR filter - a number, followed by either \fBm\fR for minutes, \fBh\fR for hours, or \fBd\fR for days (e.g. \fB20m\fR)
+
+Time-based filters filter on the \fBnumeric_date_stamp\fR value. The \fBrange\fR filter also has a \fButc\fR keyword argument that defaults to false. If set to \fBTrue\fR, it will filter based on \fBnumeric_date_stamp_utc\fR.
+
 .SH Util Functions
 .SH Date Stamp Conversion
 

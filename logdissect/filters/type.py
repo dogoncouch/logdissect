@@ -21,12 +21,12 @@
 # SOFTWARE.
 
 class FilterModule:
-    def __init__(self, args):
+    def __init__(self, args=None):
         """Initialize a filter module"""
         self.name = ""
         self.desc = ""
         pass
 
-    def filter_data(self, data, args):
+    def filter_data(self, data, values=None, args=None):
         """Filter log data in some way (single log)"""
         pass

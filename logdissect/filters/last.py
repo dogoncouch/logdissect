@@ -25,49 +25,52 @@ from time import strftime
 from datetime import datetime, timedelta
 
 class FilterModule(OurModule):
-    def __init__(self, args):
+    def __init__(self, args=None):
         """Initialize the 'last' filter module"""
         self.name = "last"
         self.desc = "match a preceeding time period (e.g. 5m/3h/2d/etc)"
 
-        args.add_argument('--last', action='store', dest='last',
-                help='match a preceeding time period (e.g. 5m/3h/2d/etc)')
+        if args:
+            args.add_argument('--last', action='store', dest='last',
+                    help='match a preceeding time period (e.g. 5m/3h/2d/etc)')
 
-    def filter_data(self, data, args):
+    def filter_data(self, data, value=None, args=None):
         """Morph log data by preceeding time period (single log)"""
-        if not args.last:
-            return data
-        else:
-            # Set the units and number from the option:
-            lastunit = args.last[-1]
-            lastnum = args.last[:-1]
-            
-            # Set the start time:
-            if lastunit == 's':
-                starttime = datetime.utcnow() - \
-                        timedelta(seconds=int(lastnum))
-            if lastunit == 'm':
-                starttime = datetime.utcnow() - \
-                        timedelta(minutes=int(lastnum))
-            if lastunit == 'h':
-                starttime = datetime.utcnow() - \
-                        timedelta(hours=int(lastnum))
-            if lastunit == 'd':
-                starttime = datetime.utcnow() - \
-                        timedelta(days=int(lastnum))
-            ourstart = int(starttime.strftime('%Y%m%d%H%M%S'))
-            
-            # Pull out the specified time period:
-            newdata = {}
-            if 'parser' in data.keys():
-                newdata['parser'] = data['parser']
-                newdata['source_path'] = data['source_path']
-                newdata['source_file'] = data['source_file']
-                newdata['source_file_mtime'] = data['source_file_mtime']
-                newdata['source_file_year'] = data['source_file_year']
-            newdata['entries'] = []
+        if args:
+            if not args.last:
+                return data
+        if not value: value = args.last
+        # Set the units and number from the option:
+        lastunit = value[-1]
+        lastnum = value[:-1]
+        
+        # Set the start time:
+        if lastunit == 's':
+            starttime = datetime.utcnow() - \
+                    timedelta(seconds=int(lastnum))
+        if lastunit == 'm':
+            starttime = datetime.utcnow() - \
+                    timedelta(minutes=int(lastnum))
+        if lastunit == 'h':
+            starttime = datetime.utcnow() - \
+                    timedelta(hours=int(lastnum))
+        if lastunit == 'd':
+            starttime = datetime.utcnow() - \
+                    timedelta(days=int(lastnum))
+        ourstart = int(starttime.strftime('%Y%m%d%H%M%S'))
+        
+        # Pull out the specified time period:
+        newdata = {}
+        if 'parser' in data.keys():
+            newdata['parser'] = data['parser']
+            newdata['source_path'] = data['source_path']
+            newdata['source_file'] = data['source_file']
+            newdata['source_file_mtime'] = data['source_file_mtime']
+            newdata['source_file_year'] = data['source_file_year']
+        newdata['entries'] = []
 
-            for entry in data['entries']:
+        for entry in data['entries']:
+            if 'numeric_date_stamp_utc' in entry.keys():
                 if '.' in entry['numeric_date_stamp_utc']:
                     dstamp = int(entry['numeric_date_stamp_utc'].split('.')[0])
                 else:
@@ -75,4 +78,4 @@ class FilterModule(OurModule):
                 if dstamp >= ourstart: 
                     newdata['entries'].append(entry)
 
-            return newdata
+        return newdata

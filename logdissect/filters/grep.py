@@ -24,36 +24,38 @@ import re
 from logdissect.filters.type import FilterModule as OurModule
 
 class FilterModule(OurModule):
-    def __init__(self, args):
+    def __init__(self, args=None):
         """Initialize the grep filter module"""
         self.name = "grep"
         self.desc = "match a pattern"
 
-        args.add_argument('--grep', action='append', dest='pattern',
-                help='match a pattern')
+        if args:
+            args.add_argument('--grep', action='append', dest='pattern',
+                    help='match a pattern')
 
-    def filter_data(self, data, args):
+    def filter_data(self, data, values=None, args=None):
         """Return entries containing specified patterns (single log)"""
-        if not args.pattern:
-            return data
-        else:
-            newdata = {}
-            if 'parser' in data.keys():
-                newdata['parser'] = data['parser']
-                newdata['source_path'] = data['source_path']
-                newdata['source_file'] = data['source_file']
-                newdata['source_file_mtime'] = data['source_file_mtime']
-                newdata['source_file_year'] = data['source_file_year']
-            newdata['entries'] = []
+        if args:
+            if not args.pattern:
+                return data
+        if not values: values = args.pattern
+        newdata = {}
+        if 'parser' in data.keys():
+            newdata['parser'] = data['parser']
+            newdata['source_path'] = data['source_path']
+            newdata['source_file'] = data['source_file']
+            newdata['source_file_mtime'] = data['source_file_mtime']
+            newdata['source_file_year'] = data['source_file_year']
+        newdata['entries'] = []
 
-            repatterns = {}
-            for pat in args.pattern:
-                repatterns[pat] = re.compile(r".*({}).*".format(pat))
+        repatterns = {}
+        for pat in values:
+            repatterns[pat] = re.compile(r".*({}).*".format(pat))
 
-            for entry in data['entries']:
-                for repat in repatterns:
-                    if re.match(repatterns[repat], entry['raw_text']):
-                        newdata['entries'].append(entry)
-                        break
+        for entry in data['entries']:
+            for repat in repatterns:
+                if re.match(repatterns[repat], entry['raw_text']):
+                    newdata['entries'].append(entry)
+                    break
 
-            return newdata
+        return newdata

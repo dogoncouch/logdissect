@@ -24,30 +24,33 @@ import re
 from logdissect.filters.type import FilterModule as OurModule
 
 class FilterModule(OurModule):
-    def __init__(self, args):
+    def __init__(self, args=None):
         """Initialize the process filter module"""
         self.name = "process"
         self.desc = "match a source process"
 
-        args.add_argument('--process', action='append', dest='process',
-                help='match a source process')
+        if args:
+            args.add_argument('--process', action='append', dest='process',
+                    help='match a source process')
 
-    def filter_data(self, data, args):
+    def filter_data(self, data, values=None, args=None):
         """Return entries from specified process (single log)"""
-        if not args.process:
-            return data
-        else:
-            newdata = {}
-            if 'parser' in data.keys():
-                newdata['parser'] = data['parser']
-                newdata['source_path'] = data['source_path']
-                newdata['source_file'] = data['source_file']
-                newdata['source_file_mtime'] = data['source_file_mtime']
-                newdata['source_file_year'] = data['source_file_year']
-            newdata['entries'] = []
+        if args:
+            if not args.process:
+                return data
+        if not values: values = args.process
+        newdata = {}
+        if 'parser' in data.keys():
+            newdata['parser'] = data['parser']
+            newdata['source_path'] = data['source_path']
+            newdata['source_file'] = data['source_file']
+            newdata['source_file_mtime'] = data['source_file_mtime']
+            newdata['source_file_year'] = data['source_file_year']
+        newdata['entries'] = []
 
-            for entry in data['entries']:
-                if entry['source_process'] in args.process:
+        for entry in data['entries']:
+            if 'source_process' in entry.keys():
+                if entry['source_process'] in values:
                     newdata['entries'].append(entry)
 
-            return newdata
+        return newdata

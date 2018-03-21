@@ -7,6 +7,7 @@ The logdissect module contains utilities for parsing, storing, filtering, and ex
 - [Introduction](#introduction)
 - [Objects and Methods](#objects-and-methods)
   - [Parsers](#parsers)
+  - [Filters](#filters)
 - [Util Functions](#util-functions)
   - [Date Stamp Conversions](#date-stamp-conversions)
   - [Time Zones](#time-zones)
@@ -19,6 +20,8 @@ The logdissect module contains utilities for parsing, storing, filtering, and ex
     myparser = logdissect.parsers.syslog.ParseModule()
     attribute_dict = myparser.parse_line(<RAW_LINE>)
     file_dict = myparser.parse_file(<PATH/TO/FILE>)
+    myfilter = logdissect.filters.grep.FilterModule()
+    filterd_dict = myfilter.filter(file_dict, values=['error', 'fail'])
 
 ## Description
 The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files.
@@ -70,8 +73,37 @@ Conversion happens with any parser that has a `date_stamp` field in `fields` (th
 
 The sojson parser has no parse\_line() method.
 
-## Util Functions
-### Date Stamp Conversion
+# Filters
+## logdissect.filters.\<filter\>.FilterModule()
+Replace \<filter\> with one of the available filters:
+
+- `source` - match a log source
+- `rsource` - filter out a log source
+- `range` - match a time range
+- `last` - match a preceeding time range
+- `grep` - match entries containing a regular expression
+- `rgrep` - filter out entries containing a regular expression
+- `shost` - match a source host
+- `rshost` - filter out a source host
+- `dhost` - match a destination host
+- `rdhost` - filter out a destination host
+- `process` - match a source process
+- `rprocess` - filter out a source process
+- `protocol` - match a protocol
+- `rprotocol` - filter out a protocol
+
+Filters have one method, `filter_values`. Usage for all filters except `last` and `range`:
+### filter\_data(data, values=[VALUE1, VALUE2])
+`data` should be a log dictionary, with an `entries` value that contains a list of event dictionaries. `values` is a list containing strings to match or filter out.
+
+Syntax for the `last` and `range` filters differs slighty. Instead of `values`, they are passed `value`, which is a single string. The format of `value`:
+- `range` filter - YYYYmmddHHMMSS-YYYYmmddHHMMSS (time values can be shortened; filtere will fill in `0`s)
+- `last` filter - a number, followed by either `m` for minutes, `h` for hours, or `d` for days (e.g. `20m`)
+
+Time-based filters filter on the `numeric_date_stamp` value. The `range` filter also has a `utc` keyword argument that defaults to false. If set to `True`, it will filter based on `numeric_date_stamp_utc`.
+
+# Util Functions
+## Date Stamp Conversion
 ```
 import logdissect.util
 entry = logdissect.utils.convert_standard_datestamp(entry)
@@ -98,7 +130,7 @@ Date stamp converters assign the following fields, based on an entry dictionary'
 - `unix` - Unix timestamps
 - `now` - use the current time
 
-### Time Zone
+## Time Zone
 ```
 logdissect.utils.get_utc_date(entry)
 ```
@@ -109,7 +141,7 @@ logdissect.utils.get_local_tzone()
 ```
 Returns the local time zone.
 
-### Merging
+## Merging
 ```
 logdissect.utils.merge_logs(dataset)
 ```

@@ -24,39 +24,41 @@ import re
 from logdissect.filters.type import FilterModule as OurModule
 
 class FilterModule(OurModule):
-    def __init__(self, args):
+    def __init__(self, args=None):
         """Initialize the rgrep filter module"""
         self.name = "rgrep"
         self.desc = "filter out a pattern"
 
-        args.add_argument('--rgrep', action='append', dest='rpattern',
-                metavar='PATTERN', help='filter out a pattern')
+        if args:
+            args.add_argument('--rgrep', action='append', dest='rpattern',
+                    metavar='PATTERN', help='filter out a pattern')
 
-    def filter_data(self, data, args):
+    def filter_data(self, data, values=None, args=None):
         """Remove entries containing specified pattern (single log)"""
-        if not args.rpattern:
-            return data
-        else:
-            newdata = {}
-            if 'parser' in data.keys():
-                newdata['parser'] = data['parser']
-                newdata['source_path'] = data['source_path']
-                newdata['source_file'] = data['source_file']
-                newdata['source_file_mtime'] = data['source_file_mtime']
-                newdata['source_file_year'] = data['source_file_year']
-            newdata['entries'] = []
+        if args:
+            if not args.rpattern:
+                return data
+        if not values: values = args.rpattern
+        newdata = {}
+        if 'parser' in data.keys():
+            newdata['parser'] = data['parser']
+            newdata['source_path'] = data['source_path']
+            newdata['source_file'] = data['source_file']
+            newdata['source_file_mtime'] = data['source_file_mtime']
+            newdata['source_file_year'] = data['source_file_year']
+        newdata['entries'] = []
 
-            repatterns = {}
-            for rpat in args.rpattern:
-                repatterns[rpat] = re.compile(r".*({}).*".format(args.rpattern))
+        repatterns = {}
+        for rpat in values:
+            repatterns[rpat] = re.compile(r".*({}).*".format(args.rpattern))
 
-            for entry in data['entries']:
-                match = False
-                for r in args.rgrep:
-                    if re.match(repatterns[r], entry['raw_text']):
-                        match = True
+        for entry in data['entries']:
+            match = False
+            for r in args.rgrep:
+                if re.match(repatterns[r], entry['raw_text']):
+                    match = True
 
-                if not match:
-                    newdata['entries'].append(entry)
+            if not match:
+                newdata['entries'].append(entry)
 
-            return newdata
+        return newdata

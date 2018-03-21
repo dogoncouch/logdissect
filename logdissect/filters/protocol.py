@@ -24,30 +24,33 @@ import re
 from logdissect.filters.type import FilterModule as OurModule
 
 class FilterModule(OurModule):
-    def __init__(self, args):
+    def __init__(self, args=None):
         """Initialize the protocol filter module"""
         self.name = "protocol"
         self.desc = "match a protocol"
 
-        args.add_argument('--protocol', action='append', dest='protocol',
-                help='match a protocol')
+        if args:
+            args.add_argument('--protocol', action='append', dest='protocol',
+                    help='match a protocol')
 
-    def filter_data(self, data, args):
+    def filter_data(self, data, values=None, args=None):
         """Return entries with specified protocol (single log)"""
-        if not args.protocol:
-            return data
-        else:
-            newdata = {}
-            if 'parser' in data.keys():
-                newdata['parser'] = data['parser']
-                newdata['source_path'] = data['source_path']
-                newdata['source_file'] = data['source_file']
-                newdata['source_file_mtime'] = data['source_file_mtime']
-                newdata['source_file_year'] = data['source_file_year']
-            newdata['entries'] = []
+        if args:
+            if not args.protocol:
+                return data
+        if not values: values = args.protocol
+        newdata = {}
+        if 'parser' in data.keys():
+            newdata['parser'] = data['parser']
+            newdata['source_path'] = data['source_path']
+            newdata['source_file'] = data['source_file']
+            newdata['source_file_mtime'] = data['source_file_mtime']
+            newdata['source_file_year'] = data['source_file_year']
+        newdata['entries'] = []
 
-            for entry in data['entries']:
-                if entry['protocol'] in args.protocol:
+        for entry in data['entries']:
+            if 'protocol' in entry.keys():
+                if entry['protocol'] in values:
                     newdata['entries'].append(entry)
 
-            return newdata
+        return newdata
