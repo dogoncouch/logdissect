@@ -125,7 +125,7 @@ Syntax for the `last` and `range` filters differs slighty. Instead of `values`, 
 - `range` filter - `YYYYmmddHHMMSS-YYYYmmddHHMMSS` (time values can be shortened; filtere will fill in `0`s)
 - `last` filter - a number, followed by either `m` for minutes, `h` for hours, or `d` for days (e.g. `20m`)
 
-Time-based filters filter on the `numeric_date_stamp` value. The `range` filter also has a `utc` keyword argument that defaults to false. If set to `True`, it will filter based on `numeric_date_stamp_utc`.
+Time-based filters filter on the `numeric_date_stamp` value. The `range` filter also has a `utc` keyword argument that defaults to `False`. If set to `True`, it will filter based on `numeric_date_stamp_utc`.
 
 # Output Modules
 ## myoutput = logdissect.output.\<output\>.OutputModule()
