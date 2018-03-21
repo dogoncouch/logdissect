@@ -21,9 +21,8 @@
 # SOFTWARE.
 
 __all__ = ['syslog', 'syslogiso', 'syslognohost', 'linejson', 'tcpdump',
-        'ciscoios', 'windowsrsyslog', 'sojson']
+        'ciscoios', 'windowsrsyslog', 'sojson', 'webaccess']
 
-import logdissect.utils
 import logdissect.parsers.linejson
 import logdissect.parsers.sojson
 import logdissect.parsers.syslog
@@ -32,3 +31,4 @@ import logdissect.parsers.syslognohost
 import logdissect.parsers.tcpdump
 import logdissect.parsers.ciscoios
 import logdissect.parsers.windowsrsyslog
+import logdissect.parsers.webaccess
