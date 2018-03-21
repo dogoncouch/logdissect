@@ -38,7 +38,7 @@ class ParseModule:
         self.backup_fields = []
         self.tzone = None
         # Options to convert datestamp:
-        # standard, iso, nodate, unix, now
+        # standard, nodate, iso, webaccess, unix, now
         # Set to None to skip conversion
         self.datestamp_type = 'standard'
 
@@ -145,6 +145,9 @@ class ParseModule:
                     entry = logdissect.utils.convert_standard_datestamp(entry)
                 elif self.datestamp_type == 'iso':
                     entry = logdissect.utils.convert_iso_datestamp(
+                            entry)
+                elif self.datestamp_type == 'webaccess':
+                    entry = logdissect.utils.convert_webaccess_datestamp(
                             entry)
                 elif self.datestamp_type == 'nodate':
                     entry, self.datedata = \

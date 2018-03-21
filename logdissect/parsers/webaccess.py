@@ -36,7 +36,4 @@ class ParseModule(OurModule):
         self.backup_fields = ['source_host', 'date_stamp', 'command',
                 'path', 'protocol', 'result', 'referrer', 'user_agent_string']
         self.tzone = None
-        # Options to convert datestamp:
-        # standard, iso, nodate, unix, now
-        # Set to None to skip conversion. Default is standard.
         self.datestamp_type = 'webaccess'

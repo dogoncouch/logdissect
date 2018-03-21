@@ -35,7 +35,4 @@ class ParseModule(OurModule):
                 "^(\d{2}:\d{2}:\d{2}\.?\d*)\s+(\w+),\s+(.*)"
         self.backup_fields = ['date_stamp', 'protocol', 'message']
         self.tzone = None
-        # Options to convert datestamp:
-        # standard, iso, nodate, unix, now
-        # Set to None to skip conversion. Default is standard.
         self.datestamp_type = 'nodate'

@@ -35,7 +35,4 @@ class ParseModule(OurModule):
         self.backup_fields = ['date_stamp', 'log_source', 'source_process',
         'action', 'message']
         self.tzone = None
-        # Options to convert datestamp:
-        # standard, iso, nodate, unix, now
-        # Set to None to skip conversion. Default is standard.
         self.datestamp_type = 'standard'
