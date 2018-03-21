@@ -30,7 +30,7 @@ The logdissect module comes with the logdissect log analysis program. It contain
 # Objects and Methods
 
 ## Parser Modules
-### logdissect.parsers.\<parser>.ParseModule()
+### myparser = logdissect.parsers.\<parser>.ParseModule()
 Replace \<parser\> with one of the available parsers:
 
 - `` ciscoios `` - Cisco IOS logs
@@ -44,12 +44,12 @@ Replace \<parser\> with one of the available parsers:
     
 Parsers have two methods (except the sojson parser, which has no parse\_line() method):
 
-#### parse\_file(\<file>)
+#### file\_dict = myparser.parse\_file(\<file>)
 Accepts a filename as input, and returns a dictionary with some metadata, and a list of entry dictionaries (`entries`).
 
 Parsers have a `tzone` attribute that uses standard ISO 8601 offset to UTC (e.g. `+0500`, `-0200`); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the sojson parser).
 
-#### parse\_line(\<line>)
+#### entry\_dict = myparser.parse\_line(\<line>)
 Accepts a log line as input, and returns a dictionary of strings. There are two built-in keys, `raw_text` and `parser`, and parsers can add their own keys.
 
 Parsers have a `datestamp_type` attribute that defines how timestamps will be converted. The options are as follows:
@@ -75,7 +75,7 @@ Conversion happens with any parser that has a `date_stamp` field in `fields` (th
 The sojson parser has no parse\_line() method.
 
 # Filter Modules
-## logdissect.filters.\<filter\>.FilterModule()
+## myfilter = logdissect.filters.\<filter\>.FilterModule()
 Replace \<filter\> with one of the available filters:
 
 - `source` - match a log source
@@ -94,7 +94,7 @@ Replace \<filter\> with one of the available filters:
 - `rprotocol` - filter out a protocol
 
 Filters have one method, `filter_data`. Usage for all filters except `last` and `range`:
-### filter\_data(data, values=['VALUE1', 'VALUE2'])
+### new\_data = myfilter.filter\_data(data, values=['VALUE1', 'VALUE2'])
 `data` should be a log dictionary, with an `entries` value that contains a list of event dictionaries. `values` is a list containing strings to match or filter out.
 
 Syntax for the `last` and `range` filters differs slighty. Instead of `values`, they are passed `value`, which is a single string. The format of `value`:
@@ -104,7 +104,7 @@ Syntax for the `last` and `range` filters differs slighty. Instead of `values`, 
 Time-based filters filter on the `numeric_date_stamp` value. The `range` filter also has a `utc` keyword argument that defaults to false. If set to `True`, it will filter based on `numeric_date_stamp_utc`.
 
 # Output Modules
-## logdissect.output.\<output\>.OutputModule()
+## myoutput = logdissect.output.\<output\>.OutputModule()
 Replace \<output\> with one of the available filters:
 
 - `log` - outputs to standard log file format
@@ -112,7 +112,7 @@ Replace \<output\> with one of the available filters:
 - `linejson` - outputs one json entry dictionary object per line
 
 Output modules have one method, `write_output`. Usage:
-### write\_output(data, filename='FILENAME')
+### myoutput.write\_output(data, filename='FILENAME')
 `data` should be a log dictionary, with an `entries` value that contains a list of event dictionaries.
 
 The `log` output module also has a `label` keyword argument with a few possible settings. If set to `'fname'`, it will add source file names to the output. If set to `'fpath'`, it will add full source file paths to the output.

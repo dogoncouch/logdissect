@@ -13,7 +13,7 @@ The logdissect module contains utilities for parsing, merging, filtering, and ex
 The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, merge and filter logs, and output to a few formats.
 
 .SH PARSER MODULES
-\fBlogdissect.parsers.<parser>.ParseModule()\fR
+\fBmyparser = logdissect.parsers.<parser>.ParseModule()\fR
 .br
 Replace <parser> with one of the available parsers:
     \fBciscoios\fR - Cisco IOS logs
@@ -28,13 +28,13 @@ Replace <parser> with one of the available parsers:
     
 Parsers have two methods (except the sojson parser, which has no parse_line() method):
 
-\fBparse_file(\fI<file>\fB)\fR
+\fBfile_dict = myparser.parse_file(\fI<file>\fB)\fR
 .br
 Accepts a filename as input, and returns a dictionary with some metadata, and a list of entry dictionaries (`entries`).
 
 Parsers have a \fBtzone\fR attribute that uses standard ISO 8601 offset to UTC (e.g. \fB+0500\fR, \fB-0200\fR); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the sojson parser).
 
-\fBparse_line(\fI<line>\fB)\fR
+\fBentry_dict = myparser.parse_line(\fI<line>\fB)\fR
 .br
 Accepts a log line as input, and returns a dictionary of strings. There are two built-in keys, \fBraw_text\fR and \fBparser\fR, and parsers can add their own keys.
 
@@ -61,7 +61,7 @@ Conversion happens with any parser that has a \fBdate_stamp\fR field in \fBfield
 The sojson parser has no parse_line() method.
 
 .SH FILTER MODULES
-\fBlogdissect.filters.<filter>.FilterModule()\fR
+\fBmyfilter = logdissect.filters.<filter>.FilterModule()\fR
 Replace <filter> with one of the available filters:
 
     \fBsource\fR - match a log source
@@ -81,7 +81,7 @@ Replace <filter> with one of the available filters:
 
 Filters have one method, \fBfilter_values\fR. Usage for all filters except \fBlast\fR and \fBrange\fR:
 
-\fBfilter\_data(\fIdata\fR, \fIvalues=['VALUE1', 'VALUE2']\fB)\fR
+\fBnew_data = myfilter.filter_data(\fIdata\fR, \fIvalues=['VALUE1', 'VALUE2']\fB)\fR
 .br
 \fBdata\fR should be a log dictionary, with an \fBentries\fR value that contains a list of event dictionaries. \fBvalues\fR is a list containing strings to match or filter out.
 .br
@@ -93,7 +93,7 @@ Syntax for the \fBlast\fR and \fBrange\fR filters differs slighty. Instead of \f
 Time-based filters filter on the \fBnumeric_date_stamp\fR value. The \fBrange\fR filter also has a \fButc\fR keyword argument that defaults to false. If set to \fBTrue\fR, it will filter based on \fBnumeric_date_stamp_utc\fR.
 
 .SH OUTPUT MODULES
-\fBlogdissect.output.<output>.OutputModule()\fR
+\fBmyoutput = logdissect.output.<output>.OutputModule()\fR
 Replace <output> with one of the available filters:
 
     \fBlog\fR - outputs to standard log file format
@@ -102,7 +102,7 @@ Replace <output> with one of the available filters:
 
 Output modules have one method, \fBwrite_output\fR. Usage:
 
-\fBwrite\_output(\fIdata\fR, \fIfilename='FILENAME'\fB)\fR
+\fBmyoutput.write_output(\fIdata\fR, \fIfilename='FILENAME'\fB)\fR
 .br
 \fBdata\fR should be a log dictionary, with an \fBentries\fR value that contains a list of event dictionaries.
 
