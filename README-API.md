@@ -1,7 +1,7 @@
 # logdissect API
 For program documentation, see [README.md](README.md)
 
-The logdissect module contains utilities for parsing, storing, filtering, and exporting log data.
+The logdissect module contains utilities for parsing, merging, filtering, and exporting log data.
 
 ## Index
 - [Introduction](#introduction)
@@ -25,7 +25,7 @@ The logdissect module contains utilities for parsing, storing, filtering, and ex
     filterd_dict = myfilter.filter(file_dict, values=['error', 'fail'])
 
 ## Description
-The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files.
+The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, merge and filter logs, and output to a few formats.
 
 # Objects and Methods
 
