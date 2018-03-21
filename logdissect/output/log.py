@@ -27,7 +27,6 @@ class OutputModule(OurModule):
         """Initialize the log file output module"""
         self.name = 'log'
         self.desc = 'output to standard log file format'
-        self.output_path = ''
 
         if args:
             args.add_argument('--outlog', action='store', dest='outlog',
