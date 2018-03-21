@@ -7,6 +7,10 @@ The logdissect module contains utilities for parsing, storing, filtering, and ex
 - [Introduction](#introduction)
 - [Objects and Methods](#objects-and-methods)
   - [Parsers](#parsers)
+- [Util Functions](#util-functions)
+  - [Date Stamp Conversions](#date-stamp-conversions)
+  - [Time Zones](#time-zones)
+  - [Merging](#merging)
 - [Copyright](#copyright)
 
 # Introduction
