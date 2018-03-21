@@ -25,7 +25,7 @@ import re
 from datetime import datetime
 import time
 import gzip
-import logdissect.parsers.utils
+import logdissect.utils
 
 class ParseModule:
     def __init__(self, options=[]):
@@ -70,7 +70,7 @@ class ParseModule:
 
         # Set our timezone
         if not self.tzone:
-            self.backuptzone = logdissect.parsers.utils.get_local_tzone()
+            self.backuptzone = logdissect.utils.get_local_tzone()
 
         # Parsing works in reverse. This helps with multi-line entries,
         # and logs that span multiple years (December to January shift).
@@ -107,7 +107,7 @@ class ParseModule:
                         entry['tzone'] = self.tzone
                     elif not entry['tzone']:
                         entry['tzone'] = self.backuptzone
-                    entry = logdissect.parsers.utils.get_utc_date(entry)
+                    entry = logdissect.utils.get_utc_date(entry)
                 entry['raw_text'] = ourline
                 entry['source_path'] = data['source_path']
 
@@ -142,19 +142,19 @@ class ParseModule:
 
             if 'date_stamp' in entry.keys():
                 if self.datestamp_type == 'standard':
-                    entry = logdissect.parsers.utils.convert_standard_datestamp(entry)
+                    entry = logdissect.utils.convert_standard_datestamp(entry)
                 elif self.datestamp_type == 'iso':
-                    entry = logdissect.parsers.utils.convert_iso_datestamp(
+                    entry = logdissect.utils.convert_iso_datestamp(
                             entry)
                 elif self.datestamp_type == 'nodate':
                     entry, self.datedata = \
-                            logdissect.parsers.utils.convert_nodate_datestamp(
+                            logdissect.utils.convert_nodate_datestamp(
                             entry, self.datedata)
                 elif self.datestamp_type == 'unix':
-                    entry = logdissect.parsers.utils.convert_unix_datestamp(
+                    entry = logdissect.utils.convert_unix_datestamp(
                             entry)
             if self.datestamp_type == 'now':
-                entry = logdissect.parsers.utils.convert_now_datestamp(
+                entry = logdissect.utils.convert_now_datestamp(
                         entry)
 
             return entry

@@ -70,7 +70,7 @@ class LogDissectCore:
             self.run_parse()
             if self.args.verbosemode: print('Merging data')
             self.data_set['finalized_data'] = \
-                    logdissect.parsers.utils.merge_logs(
+                    logdissect.utils.merge_logs(
                             self.data_set['data_set'])
             if self.args.verbosemode: print('Running filters')
             self.run_filters()

@@ -65,6 +65,50 @@ Conversion happens with any parser that has a `date_stamp` field in `fields` (th
 
 The sojson parser has no parse\_line() method.
 
+## Util Functions
+### Date Stamp Conversion
+Date stamp converters assign the following fields, based on an entry dictionary's `date_stamp` value:
+
+- `year` - a 4 digit string (set to `None` for standard converter)
+- `month` - a 2 digit string
+- `day` - a 2 digit string
+- `tstamp` - a 6 digit string, with optional decimal point and fractional seconds.
+- `numeric_date_stamp` a string with format `YYYYmmddHHMMSS[.ffffff]` (not set for standard converter)
+
+`logdissect.util` contains the following datestamp converters:
+
+- `standard` - standard syslog datestamps
+- `nodate` - timestamps with no date
+- `iso` - ISO 8601 timestamps
+- `unix` - Unix timestamps
+- `now` - use the current time
+
+```
+import logdissect.util
+entry = logdissect.utils.convert_standard_datestamp(entry)
+entry = logdissect.utils.convert_nodate_datestamp(entry, datetimeobject)
+entry = logdissect.utils.convert_iso_datestamp(entry)
+entry = logdissect.utils.convert_unix_datestamp(entry)
+entry = logdissect.utils.convert_now_datestamp(entry)
+```
+
+### Time Zone
+```
+logdissect.utils.get_utc_date(entry)
+```
+Sets the `numeric_date_stamp_utc` value based on the `numeric_date_stamp` value and the `tzone` value.
+
+```
+logdissect.utils.get_local_tzone()
+```
+Returns the local time zone.
+
+### Merging
+```
+logdissect.utils.merge_logs(dataset)
+```
+Merges multiple log dictionaries together. `dataset` is a dictionary with some metadata, and a `data_set` value, which is a list of log dictionaries. Each log dictionary contains some metadata, and an `entries` value, which is a list of event dictionaries.
+
 # Copyright
 MIT License
 

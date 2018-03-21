@@ -58,6 +58,45 @@ Conversion happens with any parser that has a \fBdate_stamp\fR field in \fBfield
 
 The sojson parser has no parse_line() method.
 
+.SH Util Functions
+.SH Date Stamp Conversion
+Date stamp converters assign the following fields, based on an entry dictionary's \fBdate_stamp\fR value:
+
+    \fByear\fR - a 4 digit string (set to \fBNone\fR for standard converter)
+    \fBmonth\fR - a 2 digit string
+    \fBday\fR - a 2 digit string
+    \fBtstamp\fR - a 6 digit string, with optional decimal point and fractional seconds.
+    \fBnumeric_date_stamp\fR a string with format \fBYYYYmmddHHMMSS[.ffffff]\fR (not set for standard converter)
+
+\fBlogdissect.util\fR contains the following datestamp converters:
+
+    \fBstandard\fR - standard syslog datestamps
+    \fBnodate\fR - timestamps with no date
+    \fBiso\fR - ISO 8601 timestamps
+    \fBunix\fR - Unix timestamps
+    \fBnow\fR - use the current time
+
+    import logdissect.util
+    entry = logdissect.utils.convert_standard_datestamp(entry)
+    entry = logdissect.utils.convert_nodate_datestamp(entry, datetimeobject)
+    entry = logdissect.utils.convert_iso_datestamp(entry)
+    entry = logdissect.utils.convert_unix_datestamp(entry)
+    entry = logdissect.utils.convert_now_datestamp(entry)
+
+.SH Time Zone
+\fBlogdissect.utils.get_utc_date(entry)\fR
+.br
+Sets the \fBnumeric_date_stamp_utc\fR value based on the \fBnumeric_date_stamp\fR value and the \fBtzone\fR value.
+
+\fBlogdissect.utils.get_local_tzone()\fR
+.br
+Returns the local time zone.
+
+.SH Merging
+\fBlogdissect.utils.merge_logs(dataset)\fR
+.br
+Merges multiple log dictionaries together. \fBdataset\fR is a dictionary with some metadata, and a \fBdata_set\fR value, which is a list of log dictionaries. Each log dictionary contains some metadata, and an \fBentries\fR value, which is a list of event dictionaries.
+
 .SH SEE ALSO
     logdissect(1)
 
