@@ -10,8 +10,8 @@ The logdissect module contains utilities for parsing, merging, filtering, and ex
   - [Filter Modules](#filter-modules)
   - [Output Modules](#output-modules)
 - [Util Functions](#util-functions)
-  - [Date Stamp Conversions](#date-stamp-conversions)
-  - [Time Zones](#time-zones)
+  - [Date Stamp Conversion](#date-stamp-conversion)
+  - [Time Zone](#time-zone)
   - [Merging](#merging)
 - [Copyright](#copyright)
 
