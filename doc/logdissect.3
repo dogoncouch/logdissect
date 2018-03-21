@@ -148,9 +148,11 @@ Sets the \fBnumeric_date_stamp_utc\fR value based on the \fBnumeric_date_stamp\f
 Returns the local time zone.
 
 .SH MERGING
-\fBlog_dict = logdissect.utils.merge_logs(dataset)\fR
+\fBlog_dict = logdissect.utils.merge_logs(dataset, sort={True|False})\fR
 .br
 Merges multiple log dictionaries together, and returns a single log dictionary. \fBdataset\fR is a dictionary with some metadata, and a \fBdata_set\fR value, which is a list of log dictionaries. Each log dictionary contains some metadata, and an \fBentries\fR value, which is a list of event dictionaries.
+
+If \fBsort\fR is set to \fBTrue\fR, entries will be sorted by their \fBnumeric_date_stamp_utc\fR value. Default is \fBFalse\fR.
 
 .SH SEE ALSO
     logdissect(1)

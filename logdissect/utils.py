@@ -186,7 +186,7 @@ def get_local_tzone():
     return tzone
 
 
-def merge_logs(dataset):
+def merge_logs(dataset, sort=True):
     """Merge log dictionaries together into one log dictionary"""
     ourlog = {}
     ourlog['entries'] = []

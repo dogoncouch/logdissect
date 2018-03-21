@@ -155,8 +155,10 @@ Sets the `numeric_date_stamp_utc` value based on the `numeric_date_stamp` value 
 Returns the local time zone.
 
 ## Merging
-### log\_dict = logdissect.utils.merge\_logs(dataset)
+### log\_dict = logdissect.utils.merge\_logs(dataset, sort={True|False})
 Merges multiple log dictionaries together, and returns a single log dictionary. `dataset` is a dictionary with some metadata, and a `data_set` value, which is a list of log dictionaries. Each log dictionary contains some metadata, and an `entries` value, which is a list of event dictionaries.
+
+If `sort` is set to `True`, entries will be sorted by their `numeric_date_stamp_utc` value. Default is `False`.
 
 # Copyright
 MIT License
