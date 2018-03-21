@@ -36,10 +36,10 @@ Creating a parser module is as simple as coming up with a regular expression, an
 The name of your parse module should be added to the `all` variable and imported in `logdissect/parsers/__init__.py`. More information on parser modules can be found in the [API documentation](README-API.md#parser-modules).
 
 ### Filter Modules
-Creating a filter module is a bit more difficult. Check out the [filter API documentation](README-API.md#filters-modules), and look at existing filter modules to get an idea of how filters work. Once you have created a filter module, add it to the `all` variable and import it in `logdissect/filters/__init__.py`.
+Creating a filter module is a bit more difficult. Check out the [filter API documentation](README-API.md#filters-modules), and look at existing filter modules to get an idea of how filters work. There is an example blank filter in `logdissect/filters/blank.py`. Once you have created a filter module, add it to the `all` variable and import it in `logdissect/filters/__init__.py`.
 
 ### Output Modules
-Check out the [output API documentation](README-API.md#output-modules), and look at existing output modules to get an idea of how outputs work. Once you have created an output module, add it to the `all` variable and import it in `logdissect/output/__init__.py`.
+Check out the [output API documentation](README-API.md#output-modules), and look at existing output modules to get an idea of how outputs work. There is an example blank output in `logdissect/output/blank.py`. Once you have created an output module, add it to the `all` variable and import it in `logdissect/output/__init__.py`.
 
 ## Installing Development Source
 To install the latest development version of `` logdissect `` from source, follow these instructioons:
