@@ -112,7 +112,7 @@ from logdissect import __version__
 ourdata = [(join(prefix, 'share/man/man1'), ['docs/logdissect.1']),
         (join(prefix, 'share/man/man3'), ['docs/logdissect.3']),
         (join(prefix, 'share/doc/logdissect'), ['README.md', 'docs/README-API.md',
-            'README-DEV.md', 'LICENSE', 'CHANGELOG.md'])]
+            'docs/CONTRIBUTING.md', 'LICENSE', 'CHANGELOG.md'])]
 
 setup(name = 'logdissect', version = str(__version__),
         description = 'Robust CLI syslog forensics tool',
@@ -121,10 +121,10 @@ setup(name = 'logdissect', version = str(__version__),
         url = 'https://github.com/dogoncouch/logdissect',
         download_url = 'https://github.com/dogoncouch/logdissect/archive/v' + str(__version__) + '.tar.gz',
         keywords = ['log', 'syslog', 'analysis', 'forensics', 'security',
-            'cli', 'secops', 'sysadmin', 'forensic-analysis',
+            'cli', 'secops', 'data-science', 'forensic-analysis',
             'log-analysis', 'log-analyzer', 'log-viewer', 'log-parser',
             'log-viewer', 'log-parsing', 'python-library',
-            'python-module', 'parser', 'parsing', 'library', 'module'],
+            'python-module', 'parser', 'data-analysis', 'library', 'module'],
         packages = ['logdissect', 'logdissect.parsers',
             'logdissect.filters', 'logdissect.output'],
         entry_points = \
@@ -133,8 +133,11 @@ setup(name = 'logdissect', version = str(__version__),
         classifiers = ["Development Status :: 5 - Production/Stable",
             "Environment :: Console",
             "Intended Audience :: System Administrators",
+            "Intended Audience :: Science/Research",
             "License :: OSI Approved :: MIT License",
             "Natural Language :: English",
             "Operating System :: POSIX",
             "Programming Language :: Python",
-            "Topic :: System :: Systems Administration"])
+            "Topic :: System :: Systems Administration",
+            "Topic :: Scientific/Engineering :: Information Analysis",
+            "Topic :: Security"])
