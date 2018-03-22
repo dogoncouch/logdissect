@@ -12,7 +12,7 @@ The logdissect module contains utilities for parsing, merging, filtering, and ex
 
     # Filtering
     myfilter = logdissect.filters.<filter>.FilterModule()
-    filterd_dict = myfilter.filter(file_dict, values=['<VALUE1>', '<VALUE2>'])
+    filterd_dict = myfilter.filter_data(file_dict, values=['<VALUE1>', '<VALUE2>'])
 
     # Output
     myoutput = logdissect.output.<output>.OutputModule()

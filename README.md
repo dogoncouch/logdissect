@@ -23,6 +23,8 @@ For library documentation, see the [API documentation](docs/README-API.md)
 ## Description
 Logdissect is a CLI utility and Python library for analyzing log files and other data. It can parse, merge, filter, and export data (to log files, or JSON).
 
+![logdissect CLI screenshot](docs/images/screenshot_cli.png)
+
 ## Installing
 To install the latest release, see the latest instructions on the [releases page](https://github.com/dogoncouch/logdissect/releases). To install the development source, see the instructions in [CONTRIBUTING.md](docs/CONTRIBUTING.md#installing-development-source).
 

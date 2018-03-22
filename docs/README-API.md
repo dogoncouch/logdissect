@@ -5,8 +5,8 @@ The logdissect module contains utilities for parsing, merging, filtering, and ex
 
 ## Index
 - [Introduction](#introduction)
-  - [Synopsis](#synopsis)
   - [Description](#description)
+  - [Synopsis](#synopsis)
 - [Objects and Methods](#objects-and-methods)
   - [Parser Modules](#parsers-modules)
   - [Filter Modules](#filter-modules)
@@ -18,6 +18,11 @@ The logdissect module contains utilities for parsing, merging, filtering, and ex
 - [Copyright](#copyright)
 
 # Introduction
+## Description
+The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, merge and filter logs, and output to a few formats.
+
+![logdissect API screenshot](docs/images/screenshot_api.png)
+
 ## Synopsis
 ```
 import logdissect
@@ -29,7 +34,7 @@ file_dict = myparser.parse_file('<PATH/TO/FILE>')
 
 # Filtering
 myfilter = logdissect.filters.<filter>.FilterModule()
-filterd_dict = myfilter.filter(file_dict, values=['<VALUE1>', '<VALUE2>'])
+filterd_dict = myfilter.filter_data(file_dict, values=['<VALUE1>', '<VALUE2>'])
 
 # Output
 myoutput = logdissect.output.<output>.OutputModule()
@@ -47,9 +52,6 @@ entry = logdissect.utils.get_utc_date(entry)
 # Merging
 log_dict = logdissect.utils.merge_logs(dataset, sort={True|False})
 ```
-
-## Description
-The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, merge and filter logs, and output to a few formats.
 
 # Objects and Methods
 
