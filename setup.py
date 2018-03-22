@@ -140,4 +140,5 @@ setup(name = 'logdissect', version = str(__version__),
             "Programming Language :: Python",
             "Topic :: System :: Systems Administration",
             "Topic :: Scientific/Engineering :: Information Analysis",
-            "Topic :: Security"])
+            "Topic :: Security",
+            "Topic :: System :: Logging"])
