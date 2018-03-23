@@ -1,7 +1,11 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
-## [3.0]
+## [3.0.1] 2018-03-23
+### Fixed
+- `linejson` parser bug
+
+## [3.0] 2018-03-22
 ### Added
 - Cisco IOS parser
 - Windows rsyslog agent parser
