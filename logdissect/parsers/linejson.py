@@ -47,7 +47,7 @@ class ParseModule(OurModule):
 
         # Set our attributes for this entry and add it to data.entries:
         data = {}
-        data['entries'] = jsonlist
+        data['entries'] = []
         for line in jsonlist:
             entry = self.parse_line(line)
             data['entries'].append(entry)
