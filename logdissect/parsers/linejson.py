@@ -43,7 +43,7 @@ class ParseModule(OurModule):
 
         # Open input file and read JSON array:
         with open(sourcepath, 'r') as logfile:
-            jsonlist = loglines.readlines()
+            jsonlist = logfile.readlines()
 
         # Set our attributes for this entry and add it to data.entries:
         data = {}
