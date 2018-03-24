@@ -48,6 +48,7 @@ Requirements: git, python-setuptools
 
     git clone https://github.com/dogoncouch/logdissect.git
     cd logdissect
+    git checkout dev
     sudo make all
 
 ## Usage
