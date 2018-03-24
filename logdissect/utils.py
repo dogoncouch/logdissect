@@ -159,9 +159,9 @@ def get_utc_date(entry):
                 minutes = int(entry['tzone'][3:5]))
 
         if entry['tzone'][0] == '-':
-            ut = t - tdelta
-        else:
             ut = t + tdelta
+        else:
+            ut = t - tdelta
 
         entry['numeric_date_stamp_utc'] = ut.strftime('%Y%m%d%H%M%S.%f')
 
@@ -171,17 +171,31 @@ def get_utc_date(entry):
 def get_local_tzone():
     """Get the current time zone on the local host"""
     if localtime().tm_isdst:
-        tzone = \
-                str(int(float(altzone) / 60 // 60)).rjust(2,
-                        '0') + \
-                str(int(float(altzone) / 60 % 60)).ljust(2, '0')
+        if altzone < 0:
+            tzone = '+' + \
+                    str(int(float(altzone) / 60 // 60)).rjust(2,
+                            '0') + \
+                            str(int(float(
+                                altzone) / 60 % 60)).ljust(2, '0')
+        else:
+            tzone = '-' + \
+                    str(int(float(altzone) / 60 // 60)).rjust(2,
+                            '0') + \
+                            str(int(float(
+                                altzone) / 60 % 60)).ljust(2, '0')
     else:
-        tzone = \
-                str(int(float(timezone) / 60 // 60)).rjust(2,
-                        '0') + \
-                str(int(float(timezone) / 60 % 60)).ljust(2, '0')
-    if not '-' in tzone and not '+' in tzone:
-        tzone = '+' + tzone
+        if altzone < 0:
+            tzone = \
+                    '+' + str(int(float(timezone) / 60 // 60)).rjust(2,
+                            '0') + \
+                            str(int(float(
+                                timezone) / 60 % 60)).ljust(2, '0')
+        else:
+            tzone = \
+                    '-' + str(int(float(timezone) / 60 // 60)).rjust(2,
+                            '0') + \
+                            str(int(float(
+                                timezone) / 60 % 60)).ljust(2, '0')
 
     return tzone
 

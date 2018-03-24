@@ -16,7 +16,7 @@
   - [Contributing](#contributing)
 - [Copyright](#copyright)
 
-For library documentation, see the [API documentation](docs/README-API.md)
+For library documentation, see the [API documentation](docs/README-API.md).
 
 # Introduction
 
