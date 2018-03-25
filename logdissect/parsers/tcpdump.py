@@ -42,15 +42,15 @@ class ParseModule(OurModule):
     def post_parse_action(self, entry):
         """separate hosts and ports after entry is parsed"""
         if 'source_host' in entry.keys():
-            host = self.ip_port_regex.match(entry['source_host'])
+            host = self.ip_port_regex.findall(entry['source_host'])
             if host:
-                hlist = host.split('.')
+                hlist = host[0].split('.')
                 entry['source_host'] = '.'.join(hlist[:4])
                 entry['source_port'] = hlist[-1]
         if 'dest_host' in entry.keys():
-            host = self.ip_port_regex.match(entry['dest_host'])
+            host = self.ip_port_regex.findall(entry['dest_host'])
             if host:
-                hlist = host.split('.')
+                hlist = host[0].split('.')
                 entry['dest_host'] = '.'.join(hlist[:4])
                 entry['dest_port'] = hlist[-1]
 
