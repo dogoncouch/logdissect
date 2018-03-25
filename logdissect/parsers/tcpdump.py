@@ -37,7 +37,7 @@ class ParseModule(OurModule):
         self.backup_fields = ['date_stamp', 'protocol', 'message']
         self.tzone = None
         self.datestamp_type = 'nodate'
-        self.ip_port_regex = re.compile('\s(\d+\.\d+\.\d+\.\d+\.\w+)\s')
+        self.ip_port_regex = re.compile('^(\d+\.\d+\.\d+\.\d+\.\w+)$')
 
     def post_parse_action(self, entry):
         """separate hosts and ports after entry is parsed"""
