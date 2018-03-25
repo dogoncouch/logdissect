@@ -53,3 +53,5 @@ class ParseModule(OurModule):
                 hlist = host.split('.')
                 entry['dest_host'] = '.'.join(hlist[:4])
                 entry['dest_port'] = hlist[-1]
+
+        return entry
