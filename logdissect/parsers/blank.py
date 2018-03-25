@@ -36,3 +36,8 @@ class ParseModule(OurModule):
         # standard, iso, nodate, webaccess, unix, now
         # Set to None to skip conversion. Default is standard.
         self.datestamp_type = 'standard'
+
+
+        def post_parse_action(self, entry):
+            """Perform some action on an entry after it is parsed"""
+            return entry

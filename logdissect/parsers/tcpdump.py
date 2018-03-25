@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import re
 from logdissect.parsers.type import ParseModule as OurModule
 
 class ParseModule(OurModule):
@@ -36,3 +37,19 @@ class ParseModule(OurModule):
         self.backup_fields = ['date_stamp', 'protocol', 'message']
         self.tzone = None
         self.datestamp_type = 'nodate'
+        self.ip_port_regex = re.compile('\s(\d+\.\d+\.\d+\.\d+\.\w+)\s')
+
+    def post_parse_action(self, entry):
+        """separate hosts and ports after entry is parsed"""
+        if 'source_host' in entry.keys():
+            host = self.ip_port_regex.match(entry['source_host'])
+            if host:
+                hlist = host.split('.')
+                entry['source_host'] = '.'.join(hlist[:4])
+                entry['source_port'] = hlist[-1]
+        if 'dest_host' in entry.keys():
+            host = self.ip_port_regex.match(entry['dest_host'])
+            if host:
+                hlist = host.split('.')
+                entry['dest_host'] = '.'.join(hlist[:4])
+                entry['dest_port'] = hlist[-1]

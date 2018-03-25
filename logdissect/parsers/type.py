@@ -160,7 +160,13 @@ class ParseModule:
                 entry = logdissect.utils.convert_now_datestamp(
                         entry)
 
+            entry = self.post_parse_action(entry)
             return entry
 
         else:
             return None
+
+
+    def post_parse_action(self, entry):
+        """Perform some action on an entry after it is parsed"""
+        return entry

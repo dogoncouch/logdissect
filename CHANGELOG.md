@@ -1,6 +1,9 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
+## [Unreleased]
+- Add `post_parse_action` parser method for more customization
+
 ## [3.0.2] 2018-03-25
 ### Fixed
 - Reversed UTC time calculation bug
