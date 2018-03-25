@@ -75,6 +75,8 @@ Accepts a filename as input, and returns a dictionary with some metadata, and a 
 
 Parsers have a `tzone` attribute that uses standard ISO 8601 offset to UTC (e.g. `+0500`, `-0200`); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the sojson parser).
 
+Parsers for timestamp formats with no year use file modification times to assign years to date stamps. This allows them to parse files that span more than one year without a problem. If you are copying a log file, always preserve original mtimes using `cp -p` (or `cp --preserve=timestamps`) and `scp -p`.
+
 #### entry\_dict = myparser.parse\_line(\<line>)
 Accepts a log line as input, and returns a dictionary of strings. There are two built-in keys, `raw_text` and `parser`, and parsers can add their own keys.
 

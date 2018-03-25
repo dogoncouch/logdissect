@@ -27,9 +27,9 @@ class ParseModule(OurModule):
         """Initialize a log parsing module"""
         self.name = ''
         self.desc = ''
-        self.date_format = ''
+        self.format_regex = ''
         self.fields = []
-        self.backup_date_format = None
+        self.backup_format_regex = None
         self.backup_fields = []
         self.tzone = None
         # Options to convert datestamp:

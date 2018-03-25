@@ -29,9 +29,9 @@ class ParseModule(OurModule):
         """Initialize the single object JSON parsing module"""
         self.name = 'sojson'
         self.desc = 'logdissect single object JSON parsing module'
-        self.date_format = None
+        self.format_regex = None
         self.fields = []
-        self.backup_date_format = None
+        self.backup_format_regex = None
         self.backup_fields = []
         self.tzone = None
         self.datestamp_type = None

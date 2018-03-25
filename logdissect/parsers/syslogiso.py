@@ -27,11 +27,11 @@ class ParseModule(OurModule):
         """Initialize the syslog (ISO timestamp) parsing module"""
         self.name = 'syslogiso'
         self.desc = 'syslog (ISO timestamp) parsing module'
-        self.date_format = \
+        self.format_regex = \
                 '^(\d\d\d\d-?\d\d-?\d\dT\d\d:?\d\d:?\d\d\.?\d*[+-:0-9Z]+)\s+(\S+)\s+([^\[\] ]+)\[?(\d*)\]?: (.*)'
         self.fields = ['date_stamp', 'log_source', 'source_process',
                 'source_pid', 'message']
-        self.backup_date_format = None
+        self.backup_format_regex = None
         self.backup_fields = []
         self.tzone = None
         self.datestamp_type = 'iso'

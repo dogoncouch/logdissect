@@ -31,7 +31,7 @@ class ParseModule(OurModule):
         self.desc = 'logdissect object-per-line JSON parsing module'
         self.data_format = ''
         self.fields = []
-        self.backup_date_format =  None
+        self.backup_format_regex =  None
         self.backup_fields = []
         self.tzone = None
         self.datestamp_type = None

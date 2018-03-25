@@ -27,11 +27,11 @@ class ParseModule(OurModule):
         """Initialize the tcpdump terminal output parsing module"""
         self.name = 'tcpdump'
         self.desc = 'tcpdump terminal output parsing module'
-        self.date_format = \
+        self.format_regex = \
                 "^(\d{2}:\d{2}:\d{2}\.?\d*)\s+(\w+)\s+([\w\-\.]+)\s+>\s+([\w\-\.]+): (.*)"
         self.fields = ['date_stamp', 'protocol', 'source_host', 'dest_host',
                 'message']
-        self.backup_date_format = \
+        self.backup_format_regex = \
                 "^(\d{2}:\d{2}:\d{2}\.?\d*)\s+(\w+),\s+(.*)"
         self.backup_fields = ['date_stamp', 'protocol', 'message']
         self.tzone = None

@@ -32,9 +32,9 @@ class ParseModule:
         """Initialize a log parsing module"""
         self.name = ''
         self.desc = ''
-        self.date_format = None
+        self.format_regex = None
         self.fields = []
-        self.backup_date_format = None
+        self.backup_format_regex = None
         self.backup_fields = []
         self.tzone = None
         # Options to convert datestamp:
@@ -47,10 +47,10 @@ class ParseModule:
         """Parse a file into a LogData object"""
         # Get regex objects:
         self.date_regex = re.compile(
-                r'{}'.format(self.date_format))
-        if self.backup_date_format:
+                r'{}'.format(self.format_regex))
+        if self.backup_format_regex:
             self.backup_date_regex = re.compile(
-                    r'{}'.format(self.backup_date_format))
+                    r'{}'.format(self.backup_format_regex))
         data = {}
         data['entries'] = []
         data['parser'] = self.name
@@ -127,7 +127,7 @@ class ParseModule:
         match = re.findall(self.date_regex, line)
         if match:
             fields = self.fields
-        elif self.backup_date_format and not match:
+        elif self.backup_format_regex and not match:
             match = re.findall(self.backup_date_regex, line)
             fields = self.backup_fields
 

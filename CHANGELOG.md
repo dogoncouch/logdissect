@@ -5,6 +5,9 @@ Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 ### Fixed
 - `linejson` parser bug
 
+### Updated
+- Renamed `date_format` parser attribute to `format_regex` for clarity
+
 ## [3.0] 2018-03-22
 ### Added
 - Cisco IOS parser
