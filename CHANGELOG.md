@@ -1,12 +1,16 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
-## [3.0.1] 2018-03-23
+## [3.0.2] 2018-03-25
 ### Fixed
-- `linejson` parser bug
+- Reversed UTC time calculation bug
 
 ### Updated
 - Renamed `date_format` parser attribute to `format_regex` for clarity
+
+## [3.0.1] 2018-03-23
+### Fixed
+- `linejson` parser bug
 
 ## [3.0] 2018-03-22
 ### Added
