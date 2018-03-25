@@ -166,7 +166,7 @@ The `nodate` converter uses a datetime object to assign date values. Date stamp 
 - `tstamp` - a 6 digit string, with optional decimal point and fractional seconds.
 - `numeric_date_stamp` a string with format `YYYYmmddHHMMSS[.ffffff]` (not set for standard converter)
 
-`logdissect.util` contains the following datestamp converters:
+`logdissect.utils` contains the following datestamp converters:
 
 - `standard` - standard syslog datestamps
 - `nodate` - timestamps with no date

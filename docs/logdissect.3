@@ -55,6 +55,8 @@ Accepts a filename as input, and returns a dictionary with some metadata, and a 
 
 Parsers have a \fBtzone\fR attribute that uses standard ISO 8601 offset to UTC (e.g. \fB+0500\fR, \fB-0200\fR); if not set, logdissect will attempt to get current time zone data from the local system (unless a time zone is already present, such as in the syslogiso parser, or the sojson parser).
 
+Parsers for timestamp formats with no year use file modification times to assign years to date stamps. This allows them to parse files that span more than one year without a problem. If you are copying a log file, always preserve original mtimes using `cp -p` (or `cp --preserve=timestamps`) and `scp -p`.
+
 \fBentry_dict = myparser.parse_line(\fI<line>\fB)\fR
 .br
 Accepts a log line as input, and returns a dictionary of strings. There are two built-in keys, \fBraw_text\fR and \fBparser\fR, and parsers can add their own keys.
@@ -152,7 +154,7 @@ The \fBnodate\fR converter uses a datetime object to assign date values. Date st
     \fBtstamp\fR - a 6 digit string, with optional decimal point and fractional seconds.
     \fBnumeric_date_stamp\fR a string with format \fBYYYYmmddHHMMSS[.ffffff]\fR (not set for standard converter)
 
-\fBlogdissect.util\fR contains the following datestamp converters:
+\fBlogdissect.utils\fR contains the following datestamp converters:
 
     \fBstandard\fR - standard syslog datestamps
     \fBnodate\fR - timestamps with no date
