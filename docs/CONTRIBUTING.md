@@ -33,7 +33,9 @@ Creating a parser module is as simple as coming up with a regular expression, an
 - `now` - Always set date stamp to time parsed
 - `None` - Skip conversion
 
-The name of your parse module should be added to the `all` variable and imported in `logdissect/parsers/__init__.py`. More information on parser modules can be found in the [API documentation](README-API.md#parser-modules).
+Parse modules also have a `post_parse_action` method that each entry is passed through after it is parsed. This can be used for separating ports from source and destination hosts, or any other customization. By default, it does nothing.
+
+The name of your parse module should be added to the `__all__` variable and imported in `logdissect/parsers/__init__.py`. More information on parser modules can be found in the [API documentation](README-API.md#parser-modules).
 
 ### Filter Modules
 Creating a filter module is a bit more difficult. Check out the [filter API documentation](README-API.md#filters-modules), and look at existing filter modules to get an idea of how filters work. There is an example blank filter in `logdissect/filters/blank.py`. Once you have created a filter module, add it to the `all` variable and import it in `logdissect/filters/__init__.py`.
