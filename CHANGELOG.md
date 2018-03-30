@@ -2,7 +2,11 @@
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
 ## [Unreleased]
-- Add `post_parse_action` parser method for more customization
+### Added
+- `post_parse_action` parser method for more customization
+
+### Fixed
+- Bug parsing gzipped files
 
 ## [3.0.2] 2018-03-25
 ### Fixed
