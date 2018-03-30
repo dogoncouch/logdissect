@@ -164,7 +164,7 @@ class LogDissectCore:
             if os.path.isfile(f):
                 fparts = str(f).split('.')
                 if fparts[-1] == 'gz':
-                    if args.unzip:
+                    if self.args.unzip:
                         fullpath = os.path.abspath(str(f))
                         self.input_files.append(fullpath)
                     else:
