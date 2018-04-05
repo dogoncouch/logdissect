@@ -108,6 +108,7 @@ There is a blank parser that can be used to create custom parsers on the fly.
 This example will create a parser to capture a unix timestamp with a colon followed by a message:
 ```
 myparser = logdissect.parsers.blank.ParseModule()
+myparser.name = 'my parser'
 myparser.format_regex = '^(\d+\.?\d*):\s(.*)$'
 myparser.fields = ['date_stamp', 'message']
 myparser.datestamp_type = 'unix'
