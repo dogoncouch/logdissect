@@ -105,7 +105,7 @@ class ParseModule:
                         entry['year'] = str(entryyear)
                     if self.tzone:
                         entry['tzone'] = self.tzone
-                    elif not 'tzone' in entry.keys():
+                    else:
                         entry['tzone'] = self.backuptzone
                     entry = logdissect.utils.get_utc_date(entry)
                 entry['raw_text'] = ourline

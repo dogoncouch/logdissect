@@ -174,7 +174,9 @@ class LogDissectCore:
                 else:
                     fullpath = os.path.abspath(str(f))
                     self.input_files.append(fullpath)
-            else: return 1
+            else:
+                print('File '+ f + ' not found')
+                return 1
 
     # Parsing modules:
     def list_parsers(self, *args):

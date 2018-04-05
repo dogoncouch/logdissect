@@ -124,8 +124,6 @@ def convert_unix_datestamp(entry):
     entry['tstamp'] = str(timestamp.strftime('%H%M%S.%f'))
     entry['numeric_date_stamp'] = entry['year'] + entry['month'] + \
             entry['day'] + entry['tstamp']
-    print(entry['year'] + entry['month'] + \
-            entry['day'] + entry['tstamp'])
 
     return entry
 
