@@ -1,9 +1,10 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
-## [Unreleased]
+## [3.1] 2018-04-05
 ### Added
 - `post_parse_action` parser method for more customization
+- `emerge` parser for gentoo emerge logs
 
 ### Fixed
 - Bug parsing gzipped files

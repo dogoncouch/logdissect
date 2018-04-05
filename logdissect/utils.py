@@ -119,11 +119,13 @@ def convert_unix_datestamp(entry):
     """Set date and time attributes based on a unix date stamp"""
     timestamp = datetime.fromtimestamp(float(entry['date_stamp']))
     entry['year'] = str(timestamp.year)
-    entry['month'] = str(timestamp.month)
-    entry['day'] = str(timestamp.day)
+    entry['month'] = str(timestamp.month).rjust(2, '0')
+    entry['day'] = str(timestamp.day).rjust(2, '0')
     entry['tstamp'] = str(timestamp.strftime('%H%M%S.%f'))
     entry['numeric_date_stamp'] = entry['year'] + entry['month'] + \
             entry['day'] + entry['tstamp']
+    print(entry['year'] + entry['month'] + \
+            entry['day'] + entry['tstamp'])
 
     return entry
 

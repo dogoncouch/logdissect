@@ -83,6 +83,19 @@ Conversion happens with any parser that has a \fBdate_stamp\fR field in \fBfield
 
 The sojson parser has no parse_line() method.
 
+.SH Defining Custom Parser Modules
+There is a blank parser that can be used to create custom parsers on the fly.
+.br
+This example will create a parser to capture a unix timestamp with a colon followed by a message:
+
+    myparser = logdissect.parsers.blank.ParseModule()
+    myparser.name = 'my parser'
+    myparser.format_regex = '^(\\d+\.?\\d*):\\s(.*)$'
+    myparser.fields = ['date_stamp', 'message']
+    myparser.datestamp_type = 'unix'
+
+\fBmyparser\fR could then be used like any other parse module. You can also define a \fBpost_parse_action\fR method if you need to customize entries after they have been parsed. It should accept and return an entry dictionary. The inherited \fBpost_parse_action\fR method returns the entry without changing it.
+
 .SH FILTER MODULES
 \fBmyfilter = logdissect.filters.<filter>.FilterModule()\fR
 .br

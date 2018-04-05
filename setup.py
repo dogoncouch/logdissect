@@ -82,6 +82,7 @@ Options
     ==== Available parsing modules: ====
     
     ciscoios        : cisco ios parsing module
+    emerge          : gentoo emerge log parsing module
     linejson        : logdissect object-per-line JSON parsing module
     sojson          : logdissect single object JSON parsing module
     syslog          : syslog (standard timestamp) parsing module

@@ -20,17 +20,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-__all__ = ['syslog', 'syslogiso', 'syslognohost', 'linejson', 'tcpdump',
-        'ciscoios', 'windowsrsyslog', 'sojson', 'webaccess', 'emerge']
+from logdissect.parsers.type import ParseModule as OurModule
 
-import logdissect.parsers.blank
-import logdissect.parsers.linejson
-import logdissect.parsers.sojson
-import logdissect.parsers.syslog
-import logdissect.parsers.syslogiso
-import logdissect.parsers.syslognohost
-import logdissect.parsers.tcpdump
-import logdissect.parsers.ciscoios
-import logdissect.parsers.windowsrsyslog
-import logdissect.parsers.webaccess
-import logdissect.parsers.emerge
+class ParseModule(OurModule):
+    def __init__(self, options=[]):
+        """Initialize a gentoo emerge log parsing module"""
+        self.name = 'emerge'
+        self.desc = 'gentoo emerge log parsing module'
+        self.format_regex = '^(\d+\.?\d*):\s(.*)$'
+        # fractional seconds added for future-proofing
+        self.fields = ['date_stamp', 'prefix', 'message']
+        self.backup_format_regex = None
+        self.backup_fields = []
+        self.tzone = None
+        self.datestamp_type = 'unix'

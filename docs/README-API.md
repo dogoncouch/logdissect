@@ -55,7 +55,7 @@ log_dict = logdissect.utils.merge_logs(dataset, sort={True|False})
 
 # Objects and Methods
 
-## Parser Modules
+# Parser Modules
 ### myparser = logdissect.parsers.\<parser>.ParseModule()
 Replace \<parser\> with one of the available parsers:
 
@@ -101,6 +101,19 @@ Conversion happens with any parser that has a `date_stamp` field in `fields` (th
 - `date_stamp` - a standard date stamp (added for `now` datestamp type only)
 
 The sojson parser has no parse\_line() method.
+
+## Defining Custom Parser Modules
+There is a blank parser that can be used to create custom parsers on the fly.
+
+This example will create a parser to capture a unix timestamp with a colon followed by a message:
+```
+myparser = logdissect.parsers.blank.ParseModule()
+myparser.format_regex = '^(\d+\.?\d*):\s(.*)$'
+myparser.fields = ['date_stamp', 'message']
+myparser.datestamp_type = 'unix'
+```
+
+`myparser` could then be used like any other parse module. You can also define a `post_parse_action` method if you need to customize entries after they have been parsed. It should accept and return an entry dictionary. The inherited `post_parse_action` method returns the entry without changing it.
 
 # Filter Modules
 ## myfilter = logdissect.filters.\<filter\>.FilterModule()
