@@ -67,7 +67,7 @@ def convert_nodate_datestamp(entry, datedata):
     else:
         datedata['entry_time'] = int(entry['tstamp'])
     entry['year'] = str(datedata['timestamp'].year)
-    entry['month'] = str(datedata['timestamp'].month)
+    entry['month'] = str(datedata['timestamp'].month.rjust(2, '0'))
     entry['day'] = str(datedata['timestamp'].day).rjust(2, '0')
     entry['numeric_date_stamp'] = entry['year'] + entry['month'] + \
             entry['day'] + entry['tstamp']
@@ -133,8 +133,8 @@ def convert_now_datestamp(entry):
     timestamp = datetime.now()
     entry['date_stamp'] = timestamp.strftime('%Y %b %d %H:%M:%S.%f')
     entry['year'] = str(timestamp.year)
-    entry['month'] = str(timestamp.month)
-    entry['day'] = str(timestamp.day)
+    entry['month'] = str(timestamp.month).rjust(2, '0')
+    entry['day'] = str(timestamp.day).rjust(2, '0')
     entry['tstamp'] = timestamp.strftime('%H%M%S.%f')
     entry['numeric_date_stamp'] = entry['year'] + entry['month'] + \
             entry['day'] + entry['tstamp']

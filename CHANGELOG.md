@@ -1,6 +1,10 @@
 # Change log
 Change log for [logdissect](https://github.com/dogoncouch/logdissect)
 
+## [Unreleased]
+### Fixed
+- Bug with single-digit months in `now`/`nodate` datestamp converters
+
 ## [3.1] 2018-04-05
 ### Added
 - `post_parse_action` parser method for more customization
