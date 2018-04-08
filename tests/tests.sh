@@ -25,15 +25,6 @@
 # NOTE: This script runs the dev testing suite located in devtest/
 # Run it after changes to make sure everything still works.
 
-echo Running diff tests for time
-time tests/difftests.sh > tests/files/diffresults.log
+tests/difftests.sh > tests/files/diffresults.log
 
-echo
-echo Diff for diff tests:
 diff tests/files/diffresults.log tests/files/diffexresults
-
-echo
-echo - There should be no errors.
-echo - Times should be below 0m0.400s on an i3 for Python 2.
-echo - Times should be below 0m0.800s on an i3 for Python 3.
-echo - Diff results should be empty.

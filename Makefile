@@ -45,4 +45,12 @@ clean:
 	rm -rf build dist logdissect.egg-info
 
 test:
-	tests/tests.sh
+	@echo Running diff tests for time
+	@echo
+	sh -c 'time tests/tests.sh'
+	@echo
+	@echo - There should be no errors.
+	@echo - Times should be below 0m0.400s on an i3 for Python 2.
+	@echo - Times should be below 0m0.800s on an i3 for Python 3.
+	@echo - Diff results should be empty.
+	@echo
