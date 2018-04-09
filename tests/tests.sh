@@ -25,6 +25,15 @@
 # NOTE: This script runs the dev testing suite located in devtest/
 # Run it after changes to make sure everything still works.
 
+# Clean up previous tests:
+rm tests/files/*.log
+# Update year in examples/log mtimes:
+touch tests/files/*log
+sed -i "s/201./$(date +%Y)/g" tests/files/*log
+sed -i "s/201.02/$(date +%Y)02/g" tests/difftests.sh
+
+# Run tests
 tests/difftests.sh > tests/files/diffresults.log
 
+# Show diff (nothing if success):
 diff tests/files/diffresults.log tests/files/diffexresults
