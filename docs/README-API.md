@@ -60,14 +60,14 @@ log_dict = logdissect.utils.merge_logs(dataset, sort={True|False})
 Replace \<parser\> with one of the available parsers:
 
 - `` ciscoios `` - Cisco IOS logs
-- `` emerge `` - gentoo emerge log parsing module
+- `` emerge `` - gentoo emerge logs
 - `` linejson `` - logdissect object-per-line JSON output
 - `` sojson `` - logdissect single-object JSON output
 - `` syslog `` - standard syslog
 - `` syslogiso `` - syslog with ISO 8601 datestamp
 - `` syslognohost `` - syslog with no host attribute
 - `` tcpdump `` - tcpdump terminal output
-- `` webaccess `` - web access log parsing module
+- `` webaccess `` - web access logs
 - `` windowsrsyslog `` - windows rsyslog agent forwarded logs
     
 Parsers have two methods (except the sojson parser, which has no parse\_line() method):
@@ -142,7 +142,7 @@ Filters have one method, `filter_data`. Usage for all filters except `last` and 
 `data` should be a log dictionary, with an `entries` value that contains a list of event dictionaries. `values` is a list containing strings to match or filter out.
 
 Syntax for the `last` and `range` filters differs slighty. Instead of `values`, they are passed `value`, which is a single string. The format of `value`:
-- `range` filter - `YYYYmmddHHMMSS-YYYYmmddHHMMSS` (time values can be shortened; filtere will fill in `0`s)
+- `range` filter - `YYYYmmddHHMMSS-YYYYmmddHHMMSS` (time values can be shortened; filter will fill in `0`s)
 - `last` filter - a number, followed by either `m` for minutes, `h` for hours, or `d` for days (e.g. `20m`)
 
 Time-based filters filter on the `numeric_date_stamp` value. The `range` filter also has a `utc` keyword argument that defaults to `False`. If set to `True`, it will filter based on `numeric_date_stamp_utc`.
