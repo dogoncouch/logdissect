@@ -8,7 +8,7 @@ The logdissect module contains utilities for parsing, merging, filtering, and ex
   - [Description](#description)
   - [Synopsis](#synopsis)
 - [Objects and Methods](#objects-and-methods)
-  - [Parser Modules](#parsers-modules)
+  - [Parser Modules](#parser-modules)
   - [Filter Modules](#filter-modules)
   - [Output Modules](#output-modules)
 - [Util Functions](#util-functions)
