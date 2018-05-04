@@ -60,12 +60,14 @@ log_dict = logdissect.utils.merge_logs(dataset, sort={True|False})
 Replace \<parser\> with one of the available parsers:
 
 - `` ciscoios `` - Cisco IOS logs
+- `` emerge `` - gentoo emerge log parsing module
+- `` linejson `` - logdissect object-per-line JSON output
+- `` sojson `` - logdissect single-object JSON output
 - `` syslog `` - standard syslog
 - `` syslogiso `` - syslog with ISO 8601 datestamp
 - `` syslognohost `` - syslog with no host attribute
 - `` tcpdump `` - tcpdump terminal output
-- `` sojson `` - logdissect single-object JSON output
-- `` linejson `` - logdissect object-per-line JSON output
+- `` webaccess `` - web access log parsing module
 - `` windowsrsyslog `` - windows rsyslog agent forwarded logs
     
 Parsers have two methods (except the sojson parser, which has no parse\_line() method):
