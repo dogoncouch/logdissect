@@ -119,7 +119,7 @@ windowsrsyslog  : windows rsyslog agent log parsing module
 # Community
 
 ## Module
-logdissect 2.0 and above provides a stable module for parsing log lines and files. For more information on library usage, see the [module documentation](docs/README-module.md).
+logdissect 2.0 and above provides a stable module for parsing log lines and files. For more information on library usage, see the [module documentation](docs/README-MODULE.md).
 
 ## Support
 Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub, or emailed to [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com).
