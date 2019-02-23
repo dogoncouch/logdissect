@@ -11,12 +11,12 @@
   - [Examples](#examples)
   - [Notes](#notes)
 - [Community](#community)
-  - [API](#api)
+  - [Module](#api)
   - [Support](#support)
   - [Contributing](#contributing)
 - [Copyright](#copyright)
 
-For library documentation, see the [API documentation](docs/README-API.md).
+For library documentation, see the [module documentation](docs/README-MODULE.md).
 
 # Introduction
 
@@ -118,8 +118,8 @@ windowsrsyslog  : windows rsyslog agent log parsing module
 
 # Community
 
-## API
-logdissect 2.0 and above provides a stable API for parsing log lines and files. For more information on library usage, see the [API documentation](docs/README-API.md).
+## Module
+logdissect 2.0 and above provides a stable module for parsing log lines and files. For more information on library usage, see the [module documentation](docs/README-module.md).
 
 ## Support
 Bugs, questions, and other issues can be directed to the project's [issues page](https://github.com/dogoncouch/logdissect/issues) on GitHub, or emailed to [dpersonsdev@gmail.com](mailto:dpersonsdev@gmail.com).

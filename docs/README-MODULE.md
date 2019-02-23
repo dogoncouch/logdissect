@@ -21,7 +21,7 @@ The logdissect module contains utilities for parsing, merging, filtering, and ex
 ## Description
 The logdissect module comes with the logdissect log analysis program. It contains objects which can be used to parse log lines and files, merge and filter logs, and output to a few formats.
 
-![logdissect API screenshot](images/screenshot_api.png)
+![logdissect API screenshot](images/screenshot_module.png)
 
 ## Synopsis
 ```
