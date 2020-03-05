@@ -54,7 +54,7 @@ class FilterModule(OurModule):
 
         for entry in data['entries']:
             match = False
-            for r in args.rgrep:
+            for r in args.pattern:
                 if re.match(repatterns[r], entry['raw_text']):
                     match = True
 

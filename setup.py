@@ -97,7 +97,7 @@ Links
 
 * `Releases <https://github.com/dogoncouch/logdissect/releases/>`_
 * `Usage <https://github.com/dogoncouch/logdissect/blob/master/README.md>`_
-* `API Usage <https://github.com/dogoncouch/logdissect/blob/master/docs/README-API.md>`_
+* `MODULE Usage <https://github.com/dogoncouch/logdissect/blob/master/docs/README-MODULE.md>`_
 * `How To Contribute <https://github.com/dogoncouch/logdissect/blob/master/docs/CONTRIBUTING.md>`_
 * `Changelog <https://github.com/dogoncouch/logdissect/blob/master/CHANGELOG.md>`_
 * `GitHub <https://github.com/dogoncouch/logdissect/>`_
@@ -112,7 +112,7 @@ from logdissect import __version__
 
 ourdata = [(join(prefix, 'share/man/man1'), ['docs/logdissect.1']),
         (join(prefix, 'share/man/man3'), ['docs/logdissect.3']),
-        (join(prefix, 'share/doc/logdissect'), ['README.md', 'docs/README-API.md',
+        (join(prefix, 'share/doc/logdissect'), ['README.md', 'docs/README-MODULE.md',
             'docs/CONTRIBUTING.md', 'LICENSE', 'CHANGELOG.md'])]
 
 setup(name = 'logdissect', version = str(__version__),
