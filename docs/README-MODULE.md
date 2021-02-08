@@ -1,5 +1,5 @@
 # logdissect API
-For program documentation, see [README.md](README.md)
+For program documentation, see [../README.md](../README.md)
 
 The logdissect module contains utilities for parsing, merging, filtering, and exporting log data.
 
