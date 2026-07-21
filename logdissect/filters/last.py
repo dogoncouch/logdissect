@@ -28,14 +28,14 @@ class FilterModule(OurModule):
     def __init__(self, args=None):
         """Initialize the 'last' filter module"""
         self.name = "last"
-        self.desc = "match a preceeding time period (e.g. 5m/3h/2d/etc)"
+        self.desc = "match a preceding time period (e.g. 5m/3h/2d/etc)"
 
         if args:
             args.add_argument('--last', action='store', dest='last',
-                    help='match a preceeding time period (e.g. 5m/3h/2d/etc)')
+                    help='match a preceding time period (e.g. 5m/3h/2d/etc)')
 
     def filter_data(self, data, value=None, args=None):
-        """Morph log data by preceeding time period (single log)"""
+        """Morph log data by preceding time period (single log)"""
         if args:
             if not args.last:
                 return data
