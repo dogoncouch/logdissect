@@ -57,7 +57,7 @@ Options
     filter options:
       --dhost DHOST         match a destination host
       --grep PATTERN        match a pattern
-      --last LAST           match a preceeding time period (e.g. 5m/3h/2d/etc)
+      --last LAST           match a preceding time period (e.g. 5m/3h/2d/etc)
       --process PROCESS     match a source process
       --protocol PROTOCOL   match a protocol
       --range RANGE         match a time range (YYYYMMDDhhmm-YYYYMMDDhhmm)
